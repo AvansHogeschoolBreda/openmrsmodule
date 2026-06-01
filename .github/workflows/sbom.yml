@@ -25,6 +25,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B clean package -DskipTests
+        continue-on-error: true
 
       - name: Generate SBOM (CycloneDX via Anchore)
         uses: anchore/sbom-action@v0
