@@ -1,0 +1,24 @@
+name: "Dependency Review NEN-7510 Ctrl 8.8"
+
+on:
+  pull_request:
+      branches: [ "main" ]
+
+      jobs:
+        dependency-review:
+            name: Dependency Review - fail on HIGH/CRITICAL
+                runs-on: ubuntu-latest
+                    permissions:
+                          contents: read
+                                pull-requests: write
+
+                                    steps:
+                                          - name: Checkout repository
+                                                  uses: actions/checkout@v4
+
+                                                        - name: Dependency Review Action
+                                                                uses: actions/dependency-review-action@v4
+                                                                        with:
+                                                                                  fail-on-severity: high
+                                                                                            comment-summary-in-pr: always
+                                                                                                      deny-licenses: GPL-3.0, AGPL-3.0
