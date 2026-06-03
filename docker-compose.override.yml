@@ -1,0 +1,16 @@
+version: '3.8'
+
+# DEV OMGEVING
+# Dit bestand wordt standaard automatisch ingeladen door docker-compose up
+services:
+  openmrs:
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount de gecompileerde target folder direct zodat we snel kunnen testen zonder rebuilds
+      - ./omod/target:/usr/local/tomcat/openmrs-modules
+    environment:
+      # Enable remote debugging for development
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+    ports:
+      - "5005:5005"

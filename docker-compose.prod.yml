@@ -1,0 +1,23 @@
+version: '3.8'
+
+# PROD OMGEVING
+# Gebruik: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+services:
+  db:
+    restart: always
+    # Prod volumes voor persistente data
+    volumes:
+      - openmrs-db-prod-data:/var/lib/mysql
+
+  openmrs:
+    restart: always
+    # Let op: in productie expose je deze port vaak alleen naar je reverse proxy (zoals NGINX)
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      # In productie gebruik je idealiter een image waar de module al is in-gekopieerd, 
+      # maar als je bind-mounts gebruikt voor de release jar:
+      - ./release:/usr/local/tomcat/openmrs-modules
+
+volumes:
+  openmrs-db-prod-data:
