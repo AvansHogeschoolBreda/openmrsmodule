@@ -97,34 +97,32 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Eisen
 
-| # | Eis                                                                                         | Status  | Bewijslast                              | Wie | Notities                                                          |
-| - | ------------------------------------------------------------------------------------------- | ------- | --------------------------------------- | --- | ----------------------------------------------------------------- |
-| 1 | Per relevante NEN-7510:2024-2 control beschreven wat de control vereist                     | ❌ Open | compliance verslag (nog aan te leveren) |     | Controls uit slide 9 als basis                                    |
-| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ❌ Open | compliance verslag (nog aan te leveren) |     | Concrete verwijzingen naar workflows, Settings, screenshots       |
-| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ❌ Open | compliance verslag (nog aan te leveren) |     | Bekende beperkingen: branch protection, Secret Scanning, retentie |
-| 4 | Structuur: tabel of genummerde secties per control                                          | ❌ Open | compliance verslag (nog aan te leveren) |     |                                                                   |
-| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ❌ Open | bestand in repo                         |     |                                                                   |
+| # | Eis                                                                                         | Status           | Bewijslast                              | Wie        | Notities                                                          |
+| - | ------------------------------------------------------------------------------------------- | ---------------- | --------------------------------------- | ---------- | ----------------------------------------------------------------- |
+| 1 | Per relevante NEN-7510:2024-2 control beschreven wat de control vereist                     | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Controls 8.8, 8.15, 8.25, 8.28, 5.36 beschreven                  |
+| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY  |
+| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie    |
+| 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Overzichtstabel + genummerde secties per control                   |
+| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Markdown in `docs/LU2 - Kwaliteit en security.../`               |
 
 ### Samenvatting
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 0      |
+| ✅ Compliant                | 5      |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 5      |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten
 
-| Actie                                                             | Prioriteit | Wie |
-| ----------------------------------------------------------------- | ---------- | --- |
-| Compliance verslag schrijven op basis van NEN-7510:2024-2 slide 9 | Hoog       |     |
-| Verslag opleveren als Markdown of Word in de repo                 | Hoog       |     |
+Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 2
 
 | Datum      | Versie | Wijziging                                   | Door |
 | ---------- | ------ | ------------------------------------------- | ---- |
 | 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist | RafvanHooijdonk |
+| 2026-06-03 | 1.1    | Mini-Complianceverslag ingevuld (5 controls), alle eisen compliant | SinanSagir |
 
 ---
 

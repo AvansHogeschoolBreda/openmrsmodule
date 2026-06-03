@@ -7,31 +7,130 @@
 | Raf van Hooijdonk | 2230382 |
 | Rowen Albers | 2227982 |
 | Simon Eulenpesch | 2226731 |
-| Sinan Nagir | 2235816 |
+| Sinan Sagir | 2235816 |
 
 ---
 
 ## Inleiding
 
-<!-- Beschrijf kort het doel: aantonen dat de CI/CD pipeline aantoonbaar voldoet aan NEN-7510:2024-2 controls -->
+Dit verslag toont per NEN-7510:2024-2 control aan hoe de CI/CD security pipeline van de OpenMRS module repository hieraan voldoet. Per control staat beschreven wat de norm vereist, welke pipeline-maatregel dit afdekt, en welk restrisico er nog bestaat.
 
-**Module:**
+**Module:** OpenMRS module (module-keuze nog niet vastgelegd, zie sprint 1 taak 5.1)
 **Repository:** AvansHogeschoolBreda/openmrsmodule
+**Periode:** 2026-06
+**Onderzochte controls:** 8.8, 8.15, 8.25, 8.28, 5.36
 
 ---
 
 ## Overzicht
 
-| NEN-7510:2024-2 Control | Pipeline-maatregel | Bewijs |
+| NEN-7510:2024-2 Control | Pipeline-maatregel | Status |
 |---|---|---|
-| <!-- bijv. A.8.8 Kwetsbaarheidsbeheer --> | <!-- bijv. Dependabot alerts + security updates actief --> | <!-- bijv. Settings > Security > Dependabot alerts enabled --> |
-| | | |
-| | | |
-| | | |
-| | | |
+| 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL | ⚠️ Tijdelijk compliant |
+| 8.15 Logging | SBOM-artifact, CI-run logs, SECURITY.md rapportageproces | ⚠️ Tijdelijk compliant |
+| 8.25 Beveiligd systeem-ontwikkelingsbeleid | Branch protection, GitHub Environments, secrets per environment | ⚠️ Gedeeltelijk |
+| 8.28 Veilig coderen | CodeQL SAST, CI build + unit tests | ⚠️ Tijdelijk compliant |
+| 5.36 Conformiteit aan beleidsregels | README.md (mini-ISMS), SECURITY.md, docs/checklist.md | ✅ Compliant |
+
+---
+
+## 1. Control 8.8: Beheer van technische kwetsbaarheden
+
+**Wat de control vereist:**
+Tijdig informatie verkrijgen over technische kwetsbaarheden in gebruikte systemen en software. De blootstelling beoordelen en passende maatregelen nemen voor de vastgestelde risico's.
+
+**Hoe de pipeline hieraan voldoet:**
+
+| Maatregel | Bestand / Instelling | Toelichting |
+|---|---|---|
+| Dependabot alerts + automatische updates | `.github/dependabot.yml` | Wekelijks (maandag 06:00) updates voor Maven-dependencies en GitHub Actions. Alerts staan aan in Settings. |
+| Dependency Review | `.github/workflows/dependency-review.yml` | Blokkeert PRs naar `main` bij HIGH of CRITICAL kwetsbaarheden. Weigert GPL-3.0 en AGPL-3.0 licenties. |
+| CodeQL SAST | `.github/workflows/codeql.yml` | Statische code-analyse op elke push, PR en wekelijks schema. Detecteert kwetsbaarheden in Java code. |
+
+**Restrisico:**
+De pipeline werkt momenteel op een stub `pom.xml` met alleen JUnit 5. Dependabot, Dependency Review en CodeQL analyseren daardoor minimale of geen echte module-dependencies. Pas volledig effectief wanneer de echte OpenMRS module en bijbehorende `pom.xml` zijn toegevoegd.
+
+---
+
+## 2. Control 8.15: Logging
+
+**Wat de control vereist:**
+Logbestanden die activiteiten, uitzonderingen, fouten en andere relevante beveiligingsgebeurtenissen vastleggen worden aangemaakt, bewaard en beschermd. Logbestanden worden niet ongeautoriseerd gewijzigd.
+
+**Hoe de pipeline hieraan voldoet:**
+
+| Maatregel | Bestand / Instelling | Toelichting |
+|---|---|---|
+| SBOM-artifact | `.github/workflows/sbom.yml` | CycloneDX JSON SBOM wordt gegenereerd bij elke push naar `main` en bewaard als Actions-artifact (90 dagen). |
+| CI-run logs | GitHub Actions (alle workflows) | Build-, test- en scanresultaten zijn bewaard als CI-run logs. Niet te wijzigen na afloop. |
+| Kwetsbaarheidsrapportage | `SECURITY.md` | Beschrijft het proces voor het melden en afhandelen van kwetsbaarheden, inclusief termijnen per ernst. |
+
+**Restrisico:**
+Artifact-retentie is beperkt tot 90 dagen (GitHub Free plan maximum). De geconfigureerde 365 dagen wordt automatisch teruggebracht. Applicatie-level audit logging binnen de module zelf is nog niet geimplementeerd (zie Opdracht 5 voor logging-implementatie).
+
+---
+
+## 3. Control 8.25: Beveiligd systeem-ontwikkelingsbeleid
+
+**Wat de control vereist:**
+Regels voor veilige ontwikkeling van software en systemen zijn vastgesteld en worden toegepast. Dit omvat beveiligingseisen in het ontwikkelproces, scheiding van omgevingen en toegangsbeveiliging op broncode.
+
+**Hoe de pipeline hieraan voldoet:**
+
+| Maatregel | Bestand / Instelling | Toelichting |
+|---|---|---|
+| Branch protection op `main` | Settings → Branches | PR verplicht, minimaal 1 goedkeuring, verouderde goedkeuringen worden ingetrokken bij nieuwe commit. CI-checks moeten slagen. |
+| GitHub Environments | Settings → Environments | `production` (1 protection rule, 1 secret) en `test` (1 secret) aanwezig en gescheiden. |
+| Secrets per environment | Settings → Environments → Secrets | Productie-secrets zijn uitsluitend toegankelijk in de `production` environment. |
+
+**Restrisico:**
+Branch protection is geconfigureerd maar niet afdwingbaar op GitHub Free plan voor private repositories. Een developer met schrijfrechten kan direct naar `main` pushen zonder PR of review. Dit vereist GitHub Team of Enterprise plan.
+
+---
+
+## 4. Control 8.28: Veilig coderen
+
+**Wat de control vereist:**
+Principes voor veilig coderen worden toegepast in softwareontwikkeling. Bekende onveilige codeerpraktijken worden vermeden en bevindingen worden verholpen.
+
+**Hoe de pipeline hieraan voldoet:**
+
+| Maatregel | Bestand / Instelling | Toelichting |
+|---|---|---|
+| CodeQL SAST | `.github/workflows/codeql.yml` | Statische analyse op Java code bij elke push, PR en wekelijks. Detecteert o.a. SQL-injectie, XSS en andere OWASP-kwetsbaarheden. |
+| CI build + unit tests | `.github/workflows/ci.yml` | Maven build en JUnit 5 tests draaien bij elke push en PR naar `main`. Builds falen bij compile- of testfouten. |
+
+**Restrisico:**
+CodeQL analyseert momenteel een stub-project zonder echte module-code. Bevindingen zijn niet representatief voor de uiteindelijke module. Volledig effectief na toevoeging van de echte OpenMRS module.
+
+---
+
+## 5. Control 5.36: Conformiteit aan beleidsregels voor informatiebeveiliging
+
+**Wat de control vereist:**
+De naleving van het informatiebeveiligingsbeleid en onderwerpspecifieke beleidsregels, regels en normen van de organisatie wordt regelmatig beoordeeld en gedocumenteerd.
+
+**Hoe de pipeline hieraan voldoet:**
+
+| Maatregel | Bestand / Instelling | Toelichting |
+|---|---|---|
+| Mini-ISMS | `README.md` | Bevat beveiligingsbeleid, verantwoordelijkheden, branch protection procedure, environments, secrets-beheer en bekende beperkingen. |
+| Security Policy | `SECURITY.md` | Beschrijft rapportagekanalen, termijnen per ernst en overzicht van actieve security tools met status. |
+| Compliance-tracker | `docs/checklist.md` | Centrale registratie van alle eisen per opdracht, status, bewijslast en wijzigingslog. |
+
+**Restrisico:**
+Er is geen formeel periodiek reviewproces ingericht voor het beleid. Compliance-tracking is handmatig via `docs/checklist.md`. Een geautomatiseerde beoordeling of extern auditproces ontbreekt.
 
 ---
 
 ## Conclusie
 
-<!-- Samenvatting: welke controls zijn aantoonbaar gedekt, welke nog niet -->
+Vijf NEN-7510:2024-2 controls zijn onderzocht in relatie tot de CI/CD pipeline.
+
+Control 5.36 (conformiteit aan beleid) is volledig compliant: beleid is gedocumenteerd in README.md en SECURITY.md, en compliance wordt bijgehouden in checklist.md.
+
+Controls 8.8 (kwetsbaarheidsbeheer), 8.15 (logging) en 8.28 (veilig coderen) zijn tijdelijk compliant. De technische maatregelen zijn actief en correct geconfigureerd, maar draaien op een stub-project. Ze worden volledig effectief zodra de echte OpenMRS module is toegevoegd.
+
+Control 8.25 (beveiligd ontwikkelbeleid) is gedeeltelijk compliant. Environments en secrets zijn correct ingericht. Branch protection is geconfigureerd maar structureel niet afdwingbaar op GitHub Free plan voor private repositories.
+
+Het grootste restrisico is de stub `pom.xml`. Vervangen door de module-eigen `pom.xml` lost de meeste tijdelijke beperkingen in een keer op.
