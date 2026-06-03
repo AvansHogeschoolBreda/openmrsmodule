@@ -44,6 +44,7 @@ When something in the pipeline changes:
 When work on a sprint task starts or is done:
 - Update the "Wie" column in the relevant `docs/sprints/sprintN.md` to reflect who is working on it
 - Update the Status column in the relevant `docs/sprints/sprintN.md`
+- **Crucial:** Update the markdown checkbox (change `- [ ]` to `- [X]`) in the `Eindcheck Sprint X` list at the bottom of the relevant `docs/sprints/sprintN.md` file if a task is completed or Tijdelijk compliant.
 - Update the corresponding eindcheck row in `docs/checklist.md` (Sprints section)
 - Update the sprint overzichtstabel status if the whole sprint is done
 - **Crucial:** Update the `Verantwoordelijke:` field at the top of the relevant Opdracht in `docs/checklist.md` to include the name of the person working on it (e.g. `RafvanHooijdonk, SinanSagir`).
