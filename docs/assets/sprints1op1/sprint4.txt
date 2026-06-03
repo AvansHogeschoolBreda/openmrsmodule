@@ -1,0 +1,25 @@
+Sprint-goal
+"Alle producten zijn definitief, peer-reviewed binnen het team en ingeleverd."
+
+Taken
+#	Taak	Toelichting
+4.1	Auditrapport definitief maken	Alle secties uitgeschreven, bronnenlijst compleet, consistent genummerd
+4.2	PoC afronden	Code merged, CI groen, README bijgewerkt met instructies om de PoC te reproduceren
+4.3	Pentestrapportage samenvoegen	Eén coherent document met methodologie, bevindingen, bewijs en hertestresultaten
+4.4	SBOM-sectie finaliseren	SBOM in rapport + updateadvies definitief, CVE-referenties gecontroleerd
+4.5	Presentatie oefenen	Minimaal één volledige doorloop, timingcheck (~20 min), rolverdeling vastgelegd
+4.6	GitHub-repository opschonen	README up-to-date, mapstructuur logisch, geen gevoelige data in repo (secrets check)
+4.7	Eindcheck rubric	Loop de rubric langs: zijn alle vijf producten (A–E) aantoonbaar aanwezig in GitHub?
+Non-functionals / kwaliteit
+Aantonen dat alles nog werkt (regressie) en dat de kwaliteit verbeterd is (metrics + rapportage)
+Deadline: vrijdag einde week 8
+Lever in via GitHub:
+
+Tag de definitieve versie: git tag v1.0-audit en push
+Zorg dat de docent toegang heeft tot de repository
+Eindcheck sprint 4
+[ ] Repository is getagd als v1.0-audit
+[ ] Alle vijf rubric-producten zijn aanwezig en vindbaar in /docs/
+[ ] CI-pipeline is groen op de main-branch
+[ ] Geen hardcoded secrets aanwezig (secret scanning geeft geen alerts)
+[ ] Presentatie is definitief en als PDF opgeslagen in de repository

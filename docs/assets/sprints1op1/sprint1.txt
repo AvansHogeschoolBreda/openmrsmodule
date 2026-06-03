@@ -1,0 +1,19 @@
+Sprint-goal
+"Onze GitHub-omgeving staat klaar en we hebben aantoonbaar gemaakt waar onze module staat ten opzichte van NEN-7510."
+
+Taken
+#	Taak	Voorbeeld output in GitHub
+5.1	Module-keuze vastleggen — documenteer de gekozen module (naam, versie, link naar broncode) en motiveer de keuze (complexiteit, scope, kritieke functionaliteit)	README.md of docs/module-keuze.md
+5.2	Repository inrichten — branch protection (main is protected), MFA voor alle leden, Dependabot alerts aan, CodeQL workflow actief	GitHub Security-tab toont geen rode vlaggen
+5.3	OTAP-omgeving opzetten — docker-compose per omgeving (dev / test / prod), GitHub Environments met protection rules	docker-compose.yml + .github/environments/
+5.4	SBOM genereren — via snyk sbom of de GitHub SBOM-export in CycloneDX JSON-formaat	docs/sbom.cdx.json als CI-artifact
+5.5	Gap-analyse uitvoeren — vergelijk de huidige staat van de module met NEN-7510:2024-2 controls A.8.3 (toegangsbeveiliging), A.8.5 (authenticatie) en A.8.15 (logging). Noteer per control: aanwezig / gedeeltelijk / afwezig + bewijs (coderegel of screenshot)	docs/auditrapport/01-gap-analyse.md
+5.6	Mini-complianceverslag — tabel: per NEN-7510 control → pipeline-maatregel → bewijs	docs/auditrapport/02-pipeline-compliance.md
+Non-functionals
+De kwaliteitseisen t.a.v. security en maintainability vastleggen
+Denken aan statische code analyse (voor acceptatie criteria)
+Eindcheck sprint 1
+[ ] GitHub repository heeft branch protection en Dependabot actief
+[ ] SBOM-bestand wordt als CI-artifact aangemaakt in Actions
+[ ] Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs
+[ ] Alle teamleden hebben een commit bijgedragen
