@@ -1,0 +1,19 @@
+version: '3.8'
+
+# TEST OMGEVING
+# Gebruik: docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
+services:
+  db:
+    # Test DB kan evt sneller herladen worden, of in-memory (afhankelijk van setup)
+    volumes:
+      - openmrs-db-test-data:/var/lib/mysql
+
+  openmrs:
+    ports:
+      - "8081:8080"
+    volumes:
+      # Mount de test build
+      - ./omod/target:/usr/local/tomcat/openmrs-modules
+
+volumes:
+  openmrs-db-test-data:

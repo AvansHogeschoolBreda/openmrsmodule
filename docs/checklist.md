@@ -29,9 +29,9 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Eisen
 
-| #  | Eis                                                                        | Status                   | Bewijslast                                                | Wie | Notities                                                                                                                                                                                                                                          |
-| -- | -------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1  | Branch protection actief op `main`: alleen via PR, reviews verplicht   | ⚠️ Gedeeltelijk        | Settings → Branches →`main` rule aanwezig             | RafvanHooijdonk | Regel geconfigureerd (PR verplicht, 1 approval, status checks), maar**not enforced** op private repo zonder GitHub Team/Enterprise plan                                                                                                     |
+| #  | Eis                                                                        | Status                   | Bewijslast                                                | Wie             | Notities                                                                                                                                                                                                                                          |
+| -- | -------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1  | Branch protection actief op `main`: alleen via PR, reviews verplicht     | ⚠️ Tijdelijk compliant | Settings → Branches →`main` rule aanwezig             | RafvanHooijdonk | Regel geconfigureerd, maar wacht op goedkeuring docent i.v.m. limitatie Free plan (not enforced)                                                                                                                                                  |
 | 2  | Alle CI-checks slagen voor merge (build, test, SAST)                       | ⚠️ Tijdelijk compliant | `.github/workflows/ci.yml` aanwezig                     | RafvanHooijdonk | CI workflow actief. Tijdelijke stub `pom.xml` toegevoegd zodat Maven build & test slagen. **Let op:** zodra de echte OpenMRS module wordt toegevoegd, moet `pom.xml` worden vervangen of overschreven door de module-eigen `pom.xml`. |
 | 3  | **CodeQL** of gelijkwaardige SAST actief                             | ⚠️ Tijdelijk compliant | `.github/workflows/codeql.yml`                          | RafvanHooijdonk | CodeQL actief op push, PR en wekelijks schedule. Runs slagen, maar scant momenteel alleen een lege stub.                                                                                                                                          |
 | 4  | **Secret Scanning** actief                                           | ❌ Niet compliant        | Settings → Advanced Security                             | RafvanHooijdonk | Niet beschikbaar op GitHub Free plan voor private repos. Vereist GitHub Advanced Security (betaald)                                                                                                                                               |
@@ -41,7 +41,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 8  | **GitHub Environments** gedefinieerd met protection rules            | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` (1 protection rule, 1 secret) en `test` (1 secret) aanwezig                                                                                                                                                                      |
 | 9  | Secrets gescheiden per environment                                         | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` en `test` hebben elk eigen geïsoleerde secrets                                                                                                                                                                                  |
 | 10 | Pipeline-artifacts (rapporten, SBOM) worden bewaard                        | ⚠️ Gedeeltelijk        | Actions → SBOM run → Artifacts                          | RafvanHooijdonk | Retentie is 90 dagen (free plan maximum). Geconfigureerde 365 dagen wordt automatisch teruggebracht                                                                                                                                               |
-| 11 | **README.md** beschrijft beleid en procedure (mini-ISMS)             | ✅ Compliant             | `README.md`                                             | RafvanHooijdonk | Pipeline overzicht, verantwoordelijkheden, branch protection, environments, secrets, artifact bewaring                                                                                                                                            |                                                    |
+| 11 | **README.md** beschrijft beleid en procedure (mini-ISMS)             | ✅ Compliant             | `README.md`                                             | RafvanHooijdonk | Pipeline overzicht, verantwoordelijkheden, branch protection, environments, secrets, artifact bewaring                                                                                                                                            |
 
 ### Samenvatting
 
@@ -69,8 +69,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 1
 
-| Datum      | Versie | Wijziging                                                                  | Door |
-| ---------- | ------ | -------------------------------------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                                                  | Door            |
+| ---------- | ------ | -------------------------------------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Initiële checklist aangemaakt na volledige pipeline controle              | RafvanHooijdonk |
 | 2026-06-03 | 1.1    | `sbom.yml` gefixed (Maven stap verwijderd, exit code 1 opgelost)         | RafvanHooijdonk |
 | 2026-06-03 | 1.2    | `README.md` bijgewerkt met mini-ISMS beleid en procedures                | RafvanHooijdonk |
@@ -122,8 +122,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 2
 
-| Datum      | Versie | Wijziging                                   | Door |
-| ---------- | ------ | ------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                   | Door            |
+| ---------- | ------ | ------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist | RafvanHooijdonk |
 
 ---
@@ -198,8 +198,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 3
 
-| Datum      | Versie | Wijziging                                   | Door |
-| ---------- | ------ | ------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                   | Door            |
+| ---------- | ------ | ------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 3 toegevoegd aan globale checklist | RafvanHooijdonk |
 
 ---
@@ -266,8 +266,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 4
 
-| Datum      | Versie | Wijziging                                   | Door |
-| ---------- | ------ | ------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                   | Door            |
+| ---------- | ------ | ------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 4 toegevoegd aan globale checklist | RafvanHooijdonk |
 
 ---
@@ -343,8 +343,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 5
 
-| Datum      | Versie | Wijziging                                   | Door |
-| ---------- | ------ | ------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                   | Door            |
+| ---------- | ------ | ------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist | RafvanHooijdonk |
 
 ---
@@ -415,8 +415,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Wijzigingslog Opdracht 6
 
-| Datum      | Versie | Wijziging                                   | Door |
-| ---------- | ------ | ------------------------------------------- | ---- |
+| Datum      | Versie | Wijziging                                   | Door            |
+| ---------- | ------ | ------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 6 toegevoegd aan globale checklist | RafvanHooijdonk |
 
 ---
@@ -435,12 +435,12 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 
 ### Eindcheck Sprint 1
 
-| # | Check                                                          | Status                   | Notities                                                                                         | Wie             |
-| - | -------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ | --------------- |
-| 1 | GitHub repository heeft branch protection en Dependabot actief | ⚠️ Gedeeltelijk        | Branch protection geconfigureerd maar niet afdwingbaar (Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
-| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions       | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                | RafvanHooijdonk |
-| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs       | ❌ Open                  | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                |                 |
-| 4 | Alle teamleden hebben een commit bijgedragen                   | ❌ Open                  | Niet verifieerbaar vanuit deze context.                                                          |                 |
+| # | Check                                                          | Status                   | Notities                                                                                                                | Wie             |
+| - | -------------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
+| 1 | GitHub repository heeft branch protection en Dependabot actief | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
+| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions       | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                       | RafvanHooijdonk |
+| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs       | ❌ Open                  | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                                       |                 |
+| 4 | Alle teamleden hebben een commit bijgedragen                   | ❌ Open                  | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
 
 ### Eindcheck Sprint 2
 
@@ -454,13 +454,13 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 
 ### Eindcheck Sprint 3
 
-| # | Check                                                                                        | Status  | Wie |
-| - | -------------------------------------------------------------------------------------------- | ------- | --- |
-| 1 | PR met PoC-mitigatie gemerged (of review-ready)                                              | ❌ Open |     |
-| 2 | Pentest voor en na mitigatie gedocumenteerd                                                  | ❌ Open |     |
-| 3 | DPIA-check aanwezig                                                                          | ❌ Open |     |
-| 4 | Concept-auditrapport heeft alle secties (ook al zijn ze nog niet volledig uitgeschreven)     | ❌ Open |     |
-| 5 | Concept-presentatie heeft minimaal een structuur met titels per slide                        | ❌ Open |     |
+| # | Check                                                                                    | Status  | Wie |
+| - | ---------------------------------------------------------------------------------------- | ------- | --- |
+| 1 | PR met PoC-mitigatie gemerged (of review-ready)                                          | ❌ Open |     |
+| 2 | Pentest voor en na mitigatie gedocumenteerd                                              | ❌ Open |     |
+| 3 | DPIA-check aanwezig                                                                      | ❌ Open |     |
+| 4 | Concept-auditrapport heeft alle secties (ook al zijn ze nog niet volledig uitgeschreven) | ❌ Open |     |
+| 5 | Concept-presentatie heeft minimaal een structuur met titels per slide                    | ❌ Open |     |
 
 ### Eindcheck Sprint 4
 
