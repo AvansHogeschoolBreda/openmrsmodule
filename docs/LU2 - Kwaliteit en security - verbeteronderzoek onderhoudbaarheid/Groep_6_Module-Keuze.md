@@ -62,3 +62,43 @@ Omdat de module direct invloed heeft op patiëntidentificatie en integriteit, zi
 | **Control 8.3** & **8.5** *(Toegangsbeveiliging en Authenticatie)* | Beperken van toegangsrechten en veilige authenticatie. | Alleen geautoriseerde rollen (bijv. systeembeheerders) mogen ID-bronnen aanmaken of wijzigen. De authenticatietokens/API-keys voor de *Remote Identifier Source* moeten veilig opgeslagen en getransporteerd worden (data-in-transit encryptie via TLS). |
 | **Control 8.25** *(Inputvalidatie / Gebruikersinvoer)* | Controleren van invoergegevens om fouten en injecties te voorkomen. | Bij het configureren van nieuwe generators (zoals regex-patronen en database-query parameters) is strikte inputvalidatie noodzakelijk om SQL/HQL-injecties en logische crashes te voorkomen. |
 | **Control 8.28** *(Veilige ontwikkeling)* | Toepassen van regels voor veilige software-ontwikkeling. | De codebase moet vrij zijn van bekende OWASP Top 10 kwetsbaarheden (zoals concurrency race-conditions bij ID-generatie of XSS-lekken in de JSX/JSP beheer-UI). |
+
+---
+
+## Te verbeteren Spring Controllers
+
+Om de onderhoudbaarheid en security van de `idgen` module structureel te verhogen, zullen we drie specifieke controllers binnen de module analyseren en verbeteren:
+
+### 1. `IdentifierSourceController`
+* **Pakket:** `org.openmrs.module.idgen.web.controller.IdentifierSourceController`
+* **Doel:** Afhandelen van HTTP-aanvragen voor het aanmaken, beheren, exporteren en handmatig genereren van identifier-bronnen.
+* **Geïdentificeerde Security- en Kwaliteitsgebreken:**
+  * **Credential Exposure in Logs:** De controller accepteert authenticatiegegevens (`username` en `password`) als HTTP GET queryparameters bij bepaalde export-endpoints. Dit is een ernstig securityrisico (in strijd met NEN-7510 Control 8.15 en 8.3) omdat GET-parameters onversleuteld in webserverlogs, proxy-logs en browsergeschiedenis terechtkomen.
+  * **Gebrek aan Rollencontrole:** Niet alle endpoints controleren expliciet op de vereiste beheerdersrechten (`Manage Identifier Sources`), wat kan leiden tot privilege-escalatie.
+  * **DoS Risico:** Er is geen limiet op de batchgrootte bij het opvragen van nieuwe identifiers, wat kan leiden tot database-overbelasting of uitputting van ID-reeksen.
+* **Verbeteringsplan:**
+  * Authenticatie parameters migreren van GET-queryparameters naar POST-requests met Basic/Bearer authenticatie in de HTTP-headers.
+  * Toevoegen van de `@Authorized(IdgenConstants.PRIV_MANAGE_IDENTIFIER_SOURCES)` annotatie voor alle administratieve endpoints.
+  * Implementeren van een maximale batchgrootte en request rate-limiting.
+
+### 2. `IdgenRestController`
+* **Pakket:** `org.openmrs.module.idgen.web.controller.IdgenRestController`
+* **Doel:** RESTful endpoints bieden voor integratie met andere systemen en frontend componenten.
+* **Geïdentificeerde Security- en Kwaliteitsgebreken:**
+  * **Ontbrekende Inputvalidatie:** REST payloads worden niet systematisch gevalideerd via Spring validation. Ongeldige parameters of kwaadaardige invoer kunnen direct databasefouten veroorzaken (in strijd met NEN-7510 Control 8.25).
+  * **Stacktrace Informatielekkage:** Bij parsing- of databasefouten retourneert de API ruwe Java stacktraces naar de client. Dit geeft aanvallers inzicht in de interne database-structuur (in strijd met NEN-7510 Control 8.28).
+* **Verbeteringsplan:**
+  * Toevoegen van JSR-380 validatie-annotaties (`@Valid`, `@NotNull`, `@Pattern`) op alle REST-DTO's.
+  * Implementeren van een `@ControllerAdvice` Exception Handler om database- en validatiefouten te vertalen naar veilige en gestandaardiseerde JSON-foutmeldingen zonder stacktraces.
+
+### 3. `LogEntryController`
+* **Pakket:** `org.openmrs.module.idgen.web.controller.LogEntryController`
+* **Doel:** Visualiseren van logs en transactiegeschiedenis van gegenereerde identifiers voor beheerders.
+* **Geïdentificeerde Security- en Kwaliteitsgebreken:**
+  * **Ontbrekende Audit Trail van Logtoegang:** Het inzien van audit logs is zelf een kritiek beveiligingsevent dat gelogd moet worden. De controller logt momenteel niet wie wanneer de logboeken raadpleegt (in strijd met NEN-7510 Control 8.15).
+  * **Gegevenslek in de UI:** De controller toont de volledige transactielogging, inclusief patiënt-ID's en eventuele BSN-achtige gegevens, in platte tekst zonder masking.
+  * **SQL-injectie risico:** Het dynamisch filteren van logboeken via de controller maakt gebruik van ongeparameteriseerde criteria, wat een risico op SQL-injectie vormt.
+* **Verbeteringsplan:**
+  * Toevoegen van actieve audit logging in de controller wanneer logboeken worden opgevraagd of geëxporteerd.
+  * Maskeren of anonimiseren van patiëntgegevens en identifiers in de JSON/HTML response.
+  * Herschrijven van de zoekfilters naar strikt geparameteriseerde Hibernate-queries.

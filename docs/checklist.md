@@ -84,6 +84,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-03 | 1.7    | Opdracht-foto toegevoegd, checklist hersteld na corruptie                  | RafvanHooijdonk |
 | 2026-06-03 | 1.8    | Eis #3, #5, #6, #7 bijgewerkt naar tijdelijk compliant (geen echte module) | RafvanHooijdonk |
 | 2026-06-03 | 1.9    | Checklist omgezet naar globaal formaat met opdrachten als secties          | RafvanHooijdonk |
+| 2026-06-03 | 1.10   | Module-keuze idgen en 3 te verbeteren controllers gedocumenteerd            | Rowen Albers    |
 
 ---
 
@@ -446,21 +447,22 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 De sprints zijn de uitvoeringsplanning. Per sprint staan de taken, verwachte output en eindcheck.
 De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 
-| Sprint   | Doel                                        | Bestand                                    | Status  |
-| -------- | ------------------------------------------- | ------------------------------------------ | ------- |
-| Sprint 1 | Omgeving inrichten & Gap-analyse            | [docs/sprints/sprint1.md](sprints/sprint1.md) | ❌ Open |
-| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ❌ Open |
-| Sprint 3 | Mitigatie, Pentest & Auditrapport (concept) | [docs/sprints/sprint3.md](sprints/sprint3.md) | ❌ Open |
-| Sprint 4 | Definitief & Oplevering                     | [docs/sprints/sprint4.md](sprints/sprint4.md) | ❌ Open |
+| Sprint   | Doel                                        | Bestand                                    | Status          |
+| -------- | ------------------------------------------- | ------------------------------------------ | --------------- |
+| Sprint 1 | Omgeving inrichten & Gap-analyse            | [docs/sprints/sprint1.md](sprints/sprint1.md) | ⚠️ Gedeeltelijk |
+| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ❌ Open         |
+| Sprint 3 | Mitigatie, Pentest & Auditrapport (concept) | [docs/sprints/sprint3.md](sprints/sprint3.md) | ❌ Open         |
+| Sprint 4 | Definitief & Oplevering                     | [docs/sprints/sprint4.md](sprints/sprint4.md) | ❌ Open         |
 
 ### Eindcheck Sprint 1
 
-| # | Check                                                          | Status                   | Notities                                                                                                                | Wie             |
-| - | -------------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
-| 1 | GitHub repository heeft branch protection en Dependabot actief | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
-| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions       | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                       | RafvanHooijdonk |
-| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs       | ❌ Open                  | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                                       |                 |
-| 4 | Alle teamleden hebben een commit bijgedragen                   | ❌ Open                  | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
+| # | Check                                                                | Status                 | Notities                                                                                                                | Wie             |
+| - | -------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
+| 1 | GitHub repository heeft branch protection en Dependabot actief       | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
+| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                         | RafvanHooijdonk |
+| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ❌ Open                | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                                         |                 |
+| 4 | Alle teamleden hebben een commit bijgedragen                         | ❌ Open                | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
+| 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant           | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 te verbeteren controllers.             | Rowen Albers    |
 
 ### Eindcheck Sprint 2
 
