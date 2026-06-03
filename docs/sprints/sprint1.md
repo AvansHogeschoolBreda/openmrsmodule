@@ -29,7 +29,7 @@
 ## Eindcheck Sprint 1
 
 - [X] Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md
-- [ ] GitHub repository heeft branch protection en Dependabot actief
-- [ ] SBOM-bestand wordt als CI-artifact aangemaakt in Actions
+- [X] GitHub repository heeft branch protection en Dependabot actief
+- [X] SBOM-bestand wordt als CI-artifact aangemaakt in Actions
 - [ ] Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs
 - [ ] Alle teamleden hebben een commit bijgedragen
