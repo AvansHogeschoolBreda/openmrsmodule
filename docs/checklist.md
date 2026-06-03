@@ -26,6 +26,9 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 **Doel:** Aantoonbaar compliant CI/CD security pipeline opzetten conform NEN-7510.
 **Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
+**Sprints:**
+
+- **Sprint 1:** Repository inrichten, OTAP-omgeving, SBOM en CI/CD checks (Taken 5.2, 5.3, 5.4)
 
 ### Eisen
 
@@ -89,21 +92,25 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 **Bron:** [WS02: Hardening Dev Pipeline, slide 42](assets/presentaties/ICT-I2.4%20Security%20WS02%20-%20Hardening%20Dev%20Pipeline.pdf#page=42)
 
 **Doel:** Aantonen dat de pipeline compliant is aan NEN-7510:2024-2 controls via een compliance verslag.
-**Verantwoordelijke:** RafvanHooijdonk (met projectgroep)
+**Verantwoordelijke:** SinanSagir
 **Periode:** 2026-06
-**Oplevering:** Markdown of Word document, ingeleverd via de repo.
+**Sprints:**
+
+- **Sprint 1:** Gap-analyse en Mini-complianceverslag (Taken 5.5, 5.6)
+- **Sprint 3:** DPIA-check (Taak 3.4)
+  **Oplevering:** Markdown of Word document, ingeleverd via de repo.
 
 > Opdracht 1 hoeft nog niet 100% gereed te zijn voor deze opdracht.
 
 ### Eisen
 
-| # | Eis                                                                                         | Status           | Bewijslast                              | Wie        | Notities                                                          |
-| - | ------------------------------------------------------------------------------------------- | ---------------- | --------------------------------------- | ---------- | ----------------------------------------------------------------- |
-| 1 | Per relevante NEN-7510:2024-2 control beschreven wat de control vereist                     | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Controls 8.8, 8.15, 8.25, 8.28, 5.36 beschreven                  |
-| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY  |
-| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie    |
-| 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Overzichtstabel + genummerde secties per control                   |
-| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ✅ Compliant     | `Groep_6_Mini-Complianceverslag.md`     | SinanSagir | Markdown in `docs/LU2 - Kwaliteit en security.../`               |
+| # | Eis                                                                                         | Status       | Bewijslast                            | Wie        | Notities                                                         |
+| - | ------------------------------------------------------------------------------------------- | ------------ | ------------------------------------- | ---------- | ---------------------------------------------------------------- |
+| 1 | Per relevante NEN-7510:2024-2 control beschreven wat de control vereist                     | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Controls 8.8, 8.15, 8.25, 8.28, 5.36 beschreven                  |
+| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY |
+| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie   |
+| 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Overzichtstabel + genummerde secties per control                 |
+| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Markdown in `docs/LU2 - Kwaliteit en security.../`             |
 
 ### Samenvatting
 
@@ -119,10 +126,10 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 2
 
-| Datum      | Versie | Wijziging                                   | Door            |
-| ---------- | ------ | ------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist | RafvanHooijdonk |
-| 2026-06-03 | 1.1    | Mini-Complianceverslag ingevuld (5 controls), alle eisen compliant | SinanSagir |
+| Datum      | Versie | Wijziging                                                          | Door            |
+| ---------- | ------ | ------------------------------------------------------------------ | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist                        | RafvanHooijdonk |
+| 2026-06-03 | 1.1    | Mini-Complianceverslag ingevuld (5 controls), alle eisen compliant | SinanSagir      |
 
 ---
 
@@ -130,9 +137,12 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slides 48-51](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=48)
 **Doel:** Risico's in kaart brengen voor de OpenMRS module via asset identificatie, bow-tie analyse en risico evaluatie van de CI-CD pipeline.
-**Verantwoordelijke:** Met projectgroep
+**Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
-**Oplevering:** Per deel een document of diagram, ingeleverd via de repo.
+**Sprints:**
+
+- **Sprint 2:** Asset-identificatie, Risicomatrix en Bow-tie analyse (Taken 2.1, 2.2, 2.3)
+  **Oplevering:** Per deel een document of diagram, ingeleverd via de repo.
 
 ---
 
@@ -206,9 +216,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS04A: Compliance Scanning, slide 53](assets/presentaties/ICT-I2.4%20Security%20WS04A%20-%20Compliance%20Scanning.pdf#page=53)
 **Doel:** SAST/SCA scan uitvoeren op de OpenMRS module, resultaten verwerken in een geprioriteerde security backlog en een Risk Assessment Report.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
-**Oplevering:** PDF + bronbestanden (Markdown, spreadsheet) in de repo.
+**Sprints:**
+
+- **Sprint 2:** SAST/SCA scan, SBOM, Security backlog en Patchadvies (Taken 2.4, 2.5, 2.6)
+- **Sprint 4:** SBOM-sectie finaliseren (Taak 4.4)
+  **Oplevering:** PDF + bronbestanden (Markdown, spreadsheet) in de repo.
 
 > WS04B (Testing & Pentesting) heeft geen aparte opdracht. Die sessie is een refresher; de testoutput (unit tests, DAST, pentest) is bewijsmateriaal voor Opdracht 4 en Opdracht 6.
 
@@ -274,8 +288,12 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
 **Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, code coverage activeren in CI.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
+**Sprints:**
+
+- **Sprint 3:** PoC Mitigatie, Attack Surface, en Pentestrapportage mitigatie (Taken 3.1, 3.2, 3.3)
+- **Sprint 4:** PoC afronden en Pentestrapportages samenvoegen (Taken 4.2, 4.3)
 
 ### Deel 1: Attack Surface Mapping
 
@@ -351,9 +369,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS06: Audit Reporting, slide 44](assets/presentaties/ICT-I2.4%20Security%20WS06%20-%20Audit%20Reporting.pdf#page=44)
 **Doel:** Volledig auditrapport opleveren met executive summary, traceability matrix en technisch rapport. Plus een responsible disclosure scenario uitwerken.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
-**Oplevering:** Markdown of Word-document, opgeslagen als artifact in de repository.
+**Sprints:**
+
+- **Sprint 3:** Auditrapport concept en Presentatiedeck concept (Taken 3.5, 3.6)
+- **Sprint 4:** Auditrapport definitief maken en Presentatie oefenen (Taken 4.1, 4.5)
+  **Oplevering:** Markdown of Word-document, opgeslagen als artifact in de repository.
 
 ### Deel 0: Responsible Disclosure
 

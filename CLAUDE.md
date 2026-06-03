@@ -46,6 +46,8 @@ When work on a sprint task starts or is done:
 - Update the Status column in the relevant `docs/sprints/sprintN.md`
 - Update the corresponding eindcheck row in `docs/checklist.md` (Sprints section)
 - Update the sprint overzichtstabel status if the whole sprint is done
+- **Crucial:** Update the `Verantwoordelijke:` field at the top of the relevant Opdracht in `docs/checklist.md` to include the name of the person working on it (e.g. `RafvanHooijdonk, SinanSagir`).
+- **Crucial:** Ensure the `Sprints:` mapping under the Opdracht header accurately details which specific tasks map to which sprint.
 
 After completing ANY task, always perform a Sync Check:
 - Verify that statuses in `docs/sprints/sprintN.md` perfectly match `docs/checklist.md`
@@ -55,6 +57,14 @@ After completing ANY task, always perform a Sync Check:
 ---
 
 ## Hierarchy & Source of Truth
+
+### Strict Consistency & Pre-Check Rule
+Because this is a group project where team members work asynchronously, there is a high risk of conflicting documentation.
+**Before creating, writing, or modifying any deliverable**, you MUST:
+1. Search and read related files in the `docs/` directory to see what has already been established by other team members.
+2. Read the `docs/checklist.md` to ensure you understand the exact boundaries and context of the assignment.
+3. Guarantee that your new content perfectly aligns with existing findings, risk matrices, pipelines, and reports. 
+4. DO NOT generate disconnected, conflicting, or duplicate information. You must be extremely strict in maintaining consistency across the entire repository, especially after large assignments have been completed.
 
 To avoid duplication and confusion, respect the document hierarchy:
 1. **`docs/checklist.md` is the Source of Truth.** It contains the EXTENSIVE, detailed requirements (eisen), exact NEN-7510 controls, and detailed proof.
