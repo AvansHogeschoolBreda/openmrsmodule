@@ -137,7 +137,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slides 48-51](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=48)
 **Doel:** Risico's in kaart brengen voor de OpenMRS module via asset identificatie, bow-tie analyse en risico evaluatie van de CI-CD pipeline.
-**Verantwoordelijke:** RafvanHooijdonk
+**Verantwoordelijke:** 
 **Periode:** 2026-06
 **Sprints:**
 
@@ -216,7 +216,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS04A: Compliance Scanning, slide 53](assets/presentaties/ICT-I2.4%20Security%20WS04A%20-%20Compliance%20Scanning.pdf#page=53)
 **Doel:** SAST/SCA scan uitvoeren op de OpenMRS module, resultaten verwerken in een geprioriteerde security backlog en een Risk Assessment Report.
-**Verantwoordelijke:** RafvanHooijdonk
+**Verantwoordelijke:** 
 **Periode:** 2026-06
 **Sprints:**
 
@@ -288,7 +288,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
 **Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, code coverage activeren in CI.
-**Verantwoordelijke:** RafvanHooijdonk
+**Verantwoordelijke:** 
 **Periode:** 2026-06
 **Sprints:**
 
@@ -369,7 +369,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS06: Audit Reporting, slide 44](assets/presentaties/ICT-I2.4%20Security%20WS06%20-%20Audit%20Reporting.pdf#page=44)
 **Doel:** Volledig auditrapport opleveren met executive summary, traceability matrix en technisch rapport. Plus een responsible disclosure scenario uitwerken.
-**Verantwoordelijke:** RafvanHooijdonk
+**Verantwoordelijke:** 
 **Periode:** 2026-06
 **Sprints:**
 
