@@ -13,23 +13,21 @@
 
 ## Inleiding
 
-Dit verslag toont per NEN-7510:2024-2 control aan hoe de CI/CD security pipeline van de OpenMRS module repository hieraan voldoet. Per control staat beschreven wat de norm vereist, welke pipeline-maatregel dit afdekt, en welk restrisico er nog bestaat.
+Dit verslag toont per NEN-7510:2026 control aan hoe de CI/CD security pipeline van de OpenMRS module repository hieraan voldoet. Per control staat beschreven wat de norm vereist, welke pipeline-maatregel dit afdekt, en welk restrisico er nog bestaat.
 
-**Module:** OpenMRS module (module-keuze nog niet vastgelegd, zie sprint 1 taak 5.1)
+**Module:** OpenMRS ID Generation Module (idgen)
 **Repository:** AvansHogeschoolBreda/openmrsmodule
 **Periode:** 2026-06
-**Onderzochte controls:** 8.8, 8.15, 8.25, 8.28, 5.36
+**Onderzochte controls:** 8.8, 8.15, 5.36
 
 ---
 
 ## Overzicht
 
-| NEN-7510:2024-2 Control | Pipeline-maatregel | Status |
+| NEN-7510:2026 Control | Pipeline-maatregel | Status |
 |---|---|---|
 | 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL | ⚠️ Tijdelijk compliant |
 | 8.15 Logging | SBOM-artifact, CI-run logs, SECURITY.md rapportageproces | ⚠️ Tijdelijk compliant |
-| 8.25 Beveiligd systeem-ontwikkelingsbeleid | Branch protection, GitHub Environments, secrets per environment | ⚠️ Gedeeltelijk |
-| 8.28 Veilig coderen | CodeQL SAST, CI build + unit tests | ⚠️ Tijdelijk compliant |
 | 5.36 Conformiteit aan beleidsregels | README.md (mini-ISMS), SECURITY.md, docs/checklist.md | ✅ Compliant |
 
 ---
@@ -70,42 +68,7 @@ Artifact-retentie is beperkt tot 90 dagen (GitHub Free plan maximum). De geconfi
 
 ---
 
-## 3. Control 8.25: Beveiligd systeem-ontwikkelingsbeleid
-
-**Wat de control vereist:**
-Regels voor veilige ontwikkeling van software en systemen zijn vastgesteld en worden toegepast. Dit omvat beveiligingseisen in het ontwikkelproces, scheiding van omgevingen en toegangsbeveiliging op broncode.
-
-**Hoe de pipeline hieraan voldoet:**
-
-| Maatregel | Bestand / Instelling | Toelichting |
-|---|---|---|
-| Branch protection op `main` | Settings → Branches | PR verplicht, minimaal 1 goedkeuring, verouderde goedkeuringen worden ingetrokken bij nieuwe commit. CI-checks moeten slagen. |
-| GitHub Environments | Settings → Environments | `production` (1 protection rule, 1 secret) en `test` (1 secret) aanwezig en gescheiden. |
-| Secrets per environment | Settings → Environments → Secrets | Productie-secrets zijn uitsluitend toegankelijk in de `production` environment. |
-
-**Restrisico:**
-Branch protection is geconfigureerd maar niet afdwingbaar op GitHub Free plan voor private repositories. Een developer met schrijfrechten kan direct naar `main` pushen zonder PR of review. Dit vereist GitHub Team of Enterprise plan.
-
----
-
-## 4. Control 8.28: Veilig coderen
-
-**Wat de control vereist:**
-Principes voor veilig coderen worden toegepast in softwareontwikkeling. Bekende onveilige codeerpraktijken worden vermeden en bevindingen worden verholpen.
-
-**Hoe de pipeline hieraan voldoet:**
-
-| Maatregel | Bestand / Instelling | Toelichting |
-|---|---|---|
-| CodeQL SAST | `.github/workflows/codeql.yml` | Statische analyse op Java code bij elke push, PR en wekelijks. Detecteert o.a. SQL-injectie, XSS en andere OWASP-kwetsbaarheden. |
-| CI build + unit tests | `.github/workflows/ci.yml` | Maven build en JUnit 5 tests draaien bij elke push en PR naar `main`. Builds falen bij compile- of testfouten. |
-
-**Restrisico:**
-CodeQL analyseert momenteel een stub-project zonder echte module-code. Bevindingen zijn niet representatief voor de uiteindelijke module. Volledig effectief na toevoeging van de echte OpenMRS module.
-
----
-
-## 5. Control 5.36: Conformiteit aan beleidsregels voor informatiebeveiliging
+## 3. Control 5.36: Conformiteit aan beleidsregels voor informatiebeveiliging
 
 **Wat de control vereist:**
 De naleving van het informatiebeveiligingsbeleid en onderwerpspecifieke beleidsregels, regels en normen van de organisatie wordt regelmatig beoordeeld en gedocumenteerd.
@@ -125,12 +88,10 @@ Er is geen formeel periodiek reviewproces ingericht voor het beleid. Compliance-
 
 ## Conclusie
 
-Vijf NEN-7510:2024-2 controls zijn onderzocht in relatie tot de CI/CD pipeline.
+Drie NEN-7510:2026 controls zijn onderzocht in relatie tot de CI/CD pipeline.
 
 Control 5.36 (conformiteit aan beleid) is volledig compliant: beleid is gedocumenteerd in README.md en SECURITY.md, en compliance wordt bijgehouden in checklist.md.
 
-Controls 8.8 (kwetsbaarheidsbeheer), 8.15 (logging) en 8.28 (veilig coderen) zijn tijdelijk compliant. De technische maatregelen zijn actief en correct geconfigureerd, maar draaien op een stub-project. Ze worden volledig effectief zodra de echte OpenMRS module is toegevoegd.
-
-Control 8.25 (beveiligd ontwikkelbeleid) is gedeeltelijk compliant. Environments en secrets zijn correct ingericht. Branch protection is geconfigureerd maar structureel niet afdwingbaar op GitHub Free plan voor private repositories.
+Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn tijdelijk compliant. De technische maatregelen zijn actief en correct geconfigureerd, maar draaien op een stub-project. Ze worden volledig effectief zodra de echte OpenMRS module is toegevoegd.
 
 Het grootste restrisico is de stub `pom.xml`. Vervangen door de module-eigen `pom.xml` lost de meeste tijdelijke beperkingen in een keer op.

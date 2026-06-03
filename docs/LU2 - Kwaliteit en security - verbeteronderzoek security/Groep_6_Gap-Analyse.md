@@ -13,7 +13,7 @@
 
 ## Inleiding
 
-<!-- Beschrijf kort de scope: welke module, welke NEN-7510:2024-2 controls zijn onderzocht, welke periode -->
+<!-- Beschrijf kort de scope: welke module, welke NEN-7510:2026 controls zijn onderzocht, welke periode -->
 
 **Module:**
 **Versie:**
@@ -25,7 +25,7 @@
 
 Per control: huidige staat, beoordeling en bewijs.
 
-| NEN-7510:2024-2 Control | Omschrijving | Status | Bewijs (coderegel of screenshot) | Notities |
+| NEN-7510:2026 Control | Omschrijving | Status | Bewijs (coderegel of screenshot) | Notities |
 |---|---|---|---|---|
 | A.8.3 Toegangsbeveiliging | Toegang tot informatie en systemen is beperkt conform toegangsbeleid | <!-- aanwezig / gedeeltelijk / afwezig --> | | |
 | A.8.5 Authenticatie | Veilige authenticatie conform beleid | <!-- aanwezig / gedeeltelijk / afwezig --> | | |

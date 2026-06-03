@@ -84,7 +84,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-03 | 1.7    | Opdracht-foto toegevoegd, checklist hersteld na corruptie                  | RafvanHooijdonk |
 | 2026-06-03 | 1.8    | Eis #3, #5, #6, #7 bijgewerkt naar tijdelijk compliant (geen echte module) | RafvanHooijdonk |
 | 2026-06-03 | 1.9    | Checklist omgezet naar globaal formaat met opdrachten als secties          | RafvanHooijdonk |
-| 2026-06-03 | 1.10   | Module-keuze idgen en 3 te verbeteren controllers gedocumenteerd            | Rowen Albers    |
+| 2026-06-03 | 1.10   | Module-keuze idgen en 3 geselecteerde NEN-7510 controls gedocumenteerd      | Rowen Albers    |
+| 2026-06-03 | 1.11   | Alle NEN-7510 jaartal-referenties geüpdatet van 2024 naar 2026              | Rowen Albers    |
 
 ---
 
@@ -92,7 +93,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 **Bron:** [WS02: Hardening Dev Pipeline, slide 42](assets/presentaties/ICT-I2.4%20Security%20WS02%20-%20Hardening%20Dev%20Pipeline.pdf#page=42)
 
-**Doel:** Aantonen dat de pipeline compliant is aan NEN-7510:2024-2 controls via een compliance verslag.
+**Doel:** Aantonen dat de pipeline compliant is aan NEN-7510:2026 controls via een compliance verslag.
 **Verantwoordelijke:** SinanSagir
 **Periode:** 2026-06
 **Sprints:**
@@ -107,7 +108,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                                         | Status       | Bewijslast                            | Wie        | Notities                                                         |
 | - | ------------------------------------------------------------------------------------------- | ------------ | ------------------------------------- | ---------- | ---------------------------------------------------------------- |
-| 1 | Per relevante NEN-7510:2024-2 control beschreven wat de control vereist                     | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Controls 8.8, 8.15, 8.25, 8.28, 5.36 beschreven                  |
+| 1 | Per relevante NEN-7510:2026 control beschreven wat de control vereist                     | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Controls 8.8, 8.15, 5.36 beschreven                              |
 | 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY |
 | 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie   |
 | 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Overzichtstabel + genummerde secties per control                 |
@@ -127,10 +128,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 2
 
-| Datum      | Versie | Wijziging                                                          | Door            |
-| ---------- | ------ | ------------------------------------------------------------------ | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist                        | RafvanHooijdonk |
-| 2026-06-03 | 1.1    | Mini-Complianceverslag ingevuld (5 controls), alle eisen compliant | SinanSagir      |
+| Datum      | Versie | Wijziging                                                                           | Door            |
+| ---------- | ------ | ----------------------------------------------------------------------------------- | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 2 toegevoegd aan globale checklist                                         | RafvanHooijdonk |
+| 2026-06-03 | 1.1    | Mini-Complianceverslag ingevuld (5 controls), alle eisen compliant                 | SinanSagir      |
+| 2026-06-03 | 1.2    | Mini-Complianceverslag aangepast (teruggebracht naar 3 controls: 8.8, 8.15 en 5.36) | Rowen Albers    |
 
 ---
 
@@ -171,7 +173,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 1 | Een hazard gekozen                                          | ❌ Open |            |     |          |
 | 2 | Top-event gedefinieerd                                      | ❌ Open |            |     |          |
 | 3 | Bow-tie gemaakt met preventieve en correctieve maatregelen  | ❌ Open |            |     |          |
-| 4 | Relevante NEN-7510:2024-2 controls gekoppeld aan de bow-tie | ❌ Open |            |     |          |
+| 4 | Relevante NEN-7510:2026 controls gekoppeld aan de bow-tie | ❌ Open |            |     |          |
 | 5 | Escalation factors opgenomen                                | ❌ Open |            |     |          |
 | 6 | Audit mindset verwerkt: niet gelogd = niet gebeurd          | ❌ Open |            |     |          |
 
@@ -391,7 +393,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | - | --------------------------------------------------------------------- | ------- | ---------- | --- | ------------------------------------------- |
 | 1 | Geschreven voor niet-technische lezer (Raad van Bestuur), geen jargon | ❌ Open |            |     | Geen CVE-nummers of CVSS-scores in de tekst |
 | 2 | Overall RAG-status aanwezig met toelichting                           | ❌ Open |            |     |                                             |
-| 3 | Status t.o.v. CRA en NEN-7510:2024-2 vermeld                          | ❌ Open |            |     |                                             |
+| 3 | Status t.o.v. CRA en NEN-7510:2026 vermeld                          | ❌ Open |            |     |                                             |
 | 4 | Top 3 risico's beschreven in zorg-impact (niet technische impact)     | ❌ Open |            |     |                                             |
 | 5 | Geprioriteerde roadmap aanwezig (nu / deze sprint / later)            | ❌ Open |            |     |                                             |
 | 6 | Maximaal 400 woorden                                                  | ❌ Open |            |     |                                             |
@@ -400,7 +402,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | # | Eis                                                                      | Status  | Bewijslast | Wie | Notities                                     |
 | - | ------------------------------------------------------------------------ | ------- | ---------- | --- | -------------------------------------------- |
-| 1 | Minimaal 5 NEN-7510:2024-2 controls opgenomen                            | ❌ Open |            |     | Aanbevolen: 8.28, 8.8, 8.15, 8.25, 5.35/5.36 |
+| 1 | Minimaal 5 NEN-7510:2026 controls opgenomen                            | ❌ Open |            |     | Aanbevolen: 8.28, 8.8, 8.15, 8.25, 5.35/5.36 |
 | 2 | Per rij: norm, maatregel, voor (bevinding), aanpassing, na (bewijs)      | ❌ Open |            |     |                                              |
 | 3 | Elk bewijs is een concreet artefact (PR-nummer, scan-datum, commit hash) | ❌ Open |            |     |                                              |
 
@@ -462,7 +464,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                         | RafvanHooijdonk |
 | 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ❌ Open                | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                                         |                 |
 | 4 | Alle teamleden hebben een commit bijgedragen                         | ❌ Open                | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
-| 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant           | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 te verbeteren controllers.             | Rowen Albers    |
+| 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant           | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 geselecteerde NEN-7510 controls (8.8, 8.15, 5.36). | Rowen Albers    |
 
 ### Eindcheck Sprint 2
 
