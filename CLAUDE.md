@@ -187,7 +187,9 @@ Contains `sprint1.md`, `sprint2.md`, etc.
 
 ### `docs/LU2 - Kwaliteit en security - verbeteronderzoek security/`
 **ONLY formal security deliverables go here:**
-- Gap-analyse, Mini-complianceverslag, Risk Assessment Report, Pentest, SBOM analyse, Audit rapport, Bow-tie, DPIA, Patchadvies.
+- Gap-analyse, Mini-complianceverslag, Risk Assessment Report, Pentest, SBOM analyse, Audit rapport, Bow-tie, DPIA, Patchadvies, Asset-Identificatie, Risicomatrix, Security-Backlog, Patchadvies.
+
+**Rule:** Do NOT create subdirectories like `docs/auditrapport/` or similar. All security deliverables go directly in this folder with the `Groep_6_` prefix. If a sprint file references a different output path, the sprint file is wrong. Follow CLAUDE.md, not the sprint file.
 
 ### `docs/LU2 - Kwaliteit en security - verbeteronderzoek onderhoudbaarheid/`
 **ONLY formal maintainability deliverables go here:**
@@ -202,6 +204,98 @@ Contains the official assessment rubrics for LU2, both as PDF (original) and mar
 - `rubric-security.md`: Rubric for Verbeteronderzoek Security (max 100 pt, pass at 55)
 
 **Read the relevant rubric before writing or reviewing any formal deliverable.** The rubrics define what Onvoldoende, Voldoende, and Goed look like per criterion. Use them to verify that deliverables meet at minimum the Voldoende level on every criterion.
+
+**The target is always "Goed" (maximum score), not "Voldoende".** Do not stop at the minimum. Every deliverable must be written to the highest rubric level.
+
+---
+
+## Always aim for Goed (maximum score)
+
+This section is mandatory reading before writing any formal deliverable. It translates the rubric into concrete requirements.
+
+### What "Goed" requires across all security deliverables
+
+**Grondig (thorough):**
+- Cover the full scope. Do not skip assets, controls, or risks because they seem minor.
+- Include threat actors with motivations, capabilities, and relevance to the specific system.
+- Apply a named threat modeling methodology (STRIDE is the default for this project).
+- Document existing controls per asset, not just the threats.
+- Document residual risk: what remains after existing controls are applied.
+
+**Herleidbaar (traceable/auditable):**
+- Every claim must reference a source. No unsupported assertions.
+- Reference specific NEN-7510:2026 control numbers (e.g. Ctrl 8.5, not just "NEN-7510").
+- Reference specific AVG articles (e.g. Art. 9, Art. 32, Art. 33).
+- Reference CWE numbers for vulnerabilities (e.g. CWE-307, CWE-89).
+- Reference OWASP Top 10 (2021) categories where applicable (e.g. A01, A07).
+- Reference external threat intelligence sources: NCSC CSBN, Verizon DBIR, HaveIBeenPwned.
+- Every score (kans, impact, risico) must include a one-line justification with a source.
+
+**Onderbouwd met bronnen en normen (backed by sources and standards):**
+- Include a sources section at the top listing all references with URLs.
+- Use sector-specific data for kans scores (healthcare breach statistics, NCSC reports).
+- Cross-reference multiple standards when they align (NEN-7510 + AVG + OWASP).
+
+**Prioritering en aanpak expliciet gemotiveerd (explicitly justified prioritization):**
+- When choosing which item gets the bow-tie, the most detailed analysis, or the first fix: explain why this item and not another.
+- If a lower-scoring item is chosen over a higher one, explain the reasoning (context, controls, demonstrability).
+- State what happens if a risk is NOT mitigated (concrete consequences, not vague language).
+
+### Rubric criteria and what feeds them
+
+| Rubric criterium | Deliverables die dit voeden | Wat "Goed" concreet betekent |
+|---|---|---|
+| Security audit: wetgeving & normen (20pt) | Gap-analyse, Complianceverslag, Asset-identificatie | Alle NEN-7510 controls met specifieke nummers, AVG-grondslag per datatype, prioritering met expliciete motivatie, herleidbare bronnen |
+| Secure pipelines (15pt) | Pipeline setup (Opdracht 1), README/SECURITY | OTAP-scheiding met niet-herleidbare data gedocumenteerd, keuzes verantwoord |
+| Advies updates: SBOM, CVE, CVSS (15pt) | Patchadvies, Security backlog | CVSS-scores geverifieerd via NVD (niet alleen Snyk), prioritering op basis van bereikbaarheid en healthcare-impact, concrete versie-aanbevelingen |
+| Security code review & kwetsbaarheden (15pt) | Security backlog, RAR | CWE per bevinding, CVSS contextuele score, relatie kwetsbaarheid tot daadwerkelijk systeemgebruik uitgelegd |
+| Penetration tests (15pt) | Pentest rapport | Systematisch opgezet, reproduceerbaar, daadwerkelijke exploitatie aangetoond |
+| Mitigatie & validatie (20pt) | PoC mitigatie, her-pentest | Kwantitatieve vergelijking voor/na, kritische reflectie op tooling en aanpak |
+
+### Minimum required elements per security deliverable
+
+Elk formeel security deliverable moet bevatten:
+
+1. Scope (wat valt wel en niet binnen dit document)
+2. Methodiek (welke aanpak, waarom)
+3. Relevante wet- en regelgeving (NEN-7510 controls met nummers, AVG artikelen)
+4. Bronnenlijst (URLs, rapportnamen, versies)
+5. Per bevinding/asset/risico: classificatie, bestaande controls, residueel risico
+6. Expliciete prioritering met motivatie
+7. Koppeling naar andere deliverables (wat volgt hieruit, wat levert dit aan voor de bow-tie/RAR/etc.)
+
+---
+
+## Checklist tabel opmaak
+
+Houd de Bewijslast-kolom in `docs/checklist.md` kort. Gebruik alleen de bestandsnaam zonder het `Groep_6_` prefix en zonder pad.
+
+Goed: Asset-Identificatie.md, Settings → Environments, ci.yml
+Fout: `Asset-Identificatie.md` (geen backticks, want monospace font zorgt voor extra breedte en wrapping)
+Fout: `Groep_6_Asset-Identificatie.md` (geen Groep_6_ prefix)
+Fout: `docs/LU2 - Kwaliteit en security - verbeteronderzoek security/Groep_6_Asset-Identificatie.md` (geen volledig pad)
+
+Dezelfde regel geldt voor alle andere kolommen in checklist-tabellen: houd celinhoud beknopt zodat tabellen leesbaar blijven. Als een verwijzing meer context nodig heeft, zet die in de Notities-kolom, niet in Bewijslast.
+
+---
+
+## Links altijd clickable maken
+
+Schrijf nooit een kale URL. Gebruik altijd de markdown link-syntax: `[tekst](url)`.
+
+Fout: `https://owasp.org/Top10/`
+Fout: `OWASP Top 10: https://owasp.org/Top10/`
+Goed: `[OWASP Top 10 (2021)](https://owasp.org/Top10/)`
+
+Dit geldt voor:
+- Bronnenlijsten in deliverables
+- Referentieregels per asset/bevinding/control
+- Links in tabellen
+- Links in checklist.md en sprint-bestanden
+
+Voor bronnen zonder publieke URL (betaalde normen zoals NEN-7510): link naar de productpagina van de uitgever (bv. https://www.nen.nl/nen-7510).
+Voor interne PDFs in de repo (bv. presentaties in `docs/assets/presentaties/`): gebruik een relatief pad als markdown link, bv. `[WS03](../assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf)`.
+Uitzondering: interne repo-verwijzingen naar `.md`-bestanden en mappen worden niet als hyperlink geschreven maar als code-inline (backticks), omdat relatieve paden in die context geen meerwaarde hebben.
 
 ---
 

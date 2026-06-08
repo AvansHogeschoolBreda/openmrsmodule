@@ -108,11 +108,11 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                                         | Status       | Bewijslast                            | Wie        | Notities                                                         |
 | - | ------------------------------------------------------------------------------------------- | ------------ | ------------------------------------- | ---------- | ---------------------------------------------------------------- |
-| 1 | Per relevante NEN-7510:2026 control beschreven wat de control vereist                     | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Controls 8.8, 8.15, 5.36 beschreven                              |
-| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY |
-| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie   |
-| 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Overzichtstabel + genummerde secties per control                 |
-| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ✅ Compliant | `Groep_6_Mini-Complianceverslag.md` | SinanSagir | Markdown in `docs/LU2 - Kwaliteit en security.../`             |
+| 1 | Per relevante NEN-7510:2026 control beschreven wat de control vereist                     | ✅ Compliant | Mini-Complianceverslag.md | SinanSagir | Controls 8.8, 8.15, 5.36 beschreven                              |
+| 2 | Per control beschreven hoe de pipeline hieraan voldoet (verwijzing naar bestand/instelling) | ✅ Compliant | Mini-Complianceverslag.md | SinanSagir | Concrete verwijzingen naar workflows, Settings, README, SECURITY |
+| 3 | Per control beschreven welk restrisico er nog is en waarom                                  | ✅ Compliant | Mini-Complianceverslag.md | SinanSagir | Stub pom.xml, branch protection niet afdwingbaar, 90d retentie   |
+| 4 | Structuur: tabel of genummerde secties per control                                          | ✅ Compliant | Mini-Complianceverslag.md | SinanSagir | Overzichtstabel + genummerde secties per control                 |
+| 5 | Opgeleverd als Markdown of Word document in de repo                                         | ✅ Compliant | Mini-Complianceverslag.md | SinanSagir | Markdown in `docs/LU2 - Kwaliteit en security.../`             |
 
 ### Samenvatting
 
@@ -140,7 +140,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slides 48-51](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=48)
 **Doel:** Risico's in kaart brengen voor de OpenMRS module via asset identificatie, bow-tie analyse en risico evaluatie van de CI-CD pipeline.
-**Verantwoordelijke:** 
+**Verantwoordelijke:** RafvanHooijdonk
 **Periode:** 2026-06
 **Sprints:**
 
@@ -153,14 +153,14 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slide 49](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=49)
 
-| # | Eis                                                                                               | Status  | Bewijslast | Wie | Notities                                           |
-| - | ------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------------------- |
-| 1 | Documentatie van de OpenMRS module bestudeerd                                                     | ❌ Open |            |     |                                                    |
-| 2 | Minimaal een aantal assets geidentificeerd (bijv. Patient Obs, User Credentials, System Settings) | ❌ Open |            |     |                                                    |
-| 3 | BIV-analyse (CIA) uitgevoerd per asset                                                            | ❌ Open |            |     | Beschikbaarheid, Integriteit, Vertrouwelijkheid    |
-| 4 | Gevoelige gegevens beschreven met referenties                                                     | ❌ Open |            |     |                                                    |
-| 5 | Meest reele hazards per asset benoemd                                                             | ❌ Open |            |     | Welke hazards zijn het meest reeel voor de module? |
-| 6 | Score schaal, risk appetite en grenswaarden vastgelegd                                            | ❌ Open |            |     |                                                    |
+| # | Eis                                                                                               | Status       | Bewijslast                          | Wie             | Notities                                                              |
+| - | ------------------------------------------------------------------------------------------------- | ------------ | ----------------------------------- | --------------- | --------------------------------------------------------------------- |
+| 1 | Documentatie van de OpenMRS module bestudeerd                                                     | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | OpenMRS Wiki, REST API docs, Data Model bestudeerd                    |
+| 2 | Minimaal een aantal assets geidentificeerd (bijv. Patient Obs, User Credentials, System Settings) | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | 8 assets geidentificeerd (A1-A8)                                      |
+| 3 | BIV-analyse (CIA) uitgevoerd per asset                                                            | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | Per asset: Vertrouwelijkheid, Integriteit, Beschikbaarheid vastgelegd |
+| 4 | Gevoelige gegevens beschreven met referenties                                                     | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | Concrete veldnamen en OpenMRS-documentatiereferenties per asset       |
+| 5 | Meest reele hazards per asset benoemd                                                             | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | 12 hazards (H1-H12) gescoord op kans x impact                         |
+| 6 | Score schaal, risk appetite en grenswaarden vastgelegd                                            | ✅ Compliant | Asset-Identificatie.md | RafvanHooijdonk | Kansschaal 1-5, impactschaal 1-5, grenswaarden groen/oranje/rood      |
 
 ---
 
@@ -195,23 +195,23 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 0      |
+| ✅ Compliant                | 6      |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 15     |
+| ❌ Open / Niet compliant    | 9      |
 
 ### Openstaande actiepunten Opdracht 3
 
 | Actie                                                       | Prioriteit | Wie |
 | ----------------------------------------------------------- | ---------- | --- |
-| Deel 1: assets en BIV-analyse uitvoeren                     | Hoog       |     |
 | Deel 2: hazard kiezen en bow-tie maken                      | Hoog       |     |
 | Deel 3: risico matrix en bow-ties voor CI-CD pipeline maken | Hoog       |     |
 
 ### Wijzigingslog Opdracht 3
 
-| Datum      | Versie | Wijziging                                   | Door            |
-| ---------- | ------ | ------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 3 toegevoegd aan globale checklist | RafvanHooijdonk |
+| Datum      | Versie | Wijziging                                                                                              | Door            |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------ | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 3 toegevoegd aan globale checklist                                                            | RafvanHooijdonk |
+| 2026-06-08 | 1.1    | Deel 1 voltooid: 8 assets, BIV-analyse, 12 hazards, scoreschaal en risk appetite in 03-assets.md      | RafvanHooijdonk |
 
 ---
 
