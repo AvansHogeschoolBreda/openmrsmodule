@@ -13,7 +13,8 @@ Read these files first. No exceptions.
 3. `docs/checklist.md`
 4. All files in `docs/sprints/`
 5. Any other `.md` files in `docs/`
-6. Relevant workflow files in `.github/workflows/` if the task involves CI/CD
+6. `docs/assets/rubrics/rubric-onderhoudbaarheid.md` and `docs/assets/rubrics/rubric-security.md` if working on a formal deliverable
+7. Relevant workflow files in `.github/workflows/` if the task involves CI/CD
 
 Then think. Then say what you are going to do and why. Then act.
 
@@ -194,6 +195,13 @@ Contains `sprint1.md`, `sprint2.md`, etc.
 
 ### `docs/assets/`
 For PDFs, images, presentations, and raw source materials.
+
+### `docs/assets/rubrics/`
+Contains the official assessment rubrics for LU2, both as PDF (original) and markdown:
+- `rubric-onderhoudbaarheid.md`: Rubric for Verbeteronderzoek Onderhoudbaarheid (max 100 pt, pass at 55)
+- `rubric-security.md`: Rubric for Verbeteronderzoek Security (max 100 pt, pass at 55)
+
+**Read the relevant rubric before writing or reviewing any formal deliverable.** The rubrics define what Onvoldoende, Voldoende, and Goed look like per criterion. Use them to verify that deliverables meet at minimum the Voldoende level on every criterion.
 
 ---
 
