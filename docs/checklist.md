@@ -140,7 +140,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slides 48-51](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=48)
 **Doel:** Risico's in kaart brengen voor de OpenMRS module via asset identificatie, bow-tie analyse en risico evaluatie van de CI-CD pipeline.
-**Verantwoordelijke:** RafvanHooijdonk
+**Verantwoordelijke:** RafvanHooijdonk, SinanSagir
 **Periode:** 2026-06
 **Sprints:**
 
@@ -168,14 +168,14 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slide 50](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=50)
 
-| # | Eis                                                         | Status  | Bewijslast | Wie | Notities |
-| - | ----------------------------------------------------------- | ------- | ---------- | --- | -------- |
-| 1 | Een hazard gekozen                                          | ❌ Open |            |     |          |
-| 2 | Top-event gedefinieerd                                      | ❌ Open |            |     |          |
-| 3 | Bow-tie gemaakt met preventieve en correctieve maatregelen  | ❌ Open |            |     |          |
-| 4 | Relevante NEN-7510:2026 controls gekoppeld aan de bow-tie | ❌ Open |            |     |          |
-| 5 | Escalation factors opgenomen                                | ❌ Open |            |     |          |
-| 6 | Audit mindset verwerkt: niet gelogd = niet gebeurd          | ❌ Open |            |     |          |
+| # | Eis                                                         | Status       | Bewijslast    | Wie        | Notities |
+| - | ----------------------------------------------------------- | ------------ | ------------- | ---------- | -------- |
+| 1 | Een hazard gekozen                                          | ✅ Compliant | Bow-Tie.md    | SinanSagir | H10 (Hardcoded secret, score 15 rood) gekozen conform Asset-Identificatie sectie 6.3 |
+| 2 | Top-event gedefinieerd                                      | ✅ Compliant | Bow-Tie.md    | SinanSagir | Top-event: secret staat in git history en is toegankelijk voor ongeautoriseerde partijen |
+| 3 | Bow-tie gemaakt met preventieve en correctieve maatregelen  | ✅ Compliant | Bow-Tie.md    | SinanSagir | 4 preventieve barrières (PB1-PB4) en 4 herstelbarrières (HB1-HB4) |
+| 4 | Relevante NEN-7510:2026 controls gekoppeld aan de bow-tie | ✅ Compliant | Bow-Tie.md    | SinanSagir | Ctrl 5.17, 8.24, 8.8, 8.15, 6.8 gekoppeld per barrière |
+| 5 | Escalation factors opgenomen                                | ✅ Compliant | Bow-Tie.md    | SinanSagir | 7 escalation factors (EF1-EF7), preventief en correctief gescheiden |
+| 6 | Audit mindset verwerkt: niet gelogd = niet gebeurd          | ✅ Compliant | Bow-Tie.md    | SinanSagir | Sectie 12: concrete impact op HB3 en HB4 als logs ontbreken |
 
 ---
 
@@ -183,11 +183,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS03: Healthcare Risk Assessment, slide 51](assets/presentaties/ICT-I2.4%20Security%20WS03%20-%20Healthcare%20Risk%20Assessment.pdf#page=51)
 
-| # | Eis                                           | Status  | Bewijslast | Wie | Notities                                     |
-| - | --------------------------------------------- | ------- | ---------- | --- | -------------------------------------------- |
-| 1 | Risico matrix gemaakt voor de CI-CD pipeline  | ❌ Open |            |     | Op basis van CI-CD inrichting uit Opdracht 1 |
-| 2 | Bow-tie(s) gemaakt voor CI-CD risico's        | ❌ Open |            |     |                                              |
-| 3 | Escalation factors opgenomen in de bow-tie(s) | ❌ Open |            |     |                                              |
+| # | Eis                                           | Status       | Bewijslast       | Wie        | Notities |
+| - | --------------------------------------------- | ------------ | ---------------- | ---------- | -------- |
+| 1 | Risico matrix gemaakt voor de CI-CD pipeline  | ✅ Compliant | Risicomatrix.md  | SinanSagir | 6 CI/CD-risico's (H8-H11, C1, C2) gescoord en visueel weergegeven; gebaseerd op pipeline uit Opdracht 1 |
+| 2 | Bow-tie(s) gemaakt voor CI-CD risico's        | ✅ Compliant | Risicomatrix.md  | SinanSagir | Bow-tie voor H8 (Workflow poisoning, score 10) in sectie 7; 3 preventieve en 4 herstelbarrières |
+| 3 | Escalation factors opgenomen in de bow-tie(s) | ✅ Compliant | Risicomatrix.md  | SinanSagir | 6 escalation factors (EF1-EF6), preventief en correctief gescheiden |
 
 ---
 
@@ -195,16 +195,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 6      |
+| ✅ Compliant                | 15     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 9      |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten Opdracht 3
 
-| Actie                                                       | Prioriteit | Wie |
-| ----------------------------------------------------------- | ---------- | --- |
-| Deel 2: hazard kiezen en bow-tie maken                      | Hoog       |     |
-| Deel 3: risico matrix en bow-ties voor CI-CD pipeline maken | Hoog       |     |
+Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 3
 
@@ -212,6 +209,8 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | ---------- | ------ | ------------------------------------------------------------------------------------------------------ | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 3 toegevoegd aan globale checklist                                                            | RafvanHooijdonk |
 | 2026-06-08 | 1.1    | Deel 1 voltooid: 8 assets, BIV-analyse, 12 hazards, scoreschaal en risk appetite in 03-assets.md      | RafvanHooijdonk |
+| 2026-06-08 | 1.2    | Deel 2 voltooid: bow-tie voor H10 (hardcoded secret) aangemaakt in Groep_6_Bow-Tie.md                 | SinanSagir      |
+| 2026-06-08 | 1.3    | Deel 3 voltooid: CI/CD risicomatrix (6 risico's) en bow-tie H8 aangemaakt in Groep_6_Risicomatrix.md  | SinanSagir      |
 
 ---
 
@@ -470,8 +469,8 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 
 | # | Check                                                                       | Status                   | Wie |
 | - | --------------------------------------------------------------------------- | ------------------------ | --- |
-| 1 | Risicomatrix met minimaal 5 risico's aanwezig                               | ❌ Open                  |     |
-| 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ❌ Open                  |     |
+| 1 | Risicomatrix met minimaal 5 risico's aanwezig                               | ✅ Compliant             | SinanSagir |
+| 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ✅ Compliant             | SinanSagir |
 | 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ⚠️ Tijdelijk compliant |     |
 | 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ❌ Open                  |     |
 | 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ❌ Open                  |     |
