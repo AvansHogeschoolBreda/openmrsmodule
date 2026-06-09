@@ -143,18 +143,33 @@ Impact: 4. Ongeteste of kwaadaardige code bereikt productie zonder controle.
 
 De matrix toont impact (verticaal, 1-5) versus kans (horizontaal, 1-5). Kleuren conform grenswaarden in `Groep_6_Asset-Identificatie.md` sectie 3.4.
 
-```
-Impact
-  5 | oranje | [H8] 10 | [H10] 15 | rood   | rood
-  4 | groen  | [C1]  8 | [H9]  12 | rood   | rood
-              [C2]  8
-  3 | groen  | groen   | [H11]  9 | oranje | rood
-  2 | groen  | groen   | groen    | oranje | oranje
-  1 | groen  | groen   | groen    | groen  | oranje
-        1        2          3        4        5     Kans
+```mermaid
+block-beta
+  columns 6
+
+  y5["5"]:1  r51["5"]:1  r52["H8<br/>10"]:1  r53["H10<br/>15"]:1  r54["20"]:1  r55["25"]:1
+  y4["4"]:1  r41["4"]:1  r42["C1, C2<br/>8"]:1  r43["H9<br/>12"]:1  r44["16"]:1  r45["20"]:1
+  y3["3"]:1  r31["3"]:1  r32["6"]:1  r33["H11<br/>9"]:1  r34["12"]:1  r35["15"]:1
+  y2["2"]:1  r21["2"]:1  r22["4"]:1  r23["6"]:1  r24["8"]:1  r25["10"]:1
+  y1["1"]:1  r11["1"]:1  r12["2"]:1  r13["3"]:1  r14["4"]:1  r15["5"]:1
+  yx["Impact<br/>Kans"]:1  x1["1"]:1  x2["2"]:1  x3["3"]:1  x4["4"]:1  x5["5"]:1
+
+  classDef groen fill:#ccffcc,stroke:#006600,color:#000
+  classDef oranje fill:#ffe0b2,stroke:#cc6600,color:#000
+  classDef rood fill:#ffcccc,stroke:#cc0000,color:#000
+  classDef axis fill:#f0f0f0,stroke:#aaa,color:#333
+
+  class r11,r12,r13,r14,r21,r22,r31,r41 groen
+  class r15,r23,r24,r25,r32,r33,r34,r42,r43,r51,r52 oranje
+  class r35,r44,r45,r53,r54,r55 rood
+  class y1,y2,y3,y4,y5,yx,x1,x2,x3,x4,x5 axis
 ```
 
-Groen = score 1-4 | Oranje = score 5-12 | Rood = score 13-25
+| Kleur | Score | Actie |
+|---|---|---|
+| Groen | 1-4 | Acceptabel, jaarlijkse herbeoordeling |
+| Oranje | 5-12 | Mitigatie verplicht binnen 3 maanden |
+| Rood | 13-25 | Onmiddellijke actie verplicht |
 
 Geen enkel CI/CD-risico scoort groen. H10 is het enige rode risico (score 15).
 
@@ -194,14 +209,42 @@ H8 is geselecteerd voor de CI/CD-specifieke bow-tie omdat het de hoogste impact 
 
 ### 7.2 Bow-tie diagram
 
-```
-PREVENTIEF                          TOP-EVENT               HERSTEL
+```mermaid
+flowchart LR
+    classDef oorzaak fill:#ffcccc,stroke:#cc0000,color:#000
+    classDef barrPrev fill:#fff3cc,stroke:#cc9900,color:#000
+    classDef topEvent fill:#cc0000,stroke:#800000,color:#fff
+    classDef barrHers fill:#ccffcc,stroke:#006600,color:#000
+    classDef gevolg fill:#ffcccc,stroke:#cc0000,color:#000
 
-[O1] Kwaadaardige PR    --[PB1: PR-review]------\
-[O2] Insider wijzigt    --[PB2: Branch protect.]-+--> KWAADAARDIGE  --[HB1: Run annuleren]----> [G1] Secrets gelekt
-     workflow                                    /    WORKFLOW ACTIEF--[HB2: Secrets roteren]--> [G2] SAST omzeild
-[O3] Gecompromitteerd   --[PB3: Min. permissions]/   (kantelpunt)   --[HB3: Audit log review]-> [G3] Kwaadaardige deploy
-     account                                                         --[HB4: Incident response]-> [G4] Pipeline compromis
+    O1["O1: Kwaadaardige PR"]:::oorzaak
+    O2["O2: Insider wijzigt workflow"]:::oorzaak
+    O3["O3: Gecompromitteerd account"]:::oorzaak
+
+    PB1["PB1: PR-review"]:::barrPrev
+    PB2["PB2: Branch protection"]:::barrPrev
+    PB3["PB3: Minimale permissions"]:::barrPrev
+
+    TE(["KWAADAARDIGE WORKFLOW ACTIEF - top-event"]):::topEvent
+
+    HB1["HB1: Run annuleren"]:::barrHers
+    HB2["HB2: Secrets roteren"]:::barrHers
+    HB3["HB3: Audit log review"]:::barrHers
+    HB4["HB4: Incident response"]:::barrHers
+
+    G1["G1: Secrets gelekt"]:::gevolg
+    G2["G2: SAST omzeild"]:::gevolg
+    G3["G3: Kwaadaardige deploy"]:::gevolg
+    G4["G4: Pipeline compromis"]:::gevolg
+
+    O1 --> PB1 --> TE
+    O2 --> PB2 --> TE
+    O3 --> PB3 --> TE
+
+    TE --> HB1 --> G1
+    TE --> HB2 --> G2
+    TE --> HB3 --> G3
+    TE --> HB4 --> G4
 ```
 
 ### 7.3 Oorzaken
