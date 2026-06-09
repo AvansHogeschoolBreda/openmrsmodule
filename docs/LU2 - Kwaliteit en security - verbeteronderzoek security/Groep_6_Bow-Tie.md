@@ -69,18 +69,50 @@ Het top-event is het kantelpunt: het secret is gecommit. Daarvoor waren preventi
 
 ## 4. Bow-tie diagram
 
-```
-PREVENTIEF                        TOP-EVENT              HERSTEL
+```mermaid
+flowchart LR
+    classDef oorzaak fill:#ffcccc,stroke:#cc0000,color:#000
+    classDef barrPrev fill:#fff3cc,stroke:#cc9900,color:#000
+    classDef topEvent fill:#cc0000,stroke:#800000,color:#fff
+    classDef barrHers fill:#ccffcc,stroke:#006600,color:#000
+    classDef gevolg fill:#ffcccc,stroke:#cc0000,color:#000
 
-[O1] Dev hardcodes  --[PB1: Pre-commit hook]--\
-[O2] .env gecommit  --[PB2: .gitignore]--------+--> SECRET IN  --[HB1: Secret rotatie]----> [G1] Ongeauth. DB-toegang
-[O3] Debug in code  --[PB3: PR-review]---------/    GIT HISTORY --[HB2: Git history rewrite]-> [G2] CI/CD gecompromitteerd
-[O4] Copy-paste     --[PB4: CodeQL SAST]------/     (kantelpunt)--[HB3: Audit log review]---> [G3] AVG Art. 33 meldplicht
-                                                                --[HB4: Incident response]--> [G4] Reputatieschade
+    O1["O1: Developer typt credential in broncode"]:::oorzaak
+    O2["O2: .env bestand gecommit"]:::oorzaak
+    O3["O3: Secret in debug-output"]:::oorzaak
+    O4["O4: Copy-paste fout uit CI-configuratie"]:::oorzaak
+
+    PB1["PB1: Pre-commit hook detect-secrets"]:::barrPrev
+    PB2["PB2: .gitignore validatie"]:::barrPrev
+    PB3["PB3: PR-review verplicht"]:::barrPrev
+    PB4["PB4: CodeQL SAST-scan"]:::barrPrev
+
+    TE(["SECRET IN GIT HISTORY - top-event"]):::topEvent
+
+    HB1["HB1: Secret rotatie en revocatie"]:::barrHers
+    HB2["HB2: Git history rewrite via BFG"]:::barrHers
+    HB3["HB3: Audit log review"]:::barrHers
+    HB4["HB4: Incident response AVG-meldplicht"]:::barrHers
+
+    G1["G1: Ongeautoriseerde DB-toegang"]:::gevolg
+    G2["G2: CI/CD gecompromitteerd"]:::gevolg
+    G3["G3: AVG Art. 33 meldplicht"]:::gevolg
+    G4["G4: Reputatieschade en boetes"]:::gevolg
+
+    O1 --> PB1 --> TE
+    O2 --> PB2 --> TE
+    O3 --> PB3 --> TE
+    O4 --> PB4 --> TE
+
+    TE --> HB1 --> G1
+    TE --> HB2 --> G2
+    TE --> HB3 --> G3
+    TE --> HB4 --> G4
 ```
 
-PB = Preventieve barrière (links van het top-event)
-HB = Herstelbarrière (rechts van het top-event)
+PB = Preventieve barriere (links van het top-event, geel)
+HB = Herstelbarriere (rechts van het top-event, groen)
+Oorzaken en gevolgen zijn rood gemarkeerd.
 
 ---
 
