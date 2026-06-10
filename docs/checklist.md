@@ -218,7 +218,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS04A: Compliance Scanning, slide 53](assets/presentaties/ICT-I2.4%20Security%20WS04A%20-%20Compliance%20Scanning.pdf#page=53)
 **Doel:** SAST/SCA scan uitvoeren op de OpenMRS module, resultaten verwerken in een geprioriteerde security backlog en een Risk Assessment Report.
-**Verantwoordelijke:** 
+**Verantwoordelijke:** SimonEulenpesch
 **Periode:** 2026-06
 **Sprints:**
 
@@ -230,25 +230,25 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Deel 1: Scan codebase
 
-| # | Eis                                                        | Status  | Bewijslast | Wie | Notities                     |
-| - | ---------------------------------------------------------- | ------- | ---------- | --- | ---------------------------- |
-| 1 | SAST scan uitgevoerd op de module                          | ❌ Open |            |     | Bijv. Snyk CLI of IDE plugin |
-| 2 | SCA scan uitgevoerd op de module                           | ❌ Open |            |     |                              |
-| 3 | SBOM gegenereerd (bijv. CycloneDX)                         | ❌ Open |            |     |                              |
-| 4 | Technisch SAST-bestand opgeslagen als output (audit trail) | ❌ Open |            |     |                              |
-| 5 | Technisch SCA-bestand opgeslagen als output (audit trail)  | ❌ Open |            |     |                              |
-| 6 | Technisch SBOM-bestand opgeslagen als output (audit trail) | ❌ Open |            |     |                              |
+| # | Eis                                                        | Status       | Bewijslast                  | Wie             | Notities                                                              |
+| - | ---------------------------------------------------------- | ------------ | --------------------------- | --------------- | --------------------------------------------------------------------- |
+| 1 | SAST scan uitgevoerd op de module                          | ✅ Compliant | Security-Analyse.md         | SimonEulenpesch | Semgrep `p/java` op idgen: 0 findings op 57 targets, 60 regels. Aangevuld met handmatige code review. |
+| 2 | SCA scan uitgevoerd op de module                           | ✅ Compliant | Security-Analyse.md         | SimonEulenpesch | OWASP Dependency-Check op idgen. Meerdere CRITICAL dependencies gesignaleerd. |
+| 3 | SBOM gegenereerd (bijv. CycloneDX)                         | ✅ Compliant | bom.xml, bom.json           | SimonEulenpesch | CycloneDX 1.6 via makeAggregateBom, 116 componenten.                  |
+| 4 | Technisch SAST-bestand opgeslagen als output (audit trail) | ✅ Compliant | sast-report.json            | SimonEulenpesch | Semgrep JSON-output bewaard in module-root.                           |
+| 5 | Technisch SCA-bestand opgeslagen als output (audit trail)  | ✅ Compliant | dependency-check-report.html | SimonEulenpesch | Bewaard in target, api/target en omod/target.                        |
+| 6 | Technisch SBOM-bestand opgeslagen als output (audit trail) | ✅ Compliant | bom.xml, bom.json           | SimonEulenpesch | Bewaard in target.                                                    |
 
 ### Deel 2: Geprioriteerde security backlog
 
-| # | Eis                                                                                       | Status  | Bewijslast | Wie | Notities                                                    |
-| - | ----------------------------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------------------------- |
-| 1 | Backlog bevat minimaal 8 bevindingen (4 SCA + 4 SAST)                                     | ❌ Open |            |     |                                                             |
-| 2 | Elk item heeft: Finding ID, CVE/CWE, component, CVSS Base Score (geverifieerd via NVD)    | ❌ Open |            |     | Niet alleen Snyk-score overnemen                            |
-| 3 | Elk item heeft contextuele score (bereikbaarheid + healthcare-impact)                     | ❌ Open |            |     |                                                             |
-| 4 | Elk item gekoppeld aan minimaal een NEN-7510 control                                      | ❌ Open |            |     |                                                             |
-| 5 | Elk item heeft: fix beschikbaar (ja/nee + versie), effort (S/M/L/XL), prioriteit, besluit | ❌ Open |            |     | Besluit: patchen / supprimeren (met rationale) / accepteren |
-| 6 | False positives en risicoacceptaties gedocumenteerd                                       | ❌ Open |            |     |                                                             |
+| # | Eis                                                                                       | Status       | Bewijslast          | Wie             | Notities                                                    |
+| - | ----------------------------------------------------------------------------------------- | ------------ | ------------------- | --------------- | ----------------------------------------------------------- |
+| 1 | Backlog bevat minimaal 8 bevindingen (4 SCA + 4 SAST)                                     | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | 10 bevindingen: 6 SCA (SCA-01 t/m SCA-06) + 4 SAST/code review (SAST-01 t/m SAST-04). |
+| 2 | Elk item heeft: Finding ID, CVE/CWE, component, CVSS Base Score (geverifieerd via NVD)    | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | NVD Base Scores gebruikt, niet alleen scanner-score.        |
+| 3 | Elk item heeft contextuele score (bereikbaarheid + healthcare-impact)                     | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | Contextuele score per bevinding in de overzichtstabel.      |
+| 4 | Elk item gekoppeld aan minimaal een NEN-7510 control                                      | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | Controls 8.8, 8.5, 8.15, 8.25, 8.28 gekoppeld.              |
+| 5 | Elk item heeft: fix beschikbaar (ja/nee + versie), effort (S/M/L/XL), prioriteit, besluit | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | Kolommen aanwezig in de overzichtstabel.                    |
+| 6 | False positives en risicoacceptaties gedocumenteerd                                       | ✅ Compliant | Security-Analyse.md | SimonEulenpesch | Sectie 8.3: geen SAST-findings, geen onbehandelde acceptaties. |
 
 ### Deel 3: Risk Assessment Report (RAR)
 
@@ -266,23 +266,22 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 0      |
+| ✅ Compliant                | 12     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 19     |
+| ❌ Open / Niet compliant    | 7      |
 
 ### Openstaande actiepunten Opdracht 4
 
-| Actie                                           | Prioriteit | Wie |
-| ----------------------------------------------- | ---------- | --- |
-| SAST en SCA scan draaien op de echte module     | Hoog       |     |
-| Security backlog opstellen (min. 8 bevindingen) | Hoog       |     |
-| Risk Assessment Report schrijven                | Hoog       |     |
+| Actie                            | Prioriteit | Wie |
+| -------------------------------- | ---------- | --- |
+| Risk Assessment Report schrijven | Hoog       |     |
 
 ### Wijzigingslog Opdracht 4
 
-| Datum      | Versie | Wijziging                                   | Door            |
-| ---------- | ------ | ------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 4 toegevoegd aan globale checklist | RafvanHooijdonk |
+| Datum      | Versie | Wijziging                                                                                               | Door            |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------- | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 4 toegevoegd aan globale checklist                                                            | RafvanHooijdonk |
+| 2026-06-10 | 1.1    | Deel 1 en Deel 2 voltooid: SCA, SAST en SBOM uitgevoerd op idgen, security backlog (10 findings) in Groep_6_Security-Analyse.md | SimonEulenpesch |
 
 ---
 
@@ -451,7 +450,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | Sprint   | Doel                                        | Bestand                                    | Status          |
 | -------- | ------------------------------------------- | ------------------------------------------ | --------------- |
 | Sprint 1 | Omgeving inrichten & Gap-analyse            | [docs/sprints/sprint1.md](sprints/sprint1.md) | ⚠️ Gedeeltelijk |
-| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ❌ Open         |
+| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ⚠️ Gedeeltelijk |
 | Sprint 3 | Mitigatie, Pentest & Auditrapport (concept) | [docs/sprints/sprint3.md](sprints/sprint3.md) | ❌ Open         |
 | Sprint 4 | Definitief & Oplevering                     | [docs/sprints/sprint4.md](sprints/sprint4.md) | ❌ Open         |
 
@@ -471,8 +470,8 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | - | --------------------------------------------------------------------------- | ------------------------ | --- |
 | 1 | Risicomatrix met minimaal 5 risico's aanwezig                               | ✅ Compliant             | SinanSagir |
 | 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ✅ Compliant             | SinanSagir |
-| 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ⚠️ Tijdelijk compliant |     |
-| 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ❌ Open                  |     |
+| 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ⚠️ Tijdelijk compliant | SimonEulenpesch |
+| 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ✅ Compliant             | SimonEulenpesch |
 | 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ❌ Open                  |     |
 
 ### Eindcheck Sprint 3
