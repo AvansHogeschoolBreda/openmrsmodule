@@ -218,7 +218,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS04A: Compliance Scanning, slide 53](assets/presentaties/ICT-I2.4%20Security%20WS04A%20-%20Compliance%20Scanning.pdf#page=53)
 **Doel:** SAST/SCA scan uitvoeren op de OpenMRS module, resultaten verwerken in een geprioriteerde security backlog en een Risk Assessment Report.
-**Verantwoordelijke:** SimonEulenpesch
+**Verantwoordelijke:** SimonEulenpesch, Rowen Albers
 **Periode:** 2026-06
 **Sprints:**
 
@@ -252,36 +252,36 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Deel 3: Risk Assessment Report (RAR)
 
-| # | Eis                                                                             | Status  | Bewijslast | Wie | Notities |
-| - | ------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
-| 1 | Managementsamenvatting aanwezig (0.5-1 pagina, niet-technisch leesbaar)         | ❌ Open |            |     |          |
-| 2 | Scope & Methodologie beschreven (welke module, tools, periode, wat NIET getest) | ❌ Open |            |     |          |
-| 3 | Top-5 bevindingen beschreven (technisch + business + NEN-7510 koppeling)        | ❌ Open |            |     |          |
-| 4 | Security backlog opgenomen in rapport                                           | ❌ Open |            |     |          |
-| 5 | Kostenraming aanwezig (minimaal 3 kostenposten; fictief maar realistisch)       | ❌ Open |            |     |          |
-| 6 | Conclusie & aanbevelingen aanwezig (go/no-go voor productie-deployment)         | ❌ Open |            |     |          |
-| 7 | Rapport opgeleverd als PDF + bronbestanden in de repo                           | ❌ Open |            |     |          |
+| # | Eis                                                                             | Status       | Bewijslast                        | Wie             | Notities                                                               |
+| - | ------------------------------------------------------------------------------- | ------------ | --------------------------------- | --------------- | ---------------------------------------------------------------------- |
+| 1 | Managementsamenvatting aanwezig (0.5-1 pagina, niet-technisch leesbaar)         | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 1.                       |
+| 2 | Scope & Methodologie beschreven (welke module, tools, periode, wat NIET getest) | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 2.                       |
+| 3 | Top-5 bevindingen beschreven (technisch + business + NEN-7510 koppeling)        | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 4.                       |
+| 4 | Security backlog opgenomen in rapport                                           | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 5.                       |
+| 5 | Kostenraming aanwezig (minimaal 3 kostenposten; fictief maar realistisch)       | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 6.                       |
+| 6 | Conclusie & aanbevelingen aanwezig (go/no-go voor productie-deployment)         | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Zie Groep_6_Risk-Assessment-Report.md sectie 7.                       |
+| 7 | Rapport opgeleverd als PDF + bronbestanden in de repo                           | ✅ Compliant | Groep_6_Risk-Assessment-Report.md | Rowen Albers    | Bronbestand Groep_6_Risk-Assessment-Report.md opgeleverd.             |
 
 ### Samenvatting Opdracht 4
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 12     |
+| ✅ Compliant                | 19     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 7      |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten Opdracht 4
 
-| Actie                            | Prioriteit | Wie |
-| -------------------------------- | ---------- | --- |
-| Risk Assessment Report schrijven | Hoog       |     |
+Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 4
 
-| Datum      | Versie | Wijziging                                                                                               | Door            |
-| ---------- | ------ | ------------------------------------------------------------------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 4 toegevoegd aan globale checklist                                                            | RafvanHooijdonk |
-| 2026-06-10 | 1.1    | Deel 1 en Deel 2 voltooid: SCA, SAST en SBOM uitgevoerd op idgen, security backlog (10 findings) in Groep_6_Security-Analyse.md | SimonEulenpesch |
+| Datum      | Versie | Wijziging                                                                                                                               | Door            |
+| ---------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 4 toegevoegd aan globale checklist                                                                                            | RafvanHooijdonk |
+| 2026-06-10 | 1.1    | Deel 1 en Deel 2 voltooid: SCA, SAST en SBOM uitgevoerd op idgen, security backlog (10 findings) in Groep_6_Security-Analyse.md          | SimonEulenpesch |
+| 2026-06-10 | 1.2    | Deel 3 voltooid: Risk Assessment Report opgeleverd conform rubric en NEN-7510:2026                                                      | SimonEulenpesch |
+| 2026-06-10 | 1.3    | Risk Assessment Report gepolijst met gedetailleerde datavelden, threat actoren en clickable bronnen/CVE/CWE-links | Rowen Albers    |
 
 ---
 
@@ -450,7 +450,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | Sprint   | Doel                                        | Bestand                                    | Status          |
 | -------- | ------------------------------------------- | ------------------------------------------ | --------------- |
 | Sprint 1 | Omgeving inrichten & Gap-analyse            | [docs/sprints/sprint1.md](sprints/sprint1.md) | ⚠️ Gedeeltelijk |
-| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ⚠️ Gedeeltelijk |
+| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ✅ Compliant    |
 | Sprint 3 | Mitigatie, Pentest & Auditrapport (concept) | [docs/sprints/sprint3.md](sprints/sprint3.md) | ❌ Open         |
 | Sprint 4 | Definitief & Oplevering                     | [docs/sprints/sprint4.md](sprints/sprint4.md) | ❌ Open         |
 
@@ -460,7 +460,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | - | -------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
 | 1 | GitHub repository heeft branch protection en Dependabot actief       | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
 | 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                         | RafvanHooijdonk |
-| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ❌ Open                | `Groep_6_Gap-Analyse.md` is aangemaakt, maar nog niet ingevuld.                                                         |                 |
+| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ✅ Compliant             | `Groep_6_Gap-Analyse.md` is ingevuld met 3 controls en concrete bewijzen.                                              | Rowen Albers    |
 | 4 | Alle teamleden hebben een commit bijgedragen                         | ❌ Open                | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
 | 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant           | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 geselecteerde NEN-7510 controls (8.8, 8.15, 5.36). | Rowen Albers    |
 
@@ -472,7 +472,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ✅ Compliant             | SinanSagir |
 | 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ⚠️ Tijdelijk compliant | SimonEulenpesch |
 | 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ✅ Compliant             | SimonEulenpesch |
-| 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ❌ Open                  |     |
+| 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ✅ Compliant             | Rowen Albers |
 
 ### Eindcheck Sprint 3
 
