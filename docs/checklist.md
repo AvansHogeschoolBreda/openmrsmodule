@@ -35,10 +35,10 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                                                   | Status  | Bewijslast | Wie | Notities |
 | - | ----------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
-| 1 | Non-functional requirements voor onderhoudbaarheid bepaald en vastgelegd                              | ❌ Open |            |     | Bijv. max complexiteit, min coverage, duplicatie-drempel |
-| 2 | Tooling ingericht (bijv. Qodana of SonarCloud) die CI laat falen bij niet-voldoen                     | ❌ Open |            |     | Koppelen aan CI-workflow, kwaliteitspoort configureren |
-| 3 | Systematische analyse uitgevoerd met passende metrieken (complexiteit, duplicatie, coupling, enz.)    | ❌ Open |            |     | Resultaten vastgelegd en bruikbaar |
-| 4 | Analyse-resultaten duidelijk gedocumenteerd met onderbouwing per metriek                              | ❌ Open |            |     | Moet direct toepasbaar zijn voor prioritering |
+| 1 | Non-functional requirements voor onderhoudbaarheid bepaald en vastgelegd                              | ✅ Compliant | `Groep_6_Non-Functional-Requirements.md` | RafvanHooijdonk | NFR-1 t/m NFR-9 vastgelegd met drempelwaarden en onderbouwing |
+| 2 | Tooling ingericht (bijv. Qodana of SonarCloud) die CI laat falen bij niet-voldoen                     | ✅ Compliant | `.github/workflows/sonarcloud.yml`, `sonar-project.properties` | RafvanHooijdonk | SonarCloud quality gate gekoppeld aan CI; blokkeert merge bij falen |
+| 3 | Systematische analyse uitgevoerd met passende metrieken (complexiteit, duplicatie, coupling, enz.)    | ⚠️ In uitvoering |            | RafvanHooijdonk | Build moet eerst groen zijn; SonarCloud-baseline nog niet beschikbaar |
+| 4 | Analyse-resultaten duidelijk gedocumenteerd met onderbouwing per metriek                              | ⚠️ In uitvoering | `Groep_6_Non-Functional-Requirements.md` sectie 6 | RafvanHooijdonk | Baseline-tabel gereed; invullen na eerste groene SonarCloud-run |
 
 ---
 
@@ -97,9 +97,9 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 0      |
-| ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 19     |
+| ✅ Compliant                | 2      |
+| ⚠️ In uitvoering            | 2      |
+| ❌ Open / Niet compliant    | 15     |
 
 ### Openstaande actiepunten Opdrachtonderdeel 1
 
