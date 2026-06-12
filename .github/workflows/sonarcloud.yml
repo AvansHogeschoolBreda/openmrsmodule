@@ -40,10 +40,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: openmrs-module-idgen
-          args: >
-            -Dsonar.projectKey=avanshogeschoolbreda
-            -Dsonar.organization=AvansHogeschoolBreda
-            -Dsonar.coverage.jacoco.xmlReportPaths=api/target/site/jacoco/jacoco.xml,omod/target/site/jacoco/jacoco.xml
 
       # Bewaar het coverage-rapport als artifact (bewijslast NFR-4/5)
       - name: Upload JaCoCo coverage report
