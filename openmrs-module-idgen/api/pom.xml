@@ -11,6 +11,11 @@
 	<name>ID Generation API</name>
 	<description>API project for ID Generation</description>
 
+	<properties>
+		<!-- Default leeg; JaCoCo overschrijft dit met zijn agent-argument tijdens verify -->
+		<argLine></argLine>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -29,11 +34,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.4</version>
 				<configuration>
-					<argLine>
-						--add-opens java.base/java.util=ALL-UNNAMED
-						--add-opens java.base/java.lang=ALL-UNNAMED
-						--add-opens java.base/java.lang.reflect=ALL-UNNAMED
-					</argLine>
+					<argLine>${argLine} --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
