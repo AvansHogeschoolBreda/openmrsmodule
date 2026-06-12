@@ -42,10 +42,12 @@ jobs:
           projectBaseDir: openmrs-module-idgen
 
       # Bewaar het coverage-rapport als artifact (bewijslast NFR-4/5)
-      - name: Upload JaCoCo coverage report
+      - name: Upload JaCoCo coverage reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "jacoco-report-${{ github.run_number }}"
-          path: openmrs-module-idgen/target/site/jacoco/
+          path: |
+            openmrs-module-idgen/api/target/site/jacoco/
+            openmrs-module-idgen/omod/target/site/jacoco/
           retention-days: 90
