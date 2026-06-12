@@ -20,5 +20,23 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	
+
+	<build>
+		<plugins>
+			<!-- Fix: XStream uses reflection on JDK internals, blocked by Java 9+ module system -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.4</version>
+				<configuration>
+					<argLine>
+						--add-opens java.base/java.util=ALL-UNNAMED
+						--add-opens java.base/java.lang=ALL-UNNAMED
+						--add-opens java.base/java.lang.reflect=ALL-UNNAMED
+					</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

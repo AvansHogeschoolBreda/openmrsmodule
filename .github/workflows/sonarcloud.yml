@@ -38,7 +38,8 @@ jobs:
             -Dsonar.projectKey=avanshogeschoolbreda \
             -Dsonar.organization=AvansHogeschoolBreda \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+            -DargLine="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
 
       # Blokkeer de PR als de quality gate faalt
       - name: Wait for SonarCloud Quality Gate result
