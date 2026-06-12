@@ -10,13 +10,117 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ## Inhoudsopgave
 
-- [Opdracht 1: Compliance Pipeline](#opdracht-1-compliance-pipeline)
-- [Opdracht 2: Compliance Verslag](#opdracht-2-compliance-verslag)
-- [Opdracht 3: Asset identificatie, Threat modeling &amp; Risico evaluatie](#opdracht-3-asset-identificatie-threat-modeling-risico-evaluatie)
-- [Opdracht 4: Compliance Scanning &amp; Risk Assessment Report](#opdracht-4-compliance-scanning-risk-assessment-report)
-- [Opdracht 5: Secure Coding &amp; Logging](#opdracht-5-secure-coding-logging)
-- [Opdracht 6: Audit Reporting](#opdracht-6-audit-reporting)
+- [Opdrachtonderdeel 1: Verbeteronderzoek Onderhoudbaarheid](#opdrachtonderdeel-1-verbeteronderzoek-onderhoudbaarheid)
+- [Opdrachtonderdeel 2: Verbeteronderzoek Security & Compliance](#opdrachtonderdeel-2-verbeteronderzoek-security--compliance)
+  - [Opdracht 1: Compliance Pipeline](#opdracht-1-compliance-pipeline)
+  - [Opdracht 2: Compliance Verslag](#opdracht-2-compliance-verslag)
+  - [Opdracht 3: Asset identificatie, Threat modeling &amp; Risico evaluatie](#opdracht-3-asset-identificatie-threat-modeling-risico-evaluatie)
+  - [Opdracht 4: Compliance Scanning &amp; Risk Assessment Report](#opdracht-4-compliance-scanning-risk-assessment-report)
+  - [Opdracht 5: Secure Coding, Logging &amp; Penetration Tests](#opdracht-5-secure-coding-logging--penetration-tests)
+  - [Opdracht 6: Audit Reporting](#opdracht-6-audit-reporting)
 - [Sprints](#sprints)
+
+---
+
+## Opdrachtonderdeel 1: Verbeteronderzoek Onderhoudbaarheid
+
+**Bron:** [opdracht.md](assets/rubrics/opdracht.md) + [rubric-onderhoudbaarheid.md](assets/rubrics/rubric-onderhoudbaarheid.md)
+**Doel:** Non-functional requirements opstellen, tooling inrichten (Qodana/SonarCloud), verbeteringen doorvoeren en met testen aantonen dat onderhoudbaarheid is verbeterd zonder regressie.
+**Verantwoordelijke:** 
+**Periode:** 2026-06
+
+---
+
+### Deel 1: Analyse onderhoudbaarheid
+
+| # | Eis                                                                                                   | Status  | Bewijslast | Wie | Notities |
+| - | ----------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Non-functional requirements voor onderhoudbaarheid bepaald en vastgelegd                              | ❌ Open |            |     | Bijv. max complexiteit, min coverage, duplicatie-drempel |
+| 2 | Tooling ingericht (bijv. Qodana of SonarCloud) die CI laat falen bij niet-voldoen                     | ❌ Open |            |     | Koppelen aan CI-workflow, kwaliteitspoort configureren |
+| 3 | Systematische analyse uitgevoerd met passende metrieken (complexiteit, duplicatie, coupling, enz.)    | ❌ Open |            |     | Resultaten vastgelegd en bruikbaar |
+| 4 | Analyse-resultaten duidelijk gedocumenteerd met onderbouwing per metriek                              | ❌ Open |            |     | Moet direct toepasbaar zijn voor prioritering |
+
+---
+
+### Deel 2: Testopzet en testresultaten (vóór verbetering)
+
+| # | Eis                                                                                  | Status  | Bewijslast | Wie | Notities |
+| - | ------------------------------------------------------------------------------------ | ------- | ---------- | --- | -------- |
+| 1 | Relevante tests opgesteld en uitgevoerd (eenheidstests, integratietests, enz.)       | ❌ Open |            |     | Minimaal één testtype; meerdere voor "Goed" |
+| 2 | Testresultaten duidelijk en bruikbaar vastgelegd                                     | ❌ Open |            |     | Bijv. via Maven Surefire rapport of JaCoCo |
+| 3 | Teststrategie beschreven (welke typen, scope, tools)                                 | ❌ Open |            |     |          |
+
+---
+
+### Deel 3: Verbeteringen — prioritering en onderbouwing
+
+| # | Eis                                                                                             | Status  | Bewijslast | Wie | Notities |
+| - | ----------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Geprioriteerde lijst verbeteringen vastgelegd                                                   | ❌ Open |            |     | Minimaal 3 concrete verbeterpunten |
+| 2 | Prioritering onderbouwd met criteria (bijv. impact, effort, risiconiveau)                       | ❌ Open |            |     |          |
+| 3 | Verwijzing naar analyse-resultaten en testresultaten verwerkt in de onderbouwing                | ❌ Open |            |     | Traceerbaarheid: bevinding → verbetering |
+
+---
+
+### Deel 4: Aangepast ontwerp
+
+| # | Eis                                                                                                     | Status  | Bewijslast | Wie | Notities |
+| - | ------------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Aangepast ontwerp aanwezig voor geselecteerde verbeteringen                                             | ❌ Open |            |     | UML, diagram of beschrijving |
+| 2 | Ontwerp onderbouwd met ontwerpprincipes (bijv. SOLID, DRY, KISS)                                       | ❌ Open |            |     |          |
+| 3 | Ontwerppatronen en/of refactoringpatronen benoemd en toegepast                                         | ❌ Open |            |     | Bijv. Extract Method, Strategy Pattern |
+| 4 | Alternatieven overwogen en gemotiveerde keuze gemaakt (voor "Goed")                                     | ❌ Open |            |     |          |
+
+---
+
+### Deel 5: Realisatie (PoC) & verantwoording
+
+| # | Eis                                                                                         | Status  | Bewijslast | Wie | Notities |
+| - | ------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Verbeteringen gerealiseerd in een PoC dat overeenkomt met het ontwerp                       | ❌ Open |            |     | Code in repository als PR of branch |
+| 2 | Gebruik van (AI-)tooling beschreven en verantwoord                                          | ❌ Open |            |     | Welke tool, hoe gebruikt, wat was het resultaat |
+| 3 | Kritische reflectie op toolinggebruik aanwezig (voor "Goed")                                | ❌ Open |            |     | Wat werkte wel/niet, welke keuzes zijn handmatig gemaakt |
+
+---
+
+### Deel 6: Validatie verbeteringen — testen & regressie
+
+| # | Eis                                                                                              | Status  | Bewijslast | Wie | Notities |
+| - | ------------------------------------------------------------------------------------------------ | ------- | ---------- | --- | -------- |
+| 1 | Tests na verbetering uitgevoerd en resultaten vastgelegd                                         | ❌ Open |            |     |          |
+| 2 | Aantoonbaar dat onderhoudbaarheid is verbeterd (metriek voor vs. na)                             | ❌ Open |            |     | Bijv. SonarCloud score, complexiteitsreductie |
+| 3 | Aantoonbaar dat geen regressie is opgetreden (bestaande tests nog groen)                         | ❌ Open |            |     | CI-run na merge |
+
+---
+
+### Samenvatting Opdrachtonderdeel 1
+
+| Categorie                   | Aantal |
+| --------------------------- | ------ |
+| ✅ Compliant                | 0      |
+| ⚠️ Gedeeltelijk/Tijdelijk | 0      |
+| ❌ Open / Niet compliant    | 19     |
+
+### Openstaande actiepunten Opdrachtonderdeel 1
+
+| Actie                                                               | Prioriteit | Wie |
+| ------------------------------------------------------------------- | ---------- | --- |
+| Non-functional requirements opstellen                               | Hoog       |     |
+| Qodana of SonarCloud koppelen aan CI-pipeline                       | Hoog       |     |
+| Systematische onderhoudbaarheidsanalyse uitvoeren en documenteren   | Hoog       |     |
+| Verbeteringen prioriteren en ontwerpen (met patronen)               | Hoog       |     |
+| PoC realiseren conform ontwerp + AI-tooling verantwoorden           | Hoog       |     |
+| Validatie: testen voor én na, regressie aantonen                    | Hoog       |     |
+
+### Wijzigingslog Opdrachtonderdeel 1
+
+| Datum      | Versie | Wijziging                                              | Door            |
+| ---------- | ------ | ------------------------------------------------------ | --------------- |
+| 2026-06-12 | 1.0    | Opdrachtonderdeel 1 toegevoegd aan globale checklist   | RafvanHooijdonk |
+
+---
+
+## Opdrachtonderdeel 2: Verbeteronderzoek Security & Compliance
 
 ---
 
@@ -285,16 +389,16 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ---
 
-## Opdracht 5: Secure Coding & Logging
+## Opdracht 5: Secure Coding, Logging & Penetration Tests
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
-**Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, code coverage activeren in CI.
+**Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, kwetsbaarheden aantonen via penetration tests, mitigeren en valideren, DPIA-check uitvoeren, code coverage activeren in CI.
 **Verantwoordelijke:** 
 **Periode:** 2026-06
 **Sprints:**
 
-- **Sprint 3:** PoC Mitigatie, Attack Surface, en Pentestrapportage mitigatie (Taken 3.1, 3.2, 3.3)
-- **Sprint 4:** PoC afronden en Pentestrapportages samenvoegen (Taken 4.2, 4.3)
+- **Sprint 3:** PoC Mitigatie, Attack Surface, Pentestrapportage voor mitigatie, DPIA-check (Taken 3.1, 3.2, 3.3, 3.4)
+- **Sprint 4:** PoC afronden, Pentestrapportage na mitigatie, rapportages samenvoegen (Taken 4.2, 4.3)
 
 ### Deel 1: Attack Surface Mapping
 
@@ -333,7 +437,41 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 3 | JUnit-test (negatief): logbericht bevat geen BSN | ❌ Open |            |     |                                 |
 | 4 | Alle tests slagen (mvn test geeft groen)         | ❌ Open |            |     |                                 |
 
-### Deel 5: Code Coverage
+### Deel 5: DPIA-check
+
+| # | Eis                                                                                                         | Status  | Bewijslast | Wie | Notities |
+| - | ----------------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Vastgesteld of verwerking van persoonsgegevens plaatsvindt in de module                                     | ❌ Open |            |     | Medische data, patiënt-ID's, logs met gebruikersdata |
+| 2 | Bepaald of een volledige DPIA vereist is (AVG art. 35 drempelcriteria getoetst)                             | ❌ Open |            |     | Zorg = hoog risico → waarschijnlijk DPIA-plichtig |
+| 3 | Risico's t.a.v. privacy vastgelegd met mitigerende maatregelen                                              | ❌ Open |            |     | Koppeling aan NEN-7510 controls en privacy by design |
+| 4 | DPIA-check gedocumenteerd in de repo                                                                        | ❌ Open |            |     |          |
+
+---
+
+### Deel 6: Penetration Tests — aantonen kwetsbaarheden
+
+| # | Eis                                                                                                       | Status  | Bewijslast | Wie | Notities |
+| - | --------------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Minimaal één kritische kwetsbaarheid (uit backlog Opdracht 4) geselecteerd voor pentest                   | ❌ Open |            |     | Kies bijv. hoogste CVSS uit SCA-01 t/m SCA-06 |
+| 2 | Pentest vóór mitigatie uitgevoerd en navolgbaar gedocumenteerd (tool, commando's, output)                 | ❌ Open |            |     | Bijv. OWASP ZAP, Burp Suite, curl-aanval |
+| 3 | Misbruik van de kwetsbaarheid is aangetoond (screenshot/log als bewijs)                                   | ❌ Open |            |     |          |
+| 4 | Pentest-rapport vóór mitigatie opgeslagen in repo                                                         | ❌ Open |            |     |          |
+
+---
+
+### Deel 7: Mitigatie & validatie
+
+| # | Eis                                                                                                        | Status  | Bewijslast | Wie | Notities |
+| - | ---------------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
+| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR                                         | ❌ Open |            |     | PR-nummer als bewijslast |
+| 2 | Gebruik van (AI-)tooling bij realisatie beschreven en verantwoord                                          | ❌ Open |            |     |          |
+| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd                                 | ❌ Open |            |     | Vergelijkbaar scenario als vóór-pentest |
+| 4 | Pentest-rapport ná mitigatie opgeslagen in repo                                                            | ❌ Open |            |     |          |
+| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)                                    | ❌ Open |            |     | Koppeling aan NEN-7510 control |
+
+---
+
+### Deel 8: Code Coverage
 
 | # | Eis                                                        | Status  | Bewijslast | Wie | Notities |
 | - | ---------------------------------------------------------- | ------- | ---------- | --- | -------- |
@@ -347,22 +485,27 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | --------------------------- | ------ |
 | ✅ Compliant                | 0      |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 21     |
+| ❌ Open / Niet compliant    | 38     |
 
 ### Openstaande actiepunten Opdracht 5
 
-| Actie                                           | Prioriteit | Wie |
-| ----------------------------------------------- | ---------- | --- |
-| Attack surface mapping uitvoeren                | Hoog       |     |
-| Logging gap-analyse uitvoeren                   | Hoog       |     |
-| Compliant audit logging implementeren en testen | Hoog       |     |
-| JaCoCo activeren in CI                          | Hoog       |     |
+| Actie                                              | Prioriteit | Wie |
+| -------------------------------------------------- | ---------- | --- |
+| Attack surface mapping uitvoeren                   | Hoog       |     |
+| Logging gap-analyse uitvoeren                      | Hoog       |     |
+| Compliant audit logging implementeren en testen    | Hoog       |     |
+| DPIA-check uitvoeren en documenteren               | Hoog       |     |
+| Pentest vóór mitigatie uitvoeren en documenteren   | Hoog       |     |
+| Kwetsbaarheid mitigeren via PR                     | Hoog       |     |
+| Pentest ná mitigatie uitvoeren en vergelijken      | Hoog       |     |
+| JaCoCo activeren in CI                             | Hoog       |     |
 
 ### Wijzigingslog Opdracht 5
 
-| Datum      | Versie | Wijziging                                   | Door            |
-| ---------- | ------ | ------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist | RafvanHooijdonk |
+| Datum      | Versie | Wijziging                                                                        | Door            |
+| ---------- | ------ | -------------------------------------------------------------------------------- | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist                                      | RafvanHooijdonk |
+| 2026-06-12 | 1.1    | Deel 5 (DPIA), Deel 6 (Pentest voor), Deel 7 (Mitigatie+validatie) toegevoegd; naam aangepast | RafvanHooijdonk |
 
 ---
 
