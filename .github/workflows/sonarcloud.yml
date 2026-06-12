@@ -27,25 +27,23 @@ jobs:
           distribution: "temurin"
           cache: "maven"
 
-      # JaCoCo coverage + Sonar analyse in één Maven-run
-      - name: Build, test & analyze with SonarCloud
+      # Stap 1: Maven verify → JaCoCo XML genereren (Java 11, geen sonar-maven-plugin nodig)
+      - name: Build & test with Maven (generates JaCoCo coverage)
         working-directory: openmrs-module-idgen
+        run: mvn -B verify
+
+      # Stap 2: Sonar analyse via standalone scanner action (eigen JRE, vereist geen Java 17 in runner)
+      - name: SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-            -Dsonar.projectKey=avanshogeschoolbreda \
-            -Dsonar.organization=AvansHogeschoolBreda \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-
-      # Blokkeer de PR als de quality gate faalt
-      - name: Wait for SonarCloud Quality Gate result
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: openmrs-module-idgen
+          args: >
+            -Dsonar.projectKey=avanshogeschoolbreda
+            -Dsonar.organization=AvansHogeschoolBreda
+            -Dsonar.coverage.jacoco.xmlReportPaths=api/target/site/jacoco/jacoco.xml,omod/target/site/jacoco/jacoco.xml
 
       # Bewaar het coverage-rapport als artifact (bewijslast NFR-4/5)
       - name: Upload JaCoCo coverage report
