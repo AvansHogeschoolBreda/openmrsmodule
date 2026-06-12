@@ -35,17 +35,17 @@ De analyse is uitgevoerd langs vier ISO 25010-kwaliteitskenmerken voor onderhoud
 | Metriek                              | api/src                               | omod/src                           | Totaal              |
 | ------------------------------------ | ------------------------------------- | ---------------------------------- | ------------------- |
 | Productiebestanden                   | 37                                    | 20                                 | 57                  |
-| Testbestanden                        | —                                    | —                                 | 29 (aparte telling) |
+| Testbestanden                        | n.v.t.                                | n.v.t.                             | 29 (aparte telling) |
 | Lines of Code (SonarCloud)           | 2.098                                 | 2.214                              | 4.312               |
-| Grootste bestand (LOC)               | `BaseIdentifierSourceService` (272) | `IdentifierSourceResource` (498) |                     |
+| Grootste bestand (LOC)               | `BaseIdentifierSourceService` (272) | `IdentifierSourceResource` (498) | zie per module      |
 | Open issues                          | 94                                    | 110                                | 204                 |
 | Nieuwe issues (new code)             | 34                                    | 31                                 | 65                  |
 | Security vulnerability               | 1                                     | 0                                  | 1                   |
 | Reliability issues                   | 2                                     | 0                                  | 2                   |
 | Maintainability issues (code smells) | 91                                    | 110                                | 201                 |
 | Security Hotspots (unreviewed)       | 0                                     | 0                                  | 0                   |
-| Quality Gate Status                  |                                       |                                    | **Gefaald**   |
-| Analyse-datum                        | 12/06/2026                            |                                    |                     |
+| Quality Gate Status                  | n.v.t.                                | n.v.t.                             | **Gefaald**   |
+| Analyse-datum                        | 12/06/2026                            | 12/06/2026                         | 12/06/2026          |
 
 > De Quality Gate faalt omdat "Coverage on New Code" (50%) onder de drempel van 60% valt.
 
@@ -71,7 +71,7 @@ Cognitive Complexity is gemeten via SonarCloud (rule `java:S3776`). Dit is een m
 | `LuhnModNIdentifierValidator`            | api    | 87              | 23            | 0.26   | Hoog risico             |
 | `AutoGenerationOptionController`         | omod   | 95              | 16            | 0.17   | Matig                   |
 | `LogEntryResource`                       | omod   | 151             | 16            | 0.11   | Matig                   |
-| **Totaal project**                   |        | **4.312** | **668** | 0.15   |                         |
+| **Totaal project**                   | beide  | **4.312** | **668** | 0.15   | n.v.t.                  |
 
 ### 3.3 Brain Methods (SonarCloud: Cognitive Complexity > 15 per methode)
 
@@ -79,8 +79,8 @@ Cognitive Complexity is gemeten via SonarCloud (rule `java:S3776`). Dit is een m
 | ------------------------------------------ | --------------- | ------------- | --- | ----------- | ------- | ---------- | ----------- |
 | `IdentifierSourceResource`               | L142            | **101** | 15  | 165         | 3       | 37         | 1h 31min    |
 | `IdentifierSourceResource`               | L318            | **106** | 15  | 144         | 4       | 39         | 1h 36min    |
-| `SequentialIdentifierGeneratorValidator` | L41             | 27            | 15  | —          | —      | —         | 17min       |
-| `IdgenEditPatientIdentifiersController`  | L44             | 16            | 15  | —          | —      | —         | 6min        |
+| `SequentialIdentifierGeneratorValidator` | L41             | 27            | 15  | 56          | 3      | 8         | 17min       |
+| `IdgenEditPatientIdentifiersController`  | L44             | 16            | 15  | 104         | 2      | 6         | 6min        |
 
 `IdentifierSourceResource` bevat twee methoden die de CC-limiet met een factor 7 overschrijden. SonarCloud classificeert beide als "Brain Method": methoden zo complex dat ze vrijwel niet te begrijpen zijn zonder volledige kennis van de klasse. De klasse zelf heeft 498 LOC en een totale CC van 223, wat overeen komt met de zwaarste outlier in de Maintainability Overview (>5h technische schuld, ~450+ LOC op het scatterplot).
 
@@ -101,10 +101,10 @@ Gemeten via SonarCloud (Measures > Duplications, per bestand).
 | Metriek                     | api/src | omod/src | Totaal | NFR-drempel | Status       |
 | --------------------------- | ------- | -------- | ------ | ----------- | ------------ |
 | Duplicated Lines (%)        | 2.6%    | 10.8%    | 5.8%   | 3%          | Niet voldaan |
-| Duplicated Lines (absoluut) | 112     | 293      | 405    |             |              |
-| Duplicated Blocks           | 4       | 15       | 19     |             |              |
-| Duplicated Files            | 3       | 8        | 11     |             |              |
-| New code duplicatie         | 0.0%    | 0.0%     | 0.0%   |             | Voldaan      |
+| Duplicated Lines (absoluut) | 112     | 293      | 405    | n.v.t.      | n.v.t.       |
+| Duplicated Blocks           | 4       | 15       | 19     | n.v.t.      | n.v.t.       |
+| Duplicated Files            | 3       | 8        | 11     | n.v.t.      | n.v.t.       |
+| New code duplicatie         | 0.0%    | 0.0%     | 0.0%   | n.v.t.      | Voldaan      |
 
 ### 4.3 Duplicatie per bestand (bestanden met gedupliceerde blokken)
 
@@ -151,7 +151,7 @@ Gemeten via JaCoCo, gegenereerd tijdens `mvn verify`, gerapporteerd in SonarClou
 | Line coverage             | 54.3%              | 46.9%              | 50.0%  | 70%         | Niet voldaan  |
 | Branch/condition coverage | n.v.t. (Free-plan) | n.v.t. (Free-plan) | n.v.t. | 50%         | Niet meetbaar |
 
-### 5.3 Coverage per bestand — kritieke klassen (0% coverage)
+### 5.3 Coverage per bestand: kritieke klassen (0% coverage)
 
 | Bestand                                    | Module | Coverage       | Uncovered Lines | Uncovered Cond. |
 | ------------------------------------------ | ------ | -------------- | --------------- | --------------- |
@@ -160,14 +160,14 @@ Gemeten via JaCoCo, gegenereerd tijdens `mvn verify`, gerapporteerd in SonarClou
 | `IdentifierTableHeaderExtension`         | omod   | **0.0%** | 22              | 14              |
 | `RemoteIdentifierSourceValidator`        | api    | **0.0%** | 6               | 2               |
 | `IdentifierSourceValidator`              | api    | **0.0%** | 6               | 2               |
-| `IdgenModuleActivator`                   | api    | **0.0%** | 9               | —              |
-| `IdgenConstants`                         | api    | **0.0%** | 1               | —              |
+| `IdgenModuleActivator`                   | api    | **0.0%** | 9               | 0               |
+| `IdgenConstants`                         | api    | **0.0%** | 1               | 0               |
 | `ExceptionUtils`                         | api    | **0.0%** | 6               | 10              |
-| `AdminList`                              | omod   | **0.0%** | 8               | —              |
+| `AdminList`                              | omod   | **0.0%** | 8               | 0               |
 
-`SequentialIdentifierGeneratorValidator` heeft 0% coverage met 22 uncovered conditions — dit is de validator die ID-formaten valideert. In een medisch systeem is dit een ernstig testgat.
+`SequentialIdentifierGeneratorValidator` heeft 0% coverage met 22 uncovered conditions; dit is de validator die ID-formaten valideert. In een medisch systeem is dit een ernstig testgat.
 
-### 5.4 Coverage per bestand — laagste non-zero coverage
+### 5.4 Coverage per bestand: laagste non-zero coverage
 
 | Bestand                                   | Module | Coverage | Uncovered Lines | Uncovered Cond. |
 | ----------------------------------------- | ------ | -------- | --------------- | --------------- |
@@ -183,11 +183,11 @@ Gemeten via JaCoCo, gegenereerd tijdens `mvn verify`, gerapporteerd in SonarClou
 
 ### 5.5 Bestanden met 100% coverage
 
-Zeven bestanden bereiken 100% coverage: `IdentifierSource`, `IdentifierSourceProcessor`, `LuhnMod10IdentifierValidator`, `LuhnMod25IdentifierValidator`, `LuhnMod30IdentifierValidator`, `PrefixProvider`, `SuffixProvider`. Dit zijn echter kleine interface- of wrapper-klassen (4–7 LOC).
+Zeven bestanden bereiken 100% coverage: `IdentifierSource`, `IdentifierSourceProcessor`, `LuhnMod10IdentifierValidator`, `LuhnMod25IdentifierValidator`, `LuhnMod30IdentifierValidator`, `PrefixProvider`, `SuffixProvider`. Dit zijn echter kleine interface- of wrapper-klassen (4 tot 7 LOC).
 
 ### 5.6 Onderbouwing
 
-Het globale beeld is dat de kritieke logica (validator, controller, resource) vrijwel ongetest is, terwijl eenvoudige interfaces volledig gedekt zijn. Om van 50% naar 70% te komen moeten primair de nul-coverage klassen aangepakt worden — met name `SequentialIdentifierGeneratorValidator` (de ID-formaat-validator met 22 uncovered conditions).
+Het globale beeld is dat de kritieke logica (validator, controller, resource) vrijwel ongetest is, terwijl eenvoudige interfaces volledig gedekt zijn. Om van 50% naar 70% te komen moeten primair de nul-coverage klassen aangepakt worden, met name `SequentialIdentifierGeneratorValidator` (de ID-formaat-validator met 22 uncovered conditions).
 
 ---
 
@@ -209,7 +209,7 @@ Gemeten via het aantal imports per klasse als proxy voor efferente koppeling (fa
 
 ### 6.3 Onderbouwing
 
-`HibernateIdentifierSourceDAO` en `BaseIdentifierSourceService` zijn sterk gekoppeld aan OpenMRS-interne klassen (Hibernate SessionFactory, Context, Spring). Dit is deels onvermijdelijk in een OpenMRS-module, maar `BaseIdentifierSourceService` heeft 272 LOC met CC 32 — een klassiek God Class-antipatroon. Een splitsing in een aparte query-klasse en service-klasse zou koppeling en complexiteit beiden verlagen.
+`HibernateIdentifierSourceDAO` en `BaseIdentifierSourceService` zijn sterk gekoppeld aan OpenMRS-interne klassen (Hibernate SessionFactory, Context, Spring). Dit is deels onvermijdelijk in een OpenMRS-module, maar `BaseIdentifierSourceService` heeft 272 LOC met CC 32, een klassiek God Class-antipatroon. Een splitsing in een aparte query-klasse en service-klasse zou koppeling en complexiteit beiden verlagen.
 
 ---
 
@@ -220,7 +220,7 @@ Gemeten via het aantal imports per klasse als proxy voor efferente koppeling (fa
 | Metriek                               | api/src | omod/src | Totaal         | Beoordeling       |
 | ------------------------------------- | ------- | -------- | -------------- | ----------------- |
 | Maintainability Rating (overall code) | A       | A        | **A**    | Voldoet aan NFR-6 |
-| Technical Debt Ratio (overall code)   | —      | —       | **1.4%** | Voldoet aan NFR-7 |
+| Technical Debt Ratio (overall code)   | n.v.t. | n.v.t.  | **1.4%** | Voldoet aan NFR-7 |
 | Code smells (totaal)                  | 91      | 110      | 201            | Verbeterpunt      |
 | Code smells (nieuwe code)             | 34      | 31       | 65             | Verbeterpunt      |
 | Vulnerability                         | 1       | 0        | 1              | Zie 7.5           |
@@ -233,9 +233,9 @@ Gemeten via het aantal imports per klasse als proxy voor efferente koppeling (fa
 | Toegevoegde technische schuld      | 3h 50min    | 1h 41min | **5h 31min**      |
 | Technical Debt Ratio (new code)    | 23.3%       | 0.0%     | **23.3%**         |
 | Maintainability Rating (new code)  | **D** | A        | **D**             |
-| Totale inspanning alle open issues | —          | —       | **3 dagen 7 uur** |
+| Totale inspanning alle open issues | n.v.t.     | n.v.t.  | **3 dagen 7 uur** |
 
-De overall Technical Debt Ratio van **1.4%** voldoet aan NFR-7 (drempel 10%). Op nieuwe code echter is de ratio 23.3% (api/src) — toekomstige PRs moeten actief code smells voorkomen.
+De overall Technical Debt Ratio van **1.4%** voldoet aan NFR-7 (drempel 10%). Op nieuwe code echter is de ratio 23.3% (api/src); toekomstige PRs moeten actief code smells voorkomen.
 
 ### 7.3 Code smells per bestand (top 10)
 
@@ -277,7 +277,7 @@ Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest
 
 ### 7.7 Multi-threading risico (Critical severity)
 
-`LocationBasedPrefixProvider` (L73, L78) en `LocationBasedSuffixProvider` (L73, L78) bevatten elk twee Critical code smells: `Make the enclosing method "static" or remove this set`. Een non-static methode past een instantievariabele van het type `Set` aan zonder synchronisatie. In een multi-threaded OpenMRS-omgeving (meerdere HTTP-requests tegelijk) leidt dit tot race conditions bij ID-generatie met locatie-gebaseerde prefixen of suffixen. De technische schuld ratio van beide bestanden is 3.6% — hoogste in de codebase. Fix: methode static maken of het `Set`-veld verwijderen.
+`LocationBasedPrefixProvider` (L73, L78) en `LocationBasedSuffixProvider` (L73, L78) bevatten elk twee Critical code smells: `Make the enclosing method "static" or remove this set`. Een non-static methode past een instantievariabele van het type `Set` aan zonder synchronisatie. In een multi-threaded OpenMRS-omgeving (meerdere HTTP-requests tegelijk) leidt dit tot race conditions bij ID-generatie met locatie-gebaseerde prefixen of suffixen. De technische schuld ratio van beide bestanden is 3.6%, de hoogste in de codebase. Fix: methode static maken of het `Set`-veld verwijderen.
 
 ---
 
