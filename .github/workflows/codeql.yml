@@ -37,6 +37,7 @@ jobs:
           queries: security-and-quality
 
       - name: Build with Maven
+        working-directory: openmrs-module-idgen
         run: mvn -B clean package -DskipTests
         continue-on-error: true
 

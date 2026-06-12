@@ -139,12 +139,12 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | #  | Eis                                                                        | Status                   | Bewijslast                                                | Wie             | Notities                                                                                                                                                                                                                                          |
 | -- | -------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1  | Branch protection actief op `main`: alleen via PR, reviews verplicht     | ⚠️ Tijdelijk compliant | Settings → Branches →`main` rule aanwezig             | RafvanHooijdonk | Regel geconfigureerd, maar wacht op goedkeuring docent i.v.m. limitatie Free plan (not enforced)                                                                                                                                                  |
-| 2  | Alle CI-checks slagen voor merge (build, test, SAST)                       | ⚠️ Tijdelijk compliant | `.github/workflows/ci.yml` aanwezig                     | RafvanHooijdonk | CI workflow actief. Tijdelijke stub `pom.xml` toegevoegd zodat Maven build & test slagen. **Let op:** zodra de echte OpenMRS module wordt toegevoegd, moet `pom.xml` worden vervangen of overschreven door de module-eigen `pom.xml`. |
-| 3  | **CodeQL** of gelijkwaardige SAST actief                             | ⚠️ Tijdelijk compliant | `.github/workflows/codeql.yml`                          | RafvanHooijdonk | CodeQL actief op push, PR en wekelijks schedule. Runs slagen, maar scant momenteel alleen een lege stub.                                                                                                                                          |
-| 4  | **Secret Scanning** actief                                           | ❌ Niet compliant        | Settings → Advanced Security                             | RafvanHooijdonk | Niet beschikbaar op GitHub Free plan voor private repos. Vereist GitHub Advanced Security (betaald)                                                                                                                                               |
-| 5  | **Dependabot** alerts + security updates actief                      | ⚠️ Tijdelijk compliant | Settings → Advanced Security +`.github/dependabot.yml` | RafvanHooijdonk | Alerts enabled, wekelijkse updates. Monitort momenteel alleen stub `pom.xml` (enkel JUnit). Pas volledig effectief met echte module-dependencies.                                                                                               |
-| 6  | **Dependency Review Action** gekoppeld aan PR's                      | ⚠️ Tijdelijk compliant | `.github/workflows/dependency-review.yml`               | RafvanHooijdonk | Actief op PR naar `main`, blokkeert HIGH/CRITICAL, weigert GPL-3.0 en AGPL-3.0. Reviewt momenteel minimale stub-dependencies.                                                                                                                   |
-| 7  | **SBOM** wordt gegenereerd (CycloneDX of SPDX) en geanalyseerd (SCA) | ⚠️ Tijdelijk compliant | `.github/workflows/sbom.yml` + Actions artifacts        | RafvanHooijdonk | CycloneDX JSON via Anchore/Syft op elke push naar `main`. SBOM bevat momenteel alleen stub-dependencies.                                                                                                                                        |
+| 2  | Alle CI-checks slagen voor merge (build, test, SAST)                       | ✅ Compliant             | `.github/workflows/ci.yml`                              | RafvanHooijdonk | Workflows draaien op echte idgen-module (`working-directory: openmrs-module-idgen`). Stub `pom.xml` niet langer gebruikt. |
+| 3  | **CodeQL** of gelijkwaardige SAST actief                             | ✅ Compliant             | `.github/workflows/codeql.yml`                          | RafvanHooijdonk | CodeQL scant echte idgen-broncode op push, PR en wekelijks schedule. |
+| 4  | **Secret Scanning** actief                                           | ❌ Niet compliant        | Settings → Advanced Security                             | RafvanHooijdonk | Niet beschikbaar op GitHub Free plan voor private repos. Vereist GitHub Advanced Security (betaald). |
+| 5  | **Dependabot** alerts + security updates actief                      | ✅ Compliant             | Settings → Advanced Security + `.github/dependabot.yml` | RafvanHooijdonk | Monitort echte idgen-dependencies, wekelijkse updates. |
+| 6  | **Dependency Review Action** gekoppeld aan PR's                      | ✅ Compliant             | `.github/workflows/dependency-review.yml`               | RafvanHooijdonk | Actief op PR naar `main`, blokkeert HIGH/CRITICAL, weigert GPL-3.0 en AGPL-3.0. |
+| 7  | **SBOM** wordt gegenereerd (CycloneDX of SPDX) en geanalyseerd (SCA) | ✅ Compliant             | `.github/workflows/sbom.yml` + Actions artifacts        | RafvanHooijdonk | CycloneDX JSON via Anchore/Syft op `path: openmrs-module-idgen`. Bevat echte idgen-dependencies. |
 | 8  | **GitHub Environments** gedefinieerd met protection rules            | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` (1 protection rule, 1 secret) en `test` (1 secret) aanwezig                                                                                                                                                                      |
 | 9  | Secrets gescheiden per environment                                         | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` en `test` hebben elk eigen geïsoleerde secrets                                                                                                                                                                                  |
 | 10 | Pipeline-artifacts (rapporten, SBOM) worden bewaard                        | ⚠️ Gedeeltelijk        | Actions → SBOM run → Artifacts                          | RafvanHooijdonk | Retentie is 90 dagen (free plan maximum). Geconfigureerde 365 dagen wordt automatisch teruggebracht                                                                                                                                               |
@@ -154,17 +154,15 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 3      |
-| ⚠️ Gedeeltelijk/Tijdelijk | 7      |
+| ✅ Compliant                | 8      |
+| ⚠️ Gedeeltelijk/Tijdelijk | 1      |
 | ❌ Niet compliant           | 1      |
 
 ### Openstaande actiepunten
 
 **Oplosbaar zonder plan-upgrade:**
 
-| Actie                                                                                                          | Prioriteit | Wie |
-| -------------------------------------------------------------------------------------------------------------- | ---------- | --- |
-| Echte OpenMRS module toevoegen en stub `pom.xml` vervangen door module-eigen `pom.xml` (fix eis #2 t/m #7) | Hoog       |     |
+Geen — alle oplosbare punten zijn verholpen na toevoeging van de echte idgen-module.
 
 **Vereist GitHub plan-upgrade (Team of Enterprise):**
 
@@ -190,6 +188,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-03 | 1.9    | Checklist omgezet naar globaal formaat met opdrachten als secties          | RafvanHooijdonk |
 | 2026-06-03 | 1.10   | Module-keuze idgen en 3 geselecteerde NEN-7510 controls gedocumenteerd      | Rowen Albers    |
 | 2026-06-03 | 1.11   | Alle NEN-7510 jaartal-referenties geüpdatet van 2024 naar 2026              | Rowen Albers    |
+| 2026-06-12 | 1.12   | Eisen #2, #3, #5, #6, #7 naar ✅ Compliant: alle workflows omgezet naar echte idgen-module, stub `pom.xml` niet langer gebruikt | RafvanHooijdonk |
 
 ---
 
@@ -601,8 +600,8 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 
 | # | Check                                                                | Status                 | Notities                                                                                                                | Wie             |
 | - | -------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------- |
-| 1 | GitHub repository heeft branch protection en Dependabot actief       | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief. | RafvanHooijdonk |
-| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ⚠️ Tijdelijk compliant | `sbom.yml` actief en artifact aangemaakt. Draait op stub, niet op echte module.                                         | RafvanHooijdonk |
+| 1 | GitHub repository heeft branch protection en Dependabot actief       | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief op echte idgen-module. | RafvanHooijdonk |
+| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ✅ Compliant           | `sbom.yml` actief op echte idgen-module (`path: openmrs-module-idgen`). Artifact aangemaakt met echte dependencies.     | RafvanHooijdonk |
 | 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ✅ Compliant             | `Groep_6_Gap-Analyse.md` is ingevuld met 3 controls en concrete bewijzen.                                              | Rowen Albers    |
 | 4 | Alle teamleden hebben een commit bijgedragen                         | ❌ Open                | Niet verifieerbaar vanuit deze context.                                                                                 | Iedereen        |
 | 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant           | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 geselecteerde NEN-7510 controls (8.8, 8.15, 5.36). | Rowen Albers    |
@@ -613,7 +612,7 @@ De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
 | - | --------------------------------------------------------------------------- | ------------------------ | --- |
 | 1 | Risicomatrix met minimaal 5 risico's aanwezig                               | ✅ Compliant             | SinanSagir |
 | 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ✅ Compliant             | SinanSagir |
-| 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ⚠️ Tijdelijk compliant | SimonEulenpesch |
+| 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ✅ Compliant             | SimonEulenpesch |
 | 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ✅ Compliant             | SimonEulenpesch |
 | 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ✅ Compliant             | Rowen Albers |
 

@@ -20,7 +20,7 @@ jobs:
       - name: Generate SBOM (CycloneDX via Anchore)
         uses: anchore/sbom-action@v0
         with:
-          path: "."
+          path: "openmrs-module-idgen"
           format: "cyclonedx-json"
           output-file: "sbom.cyclonedx.json"
           artifact-name: "sbom-${{ github.sha }}.cyclonedx.json"

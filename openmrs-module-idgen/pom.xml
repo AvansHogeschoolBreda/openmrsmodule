@@ -175,6 +175,15 @@
 		
 		<pluginManagement>
 			<plugins>
+				<!-- Fix: messages_de.properties is ISO-8859-1 (Java legacy), niet UTF-8 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.4.0</version>
+					<configuration>
+						<propertiesEncoding>ISO-8859-1</propertiesEncoding>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
