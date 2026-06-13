@@ -403,11 +403,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | # | Eis                                                                                   | Status  | Bewijslast | Wie | Notities                                           |
 | - | ------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------------------- |
-| 1 | Alle HTTP-endpoints geidentificeerd (pad, methode, vereiste privileges)               | ❌ Open |            |     | Zoek op @GetMapping, @PostMapping, @RequestMapping |
-| 2 | Externe inputs gedocumenteerd (gebruikersinvoer, uploads, omgevingsvariabelen)        | ❌ Open |            |     |                                                    |
-| 3 | Diagram gemaakt met vertrouwensmodel (hoge-risico entry points gemarkeerd)            | ❌ Open |            |     |                                                    |
-| 4 | Per entry point: inputvalidatie en autorisatiecheck gedocumenteerd, gaps beschreven   | ❌ Open |            |     | Koppeling aan NEN-7510 8.25                        |
-| 5 | Deliverable: tabel Endpoint / Methode / Privilege / Inputvalidatie / Autorisatiecheck | ❌ Open |            |     |                                                    |
+| 1 | Alle HTTP-endpoints geidentificeerd (pad, methode, vereiste privileges)               | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Geïdentificeerd in sectie 4 van het rapport |
+| 2 | Externe inputs gedocumenteerd (gebruikersinvoer, uploads, omgevingsvariabelen)        | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Gedocumenteerd in sectie 3 (register) |
+| 3 | Diagram gemaakt met vertrouwensmodel (hoge-risico entry points gemarkeerd)            | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Systeemgrenzen & vertrouwensmodel met Mermaid in sectie 2 |
+| 4 | Per entry point: inputvalidatie en autorisatiecheck gedocumenteerd, gaps beschreven   | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | 12 security gaps in kaart gebracht gekoppeld aan NEN-7510 8.25 |
+| 5 | Deliverable: tabel Endpoint / Methode / Privilege / Inputvalidatie / Autorisatiecheck | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Volledige endpoints/security mapping tabel in sectie 4 |
 
 ### Deel 2: Logging gap-analyse
 
@@ -482,15 +482,14 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 0      |
+| ✅ Compliant                | 5      |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 38     |
+| ❌ Open / Niet compliant    | 33     |
 
 ### Openstaande actiepunten Opdracht 5
 
 | Actie                                              | Prioriteit | Wie |
 | -------------------------------------------------- | ---------- | --- |
-| Attack surface mapping uitvoeren                   | Hoog       |     |
 | Logging gap-analyse uitvoeren                      | Hoog       |     |
 | Compliant audit logging implementeren en testen    | Hoog       |     |
 | DPIA-check uitvoeren en documenteren               | Hoog       |     |
@@ -505,6 +504,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | ---------- | ------ | -------------------------------------------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist                                      | RafvanHooijdonk |
 | 2026-06-12 | 1.1    | Deel 5 (DPIA), Deel 6 (Pentest voor), Deel 7 (Mitigatie+validatie) toegevoegd; naam aangepast | RafvanHooijdonk |
+| 2026-06-13 | 1.2    | Deel 1 (Attack Surface Mapping) ingevuld en op ✅ Compliant gezet               | Rowen Albers    |
 
 ---
 
