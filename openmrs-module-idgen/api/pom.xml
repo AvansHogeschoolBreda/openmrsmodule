@@ -13,7 +13,7 @@
 
 	<properties>
 		<!-- Default leeg; JaCoCo overschrijft dit met zijn agent-argument tijdens verify -->
-		<argLine></argLine>
+		<argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED</argLine>
 	</properties>
 
 	<dependencies>

@@ -201,7 +201,13 @@ public class IdentifierSourceController {
                                    @RequestParam(required=false, value="password") String password) throws Exception {
 
         if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
-            Context.authenticate(username, password);
+            try {
+                Context.authenticate(username, password);
+                log.info("[AUDIT] UserID: " + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: SUCCESS | Details: User authenticated via request parameters for export");
+            } catch (Exception ex) {
+                log.warn("[AUDIT] UserID: " + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: FAILURE | Details: Authentication failed: " + ex.getMessage());
+                throw ex;
+            }
         }
     	
 
@@ -295,6 +301,12 @@ public class IdentifierSourceController {
     		}
     	}
 		Context.getService(IdentifierSourceService.class).saveIdentifierSource(source);
+		
+		// NEN-7510 audit log
+		org.openmrs.User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + source.getName() + "'");
+		
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
 		return "redirect:/module/idgen/viewIdentifierSource.form?source="+source.getId();
     }
@@ -316,5 +328,10 @@ public class IdentifierSourceController {
     		String identifier = i.next();
     		out.print(identifier + (i.hasNext() ? separator : ""));
     	}
+		
+		// NEN-7510 audit log
+		org.openmrs.User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: EXPORT_RESERVED_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Exported reserved identifiers for source '" + source.getName() + "'");
     }
 }

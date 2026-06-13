@@ -115,6 +115,9 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	@Transactional
 	public IdentifierSource saveIdentifierSource(IdentifierSource identifierSource) throws APIException {
 		if (identifierSource.getName() == null) {
+			User u = Context.getAuthenticatedUser();
+			String userId = (u != null) ? u.getUsername() : "SYSTEM";
+			log.warn("[AUDIT] UserID: " + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + (identifierSource.getUuid() != null ? identifierSource.getUuid() : "N/A") + " | Outcome: FAILURE | Details: Failed to save identifier source: Name is required");
 			throw new APIException("Identifier Source name is required");
 		}
 		if (identifierSource.getUuid() == null) {
@@ -132,7 +135,13 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 			identifierSource.setChangedBy(u);
 			identifierSource.setDateChanged(today);
 		}
-		return dao.saveIdentifierSource(identifierSource);
+		IdentifierSource saved = dao.saveIdentifierSource(identifierSource);
+		
+		// NEN-7510 audit log
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + saved.getUuid() + " | Outcome: SUCCESS | Details: Saved identifier source '" + saved.getName() + "' of type " + saved.getClass().getSimpleName());
+		
+		return saved;
 	}
 
 	/** 
@@ -140,7 +149,14 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 */
 	@Transactional
 	public void purgeIdentifierSource(IdentifierSource identifierSource) {
+		String uuid = identifierSource.getUuid();
+		String name = identifierSource.getName();
 		dao.purgeIdentifierSource(identifierSource);
+		
+		// NEN-7510 audit log
+		User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: PURGE_IDENTIFIER_SOURCE | ResourceUUID: " + uuid + " | Outcome: SUCCESS | Details: Purged identifier source '" + name + "'");
 	}
 	
 	/**
@@ -207,6 +223,10 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
             LogEntry logEntry = new LogEntry(source, s, now, currentUser, comment);
             dao.saveLogEntry(logEntry);
         }
+
+        // NEN-7510 audit log
+        String userId = (currentUser != null) ? currentUser.getUsername() : "SYSTEM";
+        log.info("[AUDIT] UserID: " + userId + " | Event: READ_PATIENT_IDENTIFIER | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Generated " + identifiers.size() + " identifier(s) from source '" + source.getName() + "'");
 
         return identifiers;
     }
@@ -281,6 +301,11 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 			pool.addIdentifierToPool(identifier);
 		}
 		Context.getService(IdentifierSourceService.class).saveIdentifierSource(pool);
+		
+		// NEN-7510 audit log
+		User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: ADD_IDENTIFIERS_TO_POOL | ResourceUUID: " + pool.getUuid() + " | Outcome: SUCCESS | Details: Added " + identifiers.size() + " identifier(s) to pool '" + pool.getName() + "'");
 	}
 	
 	/** 
@@ -338,7 +363,14 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 */
 	@Transactional
 	public AutoGenerationOption saveAutoGenerationOption(AutoGenerationOption option) throws APIException {
-		return dao.saveAutoGenerationOption(option);
+		AutoGenerationOption saved = dao.saveAutoGenerationOption(option);
+		
+		// NEN-7510 audit log
+		User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: SAVE_AUTOGENERATION_OPTION | ResourceUUID: " + (saved.getUuid() != null ? saved.getUuid() : "N/A") + " | Outcome: SUCCESS | Details: Saved autogeneration option for type: " + option.getIdentifierType().getName());
+		
+		return saved;
 	}
 
 	/** 
@@ -346,8 +378,13 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 */
 	@Transactional
 	public void purgeAutoGenerationOption(AutoGenerationOption option) throws APIException {
+		String uuid = option.getUuid();
 		dao.purgeAutoGenerationOption(option);
 		
+		// NEN-7510 audit log
+		User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: PURGE_AUTOGENERATION_OPTION | ResourceUUID: " + (uuid != null ? uuid : "N/A") + " | Outcome: SUCCESS | Details: Purged autogeneration option");
 	}
 	
 	//***** PROPERTY ACCESS *****
@@ -473,6 +510,11 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		identifierSource.setRetired(true);
 		identifierSource.setRetireReason(reason);
 		dao.saveIdentifierSource(identifierSource);		
+		
+		// NEN-7510 audit log
+		User u = Context.getAuthenticatedUser();
+		String userId = (u != null) ? u.getUsername() : "SYSTEM";
+		log.info("[AUDIT] UserID: " + userId + " | Event: RETIRE_IDENTIFIER_SOURCE | ResourceUUID: " + identifierSource.getUuid() + " | Outcome: SUCCESS | Details: Retired identifier source '" + identifierSource.getName() + "'. Reason: " + reason);
 	}
 
 	/**

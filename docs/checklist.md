@@ -103,12 +103,12 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ### Openstaande actiepunten Opdrachtonderdeel 1
 
-| Actie                                                             | Prioriteit | Wie |
-| ----------------------------------------------------------------- | ---------- | --- |
-| Teststrategie beschrijven en testresultaten vastleggen (Deel 2)   | Hoog       |     |
-| Verbeteringen prioriteren en ontwerpen met patronen (Deel 3 + 4)  | Hoog       |     |
-| PoC realiseren conform ontwerp + AI-tooling verantwoorden (Deel 5)| Hoog       |     |
-| Validatie: testen voor én na, regressie aantonen (Deel 6)        | Hoog       |     |
+| Actie                                                              | Prioriteit | Wie |
+| ------------------------------------------------------------------ | ---------- | --- |
+| Teststrategie beschrijven en testresultaten vastleggen (Deel 2)    | Hoog       |     |
+| Verbeteringen prioriteren en ontwerpen met patronen (Deel 3 + 4)   | Hoog       |     |
+| PoC realiseren conform ontwerp + AI-tooling verantwoorden (Deel 5) | Hoog       |     |
+| Validatie: testen voor én na, regressie aantonen (Deel 6)         | Hoog       |     |
 
 ### Wijzigingslog Opdrachtonderdeel 1
 
@@ -400,40 +400,40 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Deel 1: Attack Surface Mapping
 
-| # | Eis                                                                                   | Status  | Bewijslast | Wie | Notities                                           |
-| - | ------------------------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------------------- |
-| 1 | Alle HTTP-endpoints geidentificeerd (pad, methode, vereiste privileges)               | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Geïdentificeerd in sectie 4 van het rapport |
-| 2 | Externe inputs gedocumenteerd (gebruikersinvoer, uploads, omgevingsvariabelen)        | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Gedocumenteerd in sectie 3 (register) |
-| 3 | Diagram gemaakt met vertrouwensmodel (hoge-risico entry points gemarkeerd)            | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Systeemgrenzen & vertrouwensmodel met Mermaid in sectie 2 |
+| # | Eis                                                                                   | Status       | Bewijslast                                                                                                                                                                                                              | Wie          | Notities                                                       |
+| - | ------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | -------------------------------------------------------------- |
+| 1 | Alle HTTP-endpoints geidentificeerd (pad, methode, vereiste privileges)               | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Geïdentificeerd in sectie 4 van het rapport                   |
+| 2 | Externe inputs gedocumenteerd (gebruikersinvoer, uploads, omgevingsvariabelen)        | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Gedocumenteerd in sectie 3 (register)                          |
+| 3 | Diagram gemaakt met vertrouwensmodel (hoge-risico entry points gemarkeerd)            | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Systeemgrenzen & vertrouwensmodel met Mermaid in sectie 2      |
 | 4 | Per entry point: inputvalidatie en autorisatiecheck gedocumenteerd, gaps beschreven   | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | 12 security gaps in kaart gebracht gekoppeld aan NEN-7510 8.25 |
-| 5 | Deliverable: tabel Endpoint / Methode / Privilege / Inputvalidatie / Autorisatiecheck | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Volledige endpoints/security mapping tabel in sectie 4 |
+| 5 | Deliverable: tabel Endpoint / Methode / Privilege / Inputvalidatie / Autorisatiecheck | ✅ Compliant | [Groep_6_Attack_Surface_Mapping.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md) | Rowen Albers | Volledige endpoints/security mapping tabel in sectie 4         |
 
 ### Deel 2: Logging gap-analyse
 
 | # | Eis                                                               | Status  | Bewijslast | Wie | Notities |
 | - | ----------------------------------------------------------------- | ------- | ---------- | --- | -------- |
-| 1 | Bestaande log-statements in de module in kaart gebracht           | ❌ Open |            |     |          |
-| 2 | Tabel aanwezig: Event / Gelogd? / Compliant met NEN-7510 8.15?    | ❌ Open |            |     |          |
-| 3 | Ontbrekende beveiligingsrelevante events geidentificeerd          | ❌ Open |            |     |          |
-| 4 | Gecontroleerd of gevoelige data (BSN, wachtwoorden) in logs staat | ❌ Open |            |     |          |
-| 5 | Gap gedocumenteerd                                                | ❌ Open |            |     |          |
+| 1 | Bestaande log-statements in de module in kaart gebracht           | ✅ Compliant | [Groep_6_Logging_Gap_Analyse.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) | Rowen Albers | Alle log-statements in de Java-code geïnventariseerd |
+| 2 | Tabel aanwezig: Event / Gelogd? / Compliant met NEN-7510 8.15?    | ✅ Compliant | [Groep_6_Logging_Gap_Analyse.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) | Rowen Albers | Register tabel met 11 actieve log-statements in sectie 3 |
+| 3 | Ontbrekende beveiligingsrelevante events geidentificeerd          | ✅ Compliant | [Groep_6_Logging_Gap_Analyse.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) | Rowen Albers | 6 kritieke ontbrekende events (zoals ID-generatie en export) beschreven in sectie 4 |
+| 4 | Gecontroleerd of gevoelige data (BSN, wachtwoorden) in logs staat | ✅ Compliant | [Groep_6_Logging_Gap_Analyse.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) | Rowen Albers | Analyse van credentials in URL-queryparameters en BSN/ID strings in sectie 5 |
+| 5 | Gap gedocumenteerd                                                | ✅ Compliant | [Groep_6_Logging_Gap_Analyse.md](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) | Rowen Albers | Gap-tabel tegen NEN-7510 audit metadata (Wie, Wat, Wanneer, Waarop, Resultaat) in sectie 6 |
 
 ### Deel 3: Logging implementeren
 
 | # | Eis                                                                                               | Status  | Bewijslast | Wie | Notities                                  |
 | - | ------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------- |
-| 1 | Audit logging toegevoegd aan: inloggen/uitloggen, lezen patiëntdossier, aanmaken/wijzigen record | ❌ Open |            |     |                                           |
-| 2 | Elk logbericht bevat: UserID, timestamp, event, uitkomst, resource-UUID (NEN-7510 8.15)           | ❌ Open |            |     | UserID via Context.getAuthenticatedUser() |
-| 3 | Geen BSN of medische data in logs                                                                 | ❌ Open |            |     |                                           |
+| 1 | Audit logging toegevoegd aan: inloggen/uitloggen, lezen patiëntdossier, aanmaken/wijzigen record | ✅ Compliant | [BaseIdentifierSourceService.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/main/java/org/openmrs/module/idgen/service/BaseIdentifierSourceService.java), [IdentifierSourceController.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/web/controller/IdentifierSourceController.java), [LogEntryController.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/web/controller/LogEntryController.java) | Rowen Albers | Geïmplementeerd in service en controllers |
+| 2 | Elk logbericht bevat: UserID, timestamp, event, uitkomst, resource-UUID (NEN-7510 8.15)           | ✅ Compliant | [BaseIdentifierSourceService.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/main/java/org/openmrs/module/idgen/service/BaseIdentifierSourceService.java) | Rowen Albers | Berichten bevatten UserID, timestamp (Log4j), event type, uitkomst en UUID van de bron |
+| 3 | Geen BSN of medische data in logs                                                                 | ✅ Compliant | [BaseIdentifierSourceService.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/main/java/org/openmrs/module/idgen/service/BaseIdentifierSourceService.java) | Rowen Albers | Geen identifier-waarden of patiëntendata in logs; alleen metadata |
 
 ### Deel 4: Logging testen
 
-| # | Eis                                              | Status  | Bewijslast | Wie | Notities                        |
-| - | ------------------------------------------------ | ------- | ---------- | --- | ------------------------------- |
-| 1 | JUnit-test: succesvolle toegang wordt gelogd     | ❌ Open |            |     | Gebruik ListAppender of Mockito |
-| 2 | JUnit-test: mislukte toegang wordt gelogd        | ❌ Open |            |     |                                 |
-| 3 | JUnit-test (negatief): logbericht bevat geen BSN | ❌ Open |            |     |                                 |
-| 4 | Alle tests slagen (mvn test geeft groen)         | ❌ Open |            |     |                                 |
+| # | Eis                                              | Status       | Bewijslast                                                                                                                                                                             | Wie          | Notities                                                                                        |
+| - | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------- |
+| 1 | JUnit-test: succesvolle toegang wordt gelogd     | ✅ Compliant | [LoggingAuditTest.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/test/java/org/openmrs/module/idgen/service/LoggingAuditTest.java) | Rowen Albers | `testSuccessfulAccessLogged` verifieert dat `READ_PATIENT_IDENTIFIER` met `SUCCESS` wordt gelogd |
+| 2 | JUnit-test: mislukte toegang wordt gelogd        | ✅ Compliant | [LoggingAuditTest.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/test/java/org/openmrs/module/idgen/service/LoggingAuditTest.java) | Rowen Albers | `testFailedAccessLogged` verifieert dat `SAVE_IDENTIFIER_SOURCE` met `FAILURE` wordt gelogd      |
+| 3 | JUnit-test (negatief): logbericht bevat geen BSN | ✅ Compliant | [LoggingAuditTest.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/test/java/org/openmrs/module/idgen/service/LoggingAuditTest.java) | Rowen Albers | `testNoBsnOrSensitiveDataInLogs` verifieert dat geen ID-waarden of 'BSN' in logs lekken         |
+| 4 | Alle tests slagen (mvn test geeft groen)         | ✅ Compliant | [LoggingAuditTest.java](file:///c:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrsmodule/openmrs-module-idgen/api/src/test/java/org/openmrs/module/idgen/service/LoggingAuditTest.java) | Rowen Albers | Alle 9 JUnit-tests in `LoggingAuditTest.java` slagen groen in Maven build                       |
 
 ### Deel 5: DPIA-check
 
@@ -471,31 +471,28 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Deel 8: Code Coverage
 
-| # | Eis                                                        | Status       | Bewijslast                                                               | Wie             | Notities                                                                                     |
-| - | ---------------------------------------------------------- | ------------ | ------------------------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------- |
-| 1 | JaCoCo geconfigureerd en geactiveerd (mvn jacoco:report)   | ✅ Compliant | `openmrs-module-idgen/api/pom.xml` + `sonarcloud.yml`                 | RafvanHooijdonk | JaCoCo draait via `mvn verify` in sonarcloud.yml; rapporten gaan naar SonarCloud             |
+| # | Eis                                                        | Status       | Bewijslast                                                                            | Wie             | Notities                                                                                       |
+| - | ---------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------------------- |
+| 1 | JaCoCo geconfigureerd en geactiveerd (mvn jacoco:report)   | ✅ Compliant | `openmrs-module-idgen/api/pom.xml` + `sonarcloud.yml`                             | RafvanHooijdonk | JaCoCo draait via `mvn verify` in sonarcloud.yml; rapporten gaan naar SonarCloud             |
 | 2 | Coverage % bepaald en gedocumenteerd (met onderbouwing)    | ✅ Compliant | `Groep_6_Analyse-Onderhoudbaarheid.md` + `Groep_6_Non-Functional-Requirements.md` | RafvanHooijdonk | 50% overall (api 54.3%, omod 46.9%); per-bestand breakdown inclusief 0%-klassen gedocumenteerd |
-| 3 | Coverage rapport opgeslagen als artifact in GitHub Actions | ✅ Compliant | `sonarcloud.yml` stap "Upload JaCoCo coverage reports"                  | RafvanHooijdonk | api + omod rapport geupload als artifact `jacoco-report-{run}`, 90 dagen retentie            |
+| 3 | Coverage rapport opgeslagen als artifact in GitHub Actions | ✅ Compliant | `sonarcloud.yml` stap "Upload JaCoCo coverage reports"                              | RafvanHooijdonk | api + omod rapport geupload als artifact `jacoco-report-{run}`, 90 dagen retentie            |
 
 ### Samenvatting Opdracht 5
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 5      |
+| ✅ Compliant                | 20     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 33     |
+| ❌ Open / Niet compliant    | 18     |
 
 ### Openstaande actiepunten Opdracht 5
 
 | Actie                                              | Prioriteit | Wie |
 | -------------------------------------------------- | ---------- | --- |
-| Logging gap-analyse uitvoeren                      | Hoog       |     |
-| Compliant audit logging implementeren en testen    | Hoog       |     |
 | DPIA-check uitvoeren en documenteren               | Hoog       |     |
 | Pentest vóór mitigatie uitvoeren en documenteren | Hoog       |     |
 | Kwetsbaarheid mitigeren via PR                     | Hoog       |     |
 | Pentest ná mitigatie uitvoeren en vergelijken     | Hoog       |     |
-| JaCoCo activeren in CI                             | Hoog       |     |
 
 ### Wijzigingslog Opdracht 5
 
@@ -503,8 +500,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | ---------- | ------ | --------------------------------------------------------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist                                                   | RafvanHooijdonk |
 | 2026-06-12 | 1.1    | Deel 5 (DPIA), Deel 6 (Pentest voor), Deel 7 (Mitigatie+validatie) toegevoegd; naam aangepast | RafvanHooijdonk |
-| 2026-06-13 | 1.2    | Deel 1 (Attack Surface Mapping) ingevuld en op ✅ Compliant gezet               | Rowen Albers    |
+| 2026-06-13 | 1.2    | Deel 1 (Attack Surface Mapping) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
 | 2026-06-12 | 1.2    | Deel 8 volledig compliant: JaCoCo actief, coverage gedocumenteerd, artifact upload toegevoegd | RafvanHooijdonk |
+| 2026-06-13 | 1.3    | Deel 2 (Logging gap-analyse) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
+| 2026-06-13 | 1.4    | Deel 3 (Logging implementeren) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
+| 2026-06-13 | 1.5    | Deel 4 (Logging testen) ingevuld, tests groen gemaakt en op ✅ Compliant gezet               | Rowen Albers    |
 
 ---
 

@@ -67,6 +67,11 @@ public class LogEntryController {
 			Thread.currentThread().setContextClassLoader(OpenmrsClassLoader.getInstance());
 			IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
 			logEntries = iss.getLogEntries(source, fromDate, toDate, identifier, generatedBy, comment);
+			
+			// NEN-7510 audit log
+			User currentUser = Context.getAuthenticatedUser();
+			String username = (currentUser != null) ? currentUser.getUsername() : "SYSTEM";
+			log.info("[AUDIT] UserID: " + username + " | Event: READ_PATIENT_IDENTIFIER_LOG | ResourceUUID: " + (source != null ? source.getUuid() : "ALL") + " | Outcome: SUCCESS | Details: Viewed log entries for identifier source");
 		}
 		model.addAttribute("logEntries", logEntries);
 		
