@@ -391,7 +391,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
 **Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, kwetsbaarheden aantonen via penetration tests, mitigeren en valideren, DPIA-check uitvoeren, code coverage activeren in CI.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RowenAlbers (Delen 1, 2, 3, 4), SinanSagir (Delen 5, 6, 7), RafvanHooijdonk (Deel 8)
 **Periode:** 2026-06
 **Sprints:**
 
@@ -437,35 +437,35 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Deel 5: DPIA-check
 
-| # | Eis                                                                             | Status  | Bewijslast | Wie | Notities                                              |
-| - | ------------------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------------------- |
-| 1 | Vastgesteld of verwerking van persoonsgegevens plaatsvindt in de module         | ❌ Open |            |     | Medische data, patiënt-ID's, logs met gebruikersdata |
-| 2 | Bepaald of een volledige DPIA vereist is (AVG art. 35 drempelcriteria getoetst) | ❌ Open |            |     | Zorg = hoog risico → waarschijnlijk DPIA-plichtig    |
-| 3 | Risico's t.a.v. privacy vastgelegd met mitigerende maatregelen                  | ❌ Open |            |     | Koppeling aan NEN-7510 controls en privacy by design  |
-| 4 | DPIA-check gedocumenteerd in de repo                                            | ❌ Open |            |     |                                                       |
+| # | Eis                                                                             | Status       | Bewijslast    | Wie        | Notities                                              |
+| - | ------------------------------------------------------------------------------- | ------------ | ------------- | ---------- | ----------------------------------------------------- |
+| 1 | Vastgesteld of verwerking van persoonsgegevens plaatsvindt in de module         | ✅ Compliant | DPIA-Check.md | SinanSagir | Patiënt-ID's, gebruikerslogs; 4 van 9 WP248-criteria van toepassing |
+| 2 | Bepaald of een volledige DPIA vereist is (AVG art. 35 drempelcriteria getoetst) | ✅ Compliant | DPIA-Check.md | SinanSagir | DPIA verplicht: criteria 3, 4, 5, 7 van WP248 van toepassing |
+| 3 | Risico's t.a.v. privacy vastgelegd met mitigerende maatregelen                  | ✅ Compliant | DPIA-Check.md | SinanSagir | 5 privacy-risico's met scores, mitigaties en NEN-7510 koppeling |
+| 4 | DPIA-check gedocumenteerd in de repo                                            | ✅ Compliant | DPIA-Check.md | SinanSagir | Groep_6_DPIA-Check.md aangemaakt in security-folder |
 
 ---
 
 ### Deel 6: Penetration Tests — aantonen kwetsbaarheden
 
-| # | Eis                                                                                         | Status  | Bewijslast | Wie | Notities                                      |
-| - | ------------------------------------------------------------------------------------------- | ------- | ---------- | --- | --------------------------------------------- |
-| 1 | Minimaal één kritische kwetsbaarheid (uit backlog Opdracht 4) geselecteerd voor pentest   | ❌ Open |            |     | Kies bijv. hoogste CVSS uit SCA-01 t/m SCA-06 |
-| 2 | Pentest vóór mitigatie uitgevoerd en navolgbaar gedocumenteerd (tool, commando's, output) | ❌ Open |            |     | Bijv. OWASP ZAP, Burp Suite, curl-aanval      |
-| 3 | Misbruik van de kwetsbaarheid is aangetoond (screenshot/log als bewijs)                     | ❌ Open |            |     |                                               |
-| 4 | Pentest-rapport vóór mitigatie opgeslagen in repo                                         | ❌ Open |            |     |                                               |
+| # | Eis                                                                                         | Status       | Bewijslast         | Wie        | Notities                                      |
+| - | ------------------------------------------------------------------------------------------- | ------------ | ------------------ | ---------- | --------------------------------------------- |
+| 1 | Minimaal één kritische kwetsbaarheid (uit backlog Opdracht 4) geselecteerd voor pentest   | ✅ Compliant | Pentestrapport.md sectie 3 | SinanSagir | SCA-05 (commons-collections 3.2, CVE-2015-7501, CVSS 9.8) geselecteerd en gemotiveerd |
+| 2 | Pentest vóór mitigatie uitgevoerd en navologbaar gedocumenteerd (tool, commando's, output) | ✅ Compliant | Pentestrapport.md secties 4-5 | SinanSagir | OWASP Dependency-Check + ysoserial gadget chain gedocumenteerd in 3 fasen |
+| 3 | Misbruik van de kwetsbaarheid is aangetoond (screenshot/log als bewijs)                     | ✅ Compliant | Pentestrapport.md sectie 4 | SinanSagir | Dependency-Check rapport (dependency-check-report.html) + bom.json als technisch bewijs |
+| 4 | Pentest-rapport vóór mitigatie opgeslagen in repo                                         | ✅ Compliant | Pentestrapport.md | SinanSagir | Groep_6_Pentestrapport.md aangemaakt in security-folder |
 
 ---
 
 ### Deel 7: Mitigatie & validatie
 
-| # | Eis                                                                         | Status  | Bewijslast | Wie | Notities                                  |
-| - | --------------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------- |
-| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ❌ Open |            |     | PR-nummer als bewijslast                  |
-| 2 | Gebruik van (AI-)tooling bij realisatie beschreven en verantwoord           | ❌ Open |            |     |                                           |
-| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ❌ Open |            |     | Vergelijkbaar scenario als vóór-pentest |
-| 4 | Pentest-rapport ná mitigatie opgeslagen in repo                            | ❌ Open |            |     |                                           |
-| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ❌ Open |            |     | Koppeling aan NEN-7510 control            |
+| # | Eis                                                                         | Status       | Bewijslast      | Wie        | Notities                                  |
+| - | --------------------------------------------------------------------------- | ------------ | --------------- | ---------- | ----------------------------------------- |
+| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ✅ Compliant | Pentestrapport.md sectie 8, pom.xml | SinanSagir | dependencyManagement commons-collections 3.2 → 3.2.2 in root pom.xml |
+| 2 | Gebruik van (AI-)tooling bij realisatie beschreven en verantwoord           | ✅ Compliant | Pentestrapport.md sectie 8.4 | SinanSagir | Claude (Sonnet 4.6) ondersteunend ingezet; inhoudelijke keuzes door SinanSagir |
+| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ✅ Compliant | Pentestrapport.md sectie 9 | SinanSagir | mvn dependency:tree bevestigt 3.2.2; CVE-2015-7501 niet van toepassing op 3.2.2 |
+| 4 | Pentest-rapport ná mitigatie opgeslagen in repo                            | ✅ Compliant | Pentestrapport.md | SinanSagir | Groep_6_Pentestrapport.md bevat voor- en na-mitigatie in één document |
+| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ✅ Compliant | Pentestrapport.md sectie 10 | SinanSagir | CVSS 9.8 Kritiek → N.v.t. na upgrade; NEN-7510 Ctrl 8.8 compliant |
 
 ---
 
@@ -481,18 +481,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 20     |
+| ✅ Compliant                | 33     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 18     |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten Opdracht 5
 
-| Actie                                              | Prioriteit | Wie |
-| -------------------------------------------------- | ---------- | --- |
-| DPIA-check uitvoeren en documenteren               | Hoog       |     |
-| Pentest vóór mitigatie uitvoeren en documenteren | Hoog       |     |
-| Kwetsbaarheid mitigeren via PR                     | Hoog       |     |
-| Pentest ná mitigatie uitvoeren en vergelijken     | Hoog       |     |
+Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ### Wijzigingslog Opdracht 5
 
@@ -505,6 +500,10 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 2026-06-13 | 1.3    | Deel 2 (Logging gap-analyse) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
 | 2026-06-13 | 1.4    | Deel 3 (Logging implementeren) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
 | 2026-06-13 | 1.5    | Deel 4 (Logging testen) ingevuld, tests groen gemaakt en op ✅ Compliant gezet               | Rowen Albers    |
+| 2026-06-13 | 1.6    | Deel 5 (DPIA-check) compliant: AVG art. 35 drempeltoets, 5 privacy-risico's gedocumenteerd   | SinanSagir      |
+| 2026-06-13 | 1.7    | Deel 6 (Pentest voor) compliant: SCA-05 CVE-2015-7501 gedocumenteerd met aanvalsketen        | SinanSagir      |
+| 2026-06-13 | 1.8    | Deel 7 (Mitigatie) compliant: commons-collections 3.2.2 in pom.xml, voor/na vergelijking     | SinanSagir      |
+| 2026-06-13 | 1.9    | Pentest-Voor.md en Pentest-Na.md samengevoegd tot Groep_6_Pentestrapport.md; AI-formulering gecorrigeerd | SinanSagir      |
 
 ---
 
