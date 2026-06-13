@@ -128,7 +128,7 @@ Good: `// order matters here, do not sort before this step`
 
 When editing a workflow: check if other workflows already do the same thing. Do not duplicate.
 
-When touching `pom.xml`: it is currently a stub. Note this. The real OpenMRS module pom.xml replaces it later.
+When touching `pom.xml`: the real OpenMRS idgen module (v4.13.0) is in `openmrs-module-idgen/`. All Maven work targets that directory. There is no stub pom.xml.
 
 ---
 
@@ -136,14 +136,34 @@ When touching `pom.xml`: it is currently a stub. Note this. The real OpenMRS mod
 
 LU2 project at Avans Hogeschool. Proves a compliant CI/CD security pipeline for an OpenMRS module under NEN-7510.
 
-The actual OpenMRS module code is not in this repo yet. Most workflows run against a stub `pom.xml` with only JUnit 5. CodeQL, Dependabot, Dependency Review, and SBOM are all tijdelijk compliant because of this.
-
-When the real module is added, replace the stub `pom.xml`. Update checklist statuses accordingly.
+The real OpenMRS idgen module (v4.13.0) is in `openmrs-module-idgen/`. All workflows target this directory. All statuses in the checklist reflect this real module, not a stub.
 
 Known permanent limitations (GitHub Free plan, private repo):
 - Branch protection is configured but not enforced
 - Secret Scanning is unavailable
 - Artifact retention is capped at 90 days
+
+Known test exclusions (Java 11 incompatibilities in upstream idgen code, not our code):
+- `LocationBasedPrefixProviderTest` — PowerMock 1.x incompatible with Java 11 module system
+- `SequentialIdentifierGeneratorTest` — PowerMock 1.x incompatible with Java 11 module system
+- `IdentifierResourceTest` — char[] cast from String fails on Java 11
+
+These are documented as technical debt in `docs/LU2 - Kwaliteit en security - verbeteronderzoek onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md`.
+
+NFR baseline (2026-06-12, alle data uit SonarCloud):
+- Coverage: 50% overall (api 54.3%, omod 46.9%) — quality gate gefaald (drempel 60% new code)
+- Duplicatie: 5.8% overall (api 2.6%, omod 10.8%) — 405 regels, 19 blokken, 11 bestanden
+- Cognitive Complexity totaal: 668 — top outlier: IdentifierSourceResource (CC 223, 498 LOC)
+- Brain Methods: 3 methoden boven CC 15 (CC 101, 106, 27)
+- Open issues: 204 (api 94, omod 110) — 3 dagen 7 uur herstelkost
+- Security Rating: C (1 vulnerability: hardcoded password in IdgenModuleActivator)
+- Maintainability Rating: A (overall), D (new code) — technical debt ratio 1.4% overall, 23.3% new code
+- Reliability Rating: A (2 info-level issues in testcode)
+- Security Hotspots: 0 unreviewed
+
+NFR doelen (na PoC): coverage 70%, duplicatie 3%, security A, max 150 open issues, 0 Brain Methods.
+
+SonarCloud project: AvansHogeschoolBreda_openmrsmodule (org: avanshogeschoolbreda).
 
 Sprint files are in `docs/sprints/`. Each sprint has tasks with a Status and Wie column. Keep these up to date.
 
@@ -169,7 +189,7 @@ To prevent ANY chaos, hallucination, or wrong file placements (even with random 
 - `README.md`: Mini-ISMS policy, procedures, pipeline overview.
 - `SECURITY.md`: Security policy, vulnerability reporting process, tool status.
 - `CLAUDE.md`: AI behavior rules (this file).
-- `pom.xml`: Maven configuration (currently a stub).
+- `pom.xml`: Not present (removed). The real module lives in `openmrs-module-idgen/`.
 - `docker-compose.yml`: For the OTAP setup (when created).
 **Rule:** Do NOT put any formal deliverables, analysis documents, or markdown reports in the root directory.
 
@@ -300,6 +320,10 @@ Uitzondering: interne repo-verwijzingen naar `.md`-bestanden en mappen worden ni
 ---
 
 ## Strict Naming & Header Rules for Deliverables
+
+`Groep_6_*.md` files are official deliverables, not tracking documents. They do NOT get a wijzigingslog or versie/datum fields in the header. Changes are tracked in `docs/checklist.md`.
+
+Date format in deliverables: dd/mm/yyyy, e.g. `12/06/2026`. Use ISO (YYYY-MM-DD) only in wijzigingslog tables in checklist and sprint files.
 
 When creating a formal document in one of the `LU2...` folders:
 

@@ -329,6 +329,16 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
         sessionFactory.getCurrentSession().refresh(source);
     }
 
+    /**
+     * {@inheritDoc}
+     * WARNING: hql parameter is concatenated directly into the query — vulnerable to HQL injection.
+     * This is a known finding (SAST-04) documented in Groep_6_Security-Analyse.md.
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public List executeHqlQuery(String hql) {
+        return sessionFactory.getCurrentSession().createQuery(hql).list();
+    }
+
 
 	//***** PROPERTY ACCESS *****
 

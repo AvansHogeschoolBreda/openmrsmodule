@@ -182,4 +182,12 @@ public interface IdentifierSourceDAO {
      * @param source
      */
     void refreshIdentifierSource(IdentifierSource source);
+
+    /**
+     * Executes an HQL query and returns the results.
+     * NOTE: callers are responsible for sanitising input to prevent HQL injection.
+     * @param hql the HQL query string
+     * @return list of results
+     */
+    List executeHqlQuery(String hql);
 }
