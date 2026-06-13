@@ -23,6 +23,17 @@
 		<module>omod</module>
 	</modules>
 	
+	<dependencyManagement>
+		<dependencies>
+			<!-- CVE-2015-7501 mitigatie: force commons-collections naar 3.2.2 (InvokerTransformer serialisatie uitgeschakeld by default) -->
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>3.2.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
