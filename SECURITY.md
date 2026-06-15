@@ -70,4 +70,22 @@ Alle documenten staan in `docs/LU2 - Kwaliteit en security - verbeteronderzoek s
 | SAST + SCA + SBOM scan | `Groep_6_Security-Analyse.md` | 8.8, 8.29 |
 | Security backlog (10 bevindingen) | `Groep_6_Security-Analyse.md` | 8.8 |
 | Risk Assessment Report | `Groep_6_Risk-Assessment-Report.md` | 8.29 |
-| Attack Surface Mapping | `Groep_6_Attack_Su
+| Attack Surface Mapping | `Groep_6_Attack_Surface_Mapping.md` | 8.25 |
+| Penetration test (voor + na mitigatie) | `Groep_6_Pentestrapport.md` | 8.8, 8.29 |
+| Patchadvies per pentest-bevinding | `Groep_6_Patchadvies.md` | 8.8 |
+| Logging gap-analyse + implementatie | `Groep_6_Logging_Gap_Analyse.md` | 8.15 |
+| DPIA-check (AVG art. 35) | `Groep_6_DPIA-Check.md` | 5.34 |
+| DAST (OWASP ZAP) | `docs/dast/` | 8.29 |
+
+---
+
+## Bekende beperkingen
+
+| Beperking | Reden |
+|---|---|
+| Artifact retentie max 90 dagen | Free plan limiet — geconfigureerde 365 dagen wordt automatisch teruggebracht |
+
+---
+
+Zie `docs/checklist.md` voor de volledige compliance status per eis.  
+Zie `README.md` voor het beveiligingsbeleid en pipeline-overzicht.

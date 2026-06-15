@@ -160,4 +160,4 @@ Dit document maakt integraal deel uit van het security-verbetertraject en staat 
 * **`Groep_6_Asset-Identificatie.md`**: Dit rapport gebruikt de in [Groep_6_Asset-Identificatie.md](Groep_6_Asset-Identificatie.md) geïdentificeerde assets (met name A1 en A2), threat actoren (TA1, TA3, TA4) en de vastgestelde risico-appetite en waarschijnlijkheid/impact-schalen.
 * **`Groep_6_Security-Analyse.md`**: De hier gepresenteerde security backlog en CVE/CWE-bevindingen zijn direct gebaseerd op de automatische en handmatige analyses gedocumenteerd in [Groep_6_Security-Analyse.md](Groep_6_Security-Analyse.md).
 * **`Groep_6_Risicomatrix.md`**: De risico's rondom het ontwikkelingsproces en de CI/CD pipeline die dit RAR beïnvloeden, zijn afgestemd met [Groep_6_Risicomatrix.md](Groep_6_Risicomatrix.md).
-* **`Groep_6_Audit-Rappo
+* **`Groep_6_Audit-Rapport.md`**: De bevindingen en het go/no-go advies uit dit Risk Assessment Report dienen als primaire input voor het uiteindelijke [Groep_6_Audit-Rapport.md](Groep_6_Audit-Rapport.md).

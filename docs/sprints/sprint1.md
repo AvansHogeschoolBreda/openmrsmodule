@@ -31,4 +31,5 @@
 - [X] Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md
 - [X] GitHub repository heeft branch protection en Dependabot actief
 - [X] SBOM-bestand wordt als CI-artifact aangemaakt in Actions
-- [X] Gap-analyse dekt minimaal 3 NEN-7510
+- [X] Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs
+- 

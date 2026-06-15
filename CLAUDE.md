@@ -345,4 +345,5 @@ When creating a formal document in one of the `LU2...` folders:
 ---
 ```
 
-No excepti
+No exceptions. Every file in these two formal folders gets this header.
+Copy this block exactly. Do not reformat the table or change the spacing.

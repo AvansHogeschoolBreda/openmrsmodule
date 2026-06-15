@@ -422,4 +422,4 @@ De meest kritieke assets zijn **A1 (patiëntobservaties)**, **A2 (credentials)**
 
 De drie rode hazards (H3, H1, H10) vereisen onmiddellijke actie conform de risk appetite in sectie 3. De bow-tie analyse voor H10 wordt uitgewerkt in `Groep_6_Bow-Tie.md`. De volledige risicomatrix voor alle hazards staat in `Groep_6_Risicomatrix.md`.
 
-Bestaande controls (RBAC, HTTPS, CodeQL, Dependabot, audit logging) reduceren
+Bestaande controls (RBAC, HTTPS, CodeQL, Dependabot, audit logging) reduceren het risico maar laten significante residuele risico's open, met name op het gebied van rate limiting (H3), Secret Scanning (H10) en write-protected logopslag (H5). Deze residuele risico's worden meegenomen in de prioritering van mitigaties in Opdracht 4 en 5.
