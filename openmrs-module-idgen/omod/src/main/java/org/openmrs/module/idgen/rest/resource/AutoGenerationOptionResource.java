@@ -56,6 +56,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	private static final String MANUAL_ENTRY_ENABLED = "manualEntryEnabled";
 	private static final String AUTOMATIC_GENERATION_ENABLED = "automaticGenerationEnabled";
 	private static final String LOCATION_GET_DEFINITION = "#/definitions/LocationGet";
+	private static final String IDGEN_IDENTIFIER_SOURCE_GET_DEFINITION = "#/definitions/IdgenIdentifiersourceGet";
 	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
@@ -140,7 +141,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 				errors.add(IDENTIFIER_TYPE);
 			}
 		}
-		if (errors.size() > 0) {
+		if (!errors.isEmpty()) {
 			throw new ValidationException(
 			        "The values of the following inputs are missing or invalid : " + errors.toString());
 		}
@@ -232,7 +233,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 				autoGenerationOptionList.addAll(autoGenerationOptions);
 			}
 		}
-		return new NeedsPaging<AutoGenerationOption>(autoGenerationOptionList, context);
+		return new NeedsPaging<>(autoGenerationOptionList, context);
 	}
 	
 	private Boolean parseBoolean(Object value) {
@@ -261,7 +262,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 					.property("uuid", new StringProperty())
 			        .property(IDENTIFIER_TYPE, new RefProperty("#/definitions/PatientidentifiertypeGet"))
 			        .property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
-			        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+			        .property(SOURCE, new RefProperty(IDGEN_IDENTIFIER_SOURCE_GET_DEFINITION))
 			        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
 			        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 		}
@@ -277,7 +278,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 		return new ModelImpl()
 				.property(IDENTIFIER_TYPE, new RefProperty("#/definitions/PatientidentifiertypeGet"))
 				.property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
-		        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+		        .property(SOURCE, new RefProperty(IDGEN_IDENTIFIER_SOURCE_GET_DEFINITION))
 		        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
 		        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 	}
@@ -286,7 +287,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	public Model getUPDATEModel(Representation rep) {
 		return new ModelImpl()
 				.property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
-		        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+		        .property(SOURCE, new RefProperty(IDGEN_IDENTIFIER_SOURCE_GET_DEFINITION))
 		        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
 		        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 	}

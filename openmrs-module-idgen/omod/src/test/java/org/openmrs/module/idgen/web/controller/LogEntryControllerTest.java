@@ -20,8 +20,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class LogEntryControllerTest extends MainResourceControllerTest {
-	public static String USER_UUID = "1010d442-e134-11de-babe-001e378eb67e";
-	public static String LOG_ENTRY_SOURCE_UUID = "0d47284f-9e9b-4a81-a88b-8bb42bc0a901";
+	public static String userUuid = "1010d442-e134-11de-babe-001e378eb67e";
+	public static String logEntrySourceUuid = "0d47284f-9e9b-4a81-a88b-8bb42bc0a901";
 
 	@Before
 	public void setUp() throws Exception {
@@ -60,7 +60,7 @@ public class LogEntryControllerTest extends MainResourceControllerTest {
 	@Test
 	public void shouldSearchAndReturnAListOfLogEntriesWithGivenSourceUuid() throws Exception {
 		MockHttpServletRequest req = request(RequestMethod.GET, getURI());
-		req.addParameter("source", LOG_ENTRY_SOURCE_UUID);
+		req.addParameter("source", logEntrySourceUuid);
 		SimpleObject result = deserialize(handle(req));
 		Assert.assertNotNull(result);
 		Assert.assertEquals(3, Util.getResultsSize(result));
@@ -127,7 +127,7 @@ public class LogEntryControllerTest extends MainResourceControllerTest {
 	@Test
 	public void shouldSearchAndReturnAListOfLogEntriesGeneratedByUser() throws Exception {
 		MockHttpServletRequest req = request(RequestMethod.GET, getURI());
-		req.addParameter("generatedBy", USER_UUID);
+		req.addParameter("generatedBy", userUuid);
 		SimpleObject result = deserialize(handle(req));
 		Assert.assertEquals(2, Util.getResultsSize(result));
 	}
@@ -135,7 +135,7 @@ public class LogEntryControllerTest extends MainResourceControllerTest {
 	@Test
 	public void shouldSearchAndReturnAListOfLogEntriesWithMatchingSpecifiedParameters() throws Exception {
 		MockHttpServletRequest req = request(RequestMethod.GET, getURI());
-		req.addParameter("generatedBy", USER_UUID);
+		req.addParameter("generatedBy", userUuid);
 		req.addParameter("identifier", "100");
 		req.addParameter("comment", "New");
 		req.addParameter("fromDate", "2016-10-01T12:00:00.423");

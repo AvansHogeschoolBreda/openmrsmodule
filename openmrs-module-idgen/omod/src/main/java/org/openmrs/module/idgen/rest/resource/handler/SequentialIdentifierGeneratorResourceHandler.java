@@ -133,13 +133,14 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 		if (identifierSources == null) {
 			return null;
 		}
-		List<SequentialIdentifierGenerator> sequentialGenerators = new ArrayList<SequentialIdentifierGenerator>();
+		List<SequentialIdentifierGenerator> sequentialGenerators = new ArrayList<>();
+
 		for (IdentifierSource src : identifierSources) {
 			if (src instanceof SequentialIdentifierGenerator) {
 				sequentialGenerators.add((SequentialIdentifierGenerator) src);
 			}
 		}
-		return new NeedsPaging<SequentialIdentifierGenerator>(sequentialGenerators, context);
+		return new NeedsPaging<>(sequentialGenerators, context);
 	}
 
 	@Override

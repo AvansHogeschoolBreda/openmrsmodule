@@ -83,15 +83,11 @@ public class SequentialIdentifierGeneratorValidator extends IdentifierSourceVali
 	}
 
 	private void checkLengthConstraints(SequentialIdentifierGenerator source, String firstId, Errors errors) {
-		if (source.getMinLength() != null && source.getMinLength() > 0) {
-			if (source.getMinLength() > firstId.length()) {
-				errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which is shorter than minimum length of " + source.getMinLength());
-			}
+		if (source.getMinLength() != null && source.getMinLength() > 0 && source.getMinLength() > firstId.length()) {
+			errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which is shorter than minimum length of " + source.getMinLength());
 		}
-		if (source.getMaxLength() != null && source.getMaxLength() > 0) {
-			if (source.getMaxLength() < firstId.length()) {
-				errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which exceeds maximum length of " + source.getMaxLength());
-			}
+		if (source.getMaxLength() != null && source.getMaxLength() > 0 && source.getMaxLength() < firstId.length()) {
+			errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which exceeds maximum length of " + source.getMaxLength());
 		}
 	}
 }

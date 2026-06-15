@@ -117,13 +117,14 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		if (identifierSources == null) {
 			return null;
 		}
-		List<RemoteIdentifierSource> remoteIdentifierSources = new ArrayList<RemoteIdentifierSource>();
+		List<RemoteIdentifierSource> remoteIdentifierSources = new ArrayList<>();
+
 		for (IdentifierSource src : identifierSources) {
 			if (src instanceof RemoteIdentifierSource) {
 				remoteIdentifierSources.add((RemoteIdentifierSource) src);
 			}
 		}
-		return new NeedsPaging<RemoteIdentifierSource>(remoteIdentifierSources, context);
+		return new NeedsPaging<>(remoteIdentifierSources, context);
 	}
 
 	@Override

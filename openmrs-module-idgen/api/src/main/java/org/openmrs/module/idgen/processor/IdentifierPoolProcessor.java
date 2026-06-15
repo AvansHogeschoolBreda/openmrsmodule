@@ -38,7 +38,8 @@ public class IdentifierPoolProcessor implements IdentifierSourceProcessor {
 		    iss.checkAndRefillIdentifierPool(pool);
         }
 		List<PooledIdentifier> available = iss.getAvailableIdentifiers(pool, batchSize);
-		List<String> ret = new ArrayList<String>();
+		List<String> ret = new ArrayList<>();
+
 		Date now = new Date();
 		for (PooledIdentifier pi : available) {
 			ret.add(pi.getIdentifier());

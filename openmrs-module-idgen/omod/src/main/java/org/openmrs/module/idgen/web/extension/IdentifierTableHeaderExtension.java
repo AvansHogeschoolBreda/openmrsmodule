@@ -31,6 +31,8 @@ import org.springframework.util.StringUtils;
  */
 public class IdentifierTableHeaderExtension extends Extension {
 
+	private static final String MODULE_RESOURCES_PATH = "/moduleResources/idgen/";
+
 	/**
 	 * @see Extension#getMediaType()
 	 */
@@ -46,7 +48,7 @@ public class IdentifierTableHeaderExtension extends Extension {
 	public String getOverrideContent(String bodyContent) {
 		
 		IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
-		Map<PatientIdentifierType, AutoGenerationOption> autogen = new HashMap<PatientIdentifierType, AutoGenerationOption>();
+		Map<PatientIdentifierType, AutoGenerationOption> autogen = new HashMap<>();
  		for (PatientIdentifierType pit : Context.getPatientService().getAllPatientIdentifierTypes()) {
  			AutoGenerationOption option = iss.getAutoGenerationOption(pit);
  			if (option != null && option.isAutomaticGenerationEnabled()) {
@@ -65,15 +67,15 @@ public class IdentifierTableHeaderExtension extends Extension {
  			}
  			
  	 		if (ModuleUtil.compareVersion(OpenmrsConstants.OPENMRS_VERSION_SHORT, "1.7") < 0) {
- 	 			sb.append("<script src=\"" + contextPath + "/moduleResources/idgen/jquery-1.3.2.min.js\" type=\"text/javascript\"></script>\n");
+ 	 			sb.append("<script src=\"" + contextPath + MODULE_RESOURCES_PATH + "jquery-1.3.2.min.js\" type=\"text/javascript\"></script>\n");
  	 		}
  	 		if (ModuleUtil.compareVersion(OpenmrsConstants.OPENMRS_VERSION_SHORT, "1.8") < 0) {
- 	 			sb.append("<script src=\"" + contextPath + "/moduleResources/idgen/newPatientFormExtensions.js\" type=\"text/javascript\"></script>\n"); 		
+ 	 			sb.append("<script src=\"" + contextPath + MODULE_RESOURCES_PATH + "newPatientFormExtensions.js\" type=\"text/javascript\"></script>\n"); 		
  	 		}
  	 		else {
- 	 			sb.append("<script src=\"" + contextPath + "/moduleResources/idgen/shortPatientFormExtensions.js\" type=\"text/javascript\"></script>\n");			
+ 	 			sb.append("<script src=\"" + contextPath + MODULE_RESOURCES_PATH + "shortPatientFormExtensions.js\" type=\"text/javascript\"></script>\n");			
  	 		}
-	 		sb.append("<link href=\"" + contextPath + "/moduleResources/idgen/editPatientIdentifiers.css\" type=\"text/css\" rel=\"stylesheet\"\n/>");
+ 	 		sb.append("<link href=\"" + contextPath + MODULE_RESOURCES_PATH + "editPatientIdentifiers.css\" type=\"text/css\" rel=\"stylesheet\"\n/>");
  	 		sb.append("<td id=\"idgenColumnHeader\">" + Context.getMessageSourceService().getMessage("idgen.autoGenerate") + "</td>");
  		}
 

@@ -9,9 +9,9 @@
  */
 package org.openmrs;
 
-//TODO this dummy class is just for the sake of making SwaggerSpecificationCreatorTest pass.
-//it fails because the platform dependency version currently used, does not have this class.
-//after this has been solved, this dummy class can be deleted.
+// Note: This dummy class is just for the sake of making SwaggerSpecificationCreatorTest pass.
+// It fails because the platform dependency version currently used, does not have this class.
+// After this has been solved, this dummy class can be deleted.
 public class CodedOrFreeText {
 
 }

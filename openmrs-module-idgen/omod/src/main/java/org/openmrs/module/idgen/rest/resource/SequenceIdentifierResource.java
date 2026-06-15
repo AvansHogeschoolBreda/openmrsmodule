@@ -57,7 +57,7 @@ public class SequenceIdentifierResource extends DelegatingCrudResource<Identifie
 		String identifierValue = Context.getService(IdentifierSourceService.class).generateIdentifier(source, "comment");
 		Identifier id = new Identifier();
 		id.setIdentifierValue(identifierValue);
-		return new NeedsPaging<Identifier>(Arrays.asList(id), context);
+		return new NeedsPaging<>(Arrays.asList(id), context);
 	}
 
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {

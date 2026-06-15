@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class IdgenEditPatientIdentifiersController {
 
-	protected static Log log = LogFactory.getLog(LogEntryController.class);
+	protected static Log log = LogFactory.getLog(IdgenEditPatientIdentifiersController.class);
 	
 	/**
 	 * Default Constructor
 	 */
 	public IdgenEditPatientIdentifiersController() {
-		// Empty constructor
+		// Required by Spring MVC for controller instantiation
 	}
 	
 	/**
@@ -46,59 +46,21 @@ public class IdgenEditPatientIdentifiersController {
     public void editPatientIdentifiers(ModelMap model, HttpServletRequest request, HttpServletResponse response,
     						   @RequestParam(required=false, value="patientId") Integer patientId) throws Exception {
     	
-    	Map<String, Object> m = new HashMap<String, Object>();
+    	Map<String, Object> m = new HashMap<>();
     	
-    	Map<String, String> translations = new HashMap<String, String>();
+    	Map<String, String> translations = new HashMap<>();
     	translations.put("add", Context.getMessageSourceService().getMessage("idgen.addNewIdentifier"));
     	m.put("translations", translations);
     	
     	Map<PatientIdentifierType, Location> importantTypes = getImportantTypes();
     	
 		// All Patient Identifiers and Generation Options
-		Map<String, Map<String, Object>> allIdentifiers = new LinkedHashMap<String, Map<String, Object>>();
- 		for (PatientIdentifierType type : Context.getPatientService().getAllPatientIdentifierTypes()) {
-    		Map<String, Object> typeData = new HashMap<String, Object>();
-    		typeData.put("typeId", type.getPatientIdentifierTypeId());
-    		typeData.put("typeName", type.getName());
-    		typeData.put("manualEntryEnabled", true);
-    		typeData.put("autogenerationEnabled", false);
-    		typeData.put("sourceId", "");
-    		typeData.put("location", importantTypes.get(type) == null ? "" : importantTypes.get(type).getLocationId());
-    		typeData.put("identifier", "");
-    		typeData.put("preferred", false);
-    		typeData.put("saved", false);
-
- 			AutoGenerationOption option = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(type);
- 			if (option != null && option.isAutomaticGenerationEnabled()) {
- 				typeData.put("manualEntryEnabled", option.isManualEntryEnabled());
- 				typeData.put("autogenerationEnabled", option.isAutomaticGenerationEnabled());
- 				typeData.put("sourceId", option.getSource() == null ? "" : option.getSource().getId());
- 			}
- 			allIdentifiers.put(type.getPatientIdentifierTypeId().toString(), typeData);
- 		}
+		Map<String, Map<String, Object>> allIdentifiers = buildAllIdentifiersMap(importantTypes);
  		m.put("allIdentifiers", allIdentifiers);
     	
  		// Default Patient Identifiers To Display
-    	List<Map<String, Object>> defaultIdentifiers = new ArrayList<Map<String, Object>>();
-    	if (patientId != null) {
-    		Patient patient = Context.getPatientService().getPatientOrPromotePerson(patientId);
-    		for (PatientIdentifier pi : patient.getActiveIdentifiers()) {
-        		Map<String, Object> rowData = new HashMap<String, Object>();
-        		rowData.putAll(allIdentifiers.get(pi.getIdentifierType().getPatientIdentifierTypeId().toString()));
-        		rowData.put("location", pi.getLocation() == null ? "" : pi.getLocation().getLocationId());
-        		rowData.put("identifier", pi.getIdentifier());
-        		rowData.put("preferred", pi.getPreferred());
-        		rowData.put("saved", true);
-        		defaultIdentifiers.add(rowData);
-        		importantTypes.remove(pi.getIdentifierType());
-    		}
-    	}
-		
-		for (PatientIdentifierType type : importantTypes.keySet()) {
-    		Map<String, Object> rowData = new HashMap<String, Object>(allIdentifiers.get(type.getPatientIdentifierTypeId().toString()));
-    		defaultIdentifiers.add(rowData);
-		}
-		m.put("defaultIdentifiers", defaultIdentifiers);
+    	List<Map<String, Object>> defaultIdentifiers = buildDefaultIdentifiers(patientId, allIdentifiers, importantTypes);
+ 		m.put("defaultIdentifiers", defaultIdentifiers);
 
  		response.setContentType("text/json");
 		ObjectMapper mapper = new ObjectMapper();		
@@ -106,9 +68,56 @@ public class IdgenEditPatientIdentifiersController {
 		mapper.writeValue(sw, m);
 		response.getWriter().write(sw.toString());
     }
+
+	private Map<String, Map<String, Object>> buildAllIdentifiersMap(Map<PatientIdentifierType, Location> importantTypes) {
+		Map<String, Map<String, Object>> allIdentifiers = new LinkedHashMap<>();
+		for (PatientIdentifierType type : Context.getPatientService().getAllPatientIdentifierTypes()) {
+			Map<String, Object> typeData = new HashMap<>();
+			typeData.put("typeId", type.getPatientIdentifierTypeId());
+			typeData.put("typeName", type.getName());
+			typeData.put("manualEntryEnabled", true);
+			typeData.put("autogenerationEnabled", false);
+			typeData.put("sourceId", "");
+			typeData.put("location", importantTypes.get(type) == null ? "" : importantTypes.get(type).getLocationId());
+			typeData.put("identifier", "");
+			typeData.put("preferred", false);
+			typeData.put("saved", false);
+
+			AutoGenerationOption option = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(type);
+			if (option != null && option.isAutomaticGenerationEnabled()) {
+				typeData.put("manualEntryEnabled", option.isManualEntryEnabled());
+				typeData.put("autogenerationEnabled", option.isAutomaticGenerationEnabled());
+				typeData.put("sourceId", option.getSource() == null ? "" : option.getSource().getId());
+			}
+			allIdentifiers.put(type.getPatientIdentifierTypeId().toString(), typeData);
+		}
+		return allIdentifiers;
+	}
+
+	private List<Map<String, Object>> buildDefaultIdentifiers(Integer patientId, Map<String, Map<String, Object>> allIdentifiers, Map<PatientIdentifierType, Location> importantTypes) {
+		List<Map<String, Object>> defaultIdentifiers = new ArrayList<>();
+		if (patientId != null) {
+			Patient patient = Context.getPatientService().getPatientOrPromotePerson(patientId);
+			for (PatientIdentifier pi : patient.getActiveIdentifiers()) {
+				Map<String, Object> rowData = new HashMap<>();
+				rowData.putAll(allIdentifiers.get(pi.getIdentifierType().getPatientIdentifierTypeId().toString()));
+				rowData.put("location", pi.getLocation() == null ? "" : pi.getLocation().getLocationId());
+				rowData.put("identifier", pi.getIdentifier());
+				rowData.put("preferred", pi.getPreferred());
+				rowData.put("saved", true);
+				defaultIdentifiers.add(rowData);
+				importantTypes.remove(pi.getIdentifierType());
+			}
+		}
+		for (PatientIdentifierType type : importantTypes.keySet()) {
+			Map<String, Object> rowData = new HashMap<>(allIdentifiers.get(type.getPatientIdentifierTypeId().toString()));
+			defaultIdentifiers.add(rowData);
+		}
+		return defaultIdentifiers;
+	}
     
     public Map<PatientIdentifierType, Location> getImportantTypes() {
-		Map<PatientIdentifierType, Location> importantTypes = new LinkedHashMap<PatientIdentifierType, Location>();
+		Map<PatientIdentifierType, Location> importantTypes = new LinkedHashMap<>();
 		String idTypes = Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_PATIENT_IDENTIFIER_IMPORTANT_TYPES);
 		if (StringUtils.isNotEmpty(idTypes)) {
 			Location defaultLocation = Context.getLocationService().getDefaultLocation();

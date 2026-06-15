@@ -103,55 +103,59 @@ Deze problemen zijn nieuw opgedoken in de laatste scan (aanmaakdatum 15 juni 202
 
 | Issue (Sonar Regel) | Bestand | Regel | Severity | Gemitigeerd | Beschrijving |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `java:S1452` | `IdentifierSourceDAO.java` | 192 | **CRITICAL** | Nee | Remove usage of generic wildcard type. |
-| `java:S1192` | `AutoGenerationOptionResource.java` | 264 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "#/definitions/IdgenIdentifiersourceGet" 3 times. |
-| `java:S3776` | `IdentifierSourceResource.java` | 308 | **CRITICAL** | Nee | Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed. |
-| `java:S2886` | `LocationBasedPrefixProvider.java` | 58 | MAJOR | Nee | Synchronize this method to match the synchronization on "setPrefixLocationAttributeType". |
-| `java:S2886` | `LocationBasedSuffixProvider.java` | 58 | MAJOR | Nee | Synchronize this method to match the synchronization on "setSuffixLocationAttributeType". |
-| `java:S2293` | `BaseIdentifierSourceService.java` | 60 | MINOR | Nee | Replace type specification with diamond operator (`<>`). |
+| `java:S1452` | `IdentifierSourceDAO.java` | 192 | **CRITICAL** | Ja | Remove usage of generic wildcard type. |
+| `java:S1192` | `AutoGenerationOptionResource.java` | 264 | **CRITICAL** | Ja | Define a constant instead of duplicating literal "#/definitions/IdgenIdentifiersourceGet" 3 times. |
+| `java:S3776` | `IdentifierSourceResource.java` | 308 | **CRITICAL** | Ja | Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed. |
+| `java:S2886` | `LocationBasedPrefixProvider.java` | 58 | MAJOR | Ja | Synchronize this method to match the synchronization on "setPrefixLocationAttributeType". |
+| `java:S2886` | `LocationBasedSuffixProvider.java` | 58 | MAJOR | Ja | Synchronize this method to match the synchronization on "setSuffixLocationAttributeType". |
+| `java:S2293` | `BaseIdentifierSourceService.java` | 60 | MINOR | Ja | Replace type specification with diamond operator (`<>`). |
 
 ## ⚠️ Bestaande Issues (Selectie van belangrijkste)
 
-Deze problemen waren al aanwezig in eerdere scans. Let vooral op de CRITICAL string-duplicaties en de extreem lange (Brain) methodes voor je refactoring-Proof of Concept.
+Deze problemen waren al aanwezig in eerdere scans. Zijn nu gemitigeerd in tweede iteratie.
 
 | Issue (Sonar Regel) | Bestand | Regel | Severity | Gemitigeerd | Beschrijving |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `java:S1192` | `IdentifierResource.java` | 47 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "comment" 4 times. |
-| `java:S1192` | `IdentifierSourceResource.java` | 75 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "description" 9 times. |
-| `java:S1192` | `IdentifierSourceResource.java` | 76 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "identifierType" 6 times. |
-| `java:S1192` | `IdentifierSourceResource.java` | 214 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "sourceUuid" 3 times. |
-| `java:S1192` | `IdentifierSourceResource.java` | 310 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "batchSize" 3 times. |
-| `java:S3776` | `IdentifierSourceResource.java` | 349 | **CRITICAL** | Nee | Refactor this method to reduce its Cognitive Complexity from 94 to the 15 allowed. |
-| `java:S1192` | `LogEntryResource.java` | 69 | **CRITICAL** | Nee | Define constant instead of duplicating literal "generatedBy" 3 times. |
-| `java:S1192` | `IdentifierPoolResourceHandler.java` | 118 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "sequential" 3 times. |
-| `java:S1192` | `IdentifierPoolResourceHandler.java` | 119 | **CRITICAL** | Nee | Define constant instead of duplicating literal "refillWithScheduledTask" 3 times. |
-| `java:S1192` | `IdentifierPoolResourceHandler.java` | 120 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "source" 3 times. |
-| `java:S1192` | `IdentifierPoolResourceHandler.java` | 121 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "batchSize" 3 times. |
-| `java:S1192` | `IdentifierPoolResourceHandler.java` | 122 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "minPoolSize" 3 times. |
-| `java:S1192` | `RemoteIdentifierSourceResourceHandler.java` | 64 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "identifierType" 3 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 63 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "prefix" 6 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 64 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "suffix" 6 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 65 | **CRITICAL** | Nee | Define constant instead of duplicating literal "firstIdentifierBase" 6 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 66 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "minLength" 6 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 68 | **CRITICAL** | Nee | Define a constant instead of duplicating literal "identifierType" 3 times. |
-| `java:S1192` | `SequentialIdentifierGeneratorResourceHandler.java` | 76 | **CRITICAL** | Nee | Define constant instead of duplicating literal "nextSequenceValue" 5 times. |
-| `java:S1186` | `AutoGenerationOptionController.java` | 42 | **CRITICAL** | Nee | Add comment explaining why method is empty, or throw UnsupportedOperationException. |
-| `java:S1186` | `IdentifierSourceController.java` | 67 | **CRITICAL** | Nee | Add comment explaining why method is empty, or throw UnsupportedOperationException. |
-| `java:S1192` | `IdentifierSourceController.java` | 267 | **CRITICAL** | Nee | Define constant instead of duplicating literal "redirect:/module/idgen..." 3 times. |
-| `java:S3776` | `IdgenEditPatientIdentifiersController.java` | 46 | **CRITICAL** | Nee | Refactor method to reduce Cognitive Complexity from 16 to the 15 allowed. |
-| `java:S1192` | `IdentifierTableHeaderExtension.java` | 68 | **CRITICAL** | Nee | Define a constant instead of duplicating literal `<script src=\"` 3 times. |
-| `java:S1066` | `SequentialIdentifierGeneratorValidator.java` | 87 | MAJOR | Nee | Merge this if statement with the enclosing one. |
-| `java:S1066` | `SequentialIdentifierGeneratorValidator.java` | 92 | MAJOR | Nee | Merge this if statement with the enclosing one. |
-| `java:S2925` | `IdgenTaskIT.java` | 50 | MAJOR | Nee | Remove this use of "Thread.sleep()". |
-| `java:S1134` | `IdentifierPoolResourceHandler.java` | 195 | MAJOR | Nee | Take the required action to fix the issue indicated by this TODO comment. |
-| `java:S112`  | `IdentifierSourceController.java` | 97 | MAJOR | Nee | Replace generic exception with specific library exception or custom exception. |
-| `java:S1117` | `IdentifierSourceController.java` | 119 | MAJOR | Nee | Rename "iss" which hides the field declared at line 59. |
-| `java:S1141` | `IdentifierSourceController.java` | 245 | MAJOR | Nee | Extract this nested try block into a separate method. |
-| `java:S112`  | `IdentifierSourceController.java` | 255 | MAJOR | Nee | Replace generic exception with specific library exception or custom exception. |
-| `java:S112`  | `IdentifierSourceController.java` | 260 | MAJOR | Nee | Replace generic exception with specific library exception or custom exception. |
-| `java:S1066` | `IdentifierSourceResource.java` | 366 | MAJOR | Nee | Merge this if statement with the enclosing one. |
-| `java:S2293` | `BaseIdentifierSourceService.java` | 65 | MINOR | Nee | Replace type specification with diamond operator (`<>`). |
-| `java:S1155` | `AutoGenerationOptionResource.java` | 143 | MINOR | Nee | Use isEmpty() to check whether the collection is empty or not. |
-| `java:S3008` | `LogEntryControllerTest.java` | 23 | MINOR | Nee | Rename field to match regex `^[a-z][a-zA-Z0-9]*$`. |
-| `java:S2143` | `BaseIdentifierSource.java` | - | INFO | Nee | Use the "java.time" API for date and time. |
-| `java:S6541` | `IdentifierSourceResource.java` | 349 | INFO | Nee | A "Brain Method" was detected. Refactor to reduce metrics. |
+| `java:S2143` | `BaseIdentifierSource.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `IdentifierPool.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `LogEntry.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `PooledIdentifier.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `IdentifierPoolProcessor.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `BaseIdentifierSourceService.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `IdentifierSourceService.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `HibernateIdentifierSourceDAO.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `IdentifierSourceDAO.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `LogEntryResource.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `LogEntrySearchHandler.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2143` | `LogEntryController.java` | - | INFO | Ja | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| `java:S2293` | `IdentifierPoolProcessor.java` | 41 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `RemoteIdentifierSourceProcessor.java` | 68 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `SequentialIdentifierGeneratorProcessor.java` | 69 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `BaseIdentifierSourceService.java` | 65 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `BaseIdentifierSourceService.java` | 78 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `BaseIdentifierSourceService.java` | 106 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `BaseIdentifierSourceService.java` | 463 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `LogEntryResource.java` | 54 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdentifierPoolResourceHandler.java` | 148 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `RemoteIdentifierSourceResourceHandler.java` | 120 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `SequentialIdentifierGeneratorResourceHandler.java` | 136 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `AutoGenerationOptionController.java` | 83 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `AutoGenerationOptionController.java` | 84 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S1874` | `IdentifierSourceController.java` | 93 | MINOR | Ja | Remove this use of "newInstance"; it is deprecated. |
+| `java:S2293` | `IdentifierSourceController.java` | 102 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdentifierSourceController.java` | 124 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdentifierSourceController.java` | 239 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 49 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 51 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 58 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 60 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 82 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 86 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 98 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `IdgenEditPatientIdentifiersController.java` | 111 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2293` | `LogEntryController.java` | 67 | MINOR | Ja | Replace type specification with diamond operator. |
+| `java:S2925` | `IdgenTaskIT.java` | 50 | MAJOR | Ja | Remove this use of "Thread.sleep()". |
+| `java:S1117` | `IdentifierSourceController.java` | 119 | MAJOR | Ja | Rename "iss" which hides the field declared at line 59. |
+| `java:S3008` | `LogEntryControllerTest.java` | 23 | MINOR | Ja | Rename field to match regex `^[a-z][a-zA-Z0-9]*$`. |
+| `java:S1066` | `IdentifierSourceResource.java` | 366 | MAJOR | Ja | Merge this if statement with the enclosing one. |
+| `java:S1155` | `AutoGenerationOptionResource.java` | 143 | MINOR | Ja | Use isEmpty() to check whether the collection is empty or not. |

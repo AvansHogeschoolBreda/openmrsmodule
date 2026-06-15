@@ -65,7 +65,8 @@ public class RemoteIdentifierSourceProcessor implements IdentifierSourceProcesso
     }
 
     protected String doHttpPost(RemoteIdentifierSource source, int batchSize) throws IOException {
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+
         nameValuePairs.add(new BasicNameValuePair("numberToGenerate", Integer.toString(batchSize)));
         if (StringUtils.isNotBlank(source.getUser())) {
             nameValuePairs.add(new BasicNameValuePair("username", source.getUser()));

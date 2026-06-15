@@ -189,5 +189,6 @@ public interface IdentifierSourceDAO {
      * @param hql the HQL query string
      * @return list of results
      */
-    List<?> executeHqlQuery(String hql);
+    List<Object> executeHqlQuery(String hql);
+
 }

@@ -51,7 +51,8 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 
 	@Override
 	protected NeedsPaging<LogEntry> doGetAll(RequestContext context) {
-		return new NeedsPaging<LogEntry>(
+		return new NeedsPaging<>(
+
 				Context.getService(IdentifierSourceService.class).getLogEntries(null, null, null, null, null, null),
 				context);
 	}
@@ -78,7 +79,7 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 		}
 		List<LogEntry> logEntries = identifierSourceService.getLogEntries(logSource, dateFrom, dateTo, identifier, user,
 				comment);
-		return new NeedsPaging<LogEntry>(logEntries, context);
+		return new NeedsPaging<>(logEntries, context);
 	}
 
 	@Override

@@ -338,9 +338,10 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
      * This is a known finding (SAST-04) documented in Groep_6_Security-Analyse.md.
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List<?> executeHqlQuery(String hql) {
+    public List<Object> executeHqlQuery(String hql) {
         return sessionFactory.getCurrentSession().createQuery(hql).list();
     }
+
 
 
 	//***** PROPERTY ACCESS *****

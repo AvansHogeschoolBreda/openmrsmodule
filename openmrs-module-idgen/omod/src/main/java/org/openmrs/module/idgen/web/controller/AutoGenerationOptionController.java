@@ -39,7 +39,9 @@ public class AutoGenerationOptionController {
 	/**
 	 * Default Constructor
 	 */
-	public AutoGenerationOptionController() { }
+	public AutoGenerationOptionController() {
+		// Required by Spring MVC for @Controller instantiation
+	}
 	
 	@InitBinder
 	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
@@ -80,18 +82,18 @@ public class AutoGenerationOptionController {
 		if (Context.isAuthenticated()) {
 
             IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
-			Map<PatientIdentifierType,List<AutoGenerationOption>> optionMap = new HashMap<PatientIdentifierType, List<AutoGenerationOption>>();
-			List<PatientIdentifierType> identifierTypes = new ArrayList<PatientIdentifierType>();
+			Map<PatientIdentifierType,List<AutoGenerationOption>> optionMap = new HashMap<>();
+			List<PatientIdentifierType> identifierTypes = new ArrayList<>();
             Map<PatientIdentifierType, List<IdentifierSource>> availableSources = iss.getIdentifierSourcesByType(false);
 
 			for (PatientIdentifierType pit : Context.getPatientService().getAllPatientIdentifierTypes()) {
 				List<AutoGenerationOption> options = iss.getAutoGenerationOptions(pit);
 
-                if (options != null && options.size() > 0) {
+                if (options != null && !options.isEmpty()) {
 		            optionMap.put(pit, options);
                 }
 
-                if (availableSources.get(pit) != null && availableSources.get(pit).size() > 0) {
+                if (availableSources.get(pit) != null && !availableSources.get(pit).isEmpty()) {
                     identifierTypes.add(pit);
                 }
             }

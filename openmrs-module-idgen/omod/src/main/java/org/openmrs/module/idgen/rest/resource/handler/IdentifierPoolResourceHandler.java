@@ -145,13 +145,14 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 		if (identifierSources == null) {
 			return null;
 		}
-		List<IdentifierPool> identifierPoolSources = new ArrayList<IdentifierPool>();
+		List<IdentifierPool> identifierPoolSources = new ArrayList<>();
+
 		for (IdentifierSource src : identifierSources) {
 			if (src instanceof IdentifierPool) {
 				identifierPoolSources.add((IdentifierPool) src);
 			}
 		}
-		return new NeedsPaging<IdentifierPool>(identifierPoolSources, context);
+		return new NeedsPaging<>(identifierPoolSources, context);
 	}
 
 	@Override
@@ -192,7 +193,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep); //FIXME add Impl
+		return getCREATEModel(rep);
 	}
 	
 }

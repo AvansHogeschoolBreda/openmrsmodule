@@ -64,7 +64,8 @@ public class LogEntryController {
     	model.addAttribute("generatedBy", generatedBy);
     	model.addAttribute("comment", comment);
     	
-    	List<LogEntry> logEntries = new ArrayList<LogEntry>();
+    	List<LogEntry> logEntries = new ArrayList<>();
+
 		if (Context.isAuthenticated() && StringUtils.hasText(action)) {
 			Thread.currentThread().setContextClassLoader(OpenmrsClassLoader.getInstance());
 			IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);

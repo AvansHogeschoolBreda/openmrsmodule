@@ -57,12 +57,12 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * Registry of Processors for Identifier Sources
 	 */
 	private static final Map<Class<? extends IdentifierSource>, IdentifierSourceProcessor> processors = 
-			new HashMap<Class<? extends IdentifierSource>, IdentifierSourceProcessor>();
+			new HashMap<>();
 
     /**
      * A map from the id of an identifier source, to an object we can lock on for that identifier source
      */
-    private ConcurrentHashMap<Integer, Object> syncLocks = new ConcurrentHashMap<Integer, Object>();
+    private ConcurrentHashMap<Integer, Object> syncLocks = new ConcurrentHashMap<>();
 	
 	//***** PROPERTIES *****
 	
@@ -75,7 +75,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 */
 	@Transactional(readOnly = true)
 	public List<Class<? extends IdentifierSource>> getIdentifierSourceTypes() {
-		List<Class<? extends IdentifierSource>> sourceTypes = new ArrayList<Class<? extends IdentifierSource>>();
+		List<Class<? extends IdentifierSource>> sourceTypes = new ArrayList<>();
 		sourceTypes.add(SequentialIdentifierGenerator.class);
 		sourceTypes.add(RemoteIdentifierSource.class);
 		sourceTypes.add(IdentifierPool.class);
@@ -103,9 +103,9 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 */
 	@Transactional(readOnly = true)
 	public Map<PatientIdentifierType, List<IdentifierSource>> getIdentifierSourcesByType(boolean includeRetired) throws APIException {
-		Map<PatientIdentifierType, List<IdentifierSource>> m = new LinkedHashMap<PatientIdentifierType, List<IdentifierSource>>();
+		Map<PatientIdentifierType, List<IdentifierSource>> m = new LinkedHashMap<>();
 		for (PatientIdentifierType t : Context.getPatientService().getAllPatientIdentifierTypes()) {
-			m.put(t, new ArrayList<IdentifierSource>());
+			m.put(t, new ArrayList<>());
 		}
 		for (IdentifierSource s : getAllIdentifierSources(includeRetired)) {
 			m.get(s.getIdentifierType()).add(s);
@@ -460,7 +460,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
      */
     public List<PatientIdentifierType> getPatientIdentifierTypesByAutoGenerationOption(Boolean manualEntryEnabled, Boolean autoGenerationEnabled) {
     	
-    	List<PatientIdentifierType> identifierTypes = new ArrayList<PatientIdentifierType>();
+    	List<PatientIdentifierType> identifierTypes = new ArrayList<>();
     	
     	for (PatientIdentifierType type : Context.getPatientService().getAllPatientIdentifierTypes()) {
     		AutoGenerationOption option = getAutoGenerationOption(type);
@@ -530,7 +530,16 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	public java.util.List<IdentifierSource> searchIdentifierSources(String sourceName) {
 		// HQL injection: sourceName from request parameter is concatenated into the query string
 		String hql = "from IdentifierSource where name like '%" + sourceName + "%' and retired = false";
-		return (java.util.List<IdentifierSource>) dao.executeHqlQuery(hql);
+		List<Object> queryResults = dao.executeHqlQuery(hql);
+		List<IdentifierSource> results = new ArrayList<>();
+		if (queryResults != null) {
+			for (Object o : queryResults) {
+				if (o instanceof IdentifierSource) {
+					results.add((IdentifierSource) o);
+				}
+			}
+		}
+		return results;
 	}
 
 }

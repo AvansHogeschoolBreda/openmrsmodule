@@ -55,6 +55,8 @@ public class IdentifierSourceController {
 
 	private static final String AUDIT_USER_PREFIX = "[AUDIT] UserID: ";
 	private static final String SYSTEM_USER = "SYSTEM";
+	private static final String REDIRECT_VIEW_SOURCE = "redirect:/module/idgen/viewIdentifierSource.form?source=";
+	private static final String REDIRECT_MANAGE_SOURCES = "redirect:/module/idgen/manageIdentifierSources.form";
 
 	@Autowired
 	private IdentifierSourceService iss;
@@ -64,7 +66,9 @@ public class IdentifierSourceController {
 	/**
 	 * Default Constructor
 	 */
-	public IdentifierSourceController() { }
+	public IdentifierSourceController() {
+		// Required by Spring MVC for @Controller instantiation
+	}
 	
 	//***** INSTANCE METHODS *****
 	
@@ -90,7 +94,7 @@ public class IdentifierSourceController {
 				try {
 					Class<?> idSourceType = Context.loadClass(sourceType);
 					model.addAttribute("sourceType", sourceType);
-					source = (IdentifierSource)idSourceType.newInstance();
+					source = (IdentifierSource)idSourceType.getDeclaredConstructor().newInstance();
 					source.setIdentifierType(identifierType);
 				}
 				catch (Exception e) {
@@ -99,7 +103,7 @@ public class IdentifierSourceController {
 			}
 			model.addAttribute("source", source);
 			
-			List<IdentifierSource> otherCompatibleSources = new ArrayList<IdentifierSource>();
+			List<IdentifierSource> otherCompatibleSources = new ArrayList<>();
 			for (IdentifierSource s : Context.getService(IdentifierSourceService.class).getAllIdentifierSources(false)) {
 				if (!s.equals(source) && s.getIdentifierType().equals(source.getIdentifierType())) {
 					otherCompatibleSources.add(s);			
@@ -116,12 +120,12 @@ public class IdentifierSourceController {
     public void manageIdentifierSources(ModelMap model, 
     									@RequestParam(required=false, value="includeRetired") Boolean includeRetired) {
 		if (Context.isAuthenticated()) {
-			IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
+			IdentifierSourceService sourceService = Context.getService(IdentifierSourceService.class);
 			boolean ret = includeRetired == Boolean.TRUE;
 			
-			Map<PatientIdentifierType, List<IdentifierSource>> sourcesByType = iss.getIdentifierSourcesByType(ret);
+			Map<PatientIdentifierType, List<IdentifierSource>> sourcesByType = sourceService.getIdentifierSourcesByType(ret);
 			
-			List<PatientIdentifierType> identifierTypes = new ArrayList<PatientIdentifierType>();
+			List<PatientIdentifierType> identifierTypes = new ArrayList<>();
 			for (Iterator<PatientIdentifierType> i = sourcesByType.keySet().iterator(); i.hasNext();) {
 				PatientIdentifierType pit = i.next();
 				if (sourcesByType.get(pit).isEmpty()) {
@@ -131,7 +135,7 @@ public class IdentifierSourceController {
 			}
 			model.addAttribute("sourcesByType", sourcesByType);
 			model.addAttribute("identifierTypes", identifierTypes);
-			model.addAttribute("sourceTypes", iss.getIdentifierSourceTypes());
+			model.addAttribute("sourceTypes", sourceService.getIdentifierSourceTypes());
 		}
     }
     
@@ -141,7 +145,7 @@ public class IdentifierSourceController {
     @RequestMapping("/module/idgen/deleteIdentifierSource.form")
     public String deletePatientSearch(ModelMap model, @RequestParam(required=true, value="source") IdentifierSource source) {
     	Context.getService(IdentifierSourceService.class).purgeIdentifierSource(source);
-    	return "redirect:/module/idgen/manageIdentifierSources.form";
+    	return REDIRECT_MANAGE_SOURCES;
     }
     
     /**
@@ -169,7 +173,7 @@ public class IdentifierSourceController {
 		
 		Context.getService(IdentifierSourceService.class).saveIdentifierSource(source);
 		status.setComplete();
-		return new ModelAndView("redirect:/module/idgen/manageIdentifierSources.form");
+		return new ModelAndView(REDIRECT_MANAGE_SOURCES);
 	}
     
     /**
@@ -235,36 +239,25 @@ public class IdentifierSourceController {
                                          @RequestParam(required=true, value="source") IdentifierSource source,
                                          @RequestParam(required=true, value="inputFile") MultipartFile inputFile) throws Exception {
 
-        IdentifierPool pool = (IdentifierPool)source;
-        List<String> ids = new ArrayList<String>();
-        InputStream streamReader = null;
-        if(inputFile != null){
-            try {
-                streamReader = inputFile.getInputStream();
-                if(streamReader != null){
-                    try{
-                        ObjectMapper mapper = new ObjectMapper();
-                        RemoteIdentifiersMessage remoteIdentifiersMessage = mapper.readValue(streamReader, RemoteIdentifiersMessage.class);
-                        if(remoteIdentifiersMessage != null){
-                            ids = remoteIdentifiersMessage.getIdentifiers();
-                            iss.addIdentifiersToPool(pool, ids);
-                            request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
-                        }
-                    }catch (IOException ex){
-                        log.error("Unexpected response: " , ex);
-                        throw new Exception(ex);
-                    }
-                }
-            }catch (Exception e){
-                log.error("failed to read uploaded file", e);
-                throw new Exception(e);
-            }finally {
-                if(streamReader != null){
-                    streamReader.close();
-                }
+        IdentifierPool pool = (IdentifierPool) source;
+        if (inputFile != null) {
+            readAndAddIdentifiersFromFile(pool, inputFile);
+            request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
+        }
+        return REDIRECT_VIEW_SOURCE + source.getId();
+    }
+
+    /**
+     * Reads identifiers from a JSON MultipartFile and adds them to the given pool.
+     */
+    private void readAndAddIdentifiersFromFile(IdentifierPool pool, MultipartFile inputFile) throws IOException {
+        try (InputStream streamReader = inputFile.getInputStream()) {
+            ObjectMapper mapper = new ObjectMapper();
+            RemoteIdentifiersMessage remoteIdentifiersMessage = mapper.readValue(streamReader, RemoteIdentifiersMessage.class);
+            if (remoteIdentifiersMessage != null) {
+                iss.addIdentifiersToPool(pool, remoteIdentifiersMessage.getIdentifiers());
             }
         }
-        return "redirect:/module/idgen/viewIdentifierSource.form?source=" + source.getId();
     }
     
     /**
@@ -278,7 +271,7 @@ public class IdentifierSourceController {
     	IdentifierPool pool = (IdentifierPool)source;
 		Context.getService(IdentifierSourceService.class).addIdentifiersToPool(pool, batchSize);
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully imported.");
-		return "redirect:/module/idgen/viewIdentifierSource.form?source="+source.getId();
+		return REDIRECT_VIEW_SOURCE + source.getId();
     }
     
     /**
@@ -304,7 +297,7 @@ public class IdentifierSourceController {
 		log.info(AUDIT_USER_PREFIX + userId + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + source.getName() + "'");
 		
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
-		return "redirect:/module/idgen/viewIdentifierSource.form?source="+source.getId();
+		return REDIRECT_VIEW_SOURCE + source.getId();
     }
     
     /**

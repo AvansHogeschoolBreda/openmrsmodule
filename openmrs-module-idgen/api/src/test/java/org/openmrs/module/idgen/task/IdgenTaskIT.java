@@ -45,9 +45,14 @@ public class IdgenTaskIT extends IdgenBaseTest {
     }
 
     @Test
+    @SuppressWarnings("java:S2925")
     public void timerShouldFireAndShouldAuthenticate() throws Exception {
         TestTask.reset();
-        Thread.sleep(10000);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         Assert.assertTrue(TestTask.hasRun());
         Assert.assertTrue(TestTask.wasAuthenticated());
     }

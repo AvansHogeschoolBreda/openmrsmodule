@@ -67,7 +67,7 @@ public class LogEntrySearchHandler implements SearchHandler {
         else {
             List<LogEntry> logEntries = identifierSourceService.getLogEntries(logSource, dateFrom, dateTo, identifier,
                     user, comment); 
-            return new NeedsPaging<LogEntry>(logEntries, context);
+            return new NeedsPaging<>(logEntries, context);
         }
     }
     @Override
