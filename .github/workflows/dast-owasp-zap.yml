@@ -47,6 +47,7 @@ jobs:
         run: |
           docker run --rm \
             --network host \
+            --user root \
             -v ${{ github.workspace }}/docs/dast:/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-full-scan.py \
