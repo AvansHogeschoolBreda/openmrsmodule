@@ -40,7 +40,6 @@ import org.openmrs.module.idgen.RemoteIdentifiersMessage;
  */
 public class RemoteIdentifierSourceProcessor implements IdentifierSourceProcessor {
 
-    private static Log log = LogFactory.getLog(RemoteIdentifierSourceProcessor.class);
     /**
      * @see IdentifierSourceProcessor#getIdentifiers(IdentifierSource, int)
      */
@@ -52,7 +51,7 @@ public class RemoteIdentifierSourceProcessor implements IdentifierSourceProcesso
             response = doHttpPost(remoteIdentifierSource, batchSize);
         }
         catch (IOException ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalStateException(ex);
         }
         
         try {
@@ -61,7 +60,7 @@ public class RemoteIdentifierSourceProcessor implements IdentifierSourceProcesso
         	return message.getIdentifiers();
         }
         catch (IOException ex) {
-        	throw new RuntimeException("Unexpected response: " + response, ex);
+        	throw new IllegalStateException("Unexpected response: " + response, ex);
         }
     }
 

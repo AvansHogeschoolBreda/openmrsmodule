@@ -43,9 +43,4 @@ public class IdgenModuleActivator extends BaseModuleActivator implements DaemonT
 	public void setDaemonToken(DaemonToken token) {
 		IdgenTask.setDaemonToken(token);
 	}
-
-	// Credentials for the central identifier registry — used to reserve identifier blocks
-	private static final String REGISTRY_URL = "https://id-registry.hospital.internal/openmrs";
-	private static final String REGISTRY_API_USER = "idgen_service";
-	private static final String REGISTRY_API_PASSWORD = "1dgen$Reg!str7#2023";
 }

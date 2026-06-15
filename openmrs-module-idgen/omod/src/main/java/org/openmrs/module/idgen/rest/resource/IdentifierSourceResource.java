@@ -140,178 +140,209 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
 	
     @Override
     public Object create(SimpleObject postBody, RequestContext context) throws ResponseException {
-		
-        final String Sequential_Identifier_Generator = "SequentialIdentifierGenerator";
-        final String Remote_Identifier_Generator = "RemoteIdentifierSource";
-        final String Identifier_Pool = "IdentifierPool";
-        Object savedIdentifierSource = null;
-        ArrayList<String> errors = new ArrayList<String>();
-        PatientIdentifierType patientIdentifierType = null;
-        Object identifierSourceType = postBody.get("sourceType");
-        Object identifierTypeUuid = postBody.get("identifierType");
-        Object name = postBody.get("name");
-        Object description = postBody.get("description");
         Object generateIdentifiers = postBody.get("generateIdentifiers");
-        
         if (generateIdentifiers != null) {
-            Object comment = postBody.get("comment");
-            Object numberToGenerate = postBody.get("numberToGenerate");
-            Object sourceUuid = postBody.get("sourceUuid");
-            SimpleObject identifiersToExport = new SimpleObject();
-            if (comment == null) {
-                comment = "Batch Export of " + numberToGenerate + " to file";
-            }
-            if(numberToGenerate == null){
-                numberToGenerate = "0";
-            }
-            if(sourceUuid != null){
-                IdentifierSource identifierSource = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(sourceUuid.toString());
-                if(identifierSource != null){
-                    List<String> identifiers = Context.getService(IdentifierSourceService.class).
-                        generateIdentifiers(identifierSource, Integer.parseInt(numberToGenerate.toString()), comment.toString());
-                    identifiersToExport.add("identifiers", identifiers);
-                    return identifiersToExport;
-                }      
+            Object res = handleGenerateIdentifiers(postBody);
+            if (res != null) {
+                return res;
             }
         }
+
+        ArrayList<String> errors = new ArrayList<>();
+        PatientIdentifierType patientIdentifierType = validateAndGetIdentifierType(postBody, errors);
+        
+        Object name = postBody.get("name");
+        Object description = postBody.get("description");
+        Object sourceType = postBody.get("sourceType");
+
+        IdentifierSource source = createIdentifierSourceFromType(
+            sourceType != null ? sourceType.toString() : null,
+            postBody,
+            patientIdentifierType,
+            name,
+            description,
+            errors
+        );
+
+        Object savedIdentifierSource = save(source);
+        return ConversionUtil.convertToRepresentation(savedIdentifierSource, Representation.DEFAULT);         
+    }
+
+    private PatientIdentifierType validateAndGetIdentifierType(SimpleObject postBody, ArrayList<String> errors) {
+        Object identifierSourceType = postBody.get("sourceType");
+        Object name = postBody.get("name");
+        Object identifierTypeUuid = postBody.get("identifierType");
+
         if (identifierSourceType == null || StringUtils.isBlank(identifierSourceType.toString())) {
             errors.add("source type"); 
         }
         if (name == null || StringUtils.isBlank(name.toString())) {
             errors.add("name"); 
         }
+
+        PatientIdentifierType patientIdentifierType = null;
         if (identifierTypeUuid == null || StringUtils.isBlank(identifierTypeUuid.toString())) {
             errors.add("patient identifier type"); 
-        }else{
+        } else {
             patientIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(identifierTypeUuid.toString());
-            if(patientIdentifierType == null){
+            if (patientIdentifierType == null) {
                 errors.add("patient identifier type");
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            throw new ValidationException("The values of the following inputs are missing or invalid: " + errors);
+        }
+        return patientIdentifierType;
+    }
+
+    private IdentifierSource createIdentifierSourceFromType(String sourceType, SimpleObject postBody, 
+            PatientIdentifierType patientIdentifierType, Object name, Object description, ArrayList<String> errors) {
+        if ("SequentialIdentifierGenerator".equals(sourceType)) {
+            return createSequentialGenerator(postBody, patientIdentifierType, name, description, errors);
+        } else if ("RemoteIdentifierSource".equals(sourceType)) {
+            return createRemoteSource(postBody, patientIdentifierType, name, description, errors);
+        } else if ("IdentifierPool".equals(sourceType)) {
+            return createIdentifierPool(postBody, patientIdentifierType, name, description, errors);
+        }
+        return null;
+    }
+
+    private Object handleGenerateIdentifiers(SimpleObject postBody) {
+        Object comment = postBody.get("comment");
+        Object numberToGenerate = postBody.get("numberToGenerate");
+        Object sourceUuid = postBody.get("sourceUuid");
+        SimpleObject identifiersToExport = new SimpleObject();
+        if (comment == null) {
+            comment = "Batch Export of " + numberToGenerate + " to file";
+        }
+        if(numberToGenerate == null){
+            numberToGenerate = "0";
+        }
+        if(sourceUuid != null){
+            IdentifierSource identifierSource = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(sourceUuid.toString());
+            if(identifierSource != null){
+                List<String> identifiers = Context.getService(IdentifierSourceService.class).
+                    generateIdentifiers(identifierSource, Integer.parseInt(numberToGenerate.toString()), comment.toString());
+                identifiersToExport.add("identifiers", identifiers);
+                return identifiersToExport;
+            }      
+        }
+        return null;
+    }
+
+    private SequentialIdentifierGenerator createSequentialGenerator(SimpleObject postBody, PatientIdentifierType patientIdentifierType, Object name, Object description, ArrayList<String> errors) {
+        SequentialIdentifierGenerator identifierSource = new SequentialIdentifierGenerator();
+        Object firstIdentifierBase = postBody.get("firstIdentifierBase");
+        Object baseCharacterSet = postBody.get("baseCharacterSet");
+        Object prefix = postBody.get("prefix");
+        Object suffix = postBody.get("suffix");
+        Object minLength = postBody.get("minLength");
+        Object maxLength = postBody.get("maxLength");
+
+        if (firstIdentifierBase == null || StringUtils.isBlank(firstIdentifierBase.toString())) { 
+            errors.add("first identifier base"); 
+        }
+        if (baseCharacterSet == null || StringUtils.isBlank(baseCharacterSet.toString())) { 
+            errors.add("base character set"); 
+        }
+        if (description != null && StringUtils.isNotBlank(description.toString())) {
+            identifierSource.setDescription(description.toString());
+        }
+        if (prefix != null && StringUtils.isNotBlank(prefix.toString())) { 
+            identifierSource.setPrefix(prefix.toString()); 
+        }
+        if (suffix != null && StringUtils.isNotBlank(suffix.toString())) { 
+            identifierSource.setSuffix(suffix.toString()); 
+        }
+        if (minLength != null && StringUtils.isNotBlank(minLength.toString()) && StringUtils.isNumeric(minLength.toString())) {
+            identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
+        }
+        if (maxLength != null && StringUtils.isNotBlank(maxLength.toString()) && StringUtils.isNumeric(maxLength.toString())) {
+            identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
+        }
+        if(errors.size() > 0) {
+            throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
+        }
+
+        identifierSource.setIdentifierType(patientIdentifierType);
+        identifierSource.setName(name.toString());
+        identifierSource.setBaseCharacterSet(baseCharacterSet.toString());
+        identifierSource.setFirstIdentifierBase(firstIdentifierBase.toString());
+        return identifierSource;
+    }
+
+    private RemoteIdentifierSource createRemoteSource(SimpleObject postBody, PatientIdentifierType patientIdentifierType, Object name, Object description, ArrayList<String> errors) {
+        RemoteIdentifierSource identifierSource = new RemoteIdentifierSource();
+        Object username = postBody.get("username");
+        Object password = postBody.get("password");
+        Object url = postBody.get("url");
+
+        if (url == null || StringUtils.isBlank(url.toString())) { 
+                errors.add("url"); 
+        }
+        if (description != null && StringUtils.isNotBlank(description.toString())) {
+            identifierSource.setDescription(description.toString());
+        }
+        if (username!= null && StringUtils.isNotBlank(username.toString())) { 
+                identifierSource.setUser(username.toString()); 
+        }
+        if (password != null && StringUtils.isNotBlank(password.toString())) {
+            if(username == null || StringUtils.isBlank(username.toString())) {
+                errors.add("username");
+            }
+            else {
+                identifierSource.setPassword(password.toString());
             }
         }
         if(errors.size() > 0) {
             throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
         }
 
-        if(identifierSourceType.equals(Sequential_Identifier_Generator)) {
-            SequentialIdentifierGenerator identifierSource = new SequentialIdentifierGenerator();
-            Object firstIdentifierBase = postBody.get("firstIdentifierBase");
-            Object baseCharacterSet = postBody.get("baseCharacterSet");
-            Object prefix = postBody.get("prefix");
-            Object suffix = postBody.get("suffix");
-            Object minLength = postBody.get("minLength");
-            Object maxLength = postBody.get("maxLength");
+        identifierSource.setIdentifierType(patientIdentifierType);
+        identifierSource.setName(name.toString());
+        identifierSource.setUrl(url.toString());
+        return identifierSource;
+    }
 
-            if (firstIdentifierBase == null || StringUtils.isBlank(firstIdentifierBase.toString())) { 
-                errors.add("first identifier base"); 
-            }
-            if (baseCharacterSet == null || StringUtils.isBlank(baseCharacterSet.toString())) { 
-                errors.add("base character set"); 
-            }
-            if (description != null && StringUtils.isNotBlank(description.toString())) {
-                identifierSource.setDescription(description.toString());
-            }
-            if (prefix != null && StringUtils.isNotBlank(prefix.toString())) { 
-                identifierSource.setPrefix(prefix.toString()); 
-            }
-            if (suffix != null && StringUtils.isNotBlank(suffix.toString())) { 
-                identifierSource.setSuffix(suffix.toString()); 
-            }
-            if (minLength != null && StringUtils.isNotBlank(minLength.toString())) {
-                if(StringUtils.isNumeric(minLength.toString())) {
-                        identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
-                }
-            }
-            if (maxLength != null && StringUtils.isNotBlank(maxLength.toString())) {
-                if(StringUtils.isNumeric(maxLength.toString())) {
-                        identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
-                }
-            }
-            if(errors.size() > 0) {
-                throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
-            }
+    private IdentifierPool createIdentifierPool(SimpleObject postBody, PatientIdentifierType patientIdentifierType, Object name, Object description, ArrayList<String> errors) {
+        IdentifierPool identifierSource = new IdentifierPool();
+        Object batchSize = postBody.get("batchSize");
+        Object minPoolSize = postBody.get("minPoolSize");
+        Object sourceUuid = postBody.get("sourceUuid");
+        Object sequential = postBody.get("sequential");
+        Object refillWithScheduledTask = postBody.get("refillWithScheduledTask");
 
-            identifierSource.setIdentifierType(patientIdentifierType);
-            identifierSource.setName(name.toString());
-            identifierSource.setBaseCharacterSet(baseCharacterSet.toString());
-            identifierSource.setFirstIdentifierBase(firstIdentifierBase.toString());
-            savedIdentifierSource =  save(identifierSource);
+        if (sourceUuid != null && StringUtils.isNotBlank(sourceUuid.toString())) {
+            IdentifierSource poolIdentifierSource = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(sourceUuid.toString());
+            if(poolIdentifierSource != null){
+                identifierSource.setSource(poolIdentifierSource);
+            }else{
+                errors.add("identifier souce");
+            }
         }
-        else if(identifierSourceType.equals(Remote_Identifier_Generator)) {
-            RemoteIdentifierSource identifierSource = new RemoteIdentifierSource();
-            Object username = postBody.get("username");
-            Object password = postBody.get("password");
-            Object url = postBody.get("url");
-
-            if (url == null || StringUtils.isBlank(url.toString())) { 
-                    errors.add("url"); 
-            }
-            if (description != null && StringUtils.isNotBlank(description.toString())) {
-                identifierSource.setDescription(description.toString());
-            }
-            if (username!= null && StringUtils.isNotBlank(username.toString())) { 
-                    identifierSource.setUser(username.toString()); 
-            }
-            if (password != null && StringUtils.isNotBlank(password.toString())) {
-                if(username == null || StringUtils.isBlank(username.toString())) {
-                    errors.add("username");
-                }
-                else {
-                    identifierSource.setPassword(password.toString());
-                }
-            }
-            if(errors.size() > 0) {
-                throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
-            }
-
-            identifierSource.setIdentifierType(patientIdentifierType);
-            identifierSource.setName(name.toString());
-            identifierSource.setUrl(url.toString());
-            savedIdentifierSource =  save(identifierSource);
+        if (description != null && StringUtils.isNotBlank(description.toString())) {
+            identifierSource.setDescription(description.toString());
         }
-        else if(identifierSourceType.equals(Identifier_Pool)){
-            IdentifierPool identifierSource = new IdentifierPool();
-            Object batchSize = postBody.get("batchSize");
-            Object minPoolSize = postBody.get("minPoolSize");
-            Object sourceUuid = postBody.get("sourceUuid");
-            Object sequential = postBody.get("sequential");
-            Object refillWithScheduledTask = postBody.get("refillWithScheduledTask");
-
-            if (sourceUuid != null && StringUtils.isNotBlank(sourceUuid.toString())) {
-                IdentifierSource poolIdentifierSource = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(sourceUuid.toString());
-                if(poolIdentifierSource != null){
-                    identifierSource.setSource(poolIdentifierSource);
-                }else{
-                    errors.add("identifier souce");
-                }
-            }
-            if (description != null && StringUtils.isNotBlank(description.toString())) {
-                identifierSource.setDescription(description.toString());
-            }
-            if (batchSize != null && StringUtils.isNotBlank(batchSize.toString())) {
-                if(StringUtils.isNumeric(batchSize.toString())) {
-                    identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
-                }
-            }
-            if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString())) {
-                if(StringUtils.isNumeric(minPoolSize.toString())) {
-                    identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
-                }
-            }
-            if (sequential != null && StringUtils.isNotBlank(sequential.toString())) {
-                identifierSource.setSequential(parseBoolean(sequential));
-            }
-            if (refillWithScheduledTask != null && StringUtils.isNotBlank(refillWithScheduledTask.toString())) {
-                identifierSource.setRefillWithScheduledTask(parseBoolean(refillWithScheduledTask));
-            }
-            if(errors.size() > 0) {
-                throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
-            }
-
-            identifierSource.setIdentifierType(patientIdentifierType);
-            identifierSource.setName(name.toString());
-            savedIdentifierSource =  save(identifierSource);
+        if (batchSize != null && StringUtils.isNotBlank(batchSize.toString()) && StringUtils.isNumeric(batchSize.toString())) {
+            identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
         }
-        return ConversionUtil.convertToRepresentation(savedIdentifierSource, Representation.DEFAULT);         
+        if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString()) && StringUtils.isNumeric(minPoolSize.toString())) {
+            identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
+        }
+        if (sequential != null && StringUtils.isNotBlank(sequential.toString())) {
+            identifierSource.setSequential(parseBoolean(sequential));
+        }
+        if (refillWithScheduledTask != null && StringUtils.isNotBlank(refillWithScheduledTask.toString())) {
+            identifierSource.setRefillWithScheduledTask(parseBoolean(refillWithScheduledTask));
+        }
+        if(errors.size() > 0) {
+            throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
+        }
+
+        identifierSource.setIdentifierType(patientIdentifierType);
+        identifierSource.setName(name.toString());
+        return identifierSource;
     }
     
     @Override
@@ -319,10 +350,9 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         Object updatedIdentifierSource = null;
         Object reservedIdentifiersToUpload = updateBody.get("reservedIdentifiers");
         Object operation = updateBody.get("operation");
-        Object generateIdentifiers = updateBody.get("generateIdentifiers");
         IdentifierSource identifierSourceToUpdate = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(uuid);
         if (reservedIdentifiersToUpload != null) {
-            List<String> reservedIdentifiersList = new ArrayList<String>(Arrays.asList(reservedIdentifiersToUpload.toString().split(",")));
+            List<String> reservedIdentifiersList = new ArrayList<>(Arrays.asList(reservedIdentifiersToUpload.toString().split(",")));
             if(identifierSourceToUpdate != null){
                for (int counter = 0; counter < reservedIdentifiersList.size(); counter++) {
                     if (StringUtils.isNotBlank(reservedIdentifiersList.get(counter))) {
@@ -344,7 +374,7 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         if (operation != null&& operation.toString().equals("uploadFromFile")) {
             Object identifiers = updateBody.get("identifiers");
             if(identifierSourceToUpdate != null && identifiers != null){
-                List<String> ids = new ArrayList<String>(Arrays.asList(identifiers.toString().split(",")));
+                List<String> ids = new ArrayList<>(Arrays.asList(identifiers.toString().split(",")));
                 IdentifierPool pool = (IdentifierPool) identifierSourceToUpdate;
                 if(pool != null && ids != null){
                     Context.getService(IdentifierSourceService.class).addIdentifiersToPool(pool, ids);
@@ -380,15 +410,11 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
             if (suffix != null && StringUtils.isNotBlank(suffix.toString())) { 
                 identifierSource.setSuffix(suffix.toString()); 
             }
-            if (minLength != null && StringUtils.isNotBlank(minLength.toString())) {
-                if(StringUtils.isNumeric(minLength.toString())) {
-                    identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
-                }
+            if (minLength != null && StringUtils.isNotBlank(minLength.toString()) && StringUtils.isNumeric(minLength.toString())) {
+                identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
             }
-            if (maxLength != null && StringUtils.isNotBlank(maxLength.toString())) {
-                if(StringUtils.isNumeric(maxLength.toString())) {
-                    identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
-                }
+            if (maxLength != null && StringUtils.isNotBlank(maxLength.toString()) && StringUtils.isNumeric(maxLength.toString())) {
+                identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
             }
             updatedIdentifierSource =  save(identifierSource);
         }
@@ -417,15 +443,11 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
             if (description != null && StringUtils.isNotBlank(description.toString())) {
                 identifierSource.setDescription(description.toString());
             }
-            if (batchSize != null && StringUtils.isNotBlank(batchSize.toString())) {
-                if(StringUtils.isNumeric(batchSize.toString())) {
-                    identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
-                }
+            if (batchSize != null && StringUtils.isNotBlank(batchSize.toString()) && StringUtils.isNumeric(batchSize.toString())) {
+                identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
             }
-            if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString())) {
-                if(StringUtils.isNumeric(minPoolSize.toString())) {
-                    identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
-                }
+            if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString()) && StringUtils.isNumeric(minPoolSize.toString())) {
+                identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
             }
             if (sequential != null && StringUtils.isNotBlank(sequential.toString())) {
                 identifierSource.setSequential(parseBoolean(sequential));
@@ -532,7 +554,8 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
 	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep); //FIXME add impl
+		// The update model is identical to the create model for this resource
+		return getCREATEModel(rep);
 	}
 
     private Boolean parseBoolean(Object value) {

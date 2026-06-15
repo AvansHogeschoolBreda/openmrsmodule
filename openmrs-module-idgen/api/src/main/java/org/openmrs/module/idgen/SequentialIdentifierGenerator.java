@@ -66,8 +66,8 @@ public class SequentialIdentifierGenerator extends BaseIdentifierSource {
      * Returns a boolean indicating whether this generator has already started producing identifiers
      */
     public boolean isInitialized() {
-        Long nextSequenceValue = Context.getService(IdentifierSourceService.class).getSequenceValue(this);
-        return nextSequenceValue != null && nextSequenceValue > 0;
+        Long seqValue = Context.getService(IdentifierSourceService.class).getSequenceValue(this);
+        return seqValue != null && seqValue > 0;
     }
 
     /**
@@ -101,24 +101,20 @@ public class SequentialIdentifierGenerator extends BaseIdentifierSource {
     	if (getIdentifierType() != null && StringUtils.isNotEmpty(getIdentifierType().getValidator())) {
     		try {
 	    		Class<?> c = Context.loadClass(getIdentifierType().getValidator());
-	    		IdentifierValidator v = (IdentifierValidator)c.newInstance();
+	    		IdentifierValidator v = (IdentifierValidator) c.getDeclaredConstructor().newInstance();
 	    		identifier = v.getValidIdentifier(identifier);
     		}
     		catch (Exception e) {
-    			throw new RuntimeException("Error generating check digit with " + getIdentifierType().getValidator(), e);
+    			throw new IllegalStateException("Error generating check digit with " + getIdentifierType().getValidator(), e);
     		}
     	}
 
-		if (this.minLength != null && this.minLength > 0) {
-			if (identifier.length() < this.minLength) {
-				throw new RuntimeException("Invalid configuration for IdentifierSource. Length minimum set to " + this.minLength + " but generated " + identifier);
-			}
+		if (this.minLength != null && this.minLength > 0 && identifier.length() < this.minLength) {
+			throw new IllegalStateException("Invalid configuration for IdentifierSource. Length minimum set to " + this.minLength + " but generated " + identifier);
 		}
 
-		if (this.maxLength != null && this.maxLength > 0) {
-			if (identifier.length() > this.maxLength) {
-				throw new RuntimeException("Invalid configuration for IdentifierSource. Length maximum set to " + this.maxLength + " but generated " + identifier);
-			}
+		if (this.maxLength != null && this.maxLength > 0 && identifier.length() > this.maxLength) {
+			throw new IllegalStateException("Invalid configuration for IdentifierSource. Length maximum set to " + this.maxLength + " but generated " + identifier);
 		}
 
     	return identifier;
@@ -288,6 +284,16 @@ public class SequentialIdentifierGenerator extends BaseIdentifierSource {
 		}
 
 		return new ConstantSuffixProvider(suffix);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 }

@@ -68,7 +68,8 @@ public class SequentialIdentifierGeneratorProcessor implements IdentifierSourceP
 	protected List<String> generateBatch(SequentialIdentifierGenerator seq, Long sequenceValue, int batchSize) {
 		List<String> identifiers = new ArrayList<String>();
 		Set<String> reservedIdentifiers = seq.getReservedIdentifiers();
-		for (int i=0; i<batchSize;) {
+		int i = 0;
+		while (i < batchSize) {
 			String val = seq.getIdentifierForSeed(sequenceValue);
 			if (!reservedIdentifiers.contains(val)) {
 				identifiers.add(val);

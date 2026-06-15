@@ -19,6 +19,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests out the synchronization problem where duplicate identifiers are assigned
  */
+@SuppressWarnings("java:S2925")
 public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
 
     public static final int NUM_THREADS = 25;
@@ -73,6 +74,7 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
                 thread.join();
             }
             catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -85,6 +87,7 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
             Thread.sleep(time);
         }
         catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -17,11 +17,14 @@ public class AutoGenerationOptionEditor extends PropertyEditorSupport {
     /**
      * Default Constructor
      */
-    public AutoGenerationOptionEditor() { }
+    public AutoGenerationOptionEditor() {
+		// Empty constructor
+	}
 
     /**
      * @see PropertyEditorSupport#setAsText(String)
      */
+    @Override
     public void setAsText(String text) throws IllegalArgumentException {
         if (StringUtils.hasText(text)) {
             try {
@@ -40,6 +43,7 @@ public class AutoGenerationOptionEditor extends PropertyEditorSupport {
     /**
      * @see PropertyEditorSupport#getAsText()
      */
+    @Override
     public String getAsText() {
         AutoGenerationOption option = (AutoGenerationOption) getValue();
         if (option != null) {

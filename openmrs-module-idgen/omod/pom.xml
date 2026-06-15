@@ -17,6 +17,7 @@
         <MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
         <MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
         <WEBSERVICES_VERSION>2.23.0</WEBSERVICES_VERSION>
+        <argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED</argLine>
     </properties>
 
 	<dependencies>
@@ -105,6 +106,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.4</version>
 				<configuration>
+					<argLine>${argLine}</argLine>
 					<!-- IdentifierResource.create() cast char[] ← String, breekt op Java 11.
 					     Technische schuld: fix vereist char[]-veld in SimpleObject te vervangen door String. -->
 					<excludes>

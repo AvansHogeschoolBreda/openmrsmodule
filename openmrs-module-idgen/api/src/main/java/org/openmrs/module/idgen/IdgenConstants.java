@@ -18,6 +18,10 @@ package org.openmrs.module.idgen;
  */
 public class IdgenConstants {
 	
+	private IdgenConstants() {
+		// Utility class should not be instantiated
+	}
+	
 	/**
 	 * Privilege which grants users permission to manage identifier sources
 	 */

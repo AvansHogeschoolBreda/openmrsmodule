@@ -18,8 +18,6 @@ public abstract class IdgenTask extends TimerTask {
 
 	//***** PROPERTIES THAT NEED TO BE SET ON EACH INSTANCE
 
-	private Class<? extends IdgenTask> taskClass;
-
 	/**
 	 * @see TimerTask#run()
 	 */

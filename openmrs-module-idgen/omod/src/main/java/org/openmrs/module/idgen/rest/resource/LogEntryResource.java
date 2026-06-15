@@ -46,6 +46,9 @@ import io.swagger.models.properties.StringProperty;
 		+ "/logentry", supportedClass = LogEntry.class, supportedOpenmrsVersions = {"1.9.* - 9.9.*"})
 public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 
+	private static final String IDENTIFIER = "identifier";
+	private static final String COMMENT = "comment";
+
 	@Override
 	protected NeedsPaging<LogEntry> doGetAll(RequestContext context) {
 		return new NeedsPaging<LogEntry>(
@@ -61,8 +64,8 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 		String source = context.getRequest().getParameter("source");
 		String fromDate = context.getRequest().getParameter("fromDate");
 		String toDate = context.getRequest().getParameter("toDate");
-		String identifier = context.getRequest().getParameter("identifier");
-		String comment = context.getRequest().getParameter("comment");
+		String identifier = context.getRequest().getParameter(IDENTIFIER);
+		String comment = context.getRequest().getParameter(COMMENT);
 		String generatedBy = context.getRequest().getParameter("generatedBy");
 
 		IdentifierSource logSource = source != null ? identifierSourceService.getIdentifierSourceByUuid(source) : null;
@@ -85,14 +88,14 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 			description = new DelegatingResourceDescription();
 			description.addProperty("uuid");
 			description.addProperty("display");
-			description.addProperty("identifier");
+			description.addProperty(IDENTIFIER);
 			description.addSelfLink();
 		} else if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
 			description = new DelegatingResourceDescription();
 			description.addProperty("uuid");
 			description.addProperty("source");
-			description.addProperty("identifier");
-			description.addProperty("comment");
+			description.addProperty(IDENTIFIER);
+			description.addProperty(COMMENT);
 			description.addProperty("generatedBy");
 			description.addProperty("dateGenerated");
 			description.addSelfLink();
@@ -141,15 +144,15 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 		if (rep instanceof RefRepresentation) {
 			model   
 					.property("uuid", new StringProperty())
-					.property("identifier", new StringProperty())
+					.property(IDENTIFIER, new StringProperty())
 					.property("display", new StringProperty());
 		}	
 		if (!(rep instanceof FullRepresentation)) {
 			model
 					.property("uuid", new StringProperty())
 			        .property("name", new StringProperty())
-			        .property("identifier", new StringProperty())
-			        .property("comment", new StringProperty())
+					.property(IDENTIFIER, new StringProperty())
+					.property(COMMENT, new StringProperty())
 			        .property("generatedBy", new RefProperty("#/definitions/UserGet"))
 			        .property("dateGenerated", new DateProperty())
 			        .property("description", new StringProperty());
@@ -162,7 +165,7 @@ public class LogEntryResource extends MetadataDelegatingCrudResource<LogEntry> {
 	}
 	
 	@Override
-    public Object update(String uuid, SimpleObject updateBody, RequestContext context) throws ResponseException {
+	public Object update(String uuid, SimpleObject updateBody, RequestContext context) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException();
 	}
 	

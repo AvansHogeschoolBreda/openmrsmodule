@@ -28,7 +28,6 @@ public class RemoteIdentifierSourceProcessorStub extends RemoteIdentifierSourceP
 
 	Stack<String> identifiers;
 	int timesCalled = 0;
-	private Integer batchSize;
 
 	public RemoteIdentifierSourceProcessorStub() {
 		identifiers = new Stack<String>();
@@ -38,7 +37,7 @@ public class RemoteIdentifierSourceProcessorStub extends RemoteIdentifierSourceP
 	}
 
 	public void setBatchSize(Integer batchSize) {
-		this.batchSize = batchSize;
+		// unused field. Keeping method as no-op to maintain test compatibility
 	}
 
 	@Override

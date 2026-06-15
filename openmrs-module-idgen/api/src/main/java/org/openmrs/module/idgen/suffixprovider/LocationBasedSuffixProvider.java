@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component("idgen.locationBasedSuffixProvider")
 public class LocationBasedSuffixProvider implements GlobalPropertyListener, SuffixProvider {
 
-	public final static String SUFFIX_LOCATION_ATTRIBUTE_TYPE_GP = "idgen.suffixLocationAttributeType";
+	public static final String SUFFIX_LOCATION_ATTRIBUTE_TYPE_GP = "idgen.suffixLocationAttributeType";
 	
 	private static String suffixLocationAttributeType = null;
 	
@@ -27,7 +27,7 @@ public class LocationBasedSuffixProvider implements GlobalPropertyListener, Suff
 		if (Context.getUserContext().getLocation() != null) {
 			return getLocationSuffix(Context.getUserContext().getLocation());
 		} else {
-			throw new RuntimeException("No Location found in current UserContext");
+			throw new APIException("No Location found in current UserContext");
 		}
 		
 	}
@@ -68,14 +68,18 @@ public class LocationBasedSuffixProvider implements GlobalPropertyListener, Suff
 		return propertyName.equals(SUFFIX_LOCATION_ATTRIBUTE_TYPE_GP);
 	}
 	
+	private static synchronized void setSuffixLocationAttributeType(String value) {
+		suffixLocationAttributeType = value;
+	}
+
 	@Override
 	public void globalPropertyChanged(GlobalProperty newValue) {
-		suffixLocationAttributeType = newValue.getPropertyValue();
+		setSuffixLocationAttributeType(newValue.getPropertyValue());
 	}
 	
 	@Override
 	public void globalPropertyDeleted(String propertyName) {
-		suffixLocationAttributeType = null;
+		setSuffixLocationAttributeType(null);
 	}
 	
 }

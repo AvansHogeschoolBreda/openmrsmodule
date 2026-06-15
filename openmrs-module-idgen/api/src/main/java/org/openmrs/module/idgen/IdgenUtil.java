@@ -27,6 +27,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class IdgenUtil {
 	
+	private IdgenUtil() {
+		// Utility class should not be instantiated
+	}
+	
 	protected static Log log = LogFactory.getLog(IdgenUtil.class);
 
 	/**
@@ -35,7 +39,7 @@ public class IdgenUtil {
 	 */
 	public static String convertToBase(long n, char[] baseCharacters, int padToLength) {
     	StringBuilder base = new StringBuilder();
-    	long numInBase = (long)baseCharacters.length;
+    	long numInBase = baseCharacters.length;
     	while (n > 0) {
     		int index = (int)(n % numInBase);
     		base.insert(0, baseCharacters[index]);
@@ -63,7 +67,7 @@ public class IdgenUtil {
 				}
 			}
 			if (index == -1) {
-				throw new RuntimeException("Invalid character " + inputChars[i] + " found in " + s);
+				throw new IllegalArgumentException("Invalid character " + inputChars[i] + " found in " + s);
 			}
 			ret = ret + multiplier * index;
 			multiplier *= baseCharacters.length;
@@ -75,26 +79,14 @@ public class IdgenUtil {
 	 * @return the contents from the supplied URL as a String
 	 */
 	public static List<String> getIdsFromStream(InputStream stream) {
-		List<String> contents = new ArrayList<String>();
-		BufferedReader r = null;
-		try {
-			r = new BufferedReader(new InputStreamReader(stream));
+		List<String> contents = new ArrayList<>();
+		try (BufferedReader r = new BufferedReader(new InputStreamReader(stream))) {
 			for (String line = r.readLine(); line != null; line = r.readLine()) {
 				contents.add(line.trim());
 			}
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Error retrieving IDs from stream", e);
-		}
-		finally {
-			if (r != null) {
-				try {
-					r.close();
-				}
-				catch (Exception e) {
-					log.warn("Error closing reader: ", e);
-				}
-			}
+			throw new IllegalStateException("Error retrieving IDs from stream", e);
 		}
 		return contents;
 	}

@@ -24,6 +24,7 @@ import org.openmrs.User;
 /**
  * An base implementation which provides all common property access
  */
+@SuppressWarnings("java:S2143")
 public abstract class BaseIdentifierSource extends IdentifierSource {
 	
 	//***** PROPERTIES *****
@@ -45,7 +46,7 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	
 	//***** CONSTRUCTORS *****
 	
-	public BaseIdentifierSource() {}
+	protected BaseIdentifierSource() {}
 	
 	//***** INSTANCE METHODS *****
 	
@@ -205,7 +206,7 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	 */
 	@JsonIgnore
 	public Boolean isRetired() {
-		return retired;
+		return getRetired();
 	}
 	/**
 	 * @param retired the retired to set
@@ -254,7 +255,7 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	 */
 	public Set<String> getReservedIdentifiers() {
 		if (reservedIdentifiers == null) {
-			reservedIdentifiers = new HashSet<String>();
+			reservedIdentifiers = new HashSet<>();
 		}
 		return reservedIdentifiers;
 	}

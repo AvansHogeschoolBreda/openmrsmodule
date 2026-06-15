@@ -32,6 +32,9 @@ import io.swagger.models.properties.StringProperty;
 public class SequentialIdentifierGeneratorResourceHandler extends BaseDelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGenerator>
 implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGenerator> {
 
+	private static final String BASE_CHARACTER_SET = "baseCharacterSet";
+	private static final String MAX_LENGTH = "maxLength";
+
 	@Override
 	public String getResourceVersion() {
 		return "2.2";
@@ -56,12 +59,12 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 			representationDescription.addProperty("uuid");
 			representationDescription.addProperty("name");
 			representationDescription.addProperty("description");
-			representationDescription.addProperty("baseCharacterSet");
+			representationDescription.addProperty(BASE_CHARACTER_SET);
 			representationDescription.addProperty("prefix");
 			representationDescription.addProperty("suffix");
 			representationDescription.addProperty("firstIdentifierBase");
 			representationDescription.addProperty("minLength");
-			representationDescription.addProperty("maxLength");
+			representationDescription.addProperty(MAX_LENGTH);
             		representationDescription.addProperty("identifierType", Representation.DEFAULT);
 			representationDescription.addSelfLink();
 			return representationDescription;
@@ -71,12 +74,12 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 			representationDescription.addProperty("name");
 			representationDescription.addProperty("description");
 			representationDescription.addProperty("nextSequenceValue");
-			representationDescription.addProperty("baseCharacterSet");
+			representationDescription.addProperty(BASE_CHARACTER_SET);
 			representationDescription.addProperty("prefix");
 			representationDescription.addProperty("suffix");
 			representationDescription.addProperty("firstIdentifierBase");
 			representationDescription.addProperty("minLength");
-			representationDescription.addProperty("maxLength");
+			representationDescription.addProperty(MAX_LENGTH);
             		representationDescription.addProperty("identifierType", Representation.FULL);
 			representationDescription.addSelfLink();
 			return representationDescription;
@@ -84,7 +87,7 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 		if (representation instanceof RefRepresentation) {
 			representationDescription.addProperty("uuid");
 			representationDescription.addProperty("display");
-			representationDescription.addProperty("baseCharacterSet");
+			representationDescription.addProperty(BASE_CHARACTER_SET);
             		representationDescription.addProperty("identifierType", Representation.REF);
 			representationDescription.addSelfLink();
 			return representationDescription;
@@ -97,12 +100,12 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 		representationDescription.addProperty("nextSequenceValue");
-		representationDescription.addProperty("baseCharacterSet");
+		representationDescription.addProperty(BASE_CHARACTER_SET);
 		representationDescription.addProperty("prefix");
 		representationDescription.addProperty("suffix");
 		representationDescription.addProperty("firstIdentifierBase");
 		representationDescription.addProperty("minLength");
-		representationDescription.addProperty("maxLength");	
+		representationDescription.addProperty(MAX_LENGTH);	
 		return representationDescription;
 	}
 	
@@ -110,12 +113,12 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 		representationDescription.addProperty("nextSequenceValue");
-		representationDescription.addProperty("baseCharacterSet");
+		representationDescription.addProperty(BASE_CHARACTER_SET);
 		representationDescription.addProperty("prefix");
 		representationDescription.addProperty("suffix");
 		representationDescription.addProperty("firstIdentifierBase");
 		representationDescription.addProperty("minLength");
-		representationDescription.addProperty("maxLength");
+		representationDescription.addProperty(MAX_LENGTH);
 		return representationDescription;
 	}
 	
@@ -144,12 +147,12 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 		ModelImpl model = new ModelImpl();
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
 			model
-				.property("baseCharacterSet", new StringProperty())
+				.property(BASE_CHARACTER_SET, new StringProperty())
 				.property("prefix", new StringProperty())
 				.property("suffix", new StringProperty())
 				.property("firstIdentifierBase", new StringProperty())
 				.property("minLength", new IntegerProperty())
-				.property("maxLength", new IntegerProperty());
+				.property(MAX_LENGTH, new IntegerProperty());
 		}
 		if (rep instanceof FullRepresentation) {
 			model
@@ -157,7 +160,7 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 		}
 		if (rep instanceof RefRepresentation) {
 			model
-				.property("baseCharacterSet", new StringProperty());
+				.property(BASE_CHARACTER_SET, new StringProperty());
 		}
 		return model;
 	}
@@ -165,13 +168,13 @@ implements DelegatingSubclassHandler<IdentifierSource, SequentialIdentifierGener
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl()
-				.property("baseCharacterSet", new StringProperty())
+				.property(BASE_CHARACTER_SET, new StringProperty())
 				.property("prefix", new StringProperty())
 				.property("suffix", new StringProperty())
 				.property("firstIdentifierBase", new StringProperty())
 				.property("minLength", new IntegerProperty())
 				.property("nextSequenceValue", new LongProperty())
-				.property("maxLength", new IntegerProperty());
+				.property(MAX_LENGTH, new IntegerProperty());
 	}
 	
 	@PropertyGetter("display")

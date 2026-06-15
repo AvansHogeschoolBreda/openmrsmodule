@@ -31,6 +31,7 @@ public class SequentialIdentifierGeneratorValidator extends IdentifierSourceVali
 	protected static Log log = LogFactory.getLog(SequentialIdentifierGeneratorValidator.class);
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean supports(Class clazz) {
 		return SequentialIdentifierGenerator.class.isAssignableFrom(clazz);
 	}
@@ -38,6 +39,7 @@ public class SequentialIdentifierGeneratorValidator extends IdentifierSourceVali
 	/** 
 	 * @see Validator#validate(Object, Errors)
 	 */
+	@Override
 	public void validate(Object o, Errors errors) {
 		
 		super.validate(o, errors);
@@ -51,34 +53,44 @@ public class SequentialIdentifierGeneratorValidator extends IdentifierSourceVali
 		
 		if (source.getIdentifierType() == null) {
 			errors.reject("Identifier Type is required");
+			return;
 		}
-		else {
-			String prefix = (source.getPrefix() == null ? "" : source.getPrefix());
-			String suffix = (source.getSuffix() == null ? "" : source.getSuffix());
-			String firstId = prefix + source.getFirstIdentifierBase() + suffix;
-			if (StringUtils.hasText(source.getIdentifierType().getValidator())) {
-				try {
-					Class<?> validatorClass = Context.loadClass(source.getIdentifierType().getValidator());
-					IdentifierValidator v = (IdentifierValidator) validatorClass.newInstance();
-					firstId = v.getValidIdentifier(firstId);
-				}
-				catch (UnallowedIdentifierException uie) {
-					errors.reject("Invalid identifier. " + uie.getMessage() + "");
-				}
-				catch (Exception e) {
-					log.error("Error loading validator class " + source.getIdentifierType().getValidator(), e);
-					errors.reject("Validator named " + source.getIdentifierType().getValidator() + " cannot be loaded");
-				}
+
+		String prefix = (source.getPrefix() == null ? "" : source.getPrefix());
+		String suffix = (source.getSuffix() == null ? "" : source.getSuffix());
+		String firstId = prefix + source.getFirstIdentifierBase() + suffix;
+		
+		firstId = validateIdentifierType(source, firstId, errors);
+		checkLengthConstraints(source, firstId, errors);
+	}
+
+	private String validateIdentifierType(SequentialIdentifierGenerator source, String firstId, Errors errors) {
+		if (StringUtils.hasText(source.getIdentifierType().getValidator())) {
+			try {
+				Class<?> validatorClass = Context.loadClass(source.getIdentifierType().getValidator());
+				IdentifierValidator v = (IdentifierValidator) validatorClass.getDeclaredConstructor().newInstance();
+				return v.getValidIdentifier(firstId);
 			}
-			if (source.getMinLength() != null && source.getMinLength() > 0) {
-				if (source.getMinLength() > firstId.length()) {
-					errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which is shorter than minimum length of " + source.getMinLength());
-				}
+			catch (UnallowedIdentifierException uie) {
+				errors.reject("Invalid identifier. " + uie.getMessage() + "");
 			}
-			if (source.getMaxLength() != null && source.getMaxLength() > 0) {
-				if (source.getMaxLength() < firstId.length()) {
-					errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which exceeds maximum length of " + source.getMaxLength());
-				}
+			catch (Exception e) {
+				log.error("Error loading validator class " + source.getIdentifierType().getValidator(), e);
+				errors.reject("Validator named " + source.getIdentifierType().getValidator() + " cannot be loaded");
+			}
+		}
+		return firstId;
+	}
+
+	private void checkLengthConstraints(SequentialIdentifierGenerator source, String firstId, Errors errors) {
+		if (source.getMinLength() != null && source.getMinLength() > 0) {
+			if (source.getMinLength() > firstId.length()) {
+				errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which is shorter than minimum length of " + source.getMinLength());
+			}
+		}
+		if (source.getMaxLength() != null && source.getMaxLength() > 0) {
+			if (source.getMaxLength() < firstId.length()) {
+				errors.reject("Invalid configuration. First identifier generated would be '" + firstId + "' which exceeds maximum length of " + source.getMaxLength());
 			}
 		}
 	}

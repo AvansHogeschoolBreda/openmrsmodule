@@ -49,6 +49,13 @@ import java.util.List;
 @Resource(name = RestConstants.VERSION_1 + IdgenRestController.IDGEN_NAMESPACE
         + "/autogenerationoption", supportedClass = AutoGenerationOption.class, supportedOpenmrsVersions = {"1.9.* - 9.9.*"})
 public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource<AutoGenerationOption> {
+
+	private static final String IDENTIFIER_TYPE = "identifierType";
+	private static final String LOCATION = "location";
+	private static final String SOURCE = "source";
+	private static final String MANUAL_ENTRY_ENABLED = "manualEntryEnabled";
+	private static final String AUTOMATIC_GENERATION_ENABLED = "automaticGenerationEnabled";
+	private static final String LOCATION_GET_DEFINITION = "#/definitions/LocationGet";
 	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
@@ -61,21 +68,21 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 		} else if (rep instanceof DefaultRepresentation) {
 			description = new DelegatingResourceDescription();
 			description.addProperty("uuid");
-			description.addProperty("identifierType");
-			description.addProperty("location");
-			description.addProperty("source");
-			description.addProperty("manualEntryEnabled");
-			description.addProperty("automaticGenerationEnabled");
+			description.addProperty(IDENTIFIER_TYPE);
+			description.addProperty(LOCATION);
+			description.addProperty(SOURCE);
+			description.addProperty(MANUAL_ENTRY_ENABLED);
+			description.addProperty(AUTOMATIC_GENERATION_ENABLED);
 			description.addSelfLink();
 			description.addLink("full", ".?v=" + RestConstants.REPRESENTATION_FULL);
 		} else if (rep instanceof FullRepresentation) {
 			description = new DelegatingResourceDescription();
 			description.addProperty("uuid");
-			description.addProperty("identifierType");
-			description.addProperty("location");
-			description.addProperty("source");
-			description.addProperty("manualEntryEnabled");
-			description.addProperty("automaticGenerationEnabled");
+			description.addProperty(IDENTIFIER_TYPE);
+			description.addProperty(LOCATION);
+			description.addProperty(SOURCE);
+			description.addProperty(MANUAL_ENTRY_ENABLED);
+			description.addProperty(AUTOMATIC_GENERATION_ENABLED);
 			description.addSelfLink();
 		}
 		return description;
@@ -90,47 +97,47 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
-		description.addRequiredProperty("identifierType");
-		description.addProperty("location");
-		description.addRequiredProperty("source");
-		description.addProperty("manualEntryEnabled");
-		description.addProperty("automaticGenerationEnabled");
+		description.addRequiredProperty(IDENTIFIER_TYPE);
+		description.addProperty(LOCATION);
+		description.addRequiredProperty(SOURCE);
+		description.addProperty(MANUAL_ENTRY_ENABLED);
+		description.addProperty(AUTOMATIC_GENERATION_ENABLED);
 		return description;
 	}
 	
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() {
 		DelegatingResourceDescription description = getCreatableProperties();
-		description.removeProperty("identifierType");
+		description.removeProperty(IDENTIFIER_TYPE);
 		return description;
 	}
 	
 	@Override
 	public SimpleObject create(SimpleObject postBody, RequestContext context) throws ResponseException {
-		Object manualEntryEnabled = postBody.get("manualEntryEnabled");
-		Object automaticallyEnabled = postBody.get("automaticGenerationEnabled");
-		Object sourceUuid = postBody.get("source");
-		Object locationUuid = postBody.get("location");
-		Object identifierTypeUuid = postBody.get("identifierType");
-		ArrayList<String> errors = new ArrayList<String>();
+		Object manualEntryEnabled = postBody.get(MANUAL_ENTRY_ENABLED);
+		Object automaticallyEnabled = postBody.get(AUTOMATIC_GENERATION_ENABLED);
+		Object sourceUuid = postBody.get(SOURCE);
+		Object locationUuid = postBody.get(LOCATION);
+		Object identifierTypeUuid = postBody.get(IDENTIFIER_TYPE);
+		ArrayList<String> errors = new ArrayList<>();
 		IdentifierSource identifierSource = null;
 		PatientIdentifierType patientIdentifierType = null;
 		if (sourceUuid == null || StringUtils.isBlank(sourceUuid.toString())) {
-			errors.add("source");
+			errors.add(SOURCE);
 		} else {
 			identifierSource = Context.getService(IdentifierSourceService.class)
 			        .getIdentifierSourceByUuid(sourceUuid.toString());
 			if (identifierSource == null) {
-				errors.add("source");
+				errors.add(SOURCE);
 			}
 		}
 		if (identifierTypeUuid == null || StringUtils.isBlank(identifierTypeUuid.toString())) {
-			errors.add("identifierType");
+			errors.add(IDENTIFIER_TYPE);
 		} else {
 			patientIdentifierType = Context.getPatientService()
 			        .getPatientIdentifierTypeByUuid(identifierTypeUuid.toString());
 			if (patientIdentifierType == null) {
-				errors.add("identifierType");
+				errors.add(IDENTIFIER_TYPE);
 			}
 		}
 		if (errors.size() > 0) {
@@ -157,10 +164,10 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 		if (autoGenerationOption == null) {
 			throw new ObjectNotFoundException();
 		}
-		Object manualEntryEnabled = postBody.get("manualEntryEnabled");
-		Object automaticGenerationEnabled = postBody.get("automaticGenerationEnabled");
-		Object sourceUuid = postBody.get("source");
-		Object locationUuid = postBody.get("location");
+		Object manualEntryEnabled = postBody.get(MANUAL_ENTRY_ENABLED);
+		Object automaticGenerationEnabled = postBody.get(AUTOMATIC_GENERATION_ENABLED);
+		Object sourceUuid = postBody.get(SOURCE);
+		Object locationUuid = postBody.get(LOCATION);
 		IdentifierSource identifierSource = null;
 		if (sourceUuid != null && StringUtils.isNotBlank(sourceUuid.toString())) {
 			identifierSource = Context.getService(IdentifierSourceService.class)
@@ -217,11 +224,11 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
-		List<AutoGenerationOption> autoGenerationOptionList = new ArrayList<AutoGenerationOption>();
+		List<AutoGenerationOption> autoGenerationOptionList = new ArrayList<>();
 		for (PatientIdentifierType patientIdentifierType : Context.getPatientService().getAllPatientIdentifierTypes()) {
 			List<AutoGenerationOption> autoGenerationOptions = Context.getService(IdentifierSourceService.class)
 			        .getAutoGenerationOptions(patientIdentifierType);
-			if (autoGenerationOptions != null && autoGenerationOptions.size() > 0) {
+			if (autoGenerationOptions != null && !autoGenerationOptions.isEmpty()) {
 				autoGenerationOptionList.addAll(autoGenerationOptions);
 			}
 		}
@@ -252,11 +259,11 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 		if (!(rep instanceof RefRepresentation)) {
 			model
 					.property("uuid", new StringProperty())
-			        .property("identifierType", new RefProperty("#/definitions/PatientidentifiertypeGet"))
-			        .property("location", new RefProperty("#/definitions/LocationGet"))
-			        .property("source", new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
-			        .property("manualEntryEnabled", new BooleanProperty())
-			        .property("automaticGenerationEnabled", new BooleanProperty());
+			        .property(IDENTIFIER_TYPE, new RefProperty("#/definitions/PatientidentifiertypeGet"))
+			        .property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
+			        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+			        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
+			        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 		}
 		if (rep instanceof DefaultRepresentation) {
 			model   
@@ -268,19 +275,19 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl()
-				.property("identifierType", new RefProperty("#/definitions/PatientidentifiertypeGet"))
-				.property("location", new RefProperty("#/definitions/LocationGet"))
-		        .property("source", new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
-		        .property("manualEntryEnabled", new BooleanProperty())
-		        .property("automaticGenerationEnabled", new BooleanProperty());
+				.property(IDENTIFIER_TYPE, new RefProperty("#/definitions/PatientidentifiertypeGet"))
+				.property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
+		        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+		        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
+		        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 	}
 	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
 		return new ModelImpl()
-				.property("location", new RefProperty("#/definitions/LocationGet"))
-		        .property("source", new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
-		        .property("manualEntryEnabled", new BooleanProperty())
-		        .property("automaticGenerationEnabled", new BooleanProperty());
+				.property(LOCATION, new RefProperty(LOCATION_GET_DEFINITION))
+		        .property(SOURCE, new RefProperty("#/definitions/IdgenIdentifiersourceGet"))
+		        .property(MANUAL_ENTRY_ENABLED, new BooleanProperty())
+		        .property(AUTOMATIC_GENERATION_ENABLED, new BooleanProperty());
 	}
 }

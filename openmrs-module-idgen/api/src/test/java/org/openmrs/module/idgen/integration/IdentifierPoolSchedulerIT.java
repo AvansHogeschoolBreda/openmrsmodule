@@ -24,6 +24,7 @@ import org.openmrs.module.idgen.IdgenBaseTest;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 
+@SuppressWarnings("java:S2925")
 public class IdentifierPoolSchedulerIT extends IdgenBaseTest {
 
     @Before

@@ -329,9 +329,10 @@ public class IdentifierSourceServiceTest extends IdgenBaseTest {
 	}
 
     @Test
+    @SuppressWarnings("java:S8692")
 	public void shouldReturnMostRecentLogEntryForSourceWhenGeneratedInBatch() {
 	    SequentialIdentifierGenerator is = (SequentialIdentifierGenerator)identifierSourceService.getIdentifierSource(1);
-	    List<String>  sig = identifierSourceService.generateIdentifiers(is, 1000, "hello");
+	    identifierSourceService.generateIdentifiers(is, 1000, "hello");
 	    LogEntry entry = identifierSourceService.getMostRecentLogEntry(is);
 	    Assert.assertNotNull(entry);
 	    Assert.assertEquals("hello", entry.getComment());
@@ -345,10 +346,11 @@ public class IdentifierSourceServiceTest extends IdgenBaseTest {
     }
 
 	@Test
+	@SuppressWarnings("java:S8692")
 	public void shouldReturnMostRecentLogEntryForSourceWhenGeneratedInSequence() {
 		SequentialIdentifierGenerator is = (SequentialIdentifierGenerator)identifierSourceService.getIdentifierSource(1);
 		for (int i=0; i<1000; i++) {
-			List<String>  sig = identifierSourceService.generateIdentifiers(is, 1, "Sequence-" + i);
+			identifierSourceService.generateIdentifiers(is, 1, "Sequence-" + i);
 			LogEntry entry = identifierSourceService.getMostRecentLogEntry(is);
 			Assert.assertNotNull(entry);
 			Assert.assertEquals("Sequence-" + i, entry.getComment());

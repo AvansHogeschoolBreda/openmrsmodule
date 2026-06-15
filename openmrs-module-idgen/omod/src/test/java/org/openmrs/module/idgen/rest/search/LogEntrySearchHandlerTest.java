@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.openmrs.module.webservices.rest.web.response.ConversionException;
 
 public class LogEntrySearchHandlerTest extends MainResourceControllerTest {
-	public static String USER_UUID = "1010d442-e134-11de-babe-001e378eb67e";
-	public static String LOG_ENTRY_SOURCE_UUID = "0d47284f-9e9b-4a81-a88b-8bb42bc0a901";
+	public static final String USER_UUID = "1010d442-e134-11de-babe-001e378eb67e";
+	public static final String LOG_ENTRY_SOURCE_UUID = "0d47284f-9e9b-4a81-a88b-8bb42bc0a901";
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 

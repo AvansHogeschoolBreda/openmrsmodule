@@ -50,6 +50,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 	
 	protected Log log = LogFactory.getLog(getClass());
+
+	private static final String IDENTIFIER_TYPE = "identifierType";
+	private static final String DATE_GENERATED = "dateGenerated";
 	
 	//***** PROPERTIES *****
 	
@@ -166,7 +169,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 	@Transactional(readOnly=true)
 	public AutoGenerationOption getAutoGenerationOption(PatientIdentifierType type, Location location) throws APIException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AutoGenerationOption.class);
-		criteria.add(Expression.eq("identifierType", type));
+		criteria.add(Expression.eq(IDENTIFIER_TYPE, type));
         criteria.add(Restrictions.or(Expression.eq("location", location), Expression.isNull("location")));
 		return (AutoGenerationOption) criteria.uniqueResult();
 	}
@@ -177,7 +180,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
     @Transactional(readOnly=true)
     public List<AutoGenerationOption> getAutoGenerationOptions(PatientIdentifierType type) throws APIException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AutoGenerationOption.class);
-        criteria.add(Expression.eq("identifierType", type));
+        criteria.add(Expression.eq(IDENTIFIER_TYPE, type));
         return (List<AutoGenerationOption>) criteria.list();
     }
 
@@ -187,7 +190,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
     @Transactional(readOnly=true)
     public AutoGenerationOption getAutoGenerationOption(PatientIdentifierType type) throws APIException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AutoGenerationOption.class);
-        criteria.add(Expression.eq("identifierType", type));
+        criteria.add(Expression.eq(IDENTIFIER_TYPE, type));
         return (AutoGenerationOption)criteria.uniqueResult();
     }
 
@@ -225,7 +228,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 			c.set(Calendar.MINUTE, 0);
 			c.set(Calendar.SECOND, 0);
 			c.set(Calendar.MILLISECOND, 0);
-			criteria.add(Expression.ge("dateGenerated", fromDate));
+			criteria.add(Expression.ge(DATE_GENERATED, fromDate));
 		}
 		if (toDate != null) {
 			Calendar c = Calendar.getInstance();
@@ -235,7 +238,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 			c.set(Calendar.MINUTE, 0);
 			c.set(Calendar.SECOND, 0);
 			c.set(Calendar.MILLISECOND, 0);
-			criteria.add(Expression.lt("dateGenerated", c.getTime()));
+			criteria.add(Expression.lt(DATE_GENERATED, c.getTime()));
 		}
 		if (identifier != null) {
 			criteria.add(Expression.like("identifier", identifier, MatchMode.ANYWHERE));
@@ -246,7 +249,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 		if (comment != null) {
 			criteria.add(Expression.like("comment", comment, MatchMode.ANYWHERE));
 		}	
-		criteria.addOrder(Order.desc("dateGenerated"));
+		criteria.addOrder(Order.desc(DATE_GENERATED));
 		return (List<LogEntry>) criteria.list();
 	}
 
@@ -260,7 +263,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
 			throw new DAOException("You must specify the Identifier Source that you wish to query");
 		}
 		criteria.add(Restrictions.eq("source", source));
-		criteria.addOrder(Order.desc("dateGenerated"));
+		criteria.addOrder(Order.desc(DATE_GENERATED));
 		criteria.addOrder(Order.desc("id"));
 		criteria.setMaxResults(1);
 		return (LogEntry) criteria.uniqueResult();
@@ -282,7 +285,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
     @Override
     public List<IdentifierSource> getIdentifierSourcesByType(PatientIdentifierType patientIdentifierType) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdentifierSource.class);
-        criteria.add(Expression.eq("identifierType", patientIdentifierType));
+        criteria.add(Expression.eq(IDENTIFIER_TYPE, patientIdentifierType));
         criteria.add(Expression.like("retired", false));
         return (List<IdentifierSource>) criteria.list();
     }    
@@ -335,7 +338,7 @@ public class HibernateIdentifierSourceDAO implements IdentifierSourceDAO {
      * This is a known finding (SAST-04) documented in Groep_6_Security-Analyse.md.
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public List executeHqlQuery(String hql) {
+    public List<?> executeHqlQuery(String hql) {
         return sessionFactory.getCurrentSession().createQuery(hql).list();
     }
 

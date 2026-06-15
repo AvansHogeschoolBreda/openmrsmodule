@@ -5,6 +5,10 @@ package org.openmrs.module.idgen.util;
  */
 public class ExceptionUtils {
 
+    private ExceptionUtils() {
+        // Utility class should not be instantiated
+    }
+
     /**
      * @param e
      * @param className

@@ -34,7 +34,7 @@ public class IdentifierPoolProcessor implements IdentifierSourceProcessor {
 	public synchronized List<String> getIdentifiers(IdentifierSource source, int batchSize) {
 		IdentifierPool pool = (IdentifierPool) source;
 		IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
-        if (!pool.isRefillWithScheduledTask()) {
+        if (Boolean.FALSE.equals(pool.isRefillWithScheduledTask())) {
 		    iss.checkAndRefillIdentifierPool(pool);
         }
 		List<PooledIdentifier> available = iss.getAvailableIdentifiers(pool, batchSize);

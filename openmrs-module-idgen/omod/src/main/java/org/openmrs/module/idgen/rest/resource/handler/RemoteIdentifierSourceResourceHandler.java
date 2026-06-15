@@ -1,4 +1,3 @@
-
 package org.openmrs.module.idgen.rest.resource.handler;
 
 import java.util.ArrayList;
@@ -33,6 +32,9 @@ import io.swagger.models.properties.StringProperty;
 public class RemoteIdentifierSourceResourceHandler extends BaseDelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource>
 implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 
+	private static final String DISPLAY = "display";
+	private static final String PASSWORD = "password";
+
 	@Autowired
 	IdentifierSourceService service;
 	
@@ -58,7 +60,7 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		if (representation instanceof DefaultRepresentation) {
 			representationDescription.addProperty("uuid");
             		representationDescription.addProperty("name");
-            		representationDescription.addProperty("display");
+            		representationDescription.addProperty(DISPLAY);
             		representationDescription.addProperty("identifierType", Representation.DEFAULT);
             		representationDescription.addSelfLink();
 			return representationDescription;
@@ -66,9 +68,9 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		if (representation instanceof FullRepresentation) {
 			representationDescription.addProperty("uuid");
             		representationDescription.addProperty("name");
-            		representationDescription.addProperty("display");
+            		representationDescription.addProperty(DISPLAY);
             		representationDescription.addProperty("identifierType", Representation.FULL);
-            		representationDescription.addProperty("password");
+            		representationDescription.addProperty(PASSWORD);
             		representationDescription.addProperty("user");
             		representationDescription.addProperty("url");
             		representationDescription.addSelfLink();
@@ -77,7 +79,7 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		if (representation instanceof RefRepresentation) {
 			representationDescription.addProperty("uuid");
 	         	representationDescription.addProperty("name");
-	         	representationDescription.addProperty("display");
+	         	representationDescription.addProperty(DISPLAY);
 	         	representationDescription.addProperty("identifierType", Representation.REF);
 	         	representationDescription.addSelfLink();
 	         	return representationDescription;
@@ -90,7 +92,7 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 		representationDescription.addProperty("uuid");
 		representationDescription.addProperty("name");
-        	representationDescription.addProperty("password");
+        	representationDescription.addProperty(PASSWORD);
         	representationDescription.addProperty("url");
 		return representationDescription;
 	}
@@ -99,7 +101,7 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
         	representationDescription.addProperty("name");
-        	representationDescription.addProperty("password");
+        	representationDescription.addProperty(PASSWORD);
         	representationDescription.addProperty("url");
 		return representationDescription;
 	}
@@ -129,11 +131,11 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 		ModelImpl model = new ModelImpl()
 						.property("uuid", new StringProperty())
 						.property("name", new StringProperty())
-						.property("display", new StringProperty());	 
+						.property(DISPLAY, new StringProperty());	 
 		
 		if (rep instanceof FullRepresentation) {
 			model
-				.property("password", new StringProperty())
+				.property(PASSWORD, new StringProperty())
 				.property("url", new StringProperty())
 				.property("user", new RefProperty("#/definitions/UserGet"));
 		}
@@ -147,10 +149,10 @@ implements DelegatingSubclassHandler<IdentifierSource, RemoteIdentifierSource> {
 					.property("uuid", new StringProperty())
 					.property("name", new StringProperty())
 					.property("url", new StringProperty())
-					.property("password", new StringProperty());	 
+					.property(PASSWORD, new StringProperty());	 
 	}
 	
-	@PropertyGetter("display")
+	@PropertyGetter(DISPLAY)
     public String getDisplayString(RemoteIdentifierSource identifierSource) {
         return identifierSource.getIdentifierType() + " - " 
                 + identifierSource.getName() + " - "

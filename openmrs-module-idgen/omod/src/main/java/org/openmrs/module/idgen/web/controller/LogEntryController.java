@@ -33,7 +33,9 @@ public class LogEntryController {
 	/**
 	 * Default Constructor
 	 */
-	public LogEntryController() { }
+	public LogEntryController() {
+		// Empty constructor
+	}
 	
 	@InitBinder
 	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {

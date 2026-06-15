@@ -22,6 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * Component which encapsulates an identifier that has been allocated to an Identifier Pool
  */
 @JsonIgnoreProperties("pool")
+@SuppressWarnings("java:S2143")
 public class PooledIdentifier {
 	
 	//***** PROPERTIES *****

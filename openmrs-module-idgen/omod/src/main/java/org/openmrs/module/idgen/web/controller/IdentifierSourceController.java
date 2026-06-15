@@ -53,6 +53,9 @@ public class IdentifierSourceController {
 
 	protected static Log log = LogFactory.getLog(IdentifierSourceController.class);
 
+	private static final String AUDIT_USER_PREFIX = "[AUDIT] UserID: ";
+	private static final String SYSTEM_USER = "SYSTEM";
+
 	@Autowired
 	private IdentifierSourceService iss;
 	
@@ -203,9 +206,9 @@ public class IdentifierSourceController {
         if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
             try {
                 Context.authenticate(username, password);
-                log.info("[AUDIT] UserID: " + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: SUCCESS | Details: User authenticated via request parameters for export");
+                log.info(AUDIT_USER_PREFIX + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: SUCCESS | Details: User authenticated via request parameters for export");
             } catch (Exception ex) {
-                log.warn("[AUDIT] UserID: " + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: FAILURE | Details: Authentication failed: " + ex.getMessage());
+                log.warn(AUDIT_USER_PREFIX + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: FAILURE | Details: Authentication failed: " + ex.getMessage());
                 throw ex;
             }
         }
@@ -286,26 +289,19 @@ public class IdentifierSourceController {
     							   @RequestParam(required=true, value="source") IdentifierSource source,
     							   @RequestParam(required=true, value="inputFile") MultipartFile inputFile) throws Exception {
     	
-    	BufferedReader r = null;
-    	try {
-    		r = new BufferedReader(new InputStreamReader(inputFile.getInputStream()));
+    	try (BufferedReader r = new BufferedReader(new InputStreamReader(inputFile.getInputStream()))) {
     		for (String s = r.readLine(); s != null; s = r.readLine()) {
     			if (StringUtils.isNotBlank(s)) {
     				source.addReservedIdentifier(s);
     			}
     		}
     	}
-    	finally {
-    		if (r != null) {
-    			r.close();
-    		}
-    	}
 		Context.getService(IdentifierSourceService.class).saveIdentifierSource(source);
 		
 		// NEN-7510 audit log
 		org.openmrs.User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + source.getName() + "'");
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + source.getName() + "'");
 		
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
 		return "redirect:/module/idgen/viewIdentifierSource.form?source="+source.getId();
@@ -331,7 +327,7 @@ public class IdentifierSourceController {
 		
 		// NEN-7510 audit log
 		org.openmrs.User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: EXPORT_RESERVED_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Exported reserved identifiers for source '" + source.getName() + "'");
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: EXPORT_RESERVED_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Exported reserved identifiers for source '" + source.getName() + "'");
     }
 }

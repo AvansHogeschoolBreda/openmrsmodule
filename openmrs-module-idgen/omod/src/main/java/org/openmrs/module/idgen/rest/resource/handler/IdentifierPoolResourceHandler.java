@@ -46,6 +46,9 @@ import io.swagger.models.properties.StringProperty;
 public class IdentifierPoolResourceHandler extends BaseDelegatingSubclassHandler<IdentifierSource, IdentifierPool>
 implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 
+	private static final String IDENTIFIER_TYPE = "identifierType";
+	private static final String DISPLAY = "display";
+
 	@Autowired
 	IdentifierSourceService service;
 	
@@ -71,28 +74,28 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 			DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 			representationDescription.addProperty("uuid");
             		representationDescription.addProperty("name");
-            		representationDescription.addProperty("identifierType", Representation.DEFAULT);
+            		representationDescription.addProperty(IDENTIFIER_TYPE, Representation.DEFAULT);
             		representationDescription.addSelfLink();
-            		representationDescription.addProperty("display");
+            		representationDescription.addProperty(DISPLAY);
 			return representationDescription;	
 		}
 		if (representation instanceof FullRepresentation) {
 			DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 			representationDescription.addProperty("uuid");
 		    	representationDescription.addProperty("name");
-		    	representationDescription.addProperty("identifierType", Representation.FULL);
+		    	representationDescription.addProperty(IDENTIFIER_TYPE, Representation.FULL);
 		    	representationDescription.addProperty("password");
 		    	representationDescription.addProperty("url");
 		    	representationDescription.addProperty("user");
-		    	representationDescription.addProperty("display");
+		    	representationDescription.addProperty(DISPLAY);
 		    	representationDescription.addSelfLink();
 			return representationDescription;
 		}
 		if (representation instanceof RefRepresentation) {
 			DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 			representationDescription.addProperty("uuid");
-	        	representationDescription.addProperty("display");
-	        	representationDescription.addProperty("identifierType", Representation.REF);
+	        	representationDescription.addProperty(DISPLAY);
+	        	representationDescription.addProperty(IDENTIFIER_TYPE, Representation.REF);
 	        	representationDescription.addSelfLink();
 			return representationDescription;
 		}
@@ -100,7 +103,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 		return null;
 	}
 	
-	@PropertyGetter("display")
+	@PropertyGetter(DISPLAY)
     public String getDisplayString(IdentifierPool identifierSource) {
         return identifierSource.getIdentifierType() + " - " 
                 + identifierSource.getName() + " - "
@@ -111,7 +114,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription representationDescription = new DelegatingResourceDescription();
 		representationDescription.addProperty("name");
-		representationDescription.addProperty("identifierType");
+		representationDescription.addProperty(IDENTIFIER_TYPE);
 		representationDescription.addProperty("sequential");
 		representationDescription.addProperty("refillWithScheduledTask");
 		representationDescription.addProperty("source");
@@ -158,7 +161,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 			model
 				.property("uuid", new StringProperty())
 				.property("name", new RefProperty("#/definitions/IdentifierPoolResourceGet"))
-				.property("display", new StringProperty());	 
+				.property(DISPLAY, new StringProperty());	 
 		}
 		if (rep instanceof FullRepresentation) {
 			model
@@ -170,7 +173,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 			model
 				.property("uuid", new StringProperty())
 				.property("name", new RefProperty("#/definitions/IdentifierPoolResourceGetRef"))
-				.property("display", new StringProperty());
+				.property(DISPLAY, new StringProperty());
 		}
 		return model;
 	}
@@ -179,7 +182,7 @@ implements DelegatingSubclassHandler<IdentifierSource, IdentifierPool> {
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl()
 					.property("name", new RefProperty("#/definitions/IdentifierPoolResourceCreate"))
-					.property("identifierType", new RefProperty("#/definitions/IdentifierTypeGet"))
+					.property(IDENTIFIER_TYPE, new RefProperty("#/definitions/IdentifierTypeGet"))
 					.property("sequential", new BooleanProperty())
 					.property("refillWithScheduledTask", new BooleanProperty())
 					.property("source", new RefProperty("#/definitions/IdentifierSourceGet"))

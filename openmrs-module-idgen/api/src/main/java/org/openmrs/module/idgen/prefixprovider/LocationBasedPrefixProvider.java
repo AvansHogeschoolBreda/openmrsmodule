@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component("idgen.locationBasedPrefixProvider")
 public class LocationBasedPrefixProvider implements GlobalPropertyListener, PrefixProvider {
 
-	public final static String PREFIX_LOCATION_ATTRIBUTE_TYPE_GP = "idgen.prefixLocationAttributeType";
+	public static final String PREFIX_LOCATION_ATTRIBUTE_TYPE_GP = "idgen.prefixLocationAttributeType";
 	
 	private static String prefixLocationAttributeType = null;
 	
@@ -27,7 +27,7 @@ public class LocationBasedPrefixProvider implements GlobalPropertyListener, Pref
 		if (Context.getUserContext().getLocation() != null) {
 			return getLocationPrefix(Context.getUserContext().getLocation());
 		} else {
-			throw new RuntimeException("No Location found in current UserContext");
+			throw new APIException("No Location found in current UserContext");
 		}
 		
 	}
@@ -68,14 +68,18 @@ public class LocationBasedPrefixProvider implements GlobalPropertyListener, Pref
 		return propertyName.equals(PREFIX_LOCATION_ATTRIBUTE_TYPE_GP);
 	}
 	
+	private static synchronized void setPrefixLocationAttributeType(String value) {
+		prefixLocationAttributeType = value;
+	}
+
 	@Override
 	public void globalPropertyChanged(GlobalProperty newValue) {
-		prefixLocationAttributeType = newValue.getPropertyValue();
+		setPrefixLocationAttributeType(newValue.getPropertyValue());
 	}
 	
 	@Override
 	public void globalPropertyDeleted(String propertyName) {
-		prefixLocationAttributeType = null;
+		setPrefixLocationAttributeType(null);
 	}
 	
 }

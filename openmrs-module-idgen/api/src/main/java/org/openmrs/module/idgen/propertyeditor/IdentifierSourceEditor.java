@@ -32,11 +32,14 @@ public class IdentifierSourceEditor extends PropertyEditorSupport {
 	/**
 	 * Default Constructor
 	 */
-	public IdentifierSourceEditor() { }
+	public IdentifierSourceEditor() {
+		// Empty constructor
+	}
 	
 	/**
 	 * @see PropertyEditorSupport#setAsText(String)
 	 */
+	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.hasText(text)) {
 			try {
@@ -55,6 +58,7 @@ public class IdentifierSourceEditor extends PropertyEditorSupport {
 	/**
 	 * @see PropertyEditorSupport#getAsText()
 	 */
+	@Override
 	public String getAsText() {
 		IdentifierSource s = (IdentifierSource) getValue();
 		if (s != null) {

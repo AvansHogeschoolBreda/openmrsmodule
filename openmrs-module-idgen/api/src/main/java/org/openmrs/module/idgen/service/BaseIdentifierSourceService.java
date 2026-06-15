@@ -49,11 +49,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class BaseIdentifierSourceService extends BaseOpenmrsService implements IdentifierSourceService {
 	
 	protected Log log = LogFactory.getLog(getClass());
+
+	private static final String AUDIT_USER_PREFIX = "[AUDIT] UserID: ";
+	private static final String SYSTEM_USER = "SYSTEM";
 	
 	/**
 	 * Registry of Processors for Identifier Sources
 	 */
-	private static Map<Class<? extends IdentifierSource>, IdentifierSourceProcessor> processors = null;
+	private static final Map<Class<? extends IdentifierSource>, IdentifierSourceProcessor> processors = 
+			new HashMap<Class<? extends IdentifierSource>, IdentifierSourceProcessor>();
 
     /**
      * A map from the id of an identifier source, to an object we can lock on for that identifier source
@@ -116,8 +120,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	public IdentifierSource saveIdentifierSource(IdentifierSource identifierSource) throws APIException {
 		if (identifierSource.getName() == null) {
 			User u = Context.getAuthenticatedUser();
-			String userId = (u != null) ? u.getUsername() : "SYSTEM";
-			log.warn("[AUDIT] UserID: " + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + (identifierSource.getUuid() != null ? identifierSource.getUuid() : "N/A") + " | Outcome: FAILURE | Details: Failed to save identifier source: Name is required");
+			String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+			log.warn(AUDIT_USER_PREFIX + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + (identifierSource.getUuid() != null ? identifierSource.getUuid() : "N/A") + " | Outcome: FAILURE | Details: Failed to save identifier source: Name is required");
 			throw new APIException("Identifier Source name is required");
 		}
 		if (identifierSource.getUuid() == null) {
@@ -138,8 +142,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		IdentifierSource saved = dao.saveIdentifierSource(identifierSource);
 		
 		// NEN-7510 audit log
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + saved.getUuid() + " | Outcome: SUCCESS | Details: Saved identifier source '" + saved.getName() + "' of type " + saved.getClass().getSimpleName());
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + saved.getUuid() + " | Outcome: SUCCESS | Details: Saved identifier source '" + saved.getName() + "' of type " + saved.getClass().getSimpleName());
 		
 		return saved;
 	}
@@ -155,8 +159,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: PURGE_IDENTIFIER_SOURCE | ResourceUUID: " + uuid + " | Outcome: SUCCESS | Details: Purged identifier source '" + name + "'");
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: PURGE_IDENTIFIER_SOURCE | ResourceUUID: " + uuid + " | Outcome: SUCCESS | Details: Purged identifier source '" + name + "'");
 	}
 	
 	/**
@@ -225,8 +229,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
         }
 
         // NEN-7510 audit log
-        String userId = (currentUser != null) ? currentUser.getUsername() : "SYSTEM";
-        log.info("[AUDIT] UserID: " + userId + " | Event: READ_PATIENT_IDENTIFIER | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Generated " + identifiers.size() + " identifier(s) from source '" + source.getName() + "'");
+        String userId = (currentUser != null) ? currentUser.getUsername() : SYSTEM_USER;
+        log.info(AUDIT_USER_PREFIX + userId + " | Event: READ_PATIENT_IDENTIFIER | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Generated " + identifiers.size() + " identifier(s) from source '" + source.getName() + "'");
 
         return identifiers;
     }
@@ -271,7 +275,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	public String generateIdentifier(IdentifierSource source, String comment) throws APIException {
 		List<String> l = generateIdentifiers(source, 1, comment);
 		if (l == null || l.size() != 1) {
-			throw new RuntimeException("Generate identifier method did not return only one identifier");
+			throw new APIException("Generate identifier method did not return only one identifier");
 		}
 		return l.get(0);
 	}
@@ -304,8 +308,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: ADD_IDENTIFIERS_TO_POOL | ResourceUUID: " + pool.getUuid() + " | Outcome: SUCCESS | Details: Added " + identifiers.size() + " identifier(s) to pool '" + pool.getName() + "'");
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: ADD_IDENTIFIERS_TO_POOL | ResourceUUID: " + pool.getUuid() + " | Outcome: SUCCESS | Details: Added " + identifiers.size() + " identifier(s) to pool '" + pool.getName() + "'");
 	}
 	
 	/** 
@@ -367,8 +371,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: SAVE_AUTOGENERATION_OPTION | ResourceUUID: " + (saved.getUuid() != null ? saved.getUuid() : "N/A") + " | Outcome: SUCCESS | Details: Saved autogeneration option for type: " + option.getIdentifierType().getName());
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: SAVE_AUTOGENERATION_OPTION | ResourceUUID: " + (saved.getUuid() != null ? saved.getUuid() : "N/A") + " | Outcome: SUCCESS | Details: Saved autogeneration option for type: " + option.getIdentifierType().getName());
 		
 		return saved;
 	}
@@ -383,8 +387,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: PURGE_AUTOGENERATION_OPTION | ResourceUUID: " + (uuid != null ? uuid : "N/A") + " | Outcome: SUCCESS | Details: Purged autogeneration option");
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: PURGE_AUTOGENERATION_OPTION | ResourceUUID: " + (uuid != null ? uuid : "N/A") + " | Outcome: SUCCESS | Details: Purged autogeneration option");
 	}
 	
 	//***** PROPERTY ACCESS *****
@@ -407,9 +411,6 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @return the processors
 	 */
 	public Map<Class<? extends IdentifierSource>, IdentifierSourceProcessor> getProcessors() {
-		if (processors == null) {
-			processors = new HashMap<Class<? extends IdentifierSource>, IdentifierSourceProcessor>();
-		}
 		return processors;
 	}
 
@@ -513,8 +514,8 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
-		String userId = (u != null) ? u.getUsername() : "SYSTEM";
-		log.info("[AUDIT] UserID: " + userId + " | Event: RETIRE_IDENTIFIER_SOURCE | ResourceUUID: " + identifierSource.getUuid() + " | Outcome: SUCCESS | Details: Retired identifier source '" + identifierSource.getName() + "'. Reason: " + reason);
+		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
+		log.info(AUDIT_USER_PREFIX + userId + " | Event: RETIRE_IDENTIFIER_SOURCE | ResourceUUID: " + identifierSource.getUuid() + " | Outcome: SUCCESS | Details: Retired identifier source '" + identifierSource.getName() + "'. Reason: " + reason);
 	}
 
 	/**
@@ -529,7 +530,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	public java.util.List<IdentifierSource> searchIdentifierSources(String sourceName) {
 		// HQL injection: sourceName from request parameter is concatenated into the query string
 		String hql = "from IdentifierSource where name like '%" + sourceName + "%' and retired = false";
-		return dao.executeHqlQuery(hql);
+		return (java.util.List<IdentifierSource>) dao.executeHqlQuery(hql);
 	}
 
 }

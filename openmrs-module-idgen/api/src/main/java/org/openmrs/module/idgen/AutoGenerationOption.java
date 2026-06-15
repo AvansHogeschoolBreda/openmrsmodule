@@ -61,7 +61,7 @@ public class AutoGenerationOption extends BaseOpenmrsMetadata {
     
 	/** @see Object#equals(Object) */
 	public boolean equals(Object obj) {
-		if (obj != null && obj instanceof AutoGenerationOption) {
+		if (obj instanceof AutoGenerationOption) {
 			AutoGenerationOption that = (AutoGenerationOption) obj;
 			if (this.getId() != null) {
 				return (this.getId().equals(that.getId()));

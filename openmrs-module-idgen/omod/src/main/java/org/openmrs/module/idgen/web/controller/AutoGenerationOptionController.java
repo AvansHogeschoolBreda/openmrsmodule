@@ -107,7 +107,12 @@ public class AutoGenerationOptionController {
     @RequestMapping("/module/idgen/saveAutoGenerationOption.form")
     public ModelAndView saveAutoGenerationOption(@ModelAttribute("option") AutoGenerationOption option, BindingResult result, SessionStatus status) {
 		
-    	// TODO: Implement validation here
+		if (option.getIdentifierType() == null) {
+			result.rejectValue("identifierType", "idgen.error.identifierTypeRequired", "Identifier Type is required");
+		}
+		if (option.isAutomaticGenerationEnabled() && option.getSource() == null) {
+			result.rejectValue("source", "idgen.error.sourceRequired", "Source is required if automatic generation is enabled");
+		}
 		
 		if (result.hasErrors()) {
 			return new ModelAndView("/module/idgen/editAutoGenerationOption");

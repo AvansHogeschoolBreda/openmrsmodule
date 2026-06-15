@@ -21,6 +21,7 @@ import org.openmrs.User;
 /**
  * Component which encapsulates a Log entry
  */
+@SuppressWarnings("java:S2143")
 public class LogEntry extends BaseOpenmrsMetadata {
 	
 	//***** PROPERTIES *****

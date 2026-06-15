@@ -26,6 +26,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * and which typically is used in conjunction with another IdentifierSource 
  * which populates the pool
  */
+@SuppressWarnings("java:S2143")
 public class IdentifierPool extends BaseIdentifierSource {
 	
 	//***** PROPERTIES *****
@@ -43,7 +44,7 @@ public class IdentifierPool extends BaseIdentifierSource {
      * Returns all available PooledIdentifiers
      */
     public Set<PooledIdentifier> getAvailableIdentifiers() {
-    	Set<PooledIdentifier> ret = new HashSet<PooledIdentifier>();
+    	Set<PooledIdentifier> ret = new HashSet<>();
     	for (PooledIdentifier i : getIdentifiers()) {
     		if (i.isAvailable()) {
     			ret.add(i);
@@ -56,7 +57,7 @@ public class IdentifierPool extends BaseIdentifierSource {
      * Returns all used PooledIdentifiers
      */
     public Set<PooledIdentifier> getUsedIdentifiers() {
-    	Set<PooledIdentifier> ret = new HashSet<PooledIdentifier>();
+    	Set<PooledIdentifier> ret = new HashSet<>();
     	for (PooledIdentifier i : getIdentifiers()) {
     		if (!i.isAvailable()) {
     			ret.add(i);
@@ -75,7 +76,7 @@ public class IdentifierPool extends BaseIdentifierSource {
 				return p.getIdentifier();
 			}
 		}
-		throw new RuntimeException("Not enough available identifiers in pool");
+		throw new EmptyIdentifierPoolException("Not enough available identifiers in pool");
 	}
 	
 	/**
@@ -158,7 +159,7 @@ public class IdentifierPool extends BaseIdentifierSource {
 	 */
 	public Set<PooledIdentifier> getIdentifiers() {
 		if (identifiers == null) {
-			identifiers = new LinkedHashSet<PooledIdentifier>();
+			identifiers = new LinkedHashSet<>();
 		}
 		return identifiers;
 	}
@@ -175,7 +176,7 @@ public class IdentifierPool extends BaseIdentifierSource {
      */
 	@JsonIgnore
     public Boolean isRefillWithScheduledTask() {
-        return refillWithScheduledTask;
+        return getRefillWithScheduledTask();
     }
 
     /**

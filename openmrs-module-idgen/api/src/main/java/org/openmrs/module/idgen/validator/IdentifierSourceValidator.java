@@ -24,6 +24,7 @@ import org.springframework.validation.Validator;
 public class IdentifierSourceValidator implements Validator {
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean supports(Class clazz) {
 		return IdentifierSource.class.isAssignableFrom(clazz);
 	}
@@ -31,6 +32,7 @@ public class IdentifierSourceValidator implements Validator {
 	/** 
 	 * @see Validator#validate(Object, Errors)
 	 */
+	@Override
 	public void validate(Object o, Errors errors) {
 		IdentifierSource source = (IdentifierSource)o;
 		

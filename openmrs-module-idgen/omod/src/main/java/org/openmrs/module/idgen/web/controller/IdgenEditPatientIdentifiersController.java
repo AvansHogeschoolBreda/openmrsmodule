@@ -35,7 +35,9 @@ public class IdgenEditPatientIdentifiersController {
 	/**
 	 * Default Constructor
 	 */
-	public IdgenEditPatientIdentifiersController() { }
+	public IdgenEditPatientIdentifiersController() {
+		// Empty constructor
+	}
 	
 	/**
 	 * Edit Identifiers Section
