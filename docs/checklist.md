@@ -483,9 +483,9 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | - | ---------------------------------------------------------------------------------------------------------- | ------- | ---------- | --------------- | ------------------------------------------------------------------------ |
 | 1 | OWASP ZAP geïnstalleerd en draaibaar (lokaal of via Docker)                                               | ✅ Compliant | `run-zap.sh`, `.github/workflows/dast-owasp-zap.yml` | RafvanHooijdonk | ZAP via `ghcr.io/zaproxy/zaproxy:stable`; lokaal script + GitHub Actions workflow aangemaakt |
 | 2 | Draaiende OpenMRS-instantie beschikbaar als DAST-target (lokale of staging-omgeving)                      | ✅ Compliant | `docker-compose.yml`, `run-zap.sh`        | RafvanHooijdonk | Bestaande docker-compose setup; target `http://localhost:8080/openmrs`  |
-| 3 | ZAP Spider uitgevoerd op de target (endpoints automatisch ontdekt)                                        | ❌ Open |            | RafvanHooijdonk | Inbegrepen in `zap-full-scan.py`; uitvoeren via `./run-zap.sh`         |
-| 4 | ZAP Active Scan uitgevoerd (XSS, SQLi, CSRF, etc. getest)                                                 | ❌ Open |            | RafvanHooijdonk | Inbegrepen in `zap-full-scan.py`; uitvoeren via `./run-zap.sh`         |
-| 5 | ZAP-rapport opgeslagen als artifact in de repo (audit trail)                                              | ❌ Open |            | RafvanHooijdonk | Na run: `docs/dast/zap-report.html` + `.json` committen; NEN-7510 8.29 |
+| 3 | ZAP Spider uitgevoerd op de target (endpoints automatisch ontdekt)                                        | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6 | RafvanHooijdonk | Spider inbegrepen in `zap-full-scan.py`; 1577 URLs gescand in run #6 |
+| 4 | ZAP Active Scan uitgevoerd (XSS, SQLi, CSRF, etc. getest)                                                 | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6 | RafvanHooijdonk | Active scan inbegrepen in `zap-full-scan.py`; 1827 alerts gevonden in 19m 29s |
+| 5 | ZAP-rapport opgeslagen als artifact in de repo (audit trail)                                              | ✅ Compliant | `docs/dast/zap-report/`, artifact `zap-report-6` (212 KB) | RafvanHooijdonk | HTML + JSON + XML rapport in `docs/dast/`; artifact 90 dagen bewaard; NEN-7510 8.29 |
 | 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ❌ Open |            |                 | Rest van het team verwerkt de output na oplevering van Raf              |
 
 ---
@@ -494,17 +494,15 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 35     |
+| ✅ Compliant                | 38     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 4      |
+| ❌ Open / Niet compliant    | 1      |
 
 ### Openstaande actiepunten Opdracht 5
 
-| Actie                                                          | Prioriteit | Wie             |
-| -------------------------------------------------------------- | ---------- | --------------- |
-| OWASP ZAP installeren en draaiend krijgen (Deel 9 eis 1-4)    | Hoog       | RafvanHooijdonk |
-| ZAP-rapport opslaan in repo als artifact (Deel 9 eis 5)       | Hoog       | RafvanHooijdonk |
-| DAST-bevindingen verwerken in security backlog / auditrapport  | Hoog       | Rest van team   |
+| Actie                                                         | Prioriteit | Wie           |
+| ------------------------------------------------------------- | ---------- | ------------- |
+| DAST-bevindingen verwerken in security backlog / auditrapport | Hoog       | Rest van team |
 
 ### Wijzigingslog Opdracht 5
 
@@ -523,6 +521,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 2026-06-13 | 1.9    | Pentest-Voor.md en Pentest-Na.md samengevoegd tot Groep_6_Pentestrapport.md; AI-formulering gecorrigeerd     | SinanSagir      |
 | 2026-06-15 | 2.0    | Deel 9 (DAST - OWASP ZAP) toegevoegd: 6 eisen, verantwoordelijke RafvanHooijdonk voor installatie/uitvoering | RafvanHooijdonk |
 | 2026-06-15 | 2.1    | Deel 9 eisen 1+2 compliant: run-zap.sh + dast-owasp-zap.yml workflow aangemaakt; eisen 3-5 wachten op uitvoering       | RafvanHooijdonk |
+| 2026-06-15 | 2.2    | Deel 9 eisen 3+4+5 compliant: ZAP full scan uitgevoerd (1577 URLs, 1827 alerts, 19m 29s); rapporten in docs/dast/ en als artifact zap-report-6 (212 KB) | RafvanHooijdonk |
 
 ---
 
