@@ -10,7 +10,7 @@ jobs:
     name: OWASP ZAP Full Scan (NEN-7510 8.29)
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -67,6 +67,24 @@ jobs:
           path: docs/dast/
           retention-days: 90
 
+      # Commit rapporten naar de repo zodat ze direct zichtbaar zijn in docs/dast/
+      - name: Commit ZAP rapport naar repository
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/dast/
+          if git diff --staged --quiet; then
+            echo "Geen nieuwe rapporten om te committen."
+          else
+            git commit -m "dast: ZAP rapport run #${{ github.run_number }} ($(date -u +%Y-%m-%d))
+
+NEN-7510 8.29 - OWASP ZAP Full Scan
+Target: http://localhost:8080/openmrs
+Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            git push origin HEAD:main
+          fi
+
       - name: Toon samenvatting
         if: always()
         run: |
@@ -75,5 +93,6 @@ jobs:
           echo "- **Target:** http://localhost:8080/openmrs" >> $GITHUB_STEP_SUMMARY
           echo "- **NEN-7510:** 8.29 – Beveiligingstests" >> $GITHUB_STEP_SUMMARY
           echo "- **Artifact:** zap-report-${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Rapport:** \`docs/dast/zap-report.html\` (gecommit naar main)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Download het artifact via Actions → deze run → Artifacts." >> $GITHUB_STEP_SUMMARY
