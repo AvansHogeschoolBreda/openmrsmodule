@@ -1,0 +1,33 @@
+name: SBOM Generatie CycloneDX NEN-7510 Ctrl 8.8
+
+on:
+  push:
+    branches: [ "main" ]
+  release:
+    types: [ published ]
+
+jobs:
+  sbom:
+    name: Generate CycloneDX SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM (CycloneDX via Anchore)
+        uses: anchore/sbom-action@v0
+        with:
+          path: "openmrs-module-idgen"
+          format: "cyclonedx-json"
+          output-file: "sbom.cyclonedx.json"
+          artifact-name: "sbom-${{ github.sha }}.cyclonedx.json"
+
+      - name: Upload SBOM as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "SBOM-${{ github.run_number }}-${{ github.sha }}"
+          path: "sbom.cyclonedx.json"
+          retention-days: 90

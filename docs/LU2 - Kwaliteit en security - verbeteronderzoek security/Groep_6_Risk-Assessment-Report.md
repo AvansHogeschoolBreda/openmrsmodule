@@ -37,7 +37,7 @@ Op basis van de geconstateerde kwetsbaarheden en het ontbreken van basale beveil
 
 ## 2. Scope en Methodologie
 
-De scope van deze risicobeoordeling beperkt zich specifiek tot de broncode en de externe afhankelijkheden van de OpenMRS ID Generation Module (idgen). Deze module is verantwoordelijk voor het genereren en toewijzen van unieke identificatienummers aan patiënten binnen het OpenMRS ecosysteem. De onderliggende infrastructuur, de OpenMRS core applicatie en de databaseservers vallen buiten de scope van dit specifieke rapport. Dynamische applicatietests en actieve penetratietesten zijn momenteel niet uitgevoerd en behoren tot een latere projectfase.
+De scope van deze risicobeoordeling beperkt zich specifiek tot de broncode en de externe afhankelijkheden van de OpenMRS ID Generation Module (idgen). Deze module is verantwoordelijk voor het genereren en toewijzen van unieke identificatienummers aan patiënten binnen het OpenMRS ecosysteem. De onderliggende infrastructuur, de OpenMRS core applicatie en de databaseservers vallen buiten de scope van dit specifieke rapport. Dynamische applicatietests (DAST via OWASP ZAP) en actieve penetratietesten zijn uitgevoerd in Opdracht 5. De DAST-rapportage is beschikbaar in `docs/dast/` en de penetratietest is gedocumenteerd in `Groep_6_Pentestrapport.md`.
 
 De beoordeling is uitgevoerd aan de hand van een gestructureerde methodologie. De identificatie van dreigingen is gebaseerd op het STRIDE-model. Er zijn scans uitgevoerd op de daadwerkelijke modulecode en niet langer op placeholder bestanden. De analyse bestaat uit de volgende drie pijlers:
 1. Ten eerste is een Software Composition Analysis uitgevoerd met OWASP Dependency-Check. Dit proces koppelt alle gebruikte externe libraries aan de NIST National Vulnerability Database (NVD) om bekende kwetsbaarheden te identificeren.
@@ -129,7 +129,7 @@ De noodzaak om End-of-Life componenten zoals Log4j 1.x en Spring 3.0.5 te vervan
 * **Geraamde kosten:** €16.000.
 
 **Kostenpost 2: CI/CD Tooling Licenties**
-De huidige GitHub Actions pipeline draait op een gratis account. Hierdoor ontbreken cruciale functionaliteiten die de NEN-7510 norm eist. Branch protection kan nu niet hard worden afgedwongen en Secret Scanning is onbeschikbaar. Om deze technische barrières op te heffen, is een upgrade naar GitHub Advanced Security en GitHub Enterprise noodzakelijk.
+De huidige GitHub Actions pipeline draait op een gratis account. Branch protection is volledig actief via een ruleset (repo is public). Secret Scanning is beschikbaar op public repos maar ontbreekt voor private repos zonder GitHub Advanced Security. Om alle technische barrières op te heffen (met name Secret Scanning op private repos en artifact-retentie boven 90 dagen), is een upgrade naar GitHub Advanced Security noodzakelijk.
 * **Inschatting:** Licentiekosten voor een ontwikkelteam van vijf personen voor het eerste jaar.
 * **Geraamde kosten:** €3.000.
 

@@ -235,12 +235,12 @@ Verlies van de code is herstelbaar via git history en eventuele backups. Geen di
 **Gevoelige elementen:** Eventuele hardcoded credentials of configuratiewaarden (moeten er niet in zitten, maar zijn een bekend risico). Logica die aanvallers kunnen reverse-engineeren.
 
 **Bestaande controls:**
-- Branch protection op `main` (geconfigureerd, niet afgedwongen op Free plan)
+- Branch protection op `main` (ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen; repo is public)
 - Verplichte PR-reviews
 - CodeQL SAST op elke push (NEN-7510 Ctrl 8.8)
 - Dependabot automatische dependency updates
 
-**Residueel risico:** Branch protection is niet volledig afdwingbaar op GitHub Free (private repo). Een repo-eigenaar kan direct naar `main` pushen. Zie checklist eis #1.
+**Residueel risico:** Branch protection is volledig actief (ruleset, bypass list leeg). Secret Protection en Push Protection zijn actief (repo is public). Restrisico is artifact-retentie van max. 90 dagen (Free plan).
 
 **Referenties:** NEN-7510:2026 Ctrl 8.8 en 8.29, OWASP A08:2021 (Software and Data Integrity Failures), CWE-506 (Embedded Malicious Code).
 
@@ -292,7 +292,7 @@ Als secrets verloren gaan of rotatie mislukt, kan de pipeline niet deployen naar
 - Secrets worden niet gelogd door GitHub Actions (automatisch gemaskeerd)
 - Gescheiden secrets per environment (production / test)
 
-**Residueel risico:** GitHub Secret Scanning is niet beschikbaar op het Free plan voor private repos. Een per ongeluk gecommit secret wordt niet automatisch gedetecteerd. Handmatige detectie na het feit is de enige optie.
+**Residueel risico:** GitHub Secret Protection en Push Protection zijn actief (repo is public). Een per ongeluk gecommit known secret wordt geblokkeerd of direct gealerteerd. Restrisico: aangepaste of onbekende secret-patronen worden niet gedetecteerd; pre-commit hook (detect-secrets) is niet geconfigureerd.
 
 **Referenties:** NEN-7510:2026 Ctrl 8.24 en 5.17, OWASP A02:2021 (Cryptographic Failures), CWE-321 (Use of Hard-coded Cryptographic Key), OWASP CI/CD Risk #6 (Insufficient Credential Hygiene).
 
@@ -300,7 +300,7 @@ Als secrets verloren gaan of rotatie mislukt, kan de pipeline niet deployen naar
 
 ### A7: SBOM en dependency-informatie
 
-De Software Bill of Materials (SBOM) bevat een overzicht van alle dependencies met versienummers en licenties. Gegenereerd via de `sbom.yml` workflow (CycloneDX JSON-formaat).
+De Software Bill of Materials (SBOM) bevat een overzicht van alle dependencies met versienummers en licenties. Gegenereerd via de `sbom-cyclonedx.yml` workflow (CycloneDX JSON-formaat).
 
 **Vertrouwelijkheid: Gemiddeld**
 De SBOM onthult de volledige dependency-stack inclusief versienummers. Dit vergemakkelijkt gerichte aanvallen als een kwetsbare versie aanwezig is (aanvaller weet exact welke CVE van toepassing is). Intern is de SBOM echter noodzakelijk voor vulnerability management.
@@ -316,7 +316,7 @@ Uitval van SBOM-generatie heeft geen directe impact op patienten. Het verhindert
 - SBOM opgeslagen als CI-artifact (90 dagen retentie)
 - Dependency Review Action blokkeert HIGH/CRITICAL dependencies bij PRs
 
-**Residueel risico:** De SBOM monitort momenteel alleen een stub `pom.xml` met minimale dependencies. Pas volledig effectief bij de echte module.
+**Residueel risico:** De SBOM-analyse is volledig actief op de echte idgen-module (116 componenten, CycloneDX 1.6). Restrisico is artifact-retentie van max. 90 dagen op het GitHub Free plan.
 
 **Referenties:** CycloneDX standaard: https://cyclonedx.org/, NEN-7510:2026 Ctrl 8.8, OWASP A06:2021 (Vulnerable and Outdated Components).
 
@@ -382,7 +382,7 @@ Kans en impact gescoord op basis van de schalen in sectie 3, onderbouwd met sect
 | H8 | 2 | Vereist write-toegang tot de repo; PR-reviews zijn een barriere | 5 | Pipeline gecompromitteerd, secrets gelekt, kwaadaardige deployments | 10 | Oranje |
 | H9 | 3 | Menselijke fout frequent (TA3); per ongeluk `echo $SECRET` in debug-stap | 4 | Secret zichtbaar in public/private logs, directe credential exposure | 12 | Oranje |
 | H10 | 3 | DBIR 2024: 68% van breaches heeft menselijk element; hardcoded secrets top-10 misvatting | 5 | Direct credential exposure in git history; permanent zonder secret rotation | 15 | Rood |
-| H11 | 3 | SBOM-generatie faalt bij stub pom.xml; CVE-koppeling afhankelijk van tooling | 3 | Kwetsbare dependency ongepatched, maar afhankelijk van specifieke CVE | 9 | Oranje |
+| H11 | 3 | SBOM draait op echte idgen-module (116 componenten); CVE-koppeling afhankelijk van NVD-feed synchronisatie | 3 | Kwetsbare dependency ongepatched, maar afhankelijk van specifieke CVE | 9 | Oranje |
 | H12 | 3 | Configuratiefouten common bij deployment; debug-modus vergeten uit te zetten | 3 | Interne informatie gelekt, aanvaller krijgt extra context | 9 | Oranje |
 
 ### 6.3 Rode hazards en prioritering
