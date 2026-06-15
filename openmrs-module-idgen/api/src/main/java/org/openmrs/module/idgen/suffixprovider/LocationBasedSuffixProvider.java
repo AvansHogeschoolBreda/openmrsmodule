@@ -55,7 +55,7 @@ public class LocationBasedSuffixProvider implements GlobalPropertyListener, Suff
 		return getLocationSuffix(location.getParentLocation());
 	}
 	
-	public static String getSuffixLocationAttributeType() {
+	public static synchronized String getSuffixLocationAttributeType() {
 		if (suffixLocationAttributeType == null) {
 			suffixLocationAttributeType = Context.getAdministrationService()
 			        .getGlobalProperty(SUFFIX_LOCATION_ATTRIBUTE_TYPE_GP);

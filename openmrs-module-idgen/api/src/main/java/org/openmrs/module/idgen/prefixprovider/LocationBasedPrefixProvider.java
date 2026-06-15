@@ -55,7 +55,7 @@ public class LocationBasedPrefixProvider implements GlobalPropertyListener, Pref
 		return getLocationPrefix(location.getParentLocation());
 	}
 	
-	public static String getPrefixLocationAttributeType() {
+	public static synchronized String getPrefixLocationAttributeType() {
 		if (prefixLocationAttributeType == null) {
 			prefixLocationAttributeType = Context.getAdministrationService()
 			        .getGlobalProperty(PREFIX_LOCATION_ATTRIBUTE_TYPE_GP);
