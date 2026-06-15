@@ -135,8 +135,8 @@ Preventieve barrières bevinden zich tussen de oorzaken en het top-event. Ze pro
 |---|---|---|---|---|
 | PB1 | Pre-commit hook (detect-secrets) | Scant elke commit automatisch op credential-patronen voor de commit plaatsvindt. Blokkeert de commit als een patroon overeenkomt. | Ctrl 8.8 | Nee: niet geconfigureerd in dit project |
 | PB2 | .gitignore voor .env en configuratiebestanden | Verhindert dat gevoelige configuratiebestanden worden gestaaged. | Ctrl 5.17 | Gedeeltelijk: .gitignore aanwezig maar niet gevalideerd op volledigheid |
-| PB3 | Verplichte PR-review voor merge naar main | Tweede persoon controleert de code inclusief eventuele credentials. | Ctrl 5.36 | Geconfigureerd maar niet volledig afdwingbaar (GitHub Free plan) |
-| PB4 | CodeQL SAST-scan op elke push | Detecteert CWE-321 (hardcoded cryptographic keys) en vergelijkbare patronen in de Java-code. | Ctrl 8.8 | Actief (tijdelijk compliant: draait op stub pom.xml) |
+| PB3 | Verplichte PR-review voor merge naar main | Tweede persoon controleert de code inclusief eventuele credentials. | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public) |
+| PB4 | CodeQL SAST-scan op elke push | Detecteert CWE-321 (hardcoded cryptographic keys) en vergelijkbare patronen in de Java-code. | Ctrl 8.8 | ✅ Actief op echte idgen-module |
 
 ---
 
@@ -146,8 +146,8 @@ Escalation factors verzwakken een preventieve barrière. Als een escalation fact
 
 | ID | Escalation factor | Betrokken barrière | Impact |
 |---|---|---|---|
-| EF1 | GitHub Secret Scanning niet beschikbaar op Free plan voor private repos | PB4 | Als PB1 (pre-commit hook) wordt overgeslagen, is er geen automatisch vangnet. CodeQL detecteert niet alle secret-patronen en is bovendien tijdelijk compliant. |
-| EF2 | Branch protection niet volledig afdwingbaar op GitHub Free | PB3 | Repo-eigenaar kan direct naar main pushen, waardoor PB3 (PR-review) wordt omzeild. |
+| EF1 | ~~GitHub Secret Scanning niet beschikbaar op Free plan~~ - **Opgeheven** | PB4 | Secret Protection én Push Protection zijn actief (repo is public). Bekende secret-patronen worden gedetecteerd en pushes geblokkeerd. Restrisico: aangepaste patronen worden niet gedekt; PB1 (pre-commit hook) is nog niet geconfigureerd. |
+| EF2 | Branch protection was niet volledig afdwingbaar op GitHub Free (private repo) | PB3 | ~~Opgeheven~~ - repo is nu public; ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" is volledig actief en afdwingbaar. |
 | EF3 | Lange secret rotatie-cyclus | Alle preventieve barrières | Als secrets jaren geldig blijven zonder rotatie, vergroot de window of exposure bij een lek: het secret werkt lang na de compromittering. |
 | EF4 | Git history is permanent en breed bewaard | PB1, PB2, PB3, PB4 | Als geen enkele barrière het secret tegenhoudt, is het daarna persistent aanwezig in forks, caches en gecachede zoekresultaten, ook na een force-push. |
 
@@ -217,5 +217,4 @@ HB3 (audit log review) en HB4 (incident response) zijn alleen effectief als er l
 | Groep_6_Asset-Identificatie.md | Hazard H10, scorering (15, rood) en keuze voor deze bow-tie zijn vastgelegd in sectie 6.3 |
 | Groep_6_Risicomatrix.md | H10 is opgenomen in de CI/CD risicomatrix; bow-tie voor H8 staat in dat document |
 | Opdracht 4: Security backlog | H10 levert bevinding F-H10 in de security backlog (CWE-321, CVSS contextueel, NEN-7510 Ctrl 8.24) |
-| Opdracht 5: Secure Coding & Logging | Audit mindset sectie 12 is directe input voor de logging gap-analyse |
-| Opdracht 6: Auditrapport | Dit bow-tie diagram is bijlage in het auditrapport (Deliverable 3, eis 7) |
+| Opdracht 5: Secure Coding & Logging | Audit mindset sectie 12 is directe input voor de logging gap

@@ -25,11 +25,11 @@ Dit document legt de non-functional requirements (NFR's) vast voor de onderhoudb
 
 | Tool           | Rol                                                                 | Integratie                                 |
 | -------------- | ------------------------------------------------------------------- | ------------------------------------------ |
-| SonarCloud     | Statische analyse: bugs, code smells, duplicatie, security hotspots | GitHub Actions workflow `sonarcloud.yml` |
+| SonarCloud     | Statische analyse: bugs, code smells, duplicatie, security hotspots | GitHub Actions workflow `quality-gate-sonarcloud.yml` |
 | JaCoCo         | Code coverage meten per Maven-build                                 | `pom.xml` plugin + CI                    |
-| Maven Surefire | Testuitvoering en rapport genereren                                 | `ci.yml` (bestaand)                      |
+| Maven Surefire | Testuitvoering en rapport genereren                                 | `ci-build-test.yml` (bestaand)                      |
 
-De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet slaagt. Dit is geconfigureerd via de `sonarcloud.yml` workflow met de stap `sonar:sonar` en de `Wait for Quality Gate`-actie.
+De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet slaagt. Dit is geconfigureerd via de `quality-gate-sonarcloud.yml` workflow met de stap `sonar:sonar` en de `Wait for Quality Gate`-actie.
 
 ---
 
@@ -100,7 +100,7 @@ De volgende SonarCloud quality gate-condities worden ingesteld (of gelden via "S
 | Security Rating (New Code)        | worse than | A             | Nieuwe code |
 | Security Hotspots Reviewed        | <          | 100%          | Nieuwe code |
 
-De quality gate is gekoppeld aan de `sonarcloud.yml` workflow. Als de quality gate faalt, faalt de CI-run, en de PR kan niet gemerged worden (branch protection).
+De quality gate is gekoppeld aan de `quality-gate-sonarcloud.yml` workflow. Als de quality gate faalt, faalt de CI-run, en de PR kan niet gemerged worden (branch protection).
 
 ---
 

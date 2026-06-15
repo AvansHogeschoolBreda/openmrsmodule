@@ -26,8 +26,8 @@ Dit verslag toont per NEN-7510:2026 control aan hoe de CI/CD security pipeline v
 
 | NEN-7510:2026 Control | Pipeline-maatregel | Status |
 |---|---|---|
-| 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL | ⚠️ Tijdelijk compliant |
-| 8.15 Logging | SBOM-artifact, CI-run logs, SECURITY.md rapportageproces | ⚠️ Tijdelijk compliant |
+| 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL | ✅ Compliant |
+| 8.15 Logging | SBOM-artifact, CI-run logs, SECURITY.md rapportageproces, audit logging in module | ✅ Compliant |
 | 5.36 Conformiteit aan beleidsregels | README.md (mini-ISMS), SECURITY.md, docs/checklist.md | ✅ Compliant |
 
 ---
@@ -42,11 +42,11 @@ Tijdig informatie verkrijgen over technische kwetsbaarheden in gebruikte systeme
 | Maatregel | Bestand / Instelling | Toelichting |
 |---|---|---|
 | Dependabot alerts + automatische updates | `.github/dependabot.yml` | Wekelijks (maandag 06:00) updates voor Maven-dependencies en GitHub Actions. Alerts staan aan in Settings. |
-| Dependency Review | `.github/workflows/dependency-review.yml` | Blokkeert PRs naar `main` bij HIGH of CRITICAL kwetsbaarheden. Weigert GPL-3.0 en AGPL-3.0 licenties. |
-| CodeQL SAST | `.github/workflows/codeql.yml` | Statische code-analyse op elke push, PR en wekelijks schema. Detecteert kwetsbaarheden in Java code. |
+| Dependency Review | `.github/workflows/sca-dependency-review.yml` | Blokkeert PRs naar `main` bij HIGH of CRITICAL kwetsbaarheden. Weigert GPL-3.0 en AGPL-3.0 licenties. |
+| CodeQL SAST | `.github/workflows/sast-codeql.yml` | Statische code-analyse op elke push, PR en wekelijks schema. Detecteert kwetsbaarheden in Java code. |
 
 **Restrisico:**
-De pipeline werkt momenteel op een stub `pom.xml` met alleen JUnit 5. Dependabot, Dependency Review en CodeQL analyseren daardoor minimale of geen echte module-dependencies. Pas volledig effectief wanneer de echte OpenMRS module en bijbehorende `pom.xml` zijn toegevoegd.
+Alle tools draaien op de echte idgen-module. Secret Protection en Push Protection zijn actief (repo is public; gratis beschikbaar). Restrisico is artifact-retentie van max. 90 dagen (GitHub Free plan).
 
 ---
 
@@ -59,7 +59,7 @@ Logbestanden die activiteiten, uitzonderingen, fouten en andere relevante beveil
 
 | Maatregel | Bestand / Instelling | Toelichting |
 |---|---|---|
-| SBOM-artifact | `.github/workflows/sbom.yml` | CycloneDX JSON SBOM wordt gegenereerd bij elke push naar `main` en bewaard als Actions-artifact (90 dagen). |
+| SBOM-artifact | `.github/workflows/sbom-cyclonedx.yml` | CycloneDX JSON SBOM wordt gegenereerd bij elke push naar `main` en bewaard als Actions-artifact (90 dagen). |
 | CI-run logs | GitHub Actions (alle workflows) | Build-, test- en scanresultaten zijn bewaard als CI-run logs. Niet te wijzigen na afloop. |
 | Kwetsbaarheidsrapportage | `SECURITY.md` | Beschrijft het proces voor het melden en afhandelen van kwetsbaarheden, inclusief termijnen per ernst. |
 
@@ -92,6 +92,4 @@ Drie NEN-7510:2026 controls zijn onderzocht in relatie tot de CI/CD pipeline.
 
 Control 5.36 (conformiteit aan beleid) is volledig compliant: beleid is gedocumenteerd in README.md en SECURITY.md, en compliance wordt bijgehouden in checklist.md.
 
-Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn tijdelijk compliant. De technische maatregelen zijn actief en correct geconfigureerd, maar draaien op een stub-project. Ze worden volledig effectief zodra de echte OpenMRS module is toegevoegd.
-
-Het grootste restrisico is de stub `pom.xml`. Vervangen door de module-eigen `pom.xml` lost de meeste tijdelijke beperkingen in een keer op.
+Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn volledig compliant. Alle tools draaien op de echte idgen-module; audit logging is geïmplementeerd in de broncode (Opdracht 5). Secret Protection en Push Protection zijn actief. Het enige restrisico is de artifact-retentie van max. 90 dagen op het GitHub Free plan.

@@ -33,7 +33,7 @@
 Dit document bevat de risico evaluatie voor de CI/CD pipeline van het OpenMRS module project, gebaseerd op de pipeline-inrichting uit Opdracht 1.
 
 Binnen scope:
-- GitHub Actions workflows: `ci.yml`, `codeql.yml`, `dependency-review.yml`, `sbom.yml`
+- GitHub Actions workflows: `ci-build-test.yml`, `sast-codeql.yml`, `sca-dependency-review.yml`, `sbom-cyclonedx.yml`
 - GitHub Environments: production (1 protection rule, 1 secret), test (1 secret)
 - Secrets en toegangscontrole in de pipeline
 - Dependencies beheerd via Maven en Dependabot
@@ -63,12 +63,12 @@ De CI/CD pipeline bestaat uit de volgende componenten (Opdracht 1):
 
 | Component | Bestand of instelling | Functie |
 |---|---|---|
-| Build en test | ci.yml | Maven build en JUnit-tests op elke push en PR |
-| SAST | codeql.yml | CodeQL statische analyse op Java-code |
-| Dependency check | dependency-review.yml | Blokkeert HIGH/CRITICAL dependencies bij PRs naar main |
-| SBOM-generatie | sbom.yml | CycloneDX JSON-artifact bij elke push naar main |
+| Build en test | ci-build-test.yml | Maven build en JUnit-tests op elke push en PR |
+| SAST | sast-codeql.yml | CodeQL statische analyse op Java-code |
+| Dependency check | sca-dependency-review.yml | Blokkeert HIGH/CRITICAL dependencies bij PRs naar main |
+| SBOM-generatie | sbom-cyclonedx.yml | CycloneDX JSON-artifact bij elke push naar main |
 | Environments | Settings: Environments | production (1 protection rule) en test (1 secret) |
-| Branch protection | Settings: Branches | main-branch protection (geconfigureerd, niet afdwingbaar op Free plan) |
+| Branch protection | Settings → Rules | Ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen (repo is public) |
 
 ---
 
@@ -91,7 +91,7 @@ Kans- en impactonderbouwing per risico staat in sectie 4.2.
 
 **H10: Hardcoded secret in broncode (score 15, rood)**
 
-Een developer commit per ongeluk een wachtwoord, API-sleutel of deployment token naar de repository. Zonder GitHub Secret Scanning (niet beschikbaar op Free plan) blijft dit ongedetecteerd tot iemand het handmatig ontdekt. Het secret blijft permanent aanwezig in de git history, ook na verwijdering van de commit.
+Een developer commit per ongeluk een wachtwoord, API-sleutel of deployment token naar de repository. GitHub Secret Protection en Push Protection zijn actief (repo is public): bekende secret-patronen worden gedetecteerd en pushes geblokkeerd. Onbekende of aangepaste patronen worden niet automatisch gedetecteerd. Het secret blijft permanent aanwezig in de git history als het eenmaal gecommit is.
 
 Kans: 3. DBIR 2024 registreert dat 68% van datalekken een menselijk element heeft. Hardcoded credentials staan consistent in de OWASP CI/CD Security Risks top 6.
 
@@ -109,7 +109,7 @@ Impact: 4. Secret zichtbaar in workflow-logs voor iedereen met leestoegang tot d
 
 Een aanvaller of kwaadaardige insider opent een PR met een aangepaste workflow-YAML die SAST-checks omzeilt, secrets naar een externe server stuurt, of kwaadaardige code injecteert in het build-artifact. Dit is OWASP CICD-SEC-4 (Poisoned Pipeline Execution).
 
-Kans: 2. Vereist write-toegang tot de repository via een fork of een gecompromitteerd account. PR-reviews zijn een barrière maar zijn niet volledig afdwingbaar op het Free plan.
+Kans: 2. Vereist write-toegang tot de repository via een fork of een gecompromitteerd account. PR-reviews zijn een barrière en zijn volledig afgedwongen via de ruleset (repo is public).
 
 Impact: 5. Pipeline volledig gecompromitteerd: secrets gelekt, SAST omzeild, kwaadaardige deployments naar productie mogelijk.
 
@@ -117,7 +117,7 @@ Impact: 5. Pipeline volledig gecompromitteerd: secrets gelekt, SAST omzeild, kwa
 
 SBOM-generatie faalt of de CVE-koppeling ontbreekt voor een gebruikte versie, waardoor een exploitable library in productie blijft zonder patchadvies.
 
-Kans: 3. De SBOM draait momenteel op een stub pom.xml met minimale dependencies (tijdelijk compliant). Bij de echte module neemt het aantal dependencies en daarmee de kans op een gemiste CVE toe.
+Kans: 3. De SBOM draait op de echte idgen-module (116 componenten, CycloneDX 1.6). Kans op een gemiste CVE blijft reëel door vertraging in NVD-feed synchronisatie.
 
 Impact: 3. Kwetsbare dependency in productie, maar exploiteerbaar alleen via een specifieke CVE. Impact afhankelijk van de ernst van de CVE.
 
@@ -131,7 +131,7 @@ Impact: 4. Kwaadaardige code uitgevoerd in de pipeline, toegang tot GitHub-secre
 
 **C2: Ontbrekende approval gate voor productie-deployment (score 8, oranje)**
 
-De production environment heeft 1 protection rule, maar branch protection op main is niet volledig afdwingbaar op GitHub Free. Een repo-eigenaar kan direct naar main pushen en een deployment naar productie triggeren zonder review. Dit is een structurele beperking van het Free plan, gedocumenteerd in checklist eis #1.
+De production environment heeft 1 protection rule. Branch protection op main is volledig actief via de ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" (repo is public). Een directe push naar main zonder PR wordt geblokkeerd. Restrisico: repo-eigenaar kan in noodgevallen de ruleset tijdelijk uitschakelen.
 
 Kans: 2. Vereist repo-ownership of een gecompromitteerd admin-account.
 
@@ -182,9 +182,9 @@ Geen enkel CI/CD-risico scoort groen. H10 is het enige rode risico (score 15).
 | 1 | H10 | 15 (Rood) | Onmiddellijke actie. Pre-commit hook (detect-secrets) configureren. Secret Scanning upgraden zodra plan het toelaat. Zie Groep_6_Bow-Tie.md. |
 | 2 | H9 | 12 (Oranje) | Mitigatie binnen 3 maanden. Expliciete `permissions: read-all` als default in alle workflows. Geen secrets in `echo`-statements. |
 | 3 | H8 | 10 (Oranje) | Mitigatie binnen 3 maanden. SHA-pinning voor alle third-party actions. Expliciete permissions per workflow-job. Bow-tie uitgewerkt in sectie 7. |
-| 4 | H11 | 9 (Oranje) | Mitigatie bij toevoeging echte module. SBOM-analyse volledig activeren (Opdracht 4). Momenteel tijdelijk compliant vanwege stub pom.xml. |
+| 4 | H11 | 9 (Oranje) | SBOM-analyse actief op echte module (Opdracht 4 ✅). Restrisico: NVD-feed vertraging en 90 dagen artifact-retentie. |
 | 5 | C1 | 8 (Oranje) | Mitigatie binnen 3 maanden. SHA-pinning is een eenvoudige directe fix. |
-| 6 | C2 | 8 (Oranje) | Structurele beperking Free plan. GitHub Team plan overwegen voor volledige branch protection. |
+| 6 | C2 | 8 (Oranje) | Branch protection volledig actief (repo is public). Restrisico: admin kan ruleset tijdelijk uitschakelen. Production environment heeft approval gate. |
 
 ---
 
@@ -259,15 +259,15 @@ flowchart LR
 
 | ID | Barrière | Werking | NEN-7510 | Huidig actief? |
 |---|---|---|---|---|
-| PB1 | Verplichte PR-review voor wijzigingen in `.github/workflows/` | Tweede persoon controleert workflow-wijzigingen voor merge. | Ctrl 5.36 | Geconfigureerd maar niet volledig afdwingbaar (Free plan) |
-| PB2 | Branch protection op main | Verhindert directe pushes naar main zonder PR. | Ctrl 8.9 | Geconfigureerd maar niet volledig afdwingbaar (Free plan) |
+| PB1 | Verplichte PR-review voor wijzigingen in `.github/workflows/` | Tweede persoon controleert workflow-wijzigingen voor merge. | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public) |
+| PB2 | Branch protection op main | Verhindert directe pushes naar main zonder PR. | Ctrl 8.9 | ✅ Actief en volledig afgedwongen via ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" |
 | PB3 | Minimale GITHUB_TOKEN permissies per workflow-job | Beperkt wat een kwaadaardige workflow kan doen. Een workflow zonder expliciete `permissions` erft brede write-rechten op de repo. | Ctrl 8.9 | Niet geconfigureerd: geen expliciete permissions in huidige workflows |
 
 ### 7.5 Escalation factors (preventief)
 
 | ID | Escalation factor | Betrokken barrière | Impact |
 |---|---|---|---|
-| EF1 | Branch protection niet volledig afdwingbaar op Free plan | PB1, PB2 | Repo-eigenaar kan PB1 en PB2 omzeilen door direct naar main te pushen. |
+| EF1 | ~~Branch protection niet volledig afdwingbaar op Free plan~~ - **Opgeheven** | PB1, PB2 | Repo is nu public; rulesets volledig afgedwongen. Restrisico: ruleset kan handmatig tijdelijk worden uitgeschakeld door een admin. |
 | EF2 | Geen expliciete workflow-permissions geconfigureerd | PB3 | GITHUB_TOKEN heeft standaard write-rechten op repo-inhoud. Een kwaadaardige workflow kan daarmee code aanpassen, artifacts overschrijven, of secrets inzien. |
 | EF3 | Third-party actions niet SHA-gepind (risico C1) | PB1 | Een kwaadaardige versie van een third-party action heeft dezelfde rechten als de workflow zelf. PR-review controleert de action-inhoud niet. |
 
@@ -332,6 +332,4 @@ Het residuele risico na alle haalbare mitigaties: C2 blijft open. Dit is gedocum
 |---|---|
 | Groep_6_Asset-Identificatie.md | Hazards H8-H11 met scorering, onderbouwing en STRIDE-koppeling zijn hier vastgelegd |
 | Groep_6_Bow-Tie.md | Bow-tie voor H10 (hardcoded secret) is het zusterdocument van deze risicomatrix |
-| Opdracht 1: ci.yml, codeql.yml, sbom.yml | Pipeline-componenten die worden geëvalueerd in sectie 3 |
-| Opdracht 4: Security backlog | H8, H9, H10, H11 leveren bevindingen in de security backlog met CWE en CVSS |
-| Opdracht 6: Auditrapport | Risicomatrix en CI/CD bow-tie zijn bijlagen in het auditrapport (Deliverable 3, eis 7) |
+| Opdracht 1: ci-build-test.yml, sast-codeql.yml, sbom-cyclonedx.yml | Pipeline-componenten die worden geëvalueerd in sectie 3 |

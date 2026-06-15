@@ -1,91 +1,120 @@
-# OpenMRS Module: Security Pipeline (NEN-7510)
+# OpenMRS idgen Module – Security & Kwaliteit (NEN-7510)
 
-## LU2: Verbeter-onderzoek software-kwaliteit
-
-Je onderzoekt een legacysysteem op kwaliteitsverbeteringen rond onderhoudbaarheid en security.
-Je ontwikkelt proof-of-concepts ter ondersteuning van je onderzoeksresultaten en verdedigt deze
-in een individueel interview.
-
-Met een gestructureerd software-assessment analyseer je de onderhoudbaarheid van het systeem.
-Op basis van bevindingen ontwerp en implementeer je verbeteringen als PoC, inclusief onderbouwing
-van gemaakte keuzes. Met een herassessment toon je de kwaliteitsverbeteringen aan.
-
-Op het gebied van security voer je een systematische analyse uit conform NEN-7510 en stelt een
-geprioriteerde aanpak op. Je analyseert 3rd party afhankelijkheden en adviseert over updates.
-Via (AI-)tooling voer je security code reviews uit en toon je de effectiviteit van mitigaties aan.
+> **Project:** LU2 – Verbeteronderzoek software-kwaliteit  
+> **Module:** ATIx IN-B2.4 Softwarearchitectuur & -kwaliteit 2025-26 P4  
+> **Groep:** Groep 6: RafvanHooijdonk, SimonEulenpesch, SinanSagir, Rowen Albers  
+> **Norm:** NEN-7510:2024-2 (informatiebeveiliging in de zorg)
 
 ---
 
-## Huidige staat van de repo
+## Inhoud van deze repository
 
-De CI/CD security pipeline is ingericht. De echte OpenMRS module code is nog niet toegevoegd.
-De meeste workflows draaien momenteel tegen een stub `pom.xml` met alleen JUnit 5.
-Zie `docs/checklist.md` voor de volledige compliance status per eis.
+| Map / Bestand | Beschrijving |
+|---|---|
+| `openmrs-module-idgen/` | Broncode van de OpenMRS ID Generation Module (v4.13.0) |
+| `docs/checklist.md` | Centrale compliance checklist - status per eis, per opdracht |
+| `docs/dast/` | DAST-rapport (OWASP ZAP) en instructies |
+| `docs/sprints/` | Sprintplanningen en voortgang |
+| `docs/assets/rubrics/` | Rubrics en opdrachten |
+| `docs/assets/presentaties/` | Workshoppresentaties |
+| `docs/LU2 - Kwaliteit en security - verbeteronderzoek security/` | Alle security-deliverables (zie Documentatie hieronder) |
+| `.github/workflows/` | CI/CD-pipelines (zie tabel hieronder) |
+| `run-zap.sh` | Lokaal script om OWASP ZAP te draaien |
+| `docker-compose.yml` | OpenMRS lokaal draaien via Docker |
+
+---
+
+## CI/CD Pipeline Overzicht
+
+| Workflow | Trigger | Type | Doel | NEN-7510 |
+|---|---|---|---|---|
+| `ci-build-test.yml` | Push/PR op `main` | Build & Test | Maven build + JUnit tests | 8.25, 8.29 |
+| `sast-codeql.yml` | Push/PR op `main`, wekelijks | SAST | CodeQL statische code-analyse op Java | 8.8, 8.29 |
+| `sca-dependency-review.yml` | PR op `main` | SCA | Blokkeert HIGH/CRITICAL kwetsbaarheden en verboden licenties | 8.8 |
+| `sbom-cyclonedx.yml` | Push op `main` | SBOM | CycloneDX SBOM generatie (116 componenten) | 8.8, 5.22 |
+| `quality-gate-sonarcloud.yml` | Push/PR op `main` | Kwaliteitspoort | SonarCloud quality gate + JaCoCo coverage | 8.25, 8.28 |
+| `dast-owasp-zap.yml` | Handmatig (`workflow_dispatch`) | DAST | OWASP ZAP full scan op draaiende OpenMRS | 8.29 |
+
+> **Waarom is DAST handmatig?** OpenMRS heeft 3–8 minuten nodig om op te starten. Automatisch triggeren bij elke commit is niet praktisch; de workflow wordt handmatig gestart via Actions → Run workflow, waarna het rapport in `docs/dast/` wordt opgeslagen.
 
 ---
 
 ## Mini-ISMS: Beveiligingsbeleid en Procedures
 
-### Doel
+### Doel en scope
 
-Dit document beschrijft het beveiligingsbeleid en de CI/CD-procedures voor de OpenMRS module
-repository, conform NEN-7510 (informatiebeveiliging in de zorg).
+Dit document beschrijft het beveiligingsbeleid en de CI/CD-procedures voor de OpenMRS idgen module repository, conform NEN-7510:2024-2 (informatiebeveiliging in de zorg). De scope omvat de broncode, CI/CD-pipeline, GitHub-omgeving en de bijbehorende deliverables van dit project.
 
 ### Verantwoordelijkheden
 
-| Rol              | Verantwoordelijkheid                                                              |
-| ---------------- | --------------------------------------------------------------------------------- |
-| Repository owner | Beheer van branch protection, environments en secrets                             |
-| Developer        | Aanmaken van feature branches, openen van pull requests                           |
-| Reviewer         | Code review en goedkeuring van pull requests voor merge                           |
+| Rol | Verantwoordelijkheid |
+|---|---|
+| Repository owner | Beheer van branch protection, environments, secrets en rulesets |
+| Developer | Aanmaken van feature branches, openen van pull requests |
+| Reviewer | Code review en goedkeuring van pull requests voor merge |
+| Security Champion | Bewaken van security backlog, DAST en pentestrapportage |
 
 ### Branch Protection
 
-Alle wijzigingen op `main` verlopen uitsluitend via een Pull Request.
-Minimaal 1 goedkeuring is verplicht voordat een PR gemerged mag worden.
-Verouderde goedkeuringen worden automatisch ingetrokken bij nieuwe commits.
-Status checks (CI-workflows) moeten slagen voor merge.
+Alle wijzigingen op `main` verlopen uitsluitend via een Pull Request. De configuratie wordt volledig afgedwongen via de ruleset **"Protect main – NEN-7510 Ctrl 8.4/8.32"** (status: Active, bypass list: leeg (niemand kan omzeilen)):
 
-**Let op:** branch protection is geconfigureerd maar niet afgedwongen op GitHub Free (private repo).
-
-### CI/CD Pipeline Overzicht
-
-| Workflow                  | Trigger                          | Doel                                                              | Status                  |
-| ------------------------- | -------------------------------- | ----------------------------------------------------------------- | ----------------------- |
-| `ci.yml`                  | Push/PR op `main`               | Build & test met Maven (Java 17)                                  | ⚠️ Tijdelijk compliant |
-| `codeql.yml`              | Push/PR op `main`, wekelijks    | SAST: statische code-analyse (NEN-7510 Ctrl 8.8)                | ⚠️ Tijdelijk compliant |
-| `dependency-review.yml`   | PR op `main`                    | SCA: controle op kwetsbare/verboden licenties in dependencies    | ⚠️ Tijdelijk compliant |
-| `sbom.yml`                | Push op `main`                  | Generatie van CycloneDX SBOM (Software Bill of Materials)         | ⚠️ Tijdelijk compliant |
-| `dependabot.yml`          | Wekelijks (maandag 06:00)       | Automatische dependency updates voor Maven en GitHub Actions      | ⚠️ Tijdelijk compliant |
-
-Tijdelijk compliant = workflows draaien en slagen, maar op een stub project zonder echte module code.
-Zodra de echte OpenMRS module is toegevoegd en `pom.xml` vervangen is, worden deze volledig compliant.
+| Regel | Status |
+|---|---|
+| Pull Request verplicht voor elke merge naar `main` | ✅ Actief |
+| Status checks (CI-workflows) moeten slagen vóór merge | ✅ Actief |
+| CodeQL code scanning resultaten vereist (High of hoger) | ✅ Actief |
+| Force pushes geblokkeerd | ✅ Actief |
+| Deletions geblokkeerd | ✅ Actief |
 
 ### Security Controls
 
-**SAST (CodeQL):** Elke push en PR wordt geanalyseerd op kwetsbaarheden in Java code.
-**Dependency Review:** Pull requests worden geblokkeerd bij HIGH/CRITICAL kwetsbaarheden of verboden licenties (GPL-3.0, AGPL-3.0).
-**Dependabot:** Automatische security updates en versie-updates voor dependencies.
-**SBOM:** Bij elke push naar `main` wordt een CycloneDX SBOM gegenereerd en opgeslagen als artifact (90 dagen retentie).
-**Secrets beheer:** Secrets zijn gescheiden per environment. Productie-secrets zijn alleen toegankelijk in `production`, voorzien van een protection rule.
+| Maatregel | Tool | Status | NEN-7510 |
+|---|---|---|---|
+| SAST | CodeQL (`sast-codeql.yml`) | ✅ Actief | 8.8, 8.29 |
+| SCA - dependency check | Dependency Review Action (`sca-dependency-review.yml`) | ✅ Actief | 8.8 |
+| SCA - alerts & updates | Dependabot | ✅ Actief | 8.8 |
+| SBOM | CycloneDX via Syft (`sbom-cyclonedx.yml`) | ✅ Actief | 8.8, 5.22 |
+| Kwaliteitspoort | SonarCloud (`quality-gate-sonarcloud.yml`) | ✅ Actief | 8.25, 8.28 |
+| Codedekking | JaCoCo via SonarCloud | ✅ Actief | 8.29 |
+| DAST | OWASP ZAP (`dast-owasp-zap.yml`) | ✅ Actief | 8.29 |
+| Secret Scanning | GitHub Secret Protection + Push Protection | ✅ Actief | 8.28 |
 
-### Environments
+### Secrets Beheer
 
-| Environment  | Protection Rule | Gebruik                                              |
-| ------------ | --------------- | ---------------------------------------------------- |
-| `production` | Ja (1 rule)     | Productie-deployments, beveiligd met goedkeuringsregel |
-| `test`       | Nee             | Test-deployments                                     |
+Gevoelige waarden worden **nooit** in broncode opgeslagen. Alle secrets worden beheerd via GitHub Encrypted Secrets, gescheiden per environment:
 
-### Bekende beperkingen (GitHub Free plan)
+| Environment | Secrets | Protection |
+|---|---|---|
+| `production` | Deployment-sleutels, productie-credentials | Required reviewers: 1; deployment vereist handmatige goedkeuring |
+| `test` | Test-credentials | Geen extra goedkeuring vereist |
 
-| Beperking                         | Reden                                          |
-| --------------------------------- | ---------------------------------------------- |
-| Branch protection niet afgedwongen | Vereist GitHub Team/Enterprise voor private repos |
-| Secret Scanning niet beschikbaar  | Vereist GitHub Advanced Security               |
-| Artifact retentie max 90 dagen    | Free plan limiet                               |
+GitHub Push Protection blokkeert commits die bekende secret-patronen bevatten vóórdat ze de repository bereiken.
 
-### Incident & Vulnerability Rapportage
+### Environments (OTAP)
 
-Beveiligingslekken worden gerapporteerd via het proces beschreven in `SECURITY.md`.
-Dependabot-alerts en CodeQL-bevindingen worden beoordeeld door de repository owner en
-verholpen op basis van prioriteit (CRITICAL > HIGH > MEDIUM > LOW).
+| Environment | Protection Rule | Gebruik |
+|---|---|---|
+| `production` | ✅ Ja - Required reviewers (1) | Productie-deployments; vereist handmatige goedkeuring |
+| `test` | ❌ Nee | Test-deployments |
+
+### Artifact Bewaring
+
+CI/CD-artifacts (SBOM, ZAP-rapport, CodeQL-resultaten) worden bewaard als GitHub Actions artifacts. Retentie is geconfigureerd op 365 dagen, maar het GitHub Free plan brengt dit automatisch terug naar **90 dagen**.
+
+### Bekende beperkingen
+
+| Beperking | Reden |
+|---|---|
+| Artifact retentie max 90 dagen | Free plan limiet |
+
+---
+
+## Lokaal draaien
+
+### OpenMRS opstarten
+
+```bash
+docker-compose up -d
+```
+
+Bereikbaar op: http://localhost:8080/openmrs/ (wacht 3–8 minuten op volledige opstart)

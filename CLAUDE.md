@@ -138,10 +138,10 @@ LU2 project at Avans Hogeschool. Proves a compliant CI/CD security pipeline for 
 
 The real OpenMRS idgen module (v4.13.0) is in `openmrs-module-idgen/`. All workflows target this directory. All statuses in the checklist reflect this real module, not a stub.
 
-Known permanent limitations (GitHub Free plan, private repo):
-- Branch protection is configured but not enforced
-- Secret Scanning is unavailable
-- Artifact retention is capped at 90 days
+Known limitations (GitHub Free plan):
+- Branch protection: fully enforced via ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" (repo is public — bypass list is empty)
+- Secret Scanning: Secret Protection + Push Protection are active (public repo, free)
+- Artifact retention: capped at 90 days (only remaining limitation)
 
 Known test exclusions (Java 11 incompatibilities in upstream idgen code, not our code):
 - `LocationBasedPrefixProviderTest` — PowerMock 1.x incompatible with Java 11 module system
@@ -194,7 +194,7 @@ To prevent ANY chaos, hallucination, or wrong file placements (even with random 
 **Rule:** Do NOT put any formal deliverables, analysis documents, or markdown reports in the root directory.
 
 ### `.github/workflows/`
-Contains all CI/CD pipelines (`ci.yml`, `codeql.yml`, `dependabot.yml`, `dependency-review.yml`, `sbom.yml`).
+Contains all CI/CD pipelines (`ci-build-test.yml`, `sast-codeql.yml`, `dependabot.yml`, `sca-dependency-review.yml`, `sbom-cyclonedx.yml`).
 
 ### `docs/`
 The ONLY place for documentation. But do NOT dump deliverables directly in `docs/`.
@@ -290,7 +290,7 @@ Elk formeel security deliverable moet bevatten:
 
 Houd de Bewijslast-kolom in `docs/checklist.md` kort. Gebruik alleen de bestandsnaam zonder het `Groep_6_` prefix en zonder pad.
 
-Goed: Asset-Identificatie.md, Settings → Environments, ci.yml
+Goed: Asset-Identificatie.md, Settings → Environments, ci-build-test.yml
 Fout: `Asset-Identificatie.md` (geen backticks, want monospace font zorgt voor extra breedte en wrapping)
 Fout: `Groep_6_Asset-Identificatie.md` (geen Groep_6_ prefix)
 Fout: `docs/LU2 - Kwaliteit en security - verbeteronderzoek security/Groep_6_Asset-Identificatie.md` (geen volledig pad)

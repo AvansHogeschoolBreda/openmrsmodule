@@ -40,7 +40,7 @@ Binnen scope:
 - **SBOM (Software Bill of Materials):** machine-leesbaar overzicht van alle componenten.
 - **Security backlog:** geprioriteerde lijst van bevindingen met CVE/CWE, CVSS en mitigatie.
 
-Buiten scope: de OpenMRS core, de databaseserver, dynamische tests (DAST) en penetration tests. Die vallen onder Opdracht 4 Deel 3 (Risk Assessment Report) en Opdracht 6.
+Buiten scope van dit document: de OpenMRS core, de databaseserver, dynamische tests (DAST) en penetration tests. Die vallen onder Opdracht 5 en Opdracht 6. DAST is inmiddels uitgevoerd via OWASP ZAP (zie `docs/dast/`) en de penetration test is gedocumenteerd in `Groep_6_Pentestrapport.md`.
 
 Deze analyse draait voor het eerst op de **echte module-code** en niet op de stub `pom.xml`. Daarmee vervalt de tijdelijke beperking die in Opdracht 1 voor SCA, SAST en SBOM gold.
 
