@@ -461,11 +461,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | # | Eis                                                                         | Status       | Bewijslast      | Wie        | Notities                                  |
 | - | --------------------------------------------------------------------------- | ------------ | --------------- | ---------- | ----------------------------------------- |
-| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ✅ Compliant | Pentestrapport.md secties 8 en 13 | SinanSagir | CVE-2015-7501: commons-collections 3.2 → 3.2.2 in pom.xml. NPM: 160 Dependabot-alerts opgelost via npm audit fix + --force; malware fsevents verwijderd |
+| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ✅ Compliant | Pentestrapport.md secties 8 en 13 | SinanSagir | CVE-2015-7501: commons-collections 3.2 → 3.2.2 in pom.xml. NPM: 55 Dependabot-alerts opgelost via `npm audit fix`; malware fsevents verwijderd |
 | 2 | Gebruik van (AI-)tooling bij realisatie beschreven en verantwoord           | ✅ Compliant | Pentestrapport.md sectie 8.4 | SinanSagir | Claude (Sonnet 4.6) ondersteunend ingezet; inhoudelijke keuzes door SinanSagir |
-| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ✅ Compliant | Pentestrapport.md secties 9 en 13.5 | SinanSagir | mvn dependency:tree bevestigt 3.2.2; npm audit NA toont 160 alerts opgelost (74% reductie) |
+| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ✅ Compliant | Pentestrapport.md secties 9 en 13.5 | SinanSagir | mvn dependency:tree bevestigt 3.2.2; npm audit NA toont 55 alerts opgelost (25% reductie) |
 | 4 | Pentest-rapport ná mitigatie opgeslagen in repo                            | ✅ Compliant | Pentestrapport.md | SinanSagir | Groep_6_Pentestrapport.md bevat voor- en na-mitigatie voor CVE-2015-7501 en alle Dependabot critical/high/malware |
-| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ✅ Compliant | Pentestrapport.md secties 10 en 13.7 | SinanSagir | CVE-2015-7501: CVSS 9.8 → N.v.t. NPM: 216 alerts → 56 alerts; malware verwijderd; niet-fixbare items gedocumenteerd met motivatie |
+| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ✅ Compliant | Pentestrapport.md secties 10 en 13.7 | SinanSagir | CVE-2015-7501: CVSS 9.8 → N.v.t. NPM: 216 alerts → 161 alerts; malware verwijderd; niet-fixbare items gedocumenteerd met motivatie |
 
 ---
 
