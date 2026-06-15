@@ -36,7 +36,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | # | Eis                                                                                                | Status       | Bewijslast                                                         | Wie             | Notities                                                                                                     |
 | - | -------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------ |
 | 1 | Non-functional requirements voor onderhoudbaarheid bepaald en vastgelegd                           | ✅ Compliant | `Groep_6_Non-Functional-Requirements.md`                         | RafvanHooijdonk | NFR-1 t/m NFR-9 vastgelegd met drempelwaarden en onderbouwing                                                |
-| 2 | Tooling ingericht (bijv. Qodana of SonarCloud) die CI laat falen bij niet-voldoen                  | ✅ Compliant | `.github/workflows/sonarcloud.yml`, `sonar-project.properties` | RafvanHooijdonk | SonarCloud quality gate gekoppeld aan CI; blokkeert merge bij falen                                          |
+| 2 | Tooling ingericht (bijv. Qodana of SonarCloud) die CI laat falen bij niet-voldoen                  | ✅ Compliant | `.github/workflows/quality-gate-sonarcloud.yml`, `sonar-project.properties` | RafvanHooijdonk | SonarCloud quality gate gekoppeld aan CI; blokkeert merge bij falen                                          |
 | 3 | Systematische analyse uitgevoerd met passende metrieken (complexiteit, duplicatie, coupling, enz.) | ✅ Compliant | Groep_6_Analyse-Onderhoudbaarheid.md                               | RafvanHooijdonk | Complexiteit, duplicatie, coupling, coverage en code smells geanalyseerd via SonarCloud + broncode-inspectie |
 | 4 | Analyse-resultaten duidelijk gedocumenteerd met onderbouwing per metriek                           | ✅ Compliant | Groep_6_Analyse-Onderhoudbaarheid.md                               | RafvanHooijdonk | Per metriek: meetmethode, resultaat, onderbouwing en prioritering                                            |
 
@@ -83,7 +83,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 ---
 
-### Deel 6: Validatie verbeteringen — testen & regressie
+### Deel 6: Validatie verbeteringen - testen & regressie
 
 | # | Eis                                                                      | Status  | Bewijslast | Wie | Notities                                      |
 | - | ------------------------------------------------------------------------ | ------- | ---------- | --- | --------------------------------------------- |
@@ -137,13 +137,13 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | #  | Eis                                                                        | Status                   | Bewijslast                                                | Wie             | Notities                                                                                                                      |
 | -- | -------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| 1  | Branch protection actief op `main`: alleen via PR, reviews verplicht     | ⚠️ Tijdelijk compliant | Settings → Branches →`main` rule aanwezig             | RafvanHooijdonk | Regel geconfigureerd, maar wacht op goedkeuring docent i.v.m. limitatie Free plan (not enforced)                              |
-| 2  | Alle CI-checks slagen voor merge (build, test, SAST)                       | ✅ Compliant             | `.github/workflows/ci.yml`                              | RafvanHooijdonk | Workflows draaien op echte idgen-module (`working-directory: openmrs-module-idgen`). Stub `pom.xml` niet langer gebruikt. |
-| 3  | **CodeQL** of gelijkwaardige SAST actief                             | ✅ Compliant             | `.github/workflows/codeql.yml`                          | RafvanHooijdonk | CodeQL scant echte idgen-broncode op push, PR en wekelijks schedule.                                                          |
-| 4  | **Secret Scanning** actief                                           | ❌ Niet compliant        | Settings → Advanced Security                             | RafvanHooijdonk | Niet beschikbaar op GitHub Free plan voor private repos. Vereist GitHub Advanced Security (betaald).                          |
+| 1  | Branch protection actief op `main`: alleen via PR, reviews verplicht     | ✅ Compliant | Settings → Rules → "Protect main – NEN-7510 Ctrl 8.4/8.32" (Active) | RafvanHooijdonk | Ruleset volledig actief: PR verplicht, status checks, force push geblokkeerd, CodeQL scanning vereist. Repo is public; rulesets volledig afgedwongen op GitHub Free. |
+| 2  | Alle CI-checks slagen voor merge (build, test, SAST)                       | ✅ Compliant             | `.github/workflows/ci-build-test.yml`                              | RafvanHooijdonk | Workflows draaien op echte idgen-module (`working-directory: openmrs-module-idgen`). Stub `pom.xml` niet langer gebruikt. |
+| 3  | **CodeQL** of gelijkwaardige SAST actief                             | ✅ Compliant             | `.github/workflows/sast-codeql.yml`                          | RafvanHooijdonk | CodeQL scant echte idgen-broncode op push, PR en wekelijks schedule.                                                          |
+| 4  | **Secret Scanning** actief                                           | ✅ Compliant             | Settings → Security → Code security and analysis        | RafvanHooijdonk | Secret Protection én Push protection actief (repo is public; gratis beschikbaar). Blokkeert commits met bekende secrets.     |
 | 5  | **Dependabot** alerts + security updates actief                      | ✅ Compliant             | Settings → Advanced Security +`.github/dependabot.yml` | RafvanHooijdonk | Monitort echte idgen-dependencies, wekelijkse updates.                                                                        |
-| 6  | **Dependency Review Action** gekoppeld aan PR's                      | ✅ Compliant             | `.github/workflows/dependency-review.yml`               | RafvanHooijdonk | Actief op PR naar `main`, blokkeert HIGH/CRITICAL, weigert GPL-3.0 en AGPL-3.0.                                             |
-| 7  | **SBOM** wordt gegenereerd (CycloneDX of SPDX) en geanalyseerd (SCA) | ✅ Compliant             | `.github/workflows/sbom.yml` + Actions artifacts        | RafvanHooijdonk | CycloneDX JSON via Anchore/Syft op `path: openmrs-module-idgen`. Bevat echte idgen-dependencies.                            |
+| 6  | **Dependency Review Action** gekoppeld aan PR's                      | ✅ Compliant             | `.github/workflows/sca-dependency-review.yml`               | RafvanHooijdonk | Actief op PR naar `main`, blokkeert HIGH/CRITICAL, weigert GPL-3.0 en AGPL-3.0.                                             |
+| 7  | **SBOM** wordt gegenereerd (CycloneDX of SPDX) en geanalyseerd (SCA) | ✅ Compliant             | `.github/workflows/sbom-cyclonedx.yml` + Actions artifacts        | RafvanHooijdonk | CycloneDX JSON via Anchore/Syft op `path: openmrs-module-idgen`. Bevat echte idgen-dependencies.                            |
 | 8  | **GitHub Environments** gedefinieerd met protection rules            | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` (1 protection rule, 1 secret) en `test` (1 secret) aanwezig                                                  |
 | 9  | Secrets gescheiden per environment                                         | ✅ Compliant             | Settings → Environments                                  | RafvanHooijdonk | `production` en `test` hebben elk eigen geïsoleerde secrets                                                              |
 | 10 | Pipeline-artifacts (rapporten, SBOM) worden bewaard                        | ⚠️ Gedeeltelijk        | Actions → SBOM run → Artifacts                          | RafvanHooijdonk | Retentie is 90 dagen (free plan maximum). Geconfigureerde 365 dagen wordt automatisch teruggebracht                           |
@@ -153,33 +153,31 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 8      |
+| ✅ Compliant                | 10     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 1      |
-| ❌ Niet compliant           | 1      |
+| ❌ Niet compliant           | 0      |
 
 ### Openstaande actiepunten
 
 **Oplosbaar zonder plan-upgrade:**
 
-Geen — alle oplosbare punten zijn verholpen na toevoeging van de echte idgen-module.
+Geen - alle oplosbare punten zijn verholpen. Branch protection en Secret Scanning zijn volledig actief (repo is public).
 
-**Vereist GitHub plan-upgrade (Team of Enterprise):**
+**Vereist GitHub plan-upgrade (betaald):**
 
-| Actie                                     | Blokker                                           |
-| ----------------------------------------- | ------------------------------------------------- |
-| Branch protection afdwingen op `main`   | GitHub Team/Enterprise vereist voor private repos |
-| Secret Scanning activeren                 | GitHub Advanced Security vereist                  |
-| Artifact retentie verhogen naar 365 dagen | Betaald plan vereist                              |
+| Actie                                     | Blokker                       |
+| ----------------------------------------- | ----------------------------- |
+| Artifact retentie verhogen naar 365 dagen | Betaald plan vereist          |
 
 ### Wijzigingslog Opdracht 1
 
 | Datum      | Versie | Wijziging                                                                                                                         | Door            |
 | ---------- | ------ | --------------------------------------------------------------------------------------------------------------------------------- | --------------- |
 | 2026-06-03 | 1.0    | Initiële checklist aangemaakt na volledige pipeline controle                                                                     | RafvanHooijdonk |
-| 2026-06-03 | 1.1    | `sbom.yml` gefixed (Maven stap verwijderd, exit code 1 opgelost)                                                                | RafvanHooijdonk |
+| 2026-06-03 | 1.1    | `sbom-cyclonedx.yml` gefixed (Maven stap verwijderd, exit code 1 opgelost)                                                                | RafvanHooijdonk |
 | 2026-06-03 | 1.2    | `README.md` bijgewerkt met mini-ISMS beleid en procedures                                                                       | RafvanHooijdonk |
 | 2026-06-03 | 1.3    | `SECURITY.md` bijgewerkt met rapportageproces en prioritering                                                                   | RafvanHooijdonk |
-| 2026-06-03 | 1.4    | `ci.yml` workflow aangemaakt voor build & test checks                                                                           | RafvanHooijdonk |
+| 2026-06-03 | 1.4    | `ci-build-test.yml` workflow aangemaakt voor build & test checks                                                                           | RafvanHooijdonk |
 | 2026-06-03 | 1.5    | `checklist.md` aangemaakt voor doorlopende compliance tracking                                                                  | RafvanHooijdonk |
 | 2026-06-03 | 1.6    | Stub `pom.xml` toegevoegd, eis #2 bijgewerkt naar tijdelijk compliant                                                           | RafvanHooijdonk |
 | 2026-06-03 | 1.7    | Opdracht-foto toegevoegd, checklist hersteld na corruptie                                                                         | RafvanHooijdonk |
@@ -446,7 +444,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 ---
 
-### Deel 6: Penetration Tests — aantonen kwetsbaarheden
+### Deel 6: Penetration Tests - aantonen kwetsbaarheden
 
 | # | Eis                                                                                         | Status       | Bewijslast         | Wie        | Notities                                      |
 | - | ------------------------------------------------------------------------------------------- | ------------ | ------------------ | ---------- | --------------------------------------------- |
@@ -473,37 +471,58 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | # | Eis                                                        | Status       | Bewijslast                                                                            | Wie             | Notities                                                                                       |
 | - | ---------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------------------- |
-| 1 | JaCoCo geconfigureerd en geactiveerd (mvn jacoco:report)   | ✅ Compliant | `openmrs-module-idgen/api/pom.xml` + `sonarcloud.yml`                             | RafvanHooijdonk | JaCoCo draait via `mvn verify` in sonarcloud.yml; rapporten gaan naar SonarCloud             |
+| 1 | JaCoCo geconfigureerd en geactiveerd (mvn jacoco:report)   | ✅ Compliant | `openmrs-module-idgen/api/pom.xml` + `quality-gate-sonarcloud.yml`                             | RafvanHooijdonk | JaCoCo draait via `mvn verify` in quality-gate-sonarcloud.yml; rapporten gaan naar SonarCloud             |
 | 2 | Coverage % bepaald en gedocumenteerd (met onderbouwing)    | ✅ Compliant | `Groep_6_Analyse-Onderhoudbaarheid.md` + `Groep_6_Non-Functional-Requirements.md` | RafvanHooijdonk | 50% overall (api 54.3%, omod 46.9%); per-bestand breakdown inclusief 0%-klassen gedocumenteerd |
-| 3 | Coverage rapport opgeslagen als artifact in GitHub Actions | ✅ Compliant | `sonarcloud.yml` stap "Upload JaCoCo coverage reports"                              | RafvanHooijdonk | api + omod rapport geupload als artifact `jacoco-report-{run}`, 90 dagen retentie            |
+| 3 | Coverage rapport opgeslagen als artifact in GitHub Actions | ✅ Compliant | `quality-gate-sonarcloud.yml` stap "Upload JaCoCo coverage reports"                              | RafvanHooijdonk | api + omod rapport geupload als artifact `jacoco-report-{run}`, 90 dagen retentie            |
+
+### Deel 9: DAST - Dynamic Application Security Testing (OWASP ZAP)
+
+> **Bron:** WS04B slide 16, WS05 slide 59, WS06 slide 18. Output telt als dynamisch testbewijs (rubricelement C) en als bijlage in het auditrapport (NEN-7510 8.29).
+
+| # | Eis                                                                                                        | Status  | Bewijslast | Wie             | Notities                                                                 |
+| - | ---------------------------------------------------------------------------------------------------------- | ------- | ---------- | --------------- | ------------------------------------------------------------------------ |
+| 1 | OWASP ZAP geïnstalleerd en draaibaar (lokaal of via Docker)                                               | ✅ Compliant | `run-zap.sh`, `.github/workflows/dast-owasp-zap.yml` | RafvanHooijdonk | ZAP via `ghcr.io/zaproxy/zaproxy:stable`; lokaal script + GitHub Actions workflow aangemaakt |
+| 2 | Draaiende OpenMRS-instantie beschikbaar als DAST-target (lokale of staging-omgeving)                      | ✅ Compliant | `docker-compose.yml`, `run-zap.sh`        | RafvanHooijdonk | Bestaande docker-compose setup; target `http://localhost:8080/openmrs`  |
+| 3 | ZAP Spider uitgevoerd op de target (endpoints automatisch ontdekt)                                        | ❌ Open |            | RafvanHooijdonk | Inbegrepen in `zap-full-scan.py`; uitvoeren via `./run-zap.sh`         |
+| 4 | ZAP Active Scan uitgevoerd (XSS, SQLi, CSRF, etc. getest)                                                 | ❌ Open |            | RafvanHooijdonk | Inbegrepen in `zap-full-scan.py`; uitvoeren via `./run-zap.sh`         |
+| 5 | ZAP-rapport opgeslagen als artifact in de repo (audit trail)                                              | ❌ Open |            | RafvanHooijdonk | Na run: `docs/dast/zap-report.html` + `.json` committen; NEN-7510 8.29 |
+| 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ❌ Open |            |                 | Rest van het team verwerkt de output na oplevering van Raf              |
+
+---
 
 ### Samenvatting Opdracht 5
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 33     |
+| ✅ Compliant                | 35     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 0      |
+| ❌ Open / Niet compliant    | 4      |
 
 ### Openstaande actiepunten Opdracht 5
 
-Geen openstaande actiepunten. Alle eisen zijn compliant.
+| Actie                                                          | Prioriteit | Wie             |
+| -------------------------------------------------------------- | ---------- | --------------- |
+| OWASP ZAP installeren en draaiend krijgen (Deel 9 eis 1-4)    | Hoog       | RafvanHooijdonk |
+| ZAP-rapport opslaan in repo als artifact (Deel 9 eis 5)       | Hoog       | RafvanHooijdonk |
+| DAST-bevindingen verwerken in security backlog / auditrapport  | Hoog       | Rest van team   |
 
 ### Wijzigingslog Opdracht 5
 
-| Datum      | Versie | Wijziging                                                                                     | Door            |
-| ---------- | ------ | --------------------------------------------------------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist                                                   | RafvanHooijdonk |
-| 2026-06-12 | 1.1    | Deel 5 (DPIA), Deel 6 (Pentest voor), Deel 7 (Mitigatie+validatie) toegevoegd; naam aangepast | RafvanHooijdonk |
-| 2026-06-13 | 1.2    | Deel 1 (Attack Surface Mapping) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
-| 2026-06-12 | 1.2    | Deel 8 volledig compliant: JaCoCo actief, coverage gedocumenteerd, artifact upload toegevoegd | RafvanHooijdonk |
-| 2026-06-13 | 1.3    | Deel 2 (Logging gap-analyse) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
-| 2026-06-13 | 1.4    | Deel 3 (Logging implementeren) ingevuld en op ✅ Compliant gezet                             | Rowen Albers    |
-| 2026-06-13 | 1.5    | Deel 4 (Logging testen) ingevuld, tests groen gemaakt en op ✅ Compliant gezet               | Rowen Albers    |
-| 2026-06-13 | 1.6    | Deel 5 (DPIA-check) compliant: AVG art. 35 drempeltoets, 5 privacy-risico's gedocumenteerd   | SinanSagir      |
-| 2026-06-13 | 1.7    | Deel 6 (Pentest voor) compliant: SCA-05 CVE-2015-7501 gedocumenteerd met aanvalsketen        | SinanSagir      |
-| 2026-06-13 | 1.8    | Deel 7 (Mitigatie) compliant: commons-collections 3.2.2 in pom.xml, voor/na vergelijking     | SinanSagir      |
-| 2026-06-13 | 1.9    | Pentest-Voor.md en Pentest-Na.md samengevoegd tot Groep_6_Pentestrapport.md; AI-formulering gecorrigeerd | SinanSagir      |
+| Datum      | Versie | Wijziging                                                                                                     | Door            |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------------- | --------------- |
+| 2026-06-03 | 1.0    | Opdracht 5 toegevoegd aan globale checklist                                                                   | RafvanHooijdonk |
+| 2026-06-12 | 1.1    | Deel 5 (DPIA), Deel 6 (Pentest voor), Deel 7 (Mitigatie+validatie) toegevoegd; naam aangepast                | RafvanHooijdonk |
+| 2026-06-13 | 1.2    | Deel 1 (Attack Surface Mapping) ingevuld en op ✅ Compliant gezet                                             | Rowen Albers    |
+| 2026-06-12 | 1.2    | Deel 8 volledig compliant: JaCoCo actief, coverage gedocumenteerd, artifact upload toegevoegd                 | RafvanHooijdonk |
+| 2026-06-13 | 1.3    | Deel 2 (Logging gap-analyse) ingevuld en op ✅ Compliant gezet                                             | Rowen Albers    |
+| 2026-06-13 | 1.4    | Deel 3 (Logging implementeren) ingevuld en op ✅ Compliant gezet                                             | Rowen Albers    |
+| 2026-06-13 | 1.5    | Deel 4 (Logging testen) ingevuld, tests groen gemaakt en op ✅ Compliant gezet                               | Rowen Albers    |
+| 2026-06-13 | 1.6    | Deel 5 (DPIA-check) compliant: AVG art. 35 drempeltoets, 5 privacy-risico's gedocumenteerd                   | SinanSagir      |
+| 2026-06-13 | 1.7    | Deel 6 (Pentest voor) compliant: SCA-05 CVE-2015-7501 gedocumenteerd met aanvalsketen                        | SinanSagir      |
+| 2026-06-13 | 1.8    | Deel 7 (Mitigatie) compliant: commons-collections 3.2.2 in pom.xml, voor/na vergelijking                     | SinanSagir      |
+| 2026-06-13 | 1.9    | Pentest-Voor.md en Pentest-Na.md samengevoegd tot Groep_6_Pentestrapport.md; AI-formulering gecorrigeerd     | SinanSagir      |
+| 2026-06-15 | 2.0    | Deel 9 (DAST - OWASP ZAP) toegevoegd: 6 eisen, verantwoordelijke RafvanHooijdonk voor installatie/uitvoering | RafvanHooijdonk |
+| 2026-06-15 | 2.1    | Deel 9 eisen 1+2 compliant: run-zap.sh + dast-owasp-zap.yml workflow aangemaakt; eisen 3-5 wachten op uitvoering       | RafvanHooijdonk |
 
 ---
 
@@ -531,146 +550,4 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | # | Eis                                                                   | Status  | Bewijslast | Wie | Notities                                    |
 | - | --------------------------------------------------------------------- | ------- | ---------- | --- | ------------------------------------------- |
 | 1 | Geschreven voor niet-technische lezer (Raad van Bestuur), geen jargon | ❌ Open |            |     | Geen CVE-nummers of CVSS-scores in de tekst |
-| 2 | Overall RAG-status aanwezig met toelichting                           | ❌ Open |            |     |                                             |
-| 3 | Status t.o.v. CRA en NEN-7510:2026 vermeld                            | ❌ Open |            |     |                                             |
-| 4 | Top 3 risico's beschreven in zorg-impact (niet technische impact)     | ❌ Open |            |     |                                             |
-| 5 | Geprioriteerde roadmap aanwezig (nu / deze sprint / later)            | ❌ Open |            |     |                                             |
-| 6 | Maximaal 400 woorden                                                  | ❌ Open |            |     |                                             |
-
-### Deliverable 2: Traceability Matrix
-
-| # | Eis                                                                      | Status  | Bewijslast | Wie | Notities                                     |
-| - | ------------------------------------------------------------------------ | ------- | ---------- | --- | -------------------------------------------- |
-| 1 | Minimaal 5 NEN-7510:2026 controls opgenomen                              | ❌ Open |            |     | Aanbevolen: 8.28, 8.8, 8.15, 8.25, 5.35/5.36 |
-| 2 | Per rij: norm, maatregel, voor (bevinding), aanpassing, na (bewijs)      | ❌ Open |            |     |                                              |
-| 3 | Elk bewijs is een concreet artefact (PR-nummer, scan-datum, commit hash) | ❌ Open |            |     |                                              |
-
-### Deliverable 3: Volledig auditrapport
-
-| # | Eis                                                                                 | Status  | Bewijslast | Wie | Notities |
-| - | ----------------------------------------------------------------------------------- | ------- | ---------- | --- | -------- |
-| 1 | Managementsamenvatting aanwezig (= Deliverable 1 geintegreerd)                      | ❌ Open |            |     |          |
-| 2 | Scope & Context aanwezig                                                            | ❌ Open |            |     |          |
-| 3 | Audit Methodologie aanwezig                                                         | ❌ Open |            |     |          |
-| 4 | Risico-analyse & Bevindingen aanwezig (minimaal 4 bevindingen)                      | ❌ Open |            |     |          |
-| 5 | SBOM & Supply Chain Security sectie aanwezig (top 10 dependencies op risico + CVEs) | ❌ Open |            |     |          |
-| 6 | Conclusie & Advies aanwezig                                                         | ❌ Open |            |     |          |
-| 7 | Bijlagen aanwezig: SBOM, SAST-output, risicomatrix, bow-tie diagrammen, CRA-mapping | ❌ Open |            |     |          |
-| 8 | Rapport opgeleverd als Markdown of Word in de repo (niet als e-mail bijlage)        | ❌ Open |            |     |          |
-
-### Samenvatting Opdracht 6
-
-| Categorie                   | Aantal |
-| --------------------------- | ------ |
-| ✅ Compliant                | 0      |
-| ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 19     |
-
-### Openstaande actiepunten Opdracht 6
-
-| Actie                                           | Prioriteit | Wie |
-| ----------------------------------------------- | ---------- | --- |
-| Responsible Disclosure scenario uitwerken       | Hoog       |     |
-| Executive Summary schrijven (max 400 woorden)   | Hoog       |     |
-| Traceability Matrix opstellen (min. 5 controls) | Hoog       |     |
-| Volledig auditrapport schrijven (7 secties)     | Hoog       |     |
-
-### Wijzigingslog Opdracht 6
-
-| Datum      | Versie | Wijziging                                   | Door            |
-| ---------- | ------ | ------------------------------------------- | --------------- |
-| 2026-06-03 | 1.0    | Opdracht 6 toegevoegd aan globale checklist | RafvanHooijdonk |
-
----
-
-## Sprints
-
-De sprints zijn de uitvoeringsplanning. Per sprint staan de taken, verwachte output en eindcheck.
-De gedetailleerde sprint-bestanden staan in `docs/sprints/`.
-
-| Sprint   | Doel                                        | Bestand                                    | Status            |
-| -------- | ------------------------------------------- | ------------------------------------------ | ----------------- |
-| Sprint 1 | Omgeving inrichten & Gap-analyse            | [docs/sprints/sprint1.md](sprints/sprint1.md) | ⚠️ Gedeeltelijk |
-| Sprint 2 | Risico-analyse & Security Backlog           | [docs/sprints/sprint2.md](sprints/sprint2.md) | ✅ Compliant      |
-| Sprint 3 | Mitigatie, Pentest & Auditrapport (concept) | [docs/sprints/sprint3.md](sprints/sprint3.md) | ❌ Open           |
-| Sprint 4 | Definitief & Oplevering                     | [docs/sprints/sprint4.md](sprints/sprint4.md) | ❌ Open           |
-
-### Eindcheck Sprint 1
-
-| # | Check                                                                | Status                   | Notities                                                                                                                                      | Wie             |
-| - | -------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| 1 | GitHub repository heeft branch protection en Dependabot actief       | ⚠️ Tijdelijk compliant | Branch protection geconfigureerd (wacht op goedkeuring docent i.v.m. limitatie Free plan). Dependabot en CodeQL actief op echte idgen-module. | RafvanHooijdonk |
-| 2 | SBOM-bestand wordt als CI-artifact aangemaakt in Actions             | ✅ Compliant             | `sbom.yml` actief op echte idgen-module (`path: openmrs-module-idgen`). Artifact aangemaakt met echte dependencies.                       | RafvanHooijdonk |
-| 3 | Gap-analyse dekt minimaal 3 NEN-7510 controls met bewijs             | ✅ Compliant             | `Groep_6_Gap-Analyse.md` is ingevuld met 3 controls en concrete bewijzen.                                                                   | Rowen Albers    |
-| 4 | Alle teamleden hebben een commit bijgedragen                         | ❌ Open                  | Niet verifieerbaar vanuit deze context.                                                                                                       | Iedereen        |
-| 5 | Module-keuze gedocumenteerd en onderbouwd in Groep_6_Module-Keuze.md | ✅ Compliant             | Keuze vastgelegd en gemotiveerd in Groep_6_Module-Keuze.md. Bevat motivatie en 3 geselecteerde NEN-7510 controls (8.8, 8.15, 5.36).           | Rowen Albers    |
-
-### Eindcheck Sprint 2
-
-| # | Check                                                                       | Status       | Wie             |
-| - | --------------------------------------------------------------------------- | ------------ | --------------- |
-| 1 | Risicomatrix met minimaal 5 risico's aanwezig                               | ✅ Compliant | SinanSagir      |
-| 2 | Bow-tie voor het hoogste risico uitgewerkt                                  | ✅ Compliant | SinanSagir      |
-| 3 | SAST- en SBOM-scan loopt automatisch in CI en output is opgeslagen          | ✅ Compliant | SimonEulenpesch |
-| 4 | Security backlog heeft minimaal 5 bevindingen met CVSS + NEN-7510 koppeling | ✅ Compliant | SimonEulenpesch |
-| 5 | Patchadvies is onderbouwd met CVE-data uit de SBOM                          | ✅ Compliant | Rowen Albers    |
-
-### Eindcheck Sprint 3
-
-| # | Check                                                                                    | Status  | Wie |
-| - | ---------------------------------------------------------------------------------------- | ------- | --- |
-| 1 | PR met PoC-mitigatie gemerged (of review-ready)                                          | ❌ Open |     |
-| 2 | Pentest voor en na mitigatie gedocumenteerd                                              | ❌ Open |     |
-| 3 | DPIA-check aanwezig                                                                      | ❌ Open |     |
-| 4 | Concept-auditrapport heeft alle secties (ook al zijn ze nog niet volledig uitgeschreven) | ❌ Open |     |
-| 5 | Concept-presentatie heeft minimaal een structuur met titels per slide                    | ❌ Open |     |
-
-### Eindcheck Sprint 4
-
-| # | Check                                                               | Status  | Wie |
-| - | ------------------------------------------------------------------- | ------- | --- |
-| 1 | Repository is getagd als `v1.0-audit`                             | ❌ Open |     |
-| 2 | Alle vijf rubric-producten zijn aanwezig en vindbaar in `/docs/`  | ❌ Open |     |
-| 3 | CI-pipeline is groen op de main-branch                              | ❌ Open |     |
-| 4 | Geen hardcoded secrets aanwezig (secret scanning geeft geen alerts) | ❌ Open |     |
-| 5 | Presentatie is definitief en als PDF opgeslagen in de repository    | ❌ Open |     |
-
----
-
-## Nieuwe opdracht toevoegen
-
-Kopieer onderstaand template en plak het onder de laatste opdracht.
-Voeg de opdracht ook toe aan de inhoudsopgave bovenaan.
-
-```markdown
-## Opdracht N: [Naam]
-
-**Bron:** [Presentatienaam, slide N](assets/bestandsnaam.pdf#page=N)
-**Doel:** ...
-**Verantwoordelijke:** ...
-**Periode:** ...
-
-### Eisen
-
-| #  | Eis | Status | Bewijslast | Wie | Notities |
-| -- | --- | ------ | ---------- | --- | -------- |
-| 1  | ... | ...    | ...        | ... | ...      |
-
-### Samenvatting
-
-| Categorie                   | Aantal |
-| --------------------------- | ------ |
-| ✅ Compliant                | 0      |
-| ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Niet compliant           | 0      |
-
-### Openstaande actiepunten
-
-...
-
-### Wijzigingslog Opdracht N
-
-| Datum | Versie | Wijziging | Door |
-| ----- | ------ | --------- | ---- |
-| ...   | 1.0    | ...       | ...  |
-```
+| 2 | Overall RAG-status aanwezig met toelichti                                                                                                                                                                                            

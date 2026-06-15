@@ -1,0 +1,41 @@
+name: CI – Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build & Test (Java 11)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Build with Maven
+        working-directory: openmrs-module-idgen
+        run: mvn -B clean package -DskipTests
+
+      - name: Run tests
+        working-directory: openmrs-module-idgen
+        run: mvn -B test
+
+      - name: Upload test reports as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "test-reports-${{ github.run_number }}"
+          path: openmrs-module-idgen/api/target/surefire-reports/
+          retention-days: 90

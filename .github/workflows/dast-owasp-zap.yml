@@ -1,0 +1,79 @@
+name: DAST – OWASP ZAP Full Scan
+
+# Handmatig triggeren via GitHub Actions UI (Actions → Run workflow)
+# Dit voorkomt onnodige scans bij elke commit.
+on:
+  workflow_dispatch:
+
+jobs:
+  dast:
+    name: OWASP ZAP Full Scan (NEN-7510 8.29)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Start OpenMRS + MySQL via docker-compose (zonder override zodat er geen module-mount nodig is)
+      - name: Start OpenMRS via Docker Compose
+        run: docker compose -f docker-compose.yml up -d
+
+      # OpenMRS heeft bij eerste boot 3-8 minuten nodig voor DB-initialisatie
+      - name: Wacht tot OpenMRS beschikbaar is (max 10 min)
+        run: |
+          echo "Wachten op OpenMRS..."
+          for i in $(seq 1 60); do
+            if curl -sf --max-time 5 http://localhost:8080/openmrs/ > /dev/null 2>&1; then
+              echo "✅ OpenMRS is bereikbaar na $((i * 10)) seconden"
+              exit 0
+            fi
+            echo "  Wachten... ($i/60, $((i * 10))s verstreken)"
+            sleep 10
+          done
+          echo "❌ Timeout: OpenMRS niet bereikbaar na 600 seconden"
+          docker compose logs openmrs
+          exit 1
+
+      # Maak output-folder aan
+      - name: Maak docs/dast/ folder aan
+        run: mkdir -p docs/dast
+
+      # Voer ZAP Full Scan uit met --network host zodat ZAP localhost kan bereiken
+      # -I: negeer exit code bij findings (workflow faalt niet door alerts)
+      # -a: include alpha passieve scanregels
+      - name: Run OWASP ZAP Full Scan
+        run: |
+          docker run --rm \
+            --network host \
+            -v ${{ github.workspace }}/docs/dast:/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-full-scan.py \
+            -t http://localhost:8080/openmrs \
+            -r zap-report.html \
+            -J zap-report.json \
+            -x zap-report.xml \
+            -I \
+            -a \
+            2>&1 | tee docs/dast/zap-scan.log || true
+
+      # Upload als GitHub Actions artifact (audit trail, 90 dagen bewaard)
+      - name: Upload ZAP rapport als artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "zap-report-${{ github.run_number }}"
+          path: docs/dast/
+          retention-days: 90
+
+      - name: Toon samenvatting
+        if: always()
+        run: |
+          echo "## DAST – OWASP ZAP Full Scan" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target:** http://localhost:8080/openmrs" >> $GITHUB_STEP_SUMMARY
+          echo "- **NEN-7510:** 8.29 – Beveiligingstests" >> $GITHUB_STEP_SUMMARY
+          echo "- **Artifact:** zap-report-${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download het artifact via Actions → deze run → Artifacts." >> $GITHUB_STEP_SUMMARY
