@@ -25,12 +25,11 @@ mkdir -p "$OUTPUT_DIR"
 # Op Windows/macOS met Docker Desktop: gebruik host.docker.internal
 # Op Linux: gebruik het bridge-gateway IP of --network host
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  TARGET="http://172.17.0.1:8080/openmrs"
   NETWORK_FLAG="--network host"
   TARGET="http://localhost:8080/openmrs"
 else
-  TARGET="http://host.docker.internal:8080/openmrs"
   NETWORK_FLAG=""
+  TARGET="http://host.docker.internal:8080/openmrs"
 fi
 
 echo "============================================"
