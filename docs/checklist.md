@@ -461,11 +461,11 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | # | Eis                                                                         | Status       | Bewijslast      | Wie        | Notities                                  |
 | - | --------------------------------------------------------------------------- | ------------ | --------------- | ---------- | ----------------------------------------- |
-| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ✅ Compliant | Pentestrapport.md sectie 8, pom.xml | SinanSagir | dependencyManagement commons-collections 3.2 → 3.2.2 in root pom.xml |
+| 1 | Kwetsbaarheid gemitigeerd (code-aanpassing of configuratie) via PR          | ✅ Compliant | Pentestrapport.md secties 8 en 13 | SinanSagir | CVE-2015-7501: commons-collections 3.2 → 3.2.2 in pom.xml. NPM: 160 Dependabot-alerts opgelost via npm audit fix + --force; malware fsevents verwijderd |
 | 2 | Gebruik van (AI-)tooling bij realisatie beschreven en verantwoord           | ✅ Compliant | Pentestrapport.md sectie 8.4 | SinanSagir | Claude (Sonnet 4.6) ondersteunend ingezet; inhoudelijke keuzes door SinanSagir |
-| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ✅ Compliant | Pentestrapport.md sectie 9 | SinanSagir | mvn dependency:tree bevestigt 3.2.2; CVE-2015-7501 niet van toepassing op 3.2.2 |
-| 4 | Pentest-rapport ná mitigatie opgeslagen in repo                            | ✅ Compliant | Pentestrapport.md | SinanSagir | Groep_6_Pentestrapport.md bevat voor- en na-mitigatie in één document |
-| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ✅ Compliant | Pentestrapport.md sectie 10 | SinanSagir | CVSS 9.8 Kritiek → N.v.t. na upgrade; NEN-7510 Ctrl 8.8 compliant |
+| 3 | Pentest ná mitigatie uitgevoerd; aangetoond dat securityrisico is verlaagd | ✅ Compliant | Pentestrapport.md secties 9 en 13.5 | SinanSagir | mvn dependency:tree bevestigt 3.2.2; npm audit NA toont 160 alerts opgelost (74% reductie) |
+| 4 | Pentest-rapport ná mitigatie opgeslagen in repo                            | ✅ Compliant | Pentestrapport.md | SinanSagir | Groep_6_Pentestrapport.md bevat voor- en na-mitigatie voor CVE-2015-7501 en alle Dependabot critical/high/malware |
+| 5 | Vergelijking voor/na gedocumenteerd (wat was het risico, wat is het nu)     | ✅ Compliant | Pentestrapport.md secties 10 en 13.7 | SinanSagir | CVE-2015-7501: CVSS 9.8 → N.v.t. NPM: 216 alerts → 56 alerts; malware verwijderd; niet-fixbare items gedocumenteerd met motivatie |
 
 ---
 
@@ -504,6 +504,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 2026-06-13 | 1.7    | Deel 6 (Pentest voor) compliant: SCA-05 CVE-2015-7501 gedocumenteerd met aanvalsketen        | SinanSagir      |
 | 2026-06-13 | 1.8    | Deel 7 (Mitigatie) compliant: commons-collections 3.2.2 in pom.xml, voor/na vergelijking     | SinanSagir      |
 | 2026-06-13 | 1.9    | Pentest-Voor.md en Pentest-Na.md samengevoegd tot Groep_6_Pentestrapport.md; AI-formulering gecorrigeerd | SinanSagir      |
+| 2026-06-15 | 1.10   | Deel 7 uitgebreid: 55 Dependabot npm-alerts opgelost via npm audit fix (critical 66→45, high 79→60, malware fsevents verwijderd); sectie 13 toegevoegd aan Pentestrapport.md | SinanSagir      |
 
 ---
 
