@@ -1,4 +1,4 @@
-# Testplan en testresultaten (vóór verbetering)
+# Testplan, testresultaten en validatie
 
 **Groep: C6**
 
@@ -13,7 +13,7 @@
 
 ## 1. Doel en scope
 
-Dit document legt de teststrategie vast voor de `idgen`-module en documenteert de testresultaten in de uitgangssituatie, dus vóór de verbeteringen uit het PoC. Deze nulmeting dient als referentie. Na de verbeteringen wordt dezelfde testset opnieuw gedraaid om aan te tonen dat de onderhoudbaarheid is verbeterd en dat er geen regressie is opgetreden (zie Deel 6 in `docs/checklist.md`).
+Dit document legt de teststrategie vast voor de `idgen`-module en documenteert twee metingen. De nulmeting (sectie 4) legt de uitgangssituatie vast, dus vóór de verbeteringen uit het PoC, en dient als referentie. De validatie na verbetering (sectie 8, Deel 6 in `docs/checklist.md`) draait dezelfde testset opnieuw en zet de metrieken naast de nulmeting om aan te tonen dat de onderhoudbaarheid is verbeterd en dat er geen regressie is opgetreden.
 
 **Scope:** de Java-testsuite in `openmrs-module-idgen/api/src/test/java` en `openmrs-module-idgen/omod/src/test/java`.
 
@@ -337,7 +337,170 @@ De nulmeting toont een groene testsuite van 132 geslaagde tests, zonder failures
 
 ---
 
-## 8. Bronnen
+## 8. Validatie na verbetering (Deel 6)
+
+Deze sectie toont aan dat het PoC (commit 303c735 en 7d41fbc) de onderhoudbaarheid meetbaar heeft verbeterd zonder regressie. Het bewijs bestaat uit twee lijnen: een verse testrun met dezelfde commando's als de nulmeting (regressie) en een verse SonarCloud-meting op `main` (metriek voor en na).
+
+### 8.1 Meetopzet
+
+| Onderdeel | Voor (nulmeting) | Na (validatie) |
+|---|---|---|
+| Testrun | 16/06/2026, lokaal, `mvn test` | 16/06/2026, lokaal, `mvn test` (identieke commando's, sectie 6) |
+| Metriek-meting | SonarCloud, 12/06/2026 (`Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.1) | SonarCloud, `main`, 16/06/2026 |
+| Codeversie | vóór 303c735 | `main` na 303c735 en 7d41fbc |
+
+Beide metriek-metingen komen van dezelfde tool (SonarCloud) op hetzelfde project (`AvansHogeschoolBreda_openmrsmodule`). Daardoor is het verschil toe te schrijven aan de codeverandering, niet aan een andere meetmethode.
+
+### 8.2 Regressie: de testsuite blijft groen
+
+Na het PoC is de volledige suite opnieuw gedraaid met de commando's uit sectie 6.2.
+
+| Metriek | Nulmeting | Na verbetering |
+|---|---|---|
+| api: tests run / groen / skipped | 41 / 39 / 2 | 52 / 50 / 2 |
+| omod: tests run / groen / skipped | 93 / 93 / 0 | 99 / 99 / 0 |
+| **Totaal tests run** | **134** | **151** |
+| Failures | 0 | 0 |
+| Errors | 0 | 0 |
+| Build-resultaat | BUILD SUCCESS | BUILD SUCCESS |
+
+De suite groeide met 17 tests. Die toename komt uit twee bronnen: 11 tests in `SequentialIdentifierGeneratorValidatorTest` (verbeteractie 5 van dit PoC, sectie 4.5) en 6 tests in `SecurityHeadersFilterTest` (Opdracht 5, DAST-mitigatie, buiten de scope van deze onderhoudbaarheids-PoC).
+
+Het regressiebewijs zit niet in de toename maar in het uitblijven van fouten: 0 failures en 0 errors. Het PoC (303c735) raakte 39 Java-bestanden, waaronder testbestanden (`DuplicateIdentifiersPoolComponentTest`, `IdentifierSourceServiceTest`, `IdentifierPoolSchedulerIT`). Geen enkele bestaande test is verwijderd, uitgezet of gebroken. De twee `@Ignore`-tests en de drie pom-excludes (sectie 5.2 en 5.3) zijn ongewijzigd. De gedragsbehoudende refactoring uit `Groep_6_Refactoring-Onderbouwing.md` is dus aantoonbaar gedragsbehoudend.
+
+### 8.3 Metriek voor en na
+
+De baseline-kolom komt uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.1 (12/06/2026). De na-kolom komt uit de SonarCloud-meting op `main` (16/06/2026). De doel-kolom komt uit `Groep_6_Non-Functional-Requirements.md`.
+
+| Metriek | Voor (12/06) | Na (16/06) | Doel (na PoC) | Doel gehaald |
+|---|---|---|---|---|
+| Quality Gate | Gefaald | Gefaald (coverage) | Geslaagd | Nee, zie 8.5 |
+| Line coverage totaal | 50,0% | 57,4% | 70% | Zie 8.7 (gehaald: 80,3%) |
+| Line coverage api | 54,3% | 65,5% | 70% | Zie 8.7 (gehaald: 81,5%) |
+| Line coverage omod | 46,9% | 51,2% | 70% | Zie 8.7 (gehaald: 79,5%) |
+| Condition coverage totaal | n.v.t. (Free-plan) | 42,7% | 50% | Nu meetbaar |
+| Duplicated Lines (%) totaal | 5,8% | 2,1% | 3% | Ja |
+| Duplicated Lines (%) omod | 10,8% | 1,3% | < 5% | Ja |
+| Duplicated Lines (absoluut) | 405 | 154 | n.v.t. | n.v.t. |
+| Duplicated Blocks | 19 | 6 | < 5 | Nee, bijna |
+| Cognitive Complexity totaal | 668 | 599 | < 400 | Nee, verbeterd |
+| Brain Methods (CC > 15) | 3 (CC 101, 106, 27) | 2 (CC 21, 20) | 0 | Nee, sterk verbeterd |
+| Security Rating | C | A | A | Ja |
+| Vulnerabilities | 1 | 0 | 0 | Ja |
+| Maintainability Rating (overall) | A | A | A | Ja |
+| Maintainability Rating (new code) | D | A | A | Ja |
+| Technical Debt Ratio (overall) | 1,4% | 0,4% | < 10% | Ja |
+| Reliability Rating | A | A | A | Ja |
+| Reliability issues / bugs | 2 | 0 | n.v.t. | Verbeterd |
+| Security Hotspots (unreviewed) | 0 | 0 | 0 | Ja |
+| Code smells | 201 | 59 | n.v.t. | Verbeterd |
+| Open issues (totaal) | 204 | 59 | < 150 | Ja |
+
+### 8.4 Interpretatie per verbeteractie
+
+De metriekverschillen zijn één op één te koppelen aan de verbeteracties uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 en de ontwerpen in `Groep_6_Refactoring-Onderbouwing.md`.
+
+| Actie | Verwacht effect | Gemeten effect | Oordeel |
+|---|---|---|---|
+| 1. Multi-threading fix (static) | Race condition weg | `LocationBased*Provider` Critical smells weg; Reliability blijft A | Gerealiseerd |
+| 2. Hardcoded password verwijderen | Security C naar A | Vulnerabilities 1 naar 0, Security Rating C naar A | Gerealiseerd |
+| 3. Brain Methods opsplitsen | CC fors omlaag | `IdentifierSourceResource`: CC per methode 101 en 106 naar 21 en 20 | Sterk verbeterd, drempel net niet |
+| 4. Magic strings naar constanten | Duplicatie omod omlaag | omod-duplicatie 10,8% naar 1,3%; totaal 5,8% naar 2,1% | Gerealiseerd, doel gehaald |
+| 5. Validator testbaar maken | Coverage validator omhoog | Validator 0% naar 71,9% (sectie 4.5); CC-methode 27 valt onder drempel weg | Gerealiseerd |
+| 8, 9. Diamond operator, @Override | Issues omlaag | Code smells 201 naar 59 | Gerealiseerd |
+
+De twee resterende Brain Methods zijn van CC 101 en 106 teruggebracht naar CC 21 en CC 20, een reductie van ongeveer 80%. SonarCloud schat de resterende herstelkost op 11 en 10 minuten per methode (`IdentifierSourceResource` L265 en L353). De volledige sprong naar nul vergt het opsplitsen van de klasse in meerdere resources. Dat is in `Groep_6_Refactoring-Onderbouwing.md` sectie 3.2 bewust buiten deze PoC gehouden, omdat het de publieke OpenMRS REST-contracten raakt en regressietesten buiten scope vraagt. Het is genoteerd als vervolgactie.
+
+### 8.5 Quality Gate en de coveragedoelen
+
+De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is coverage: de meting toont 53,0% tegen de gatedrempel. De coverage is dus verbeterd (line coverage 50,0% naar 57,4%) maar haalt de drempel niet.
+
+Dit is een bewuste, onderbouwde uitkomst, geen tekortkoming van het PoC. De verantwoording staat in sectie 4.5: 70% is de juiste streefnorm en die wordt gefaseerd bereikt, terwijl de regressiepoort op nieuwe code de echte schuldopbouw bewaakt. Het PoC richtte zich primair op complexiteit, duplicatie en security (acties 1 tot en met 4 en 8, 9). Het verder optrekken van de coverage naar 70% is verbeteractie 3, 5 en 6.
+
+Die vervolgstap is inmiddels uitgevoerd: met 115 gerichte tests staat de line coverage lokaal op 80,3%, ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). Daarmee resteert voor de Quality Gate alleen nog dat deze meting via een SonarCloud-run op `main` wordt bevestigd na merge.
+
+### 8.6 Conclusie validatie
+
+Het PoC verbetert de onderhoudbaarheid breed en aantoonbaar zonder regressie:
+
+- **Geen regressie:** 151 tests groen, 0 failures, 0 errors, build success. Geen bestaande test gebroken of verwijderd.
+- **Doelen gehaald:** duplicatie (5,8% naar 2,1%), Security Rating (C naar A), Maintainability op nieuwe code (D naar A), Technical Debt Ratio (1,4% naar 0,4%) en open issues (204 naar 59, doel < 150).
+- **Sterk verbeterd, drempel nog niet:** Cognitive Complexity (668 naar 599), Brain Methods (CC 101 en 106 naar 21 en 20) en coverage (50,0% naar 57,4%).
+
+De verbetering is reproduceerbaar (sectie 6) en herleidbaar tot de verbeteracties (sectie 8.4). De resterende doelen (CC < 400, nul Brain Methods) zijn benoemd als gefaseerde vervolgacties met een expliciete motivatie, niet als open eindjes. Het coverage-doel is met gerichte tests doorgetrokken naar 80,3%, zie sectie 8.7.
+
+### 8.7 Testdekking opgehoogd naar 80%
+
+De PoC bracht de coverage van 50,0% naar 57,4% (sectie 8.3). De NFR-norm is 70% (`Groep_6_Non-Functional-Requirements.md`); als aanvullend doel is de dekking doorgetrokken naar 80%. Dat is gehaald met gerichte tests die de ongedekte, wel-testbare logica afdekken zonder schijntests te schrijven.
+
+#### Aanpak
+
+1. Per klasse de ongedekte regels gemeten met JaCoCo (`mvn clean verify`, rapport per module in `target/site/jacoco/jacoco.xml`).
+2. De klassen met de meeste ongedekte regels en de hoogste waarde geselecteerd: het check-digit algoritme, de validators, de generator, de providers, de domeinlogica, de service-randmethoden, de REST-resourcecontracten en de MVC-controllers.
+3. Echte unit-tests geschreven met asserties op gedrag. Waar mogelijk pure unit-tests (geen Spring-context); waar de logica de Context vereist (service, property editors, MVC-controllers, scheduled task) context-sensitieve tests via `IdgenBaseTest` (api) of `BaseModuleWebContextSensitiveTest` (omod web-controllers).
+4. Voor de controllers is een kleine, consistente testdataset toegevoegd (`omod/src/test/resources/org/openmrs/module/idgen/include/ControllerTestData.xml`) zodat de groeperingslogica (`getIdentifierSourcesByType`) niet op inconsistente upstream-testdata stuit.
+5. Bewust geen tests geschreven voor triviale wrappers of UI-renderlogica zonder bedrijfslogica (zie de verantwoording in sectie 4.5): coverage is een proxy, geen doel.
+
+#### Resultaat
+
+Gemeten met JaCoCo 0.8.x op 16/06/2026, voor en na de toegevoegde tests, identieke build (`mvn clean verify`).
+
+| Metriek | Voor (PoC-staat) | Na (met gerichte tests) |
+|---|---|---|
+| Line coverage overall | 57,4% (1231/2145) | **80,3%** (1723/2145) |
+| Line coverage api | 65,5% | **81,5%** |
+| Line coverage omod | 51,2% | **79,5%** |
+| Branch coverage overall | n.v.t. | 60,9% |
+| Surefire-tests (unit + component) | 151 | **266** |
+| Failures / Errors | 0 / 0 | **0 / 0** |
+
+De overall line coverage gaat van 57,4% naar 80,3%, dus ruim boven de NFR-norm van 70% en op het aanvullende doel van 80%. De suite groeit met 115 tests, allemaal groen; geen bestaande test breekt (geen regressie). Beide modules komen boven of rond 80% (api 81,5%, omod 79,5%).
+
+> De voor-waarden in deze tabel zijn de JaCoCo-meting van de PoC-staat op `main`; de per-module voor-waarden komen uit de SonarCloud-meting van 16/06. De 115 tests staan nog niet op `main`, dus een verse SonarCloud-run op `main` toont pas na merge de 80,3%. De meting hier is lokaal met JaCoCo reproduceerbaar.
+
+#### Toegevoegde testklassen
+
+| Testklasse | Module | Tests | Gedekt gedrag |
+|---|---|---|---|
+| `LuhnModNIdentifierValidatorTest` | api | 13 | Check-digit-berekening, validatie, allowed characters en foutpaden over Mod-10/25/30 |
+| `IdgenDomainObjectsTest` | api | 11 | equals/hashCode op id en uuid; pool-beheer (available/used/next/leeg); PooledIdentifier-status |
+| `IdentifierSourceServiceExtraTest` | api | 10 | Service-randmethoden (pool, autogeneratie, generatie, sequence) via Context; dekt indirect processors en DAO |
+| `SequentialIdentifierGeneratorUnitTest` | api | 8 | Identifier-generatie voor een seed, lengtegrenzen, prefix/suffix-providerresolutie |
+| `IdentifierSourceValidatorTest` | api | 6 | Naam- en url-validatie (basis- en remote-validator) |
+| `AutoGenerationOptionResourceUnitTest` | omod | 6 | Representaties, Swagger-modellen, properties, display en het delete-contract |
+| `IdgenUtilExtraTest` | api | 5 | Base-conversie met padding en foutpad, stream inlezen, log-sanitisatie |
+| `IdentifierSourceEditorContextTest` | api | 5 | Property editors: resolven op id en terugrenderen, lege en ongeldige invoer |
+| `IdentifierResourceUnitTest` | omod | 5 | Sub-resource CRUD-contract (niet ondersteund) en model-/property-methoden |
+| `ExceptionUtilsTest` | api | 4 | Herkomstcontrole op stacktrace-elementen |
+| `ConstantProviderTest` | api | 4 | Constante prefix/suffix met terugval op lege string bij blanco of null |
+| `LocationBasedProvidersUnitTest` | api | 4 | Global-property-herkenning en cache-callbacks van de locatieproviders |
+| `AdminListTest` | omod | 3 | Admin-paginalinks, titel en mediatype |
+| `SequenceIdentifierResourceUnitTest` | omod | 3 | newDelegate, CRUD-contract en representatiebeschrijving |
+| `ResourceHandlersUnitTest` | omod | 3 | Drie REST subclass-handlers: representaties, modellen, properties, type-naam en display |
+| `IdentifierSourceControllerWebTest` | omod | 9 | MVC-controller: tonen, bewerken, overzicht, bewaren (geldig en validatie-fout), verwijderen, pool vullen, reserveren en exporteren |
+| `AutoGenerationOptionControllerWebTest` | omod | 6 | MVC-controller: bewaren (geldig en twee validatie-foutpaden), bewerken, overzicht en verwijderen van autogeneratie-opties |
+| `IdgenEditPatientIdentifiersControllerWebTest` | omod | 3 | MVC-controller: JSON-overzicht van identifier-types en (auto)generatie-opties, met en zonder patient |
+| `SequenceIdentifierResourceWebTest` | omod | 3 | REST doSearch: verplichte en geldige source-parameter, identifier-generatie |
+| `LogEntryControllerWebTest` | omod | 2 | MVC-controller: logregels opvragen met en zonder action-parameter |
+| `IdgenTaskContextTest` | api | 2 | Scheduled task: refill van pools via de RunnableTask en de run-tak zonder daemon-token |
+
+Totaal: 21 testklassen, 115 tests. Daarnaast één testdataset (`ControllerTestData.xml`) voor de controller-tests.
+
+#### Waarom dit zinvolle tests zijn
+
+De tests asserteren gedrag, geen implementatie. Voorbeelden: het Luhn-algoritme wordt getoetst op een bekende check-digit en op afwijzing van tekens buiten de basis; de pool geeft een `EmptyIdentifierPoolException` bij uitputting; de generator respecteert min- en max-lengtegrenzen; de log-sanitisatie verwijdert CRLF (log-injectie); de save-controllers wijzen ongeldige invoer af (ontbrekende naam, ontbrekend identifier-type, automatische generatie zonder bron); de scheduled task vult alleen pools die daarvoor geconfigureerd zijn. Triviale klassen (`IdgenConstants`, lifecycle-hooks, UI-extensies zonder logica) zijn bewust niet kunstmatig opgehoogd, conform de verantwoording in sectie 4.5.
+
+#### Reproduceerbaarheid
+
+```bash
+cd openmrs-module-idgen
+mvn -B clean verify
+# JaCoCo-rapport per module: api/target/site/jacoco/index.html en omod/target/site/jacoco/index.html
+```
+
+---
+
+## 9. Bronnen
 
 - [JUnit 4](https://junit.org/junit4/)
 - [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/)
