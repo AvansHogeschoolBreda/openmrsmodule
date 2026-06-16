@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module configVersion="1.0">
-	
+<module configVersion="1.2">
+
 	<id>@MODULE_ID@</id>
 	<name>@MODULE_NAME@</name>
 	<version>@MODULE_VERSION@</version>
@@ -16,7 +16,17 @@
 		<require_module>org.openmrs.module.webservices.rest</require_module>
 	</require_modules>
 	<require_version>1.11.3, 1.10.2 - 1.10.*, 1.9.9 - 1.9.*</require_version>
-	
+
+	<!-- Mitigates ZAP findings 10038/10020/10021/10063/90004/90028/10054/10036, see Groep_6_Resolved_Alerts_DAST.md -->
+	<filter>
+		<filter-name>idgenSecurityHeadersFilter</filter-name>
+		<filter-class>@MODULE_PACKAGE@.web.filter.SecurityHeadersFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>idgenSecurityHeadersFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<extension>
 		<point>org.openmrs.admin.list</point>
 		<class>@MODULE_PACKAGE@.web.extension.AdminList</class>
