@@ -78,8 +78,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | # | Eis                                                                   | Status  | Bewijslast | Wie | Notities                                                 |
 | - | --------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------------------------- |
 | 1 | Verbeteringen gerealiseerd in een PoC dat overeenkomt met het ontwerp | ✅ Compliant | Refactoring-Onderbouwing.md | Rowen Albers | Refactoring gerealiseerd in commit 303c735 (main, 39 java-bestanden): Extract Method (validator, IdentifierSourceResource), Extract Constant, static-fix. Komt overeen met ontwerp in Refactoring-Onderbouwing.md |
-| 2 | Gebruik van (AI-)tooling beschreven en verantwoord                    | ❌ Open |            |     | Realisatie liep via SAST-werk; AI-tooling niet verantwoord in maintainability-context |
-| 3 | Kritische reflectie op toolinggebruik aanwezig (voor "Goed")          | ❌ Open |            |     | Kritische reflectie op toolinggebruik ontbreekt |
+| 2 | Gebruik van (AI-)tooling beschreven en verantwoord                    | ✅ Compliant | Refactoring-Onderbouwing.md | Rowen Albers | Gebruik van Claude voor refactoring en security-hardening/documentatie beschreven en verantwoord in sectie 7 van Refactoring-Onderbouwing.md |
+| 3 | Kritische reflectie op toolinggebruik aanwezig (voor "Goed")          | ✅ Compliant | Refactoring-Onderbouwing.md | Rowen Albers | Kritische reflectie op Claude toegevoegd in sectie 7.2 (limieten legacy Spring ASM, controller parameter signatures behouden, python regex annotatiefout) |
 
 ---
 
@@ -97,17 +97,16 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                | Aantal |
 | ------------------------ | ------ |
-| ✅ Compliant             | 15     |
+| ✅ Compliant             | 17     |
 | ⚠️ Gedeeltelijk        | 3      |
-| ❌ Open / Niet compliant | 2      |
+| ❌ Open / Niet compliant | 0      |
 
 ### Openstaande actiepunten Opdrachtonderdeel 1
 
-| Actie                                                                                              | Prioriteit | Wie             |
-| -------------------------------------------------------------------------------------------------- | ---------- | --------------- |
-| PoC verantwoorden: AI-tooling + kritische reflectie in maintainability-context (Deel 5, eis 2+3)   | Hoog       |                 |
-| Verse SonarCloud-meting op huidige main voor de na-waarden (coverage, CC, duplicatie, rating)      | Hoog       |                 |
-| Validatie Deel 6 volledig afronden met voor/na op metriekniveau (na-meting gereed)                 | Hoog       | SimonEulenpesch |
+| Actie                                                                                         | Prioriteit | Wie             |
+| --------------------------------------------------------------------------------------------- | ---------- | --------------- |
+| Verse SonarCloud-meting op huidige main voor de na-waarden (coverage, CC, duplicatie, rating) | Hoog       |                 |
+| Validatie Deel 6 volledig afronden met voor/na op metriekniveau (na-meting gereed)            | Hoog       | SimonEulenpesch |
 
 ### Wijzigingslog Opdrachtonderdeel 1
 
@@ -120,6 +119,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-16 | 1.4    | Deel 6 op ⚠️ Gedeeltelijk: voorlopige voor/na-validatie via validator-test in Testplan 4.5 (geen regressie, suite 145 groen). Bewijslast-prefix Deel 2 gecorrigeerd (zonder Groep_6_) | SimonEulenpesch |
 | 2026-06-16 | 1.5    | Deel 3 eisen 1+2 ✅ Compliant (geprioriteerde verbeteracties in Analyse-Onderhoudbaarheid 8.2), eis 3 ⚠️ Gedeeltelijk (testresultaten-koppeling mist). Deel 5 eis 1 ⚠️ Gedeeltelijk (refactoring gerealiseerd via commit 73d9b94), eis 2+3 Open | SimonEulenpesch |
 | 2026-06-16 | 1.6    | Echte PoC-commit geïdentificeerd: 303c735 (15/06, "201 code quality issues"), niet 73d9b94. Deel 4 ✅ Compliant (Refactoring-Onderbouwing.md: ontwerp, principes, patronen, alternatieven, UML). Deel 3 eis 3 ✅ (testkoppeling in 8.2). Deel 5 eis 1 ✅ (realisatie gekoppeld aan ontwerp). Hersteld na merge-revert | SimonEulenpesch |
+| 2026-06-16 | 1.7    | Deel 5 eis 2+3 ✅ Compliant (AI-verantwoording en kritische reflectie met betrekking tot Claude toegevoegd aan Refactoring-Onderbouwing.md) | Rowen Albers    |
 
 ---
 
