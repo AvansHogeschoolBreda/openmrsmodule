@@ -7,6 +7,9 @@ import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.IdgenBaseTest;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+// Deprecated in Spring 3.x, maar bewust behouden: de test start eigen threads met
+// aparte DB-sessies en heeft niet-transactioneel (gecommit) gedrag nodig zodat de
+// data uit setUp() zichtbaar is voor die threads. Migreren zou de concurrency-test breken.
 import org.springframework.test.annotation.NotTransactional;
 
 import java.util.ArrayList;
@@ -17,9 +20,10 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests out the synchronization problem where duplicate identifiers are assigned
+ * Tests out the synchronization problem where duplicate identifiers are
+ * assigned
  */
-@SuppressWarnings("java:S2925")
+@SuppressWarnings({"java:S2925", "deprecation"})
 public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
 
     public static final int NUM_THREADS = 25;
@@ -56,11 +60,9 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
                         sleep(100);
                         generated.addAll(getService().generateIdentifiers(source, 1, "thread"));
                         sleep(100);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
-                    }
-                    finally {
+                    } finally {
                         Context.closeSession();
                     }
                 }
@@ -72,8 +74,7 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
         for (Thread thread : threads) {
             try {
                 thread.join();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
@@ -85,8 +86,7 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
     public void sleep(long time) {
         try {
             Thread.sleep(time);
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
@@ -95,4 +95,3 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
         return Context.getService(IdentifierSourceService.class);
     }
 }
-
