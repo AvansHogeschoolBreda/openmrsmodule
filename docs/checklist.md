@@ -58,7 +58,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | - | -------------------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------- |
 | 1 | Geprioriteerde lijst verbeteringen vastgelegd                                    | ✅ Compliant | Analyse-Onderhoudbaarheid.md | RafvanHooijdonk | Sectie 8.2: 10 geprioriteerde verbeteracties (actie 1 t/m 10) |
 | 2 | Prioritering onderbouwd met criteria (bijv. impact, effort, risiconiveau)        | ✅ Compliant | Analyse-Onderhoudbaarheid.md | RafvanHooijdonk | Onderbouwd met Impact, Inspanning (effort) en Prioriteit (Kritiek/Hoog/Middel/Laag) per actie |
-| 3 | Verwijzing naar analyse-resultaten en testresultaten verwerkt in de onderbouwing | ⚠️ Gedeeltelijk | Analyse-Onderhoudbaarheid.md | RafvanHooijdonk | Verwijzing naar analyse-resultaten aanwezig; expliciete koppeling aan de testresultaten (Testplan.md) nog niet in de onderbouwing verwerkt |
+| 3 | Verwijzing naar analyse-resultaten en testresultaten verwerkt in de onderbouwing | ✅ Compliant | Analyse-Onderhoudbaarheid.md | RafvanHooijdonk | Sectie 8.2 koppelt acties 1 t/m 4 aan de analyse-bevindingen en acties 5+6 aan de testresultaten (Testplan.md nulmeting) |
 
 ---
 
@@ -66,10 +66,10 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                 | Status  | Bewijslast | Wie | Notities                               |
 | - | ------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------- |
-| 1 | Aangepast ontwerp aanwezig voor geselecteerde verbeteringen         | ❌ Open |            |     | UML, diagram of beschrijving           |
-| 2 | Ontwerp onderbouwd met ontwerpprincipes (bijv. SOLID, DRY, KISS)    | ❌ Open |            |     |                                        |
-| 3 | Ontwerppatronen en/of refactoringpatronen benoemd en toegepast      | ❌ Open |            |     | Bijv. Extract Method, Strategy Pattern |
-| 4 | Alternatieven overwogen en gemotiveerde keuze gemaakt (voor "Goed") | ❌ Open |            |     |                                        |
+| 1 | Aangepast ontwerp aanwezig voor geselecteerde verbeteringen         | ✅ Compliant | Refactoring-Onderbouwing.md | SimonEulenpesch | Aangepast ontwerp per verbetering (sectie 3) met UML-klassediagrammen voor/na (validator + IdentifierSourceResource); realisatie commit 303c735 |
+| 2 | Ontwerp onderbouwd met ontwerpprincipes (bijv. SOLID, DRY, KISS)    | ✅ Compliant | Refactoring-Onderbouwing.md | SimonEulenpesch | SOLID (SRP), DRY, KISS, SoC, YAGNI benoemd en gekoppeld per verbetering (sectie 4) |
+| 3 | Ontwerppatronen en/of refactoringpatronen benoemd en toegepast      | ✅ Compliant | Refactoring-Onderbouwing.md | SimonEulenpesch | Extract Method, Guard Clauses, Compose Method, Extract Constant (sectie 3+4) |
+| 4 | Alternatieven overwogen en gemotiveerde keuze gemaakt (voor "Goed") | ✅ Compliant | Refactoring-Onderbouwing.md | SimonEulenpesch | Alternatieven per verbetering met motivatie (sectie 5) |
 
 ---
 
@@ -77,7 +77,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                   | Status  | Bewijslast | Wie | Notities                                                 |
 | - | --------------------------------------------------------------------- | ------- | ---------- | --- | -------------------------------------------------------- |
-| 1 | Verbeteringen gerealiseerd in een PoC dat overeenkomt met het ontwerp | ⚠️ Gedeeltelijk | Code_Quality_Issues.md | Rowen Albers | Refactoring gerealiseerd via commit 73d9b94 (main): constanten, complexiteitsreductie (CC 101→15, 27→15), static-fix multi-threading. Nog niet gekoppeld aan een ontwerp (Deel 4) |
+| 1 | Verbeteringen gerealiseerd in een PoC dat overeenkomt met het ontwerp | ✅ Compliant | Refactoring-Onderbouwing.md | Rowen Albers | Refactoring gerealiseerd in commit 303c735 (main, 39 java-bestanden): Extract Method (validator, IdentifierSourceResource), Extract Constant, static-fix. Komt overeen met ontwerp in Refactoring-Onderbouwing.md |
 | 2 | Gebruik van (AI-)tooling beschreven en verantwoord                    | ❌ Open |            |     | Realisatie liep via SAST-werk; AI-tooling niet verantwoord in maintainability-context |
 | 3 | Kritische reflectie op toolinggebruik aanwezig (voor "Goed")          | ❌ Open |            |     | Kritische reflectie op toolinggebruik ontbreekt |
 
@@ -97,18 +97,17 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                | Aantal |
 | ------------------------ | ------ |
-| ✅ Compliant             | 9      |
-| ⚠️ Gedeeltelijk        | 5      |
-| ❌ Open / Niet compliant | 6      |
+| ✅ Compliant             | 15     |
+| ⚠️ Gedeeltelijk        | 3      |
+| ❌ Open / Niet compliant | 2      |
 
 ### Openstaande actiepunten Opdrachtonderdeel 1
 
 | Actie                                                                                              | Prioriteit | Wie             |
 | -------------------------------------------------------------------------------------------------- | ---------- | --------------- |
-| Aangepast ontwerp opstellen met ontwerpprincipes, patronen en alternatieven (Deel 4)               | Hoog       |                 |
-| Testresultaten-koppeling toevoegen aan prioritering-onderbouwing (Deel 3, eis 3)                   | Middel     |                 |
 | PoC verantwoorden: AI-tooling + kritische reflectie in maintainability-context (Deel 5, eis 2+3)   | Hoog       |                 |
-| Validatie Deel 6 volledig afronden na PoC (voorlopige voor/na op validator gereed in Testplan 4.5) | Hoog       | SimonEulenpesch |
+| Verse SonarCloud-meting op huidige main voor de na-waarden (coverage, CC, duplicatie, rating)      | Hoog       |                 |
+| Validatie Deel 6 volledig afronden met voor/na op metriekniveau (na-meting gereed)                 | Hoog       | SimonEulenpesch |
 
 ### Wijzigingslog Opdrachtonderdeel 1
 
@@ -120,6 +119,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-16 | 1.3    | Testplan uitgebreid met sectie 4.5 Verantwoording testdekking; gerichte unit-test SequentialIdentifierGeneratorValidator (0% → 71,9% line / 95,5% branch), suite 134 → 145 tests      | SimonEulenpesch |
 | 2026-06-16 | 1.4    | Deel 6 op ⚠️ Gedeeltelijk: voorlopige voor/na-validatie via validator-test in Testplan 4.5 (geen regressie, suite 145 groen). Bewijslast-prefix Deel 2 gecorrigeerd (zonder Groep_6_) | SimonEulenpesch |
 | 2026-06-16 | 1.5    | Deel 3 eisen 1+2 ✅ Compliant (geprioriteerde verbeteracties in Analyse-Onderhoudbaarheid 8.2), eis 3 ⚠️ Gedeeltelijk (testresultaten-koppeling mist). Deel 5 eis 1 ⚠️ Gedeeltelijk (refactoring gerealiseerd via commit 73d9b94), eis 2+3 Open | SimonEulenpesch |
+| 2026-06-16 | 1.6    | Echte PoC-commit geïdentificeerd: 303c735 (15/06, "201 code quality issues"), niet 73d9b94. Deel 4 ✅ Compliant (Refactoring-Onderbouwing.md: ontwerp, principes, patronen, alternatieven, UML). Deel 3 eis 3 ✅ (testkoppeling in 8.2). Deel 5 eis 1 ✅ (realisatie gekoppeld aan ontwerp). Hersteld na merge-revert | SimonEulenpesch |
 
 ---
 
@@ -393,7 +393,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
 **Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, kwetsbaarheden aantonen via penetration tests, mitigeren en valideren, DPIA-check uitvoeren, code coverage activeren in CI.
-**Verantwoordelijke:** RowenAlbers (Delen 1, 2, 3, 4), SinanSagir (Delen 5, 6, 7), RafvanHooijdonk (Deel 8)
+**Verantwoordelijke:** RowenAlbers (Delen 1, 2, 3, 4), SinanSagir (Delen 5, 6, 7), RafvanHooijdonk (Deel 8, Deel 9 eisen 1-5), SinanSagir (Deel 9 eis 6)
 **Periode:** 2026-06
 **Sprints:**
 
@@ -490,7 +490,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 3 | ZAP Spider uitgevoerd op de target (endpoints automatisch ontdekt)                                           | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6                 | RafvanHooijdonk | Spider inbegrepen in `zap-full-scan.py`; 1577 URLs gescand in run #6                         |
 | 4 | ZAP Active Scan uitgevoerd (XSS, SQLi, CSRF, etc. getest)                                                    | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6                 | RafvanHooijdonk | Active scan inbegrepen in `zap-full-scan.py`; 1827 alerts gevonden in 19m 29s                |
 | 5 | ZAP-rapport opgeslagen als artifact in de repo (audit trail)                                                 | ✅ Compliant | `docs/dast/zap-report/`, artifact `zap-report-6` (212 KB) | RafvanHooijdonk | HTML + JSON + XML rapport in `docs/dast/`; artifact 90 dagen bewaard; NEN-7510 8.29          |
-| 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ❌ Open      |                                                               |                 | Rest van het team verwerkt de output na oplevering van Raf                                     |
+| 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ✅ Compliant | Resolved_Alerts_DAST.md                                       | SinanSagir      | Alle 49 alerts getrieerd: 11 gefixt (SecurityHeadersFilter), 10 informational/reviewed, 28 buiten scope (Tomcat-eigen content, geen broncode in deze repo) |
 
 ---
 
@@ -498,15 +498,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 38     |
+| ✅ Compliant                | 39     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 1      |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten Opdracht 5
 
-| Actie                                                         | Prioriteit | Wie           |
-| ------------------------------------------------------------- | ---------- | ------------- |
-| DAST-bevindingen verwerken in security backlog / auditrapport | Hoog       | Rest van team |
+Geen openstaande actiepunten. Alle eisen zijn compliant. DAST-herscan na mitigatie (run-zap.sh) is een aanbevolen vervolgstap, zie Resolved_Alerts_DAST.md sectie 5.
 
 ### Wijzigingslog Opdracht 5
 
@@ -526,6 +524,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 2026-06-15 | 2.0    | Deel 9 (DAST - OWASP ZAP) toegevoegd: 6 eisen, verantwoordelijke RafvanHooijdonk voor installatie/uitvoering                                            | RafvanHooijdonk |
 | 2026-06-15 | 2.1    | Deel 9 eisen 1+2 compliant: run-zap.sh + dast-owasp-zap.yml workflow aangemaakt; eisen 3-5 wachten op uitvoering                                        | RafvanHooijdonk |
 | 2026-06-15 | 2.2    | Deel 9 eisen 3+4+5 compliant: ZAP full scan uitgevoerd (1577 URLs, 1827 alerts, 19m 29s); rapporten in docs/dast/ en als artifact zap-report-6 (212 KB) | RafvanHooijdonk |
+| 2026-06-16 | 2.3    | Deel 9 eis 6 compliant: alle 49 alerts uit docs/dast/zap-report/zap-report.json getrieerd in Groep_6_Resolved_Alerts_DAST.md (11 gefixt via nieuwe SecurityHeadersFilter in idgen-omod, 10 informational/reviewed, 28 buiten scope); Opdracht 5 nu volledig compliant | SinanSagir |
 
 ---
 

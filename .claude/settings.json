@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java -version)",
+      "Bash(mvn -version)",
+      "Bash(mvn -B clean package -DskipTests)",
+      "Bash(mvn -B test)",
+      "Bash(where java *)",
+      "Read(//c/Users/Sinan/**)",
+      "Read(//c/Users/Sinan/scoop/**)",
+      "Read(//c/Program Files/Microsoft/**)",
+      "Read(//c/Users/Sinan/AppData/Local/Programs/**)",
+      "Bash(mvn -q dependency:build-classpath -Dmdep.outputFile=cp.txt)",
+      "Bash(javac -cp 'target/classes;target/test-classes;__TRACKED_VAR__' -d target/test-classes src/test/java/org/openmrs/module/idgen/web/filter/SecurityHeadersFilterTest.java)",
+      "Bash(java -cp 'target/classes;target/test-classes;__CMDSUB_OUTPUT__' org.junit.runner.JUnitCore org.openmrs.module.idgen.web.filter.SecurityHeadersFilterTest)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

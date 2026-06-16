@@ -59,3 +59,9 @@ De workflow `.github/workflows/dast-owasp-zap.yml` kan handmatig getriggerd word
 | ------- | ---------------------- | ----------------------------------------------------- |
 | 8.29    | Beveiligingstests      | DAST-output als aantoonbaar testbewijs vóór productie |
 | 8.8     | Kwetsbaarheidsbeheer   | Dynamisch gevonden kwetsbaarheden identificeren       |
+
+---
+
+## Triage en mitigatie
+
+De 49 alerts uit dit rapport (run 15/06/2026) zijn per stuk beoordeeld: gefixt via code/configuratie, beoordeeld als informational zonder actie, of gedocumenteerd als buiten scope (Tomcat-eigen content). Zie [Groep_6_Resolved_Alerts_DAST.md](<../../LU2 - Kwaliteit en security - verbeteronderzoek security/Groep_6_Resolved_Alerts_DAST.md>) voor de volledige triage per alert.

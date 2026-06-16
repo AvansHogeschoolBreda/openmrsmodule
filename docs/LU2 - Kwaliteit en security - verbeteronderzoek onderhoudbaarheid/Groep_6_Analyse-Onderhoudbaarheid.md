@@ -18,6 +18,8 @@
 **Meetdatum:** 12/06/2026
 **Tools:** SonarCloud (statische analyse), JaCoCo (coverage), handmatige broncode-inspectie
 
+> **Belangrijk: dit zijn baselinecijfers vóór de PoC.** Alle metrieken in dit document beschrijven de toestand op 12/06/2026. De code is daarna gerefactord in commit 303c735 (15/06/2026, 201 code quality issues). De huidige code op `main` is dus al verbeterd ten opzichte van deze cijfers; een verse SonarCloud-meting toont de na-waarden (Deel 6 in `docs/checklist.md`). Voorbeeld: de hieronder genoemde security rating C (hardcoded password in `IdgenModuleActivator`) is in de huidige code opgelost.
+
 De analyse is uitgevoerd langs vier ISO 25010-kwaliteitskenmerken voor onderhoudbaarheid: analyseerbaarheid, wijzigbaarheid, testbaarheid en modulariteit. Per kenmerk zijn passende metrieken gemeten en gedocumenteerd.
 
 **Databronnen:**
@@ -318,7 +320,7 @@ Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest
 | 9  | `@Override` annotaties toevoegen           | 6 bestanden                                                           | Issues -6            | Klein               | **Laag**    |
 | 10 | `java.time` API migratie                   | ~10 bestanden                                                         | Modernisering        | Middel              | **Laag**    |
 
-De verbeteringen worden uitgewerkt in `Groep_6_Non-Functional-Requirements.md` (NFR-doelen) en `Groep_6_Testplan.md` (teststrategie). De realisatie volgt als PoC in de CI-pipeline.
+De prioritering is direct herleidbaar naar de meetresultaten: acties 1 t/m 4 volgen uit de complexiteits-, duplicatie- en security-bevindingen (secties 3, 4 en 7), en acties 5 en 6 volgen uit de testresultaten in `Groep_6_Testplan.md` (nulmeting: validator 0% coverage, meerdere nul-coverage klassen). De NFR-doelen staan in `Groep_6_Non-Functional-Requirements.md`. De realisatie is uitgevoerd als PoC in commit 303c735 (15/06/2026, 201 code quality issues), met de ontwerpkeuzes onderbouwd in `Groep_6_Refactoring-Onderbouwing.md`.
 
 ---
 
