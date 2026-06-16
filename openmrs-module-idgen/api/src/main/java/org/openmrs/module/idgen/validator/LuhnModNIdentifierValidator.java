@@ -48,6 +48,7 @@ public abstract class LuhnModNIdentifierValidator implements IdentifierValidator
 	 * 
 	 * @see IdentifierValidator#getAllowedCharacters()
 	 */
+	@Override
 	public String getAllowedCharacters() {
 		StringBuilder sb = new StringBuilder();
 		for (char c : getBaseCharacters().toCharArray()) {
@@ -60,6 +61,7 @@ public abstract class LuhnModNIdentifierValidator implements IdentifierValidator
 	/** 
 	 * @see IdentifierValidator#getName()
 	 */
+	@Override
 	public String getName() {
 		return "Luhn Mod-" + getBaseCharacters().length() + " Check-Digit Validator";
 	}
@@ -67,6 +69,7 @@ public abstract class LuhnModNIdentifierValidator implements IdentifierValidator
 	/** 
 	 * @see IdentifierValidator#getValidIdentifier(String)
 	 */
+	@Override
 	public String getValidIdentifier(String undecoratedIdentifier) throws UnallowedIdentifierException {
 		String standardized = standardizeValidIdentifier(undecoratedIdentifier);
 		return standardized + computeCheckDigit(standardized);
@@ -75,6 +78,7 @@ public abstract class LuhnModNIdentifierValidator implements IdentifierValidator
 	/** 
 	 * @see IdentifierValidator#isValid(String)
 	 */
+	@Override
 	public boolean isValid(String identifier) throws UnallowedIdentifierException {
 		try {
 			identifier = standardizeValidIdentifier(identifier);

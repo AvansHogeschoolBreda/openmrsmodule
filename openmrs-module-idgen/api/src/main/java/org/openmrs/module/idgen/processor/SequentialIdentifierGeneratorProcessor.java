@@ -39,6 +39,7 @@ public class SequentialIdentifierGeneratorProcessor implements IdentifierSourceP
     /**
 	 * @see IdentifierSourceProcessor#getIdentifiers(IdentifierSource, int)
 	 */
+	@Override
 	public synchronized List<String> getIdentifiers(IdentifierSource source, int batchSize) {
 		SequentialIdentifierGenerator seq = (SequentialIdentifierGenerator) source;
         Long sequenceValue = identifierSourceService.getSequenceValue(seq);
@@ -53,8 +54,8 @@ public class SequentialIdentifierGeneratorProcessor implements IdentifierSourceP
 	 * and saves this to the database
 	 * @return the next sequence value, after it is reset
 	 */
-	protected Long resetToFirstSequenceValue(SequentialIdentifierGenerator seq) {
-		Long sequenceValue = 1L;
+	protected long resetToFirstSequenceValue(SequentialIdentifierGenerator seq) {
+		long sequenceValue = 1L;
 		if (seq.getFirstIdentifierBase() != null) {
 			sequenceValue = IdgenUtil.convertFromBase(seq.getFirstIdentifierBase(), seq.getBaseCharacterSet().toCharArray());
 		}

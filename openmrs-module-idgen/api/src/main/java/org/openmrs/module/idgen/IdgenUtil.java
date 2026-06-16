@@ -30,6 +30,17 @@ public class IdgenUtil {
 	private IdgenUtil() {
 		// Utility class should not be instantiated
 	}
+
+	/**
+	 * Sanitizes user-controlled string to prevent log injection.
+	 * Replaces CRLF characters with underscores.
+	 */
+	public static String sanitizeForLogging(String value) {
+		if (value == null) {
+			return "";
+		}
+		return value.replace('\n', '_').replace('\r', '_');
+	}
 	
 	protected static Log log = LogFactory.getLog(IdgenUtil.class);
 

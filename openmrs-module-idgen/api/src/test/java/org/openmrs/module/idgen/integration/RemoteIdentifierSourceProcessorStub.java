@@ -36,7 +36,7 @@ public class RemoteIdentifierSourceProcessorStub extends RemoteIdentifierSourceP
 		}
 	}
 
-	public void setBatchSize(Integer batchSize) {
+	public void setBatchSize(@SuppressWarnings("unused") Integer batchSize) {
 		// unused field. Keeping method as no-op to maintain test compatibility
 	}
 

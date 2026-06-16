@@ -21,6 +21,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.IdgenUtil;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifiersMessage;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -73,7 +74,7 @@ public class IdentifierSourceController {
 	//***** INSTANCE METHODS *****
 	
 	@InitBinder
-	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	public void initBinder(@SuppressWarnings("unused") HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(PatientIdentifierType.class, new PatientIdentifierTypeEditor());
 		binder.registerCustomEditor(IdentifierSource.class, new IdentifierSourceEditor());
 	}
@@ -82,7 +83,7 @@ public class IdentifierSourceController {
      * Edit a new or existing IdentifierSource
      */
     @RequestMapping("/module/idgen/editIdentifierSource.form")
-    public void editIdentifierSource(ModelMap model, HttpServletRequest request,
+    public void editIdentifierSource(ModelMap model, @SuppressWarnings("unused") HttpServletRequest request,
     							     @RequestParam(required=false, value="source") IdentifierSource source,
     							     @RequestParam(required=false, value="identifierType") PatientIdentifierType identifierType,
     							     @RequestParam(required=false, value="sourceType") String sourceType) {
@@ -143,7 +144,7 @@ public class IdentifierSourceController {
      * Deletes an IdentifierSource
      */
     @RequestMapping("/module/idgen/deleteIdentifierSource.form")
-    public String deletePatientSearch(ModelMap model, @RequestParam(required=true, value="source") IdentifierSource source) {
+    public String deletePatientSearch(@SuppressWarnings("unused") ModelMap model, @RequestParam(required=true, value="source") IdentifierSource source) {
     	Context.getService(IdentifierSourceService.class).purgeIdentifierSource(source);
     	return REDIRECT_MANAGE_SOURCES;
     }
@@ -200,7 +201,7 @@ public class IdentifierSourceController {
      * Export Identifiers To File
      */
     @RequestMapping("/module/idgen/exportIdentifiers.form")
-    public void exportIdentifiers(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public void exportIdentifiers(@SuppressWarnings("unused") ModelMap model, @SuppressWarnings("unused") HttpServletRequest request, HttpServletResponse response,
     							   @RequestParam(required=true, value="source") IdentifierSource source,
     							   @RequestParam(required=true, value="numberToGenerate") Integer numberToGenerate,
     							   @RequestParam(required=false, value="comment") String comment,
@@ -210,9 +211,9 @@ public class IdentifierSourceController {
         if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
             try {
                 Context.authenticate(username, password);
-                log.info(AUDIT_USER_PREFIX + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: SUCCESS | Details: User authenticated via request parameters for export");
+                log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(username) + " | Event: LOGIN | ResourceUUID: N/A | Outcome: SUCCESS | Details: User authenticated via request parameters for export");
             } catch (Exception ex) {
-                log.warn(AUDIT_USER_PREFIX + username + " | Event: LOGIN | ResourceUUID: N/A | Outcome: FAILURE | Details: Authentication failed: " + ex.getMessage());
+                log.warn(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(username) + " | Event: LOGIN | ResourceUUID: N/A | Outcome: FAILURE | Details: Authentication failed: " + IdgenUtil.sanitizeForLogging(ex.getMessage()));
                 throw ex;
             }
         }
@@ -235,7 +236,7 @@ public class IdentifierSourceController {
      * Upload Identifiers From File
      */
     @RequestMapping("/module/idgen/addIdentifiersFromFile.form")
-    public String addIdentifiersFromFile(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public String addIdentifiersFromFile(@SuppressWarnings("unused") ModelMap model, HttpServletRequest request, @SuppressWarnings("unused") HttpServletResponse response,
                                          @RequestParam(required=true, value="source") IdentifierSource source,
                                          @RequestParam(required=true, value="inputFile") MultipartFile inputFile) throws Exception {
 
@@ -264,7 +265,7 @@ public class IdentifierSourceController {
      * Upload Identifiers to Pool From Source
      */
     @RequestMapping("/module/idgen/addIdentifiersFromSource.form")
-    public String addIdentifiersFromSource(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public String addIdentifiersFromSource(@SuppressWarnings("unused") ModelMap model, HttpServletRequest request, @SuppressWarnings("unused") HttpServletResponse response,
     							   @RequestParam(required=true, value="source") IdentifierSource source,
     							   @RequestParam(required=true, value="batchSize") Integer batchSize) throws Exception {
     	
@@ -278,7 +279,7 @@ public class IdentifierSourceController {
      * Reserve Identifiers From File
      */
     @RequestMapping("/module/idgen/reserveIdentifiersFromFile.form")
-    public String reserveIdentifiersFromFile(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public String reserveIdentifiersFromFile(@SuppressWarnings("unused") ModelMap model, HttpServletRequest request, @SuppressWarnings("unused") HttpServletResponse response,
     							   @RequestParam(required=true, value="source") IdentifierSource source,
     							   @RequestParam(required=true, value="inputFile") MultipartFile inputFile) throws Exception {
     	
@@ -294,7 +295,7 @@ public class IdentifierSourceController {
 		// NEN-7510 audit log
 		org.openmrs.User u = Context.getAuthenticatedUser();
 		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-		log.info(AUDIT_USER_PREFIX + userId + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + source.getName() + "'");
+		log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: RESERVE_IDENTIFIERS | ResourceUUID: " + IdgenUtil.sanitizeForLogging(source.getUuid()) + " | Outcome: SUCCESS | Details: Uploaded and reserved identifiers from file for source '" + IdgenUtil.sanitizeForLogging(source.getName()) + "'");
 		
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Success: Identifiers successfully uploaded.");
 		return REDIRECT_VIEW_SOURCE + source.getId();
@@ -304,7 +305,7 @@ public class IdentifierSourceController {
      * Export Identifiers To File
      */
     @RequestMapping("/module/idgen/exportReservedIdentifiers.form")
-    public void exportReservedIdentifiers(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public void exportReservedIdentifiers(@SuppressWarnings("unused") ModelMap model, @SuppressWarnings("unused") HttpServletRequest request, HttpServletResponse response,
     							   @RequestParam(required=true, value="source") IdentifierSource source) throws Exception {
 
 		response.setHeader("Content-Disposition", "attachment; filename=reservedIdentifiers.txt");
@@ -321,6 +322,6 @@ public class IdentifierSourceController {
 		// NEN-7510 audit log
 		org.openmrs.User u = Context.getAuthenticatedUser();
 		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-		log.info(AUDIT_USER_PREFIX + userId + " | Event: EXPORT_RESERVED_IDENTIFIERS | ResourceUUID: " + source.getUuid() + " | Outcome: SUCCESS | Details: Exported reserved identifiers for source '" + source.getName() + "'");
+		log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: EXPORT_RESERVED_IDENTIFIERS | ResourceUUID: " + IdgenUtil.sanitizeForLogging(source.getUuid()) + " | Outcome: SUCCESS | Details: Exported reserved identifiers for source '" + IdgenUtil.sanitizeForLogging(source.getName()) + "'");
     }
 }

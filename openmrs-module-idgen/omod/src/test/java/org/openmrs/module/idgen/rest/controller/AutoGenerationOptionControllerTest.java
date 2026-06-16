@@ -68,7 +68,7 @@ public class AutoGenerationOptionControllerTest extends MainResourceControllerTe
 	
 	@Override
 	public long getAllCount() {
-		Integer allAutoGenerationOptions = 0;
+		int allAutoGenerationOptions = 0;
 		for (PatientIdentifierType patientIdentifierType : Context.getPatientService().getAllPatientIdentifierTypes()) {
 			allAutoGenerationOptions += identifierSourceService.getAutoGenerationOptions(patientIdentifierType).size();
 		}

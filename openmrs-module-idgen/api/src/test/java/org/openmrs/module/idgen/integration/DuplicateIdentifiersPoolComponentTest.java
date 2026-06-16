@@ -30,7 +30,7 @@ public class DuplicateIdentifiersPoolComponentTest extends IdgenBaseTest {
         IdentifierPool identifierPool = (IdentifierPool) getService().getIdentifierSource(4);
         List<String> identifiers = new ArrayList<String>();
         for (int i = 1; i <= NUM_THREADS; ++i) {
-            identifiers.add(new String("" + i));
+            identifiers.add(String.valueOf(i));
         }
         getService().addIdentifiersToPool(identifierPool, identifiers);
         getService().saveIdentifierSource(identifierPool);

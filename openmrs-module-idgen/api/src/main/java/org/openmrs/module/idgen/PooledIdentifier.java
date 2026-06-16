@@ -71,6 +71,7 @@ public class PooledIdentifier {
 	}
     
 	/** @see Object#equals(Object) */
+	@Override
 	public boolean equals(Object obj) {
 		if (obj != null && obj instanceof PooledIdentifier) {
 			PooledIdentifier that = (PooledIdentifier) obj;

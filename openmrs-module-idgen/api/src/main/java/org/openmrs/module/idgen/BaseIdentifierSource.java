@@ -53,11 +53,13 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	/**
 	 * Adds a reserved identifier
 	 */
+	@Override
 	public void addReservedIdentifier(String reservedIdentifier) {
 		getReservedIdentifiers().add(reservedIdentifier);
 	}
 	
 	/** @see Object#equals(Object) */
+	@Override
 	public boolean equals(Object obj) {
 		if (obj != null && obj instanceof IdentifierSource) {
 			IdentifierSource that = (IdentifierSource) obj;
@@ -90,108 +92,126 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	/**
 	 * @return the id
 	 */
+	@Override
 	public Integer getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
 	/**
 	 * @return the uuid
 	 */
+	@Override
 	public String getUuid() {
 		return uuid;
 	}
 	/**
 	 * @param uuid the uuid to set
 	 */
+	@Override
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 	/**
 	 * @return the name
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
 	 * @return the description
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
 	/**
 	 * @param description the description to set
 	 */
+	@Override
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	/**
 	 * @return the identifierType
 	 */
+	@Override
 	public PatientIdentifierType getIdentifierType() {
 		return identifierType;
 	}
 	/**
 	 * @param identifierType the identifierType to set
 	 */
+	@Override
 	public void setIdentifierType(PatientIdentifierType identifierType) {
 		this.identifierType = identifierType;
 	}
 	/**
 	 * @return the creator
 	 */
+	@Override
 	public User getCreator() {
 		return creator;
 	}
 	/**
 	 * @param creator the creator to set
 	 */
+	@Override
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 	/**
 	 * @return the dateCreated
 	 */
+	@Override
 	public Date getDateCreated() {
 		return dateCreated;
 	}
 	/**
 	 * @param dateCreated the dateCreated to set
 	 */
+	@Override
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 	/**
 	 * @return the changedBy
 	 */
+	@Override
 	public User getChangedBy() {
 		return changedBy;
 	}
 	/**
 	 * @param changedBy the changedBy to set
 	 */
+	@Override
 	public void setChangedBy(User changedBy) {
 		this.changedBy = changedBy;
 	}
 	/**
 	 * @return the dateChanged
 	 */
+	@Override
 	public Date getDateChanged() {
 		return dateChanged;
 	}
 	/**
 	 * @param dateChanged the dateChanged to set
 	 */
+	@Override
 	public void setDateChanged(Date dateChanged) {
 		this.dateChanged = dateChanged;
 	}
@@ -205,54 +225,63 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	 * @return the retired
 	 */
 	@JsonIgnore
+	@Override
 	public Boolean isRetired() {
 		return getRetired();
 	}
 	/**
 	 * @param retired the retired to set
 	 */
+	@Override
 	public void setRetired(Boolean retired) {
 		this.retired = retired;
 	}
 	/**
 	 * @return the retiredBy
 	 */
+	@Override
 	public User getRetiredBy() {
 		return retiredBy;
 	}
 	/**
 	 * @param retiredBy the retiredBy to set
 	 */
+	@Override
 	public void setRetiredBy(User retiredBy) {
 		this.retiredBy = retiredBy;
 	}
 	/**
 	 * @return the dateRetired
 	 */
+	@Override
 	public Date getDateRetired() {
 		return dateRetired;
 	}
 	/**
 	 * @param dateRetired the dateRetired to set
 	 */
+	@Override
 	public void setDateRetired(Date dateRetired) {
 		this.dateRetired = dateRetired;
 	}
 	/**
 	 * @return the retireReason
 	 */
+	@Override
 	public String getRetireReason() {
 		return retireReason;
 	}
 	/**
 	 * @param retireReason the retireReason to set
 	 */
+	@Override
 	public void setRetireReason(String retireReason) {
 		this.retireReason = retireReason;
 	}
 	/**
 	 * @return the reservedIdentifiers
 	 */
+	@Override
 	public Set<String> getReservedIdentifiers() {
 		if (reservedIdentifiers == null) {
 			reservedIdentifiers = new HashSet<>();
@@ -262,6 +291,7 @@ public abstract class BaseIdentifierSource extends IdentifierSource {
 	/**
 	 * @param reservedIdentifiers the reservedIdentifiers to set
 	 */
+	@Override
 	public void setReservedIdentifiers(Set<String> reservedIdentifiers) {
 		this.reservedIdentifiers = reservedIdentifiers;
 	}

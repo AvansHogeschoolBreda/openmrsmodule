@@ -41,7 +41,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IdentifierSourceService extends OpenmrsService {
 	
 	/**
-	 * @param id the id to retrieve for the given type
 	 * @return all IdentifierSource types that are supported
 	 * @should return all supported IdentifierSource types
 	 */
@@ -194,9 +193,8 @@ public interface IdentifierSourceService extends OpenmrsService {
 	public void addIdentifiersToPool(IdentifierPool pool, Integer batchSize) throws APIException;
 
     /**
-     * @param id of auto generation option
+     * @param autoGenerationOptionId the ID of the auto generation option
      * @return the AutoGenerationOption
-
      */
     @Transactional(readOnly = true)
 	@Authorized
@@ -205,7 +203,7 @@ public interface IdentifierSourceService extends OpenmrsService {
     /**
      * Gets an AutoGenerationOption by its UUID
      * 
-     * @param uuid of auto generation option
+     * @param uuid the UUID of the auto generation option
      * @return the AutoGenerationOption
      * @since 4.6.0
      */
@@ -214,8 +212,8 @@ public interface IdentifierSourceService extends OpenmrsService {
     public AutoGenerationOption getAutoGenerationOptionByUuid(String uuid);
     
     /**
-	 * @param patient identifier type
-     * @param location location
+	 * @param type the patient identifier type
+     * @param location the location
 	 * @return the AutoGenerationOption that matches the given PatientIdentifierType and Location
      * @should return options that don't have a configured location
 	 */
@@ -224,7 +222,7 @@ public interface IdentifierSourceService extends OpenmrsService {
 	public AutoGenerationOption getAutoGenerationOption(PatientIdentifierType type, Location location) throws APIException;
 
     /**
-     * @param patient identifier type
+     * @param type the patient identifier type
      * @return all AutoGenerationOptions that match the given patient identifier type
      * @throws APIException
      */
@@ -233,7 +231,7 @@ public interface IdentifierSourceService extends OpenmrsService {
     public List<AutoGenerationOption> getAutoGenerationOptions(PatientIdentifierType type) throws APIException;
 
     /**
-     * @param patient identifier type
+     * @param type the patient identifier type
      * @return the AutoGenerationOption that matches the given PatientIdentifierType
      * @throws non-unique exception if more than one auto-generation option for this type
      */

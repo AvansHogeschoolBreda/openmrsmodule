@@ -27,7 +27,7 @@ public abstract class IdgenTask extends TimerTask {
 			createAndRunTask();
 		}
 		else {
-			log.warn("Not running scheduled task. DaemonToken = " + daemonToken + "; enabled = " + enabled);
+			log.warn("Not running scheduled task. DaemonToken is " + (daemonToken == null ? "null" : "not null") + "; enabled = " + enabled);
 		}
 	}
 

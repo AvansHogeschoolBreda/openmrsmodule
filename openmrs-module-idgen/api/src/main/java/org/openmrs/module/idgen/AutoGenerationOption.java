@@ -60,6 +60,7 @@ public class AutoGenerationOption extends BaseOpenmrsMetadata {
     //***** INSTANCE METHODS *****
     
 	/** @see Object#equals(Object) */
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof AutoGenerationOption) {
 			AutoGenerationOption that = (AutoGenerationOption) obj;
@@ -86,6 +87,7 @@ public class AutoGenerationOption extends BaseOpenmrsMetadata {
 	/**
 	 * @return the id
 	 */
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -93,6 +95,7 @@ public class AutoGenerationOption extends BaseOpenmrsMetadata {
 	/**
 	 * @param id the id to set
 	 */
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
