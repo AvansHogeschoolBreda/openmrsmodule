@@ -198,7 +198,38 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 ---
 
-## 7. Bronnen
+## 7. Verantwoording en kritische reflectie AI-tooling
+
+### 7.1 Beschrijving en verantwoording van toolinggebruik
+Tijdens de analyse-, ontwerping- en realisatiefase van dit PoC is intensief gebruikgemaakt van de AI-assistent **Claude** (Anthropic). De assistent is ingezet voor zowel code-gerichte onderhoudbaarheidstaken als voor beveiligingsanalyses en compliancedocumentatie.
+
+#### Inzet voor onderhoudbaarheid en refactoring
+Claude is ingezet als ondersteunende *pair programmer* voor de volgende codetaken:
+- **Codegeneratie en scripting:** Het schrijven en valideren van het geautomatiseerde Python-script (`add_override.py`) dat op basis van broncodereferenties op 93 regels de `@Override`-annotaties heeft ingevoegd.
+- **Refactoring-ondersteuning:** Het genereren van oplossingsrichtingen voor het opsplitsen van de complexe methoden in `IdentifierSourceResource` en de validator-klasse conform het Single Responsibility Principle.
+- **Code-opruiming:** Het opsporen en vervangen van verouderde syntax door de diamond operator (`<>`) in de gehele `openmrs-module-idgen` workspace.
+
+#### Inzet voor security-hardening en compliancedocumentatie
+Daarnaast is Claude ingezet voor risico-evaluaties en compliancetaken:
+- **Exploit- en pentestdocumentatie:** Ondersteuning bij het opstellen van het gedetailleerde pentestrapport (`Groep_6_Pentestrapport.md`), inclusief de technische toelichting van de `ysoserial` gadget chain voor kwetsbaarheid CVE-2015-7501 in `commons-collections`.
+- **Mitigatieadvies:** Het ontwerpen van de specifieke XML dependencyManagement-configuratie in de root `pom.xml` om de kwetsbare `commons-collections` versie 3.2 veilig te upgraden naar 3.2.2 zonder regressie.
+- **NEN-7510 & Threat Modeling:** Assistentie bij het structureren van de preventieve en correctieve barrières in de Bow-Tie-analyses, en het mappen van specifieke beheersmaatregelen (zoals Ctrls 8.8, 8.15 en 5.36) aan de gezochte compliancedocumenten.
+
+### 7.2 Kritische reflectie op AI-tooling (predicaat "Goed")
+Hoewel Claude de ontwikkelsnelheid en nauwkeurigheid bij repetitief werk aanzienlijk heeft vergroot, waren handmatige ingrepen en kritische evaluaties op verschillende momenten noodzakelijk om de correctheid en stabiliteit te waarborgen:
+
+1. **Spring ASM-incompatibiliteit (Java 8 Bytecode):**
+   Claude stelde voor om loops in `BaseIdentifierSourceService` en `IdentifierSourceResource` te moderniseren met Java 8 Stream/Lambda-expressies. Echter, tijdens het draaien van de testsuite bleek de verouderde Spring ASM classpath-scanner van OpenMRS te crashen met een `ArrayIndexOutOfBoundsException` op lambda-bytecode. De groep heeft dit handmatig moeten analyseren en teruggedraaid naar traditionele iteratieve loops om runtime-stabiliteit te behouden.
+2. **API-compatibiliteit behouden:**
+   Claude stelde voor om ongebruikte parameters in de MVC-controllers te verwijderen om aan de CodeQL-metriek `java/unused-parameter` te voldoen. Handmatige inspectie wees echter uit dat dit de handtekening van de openbare web-API zou breken en compilatiefouten in gerelateerde teststubs zou veroorzaken. De groep heeft handmatig besloten de handtekeningen te behouden en de waarschuwingen te mitigeren met `@SuppressWarnings("unused")`.
+3. **Fouten in automatische annotatieplaatsing:**
+   Het door Claude gegenereerde Python-script plaatste in `HibernateIdentifierSourceDAO.java` bij `saveLogEntry()` per ongeluk een `@Override`-annotatie *binnen* het Javadoc-blok in plaats van erboven. Dit leidde tot compilerwaarschuwingen. Dit is handmatig opgespoord en hersteld.
+
+Het succesvol realiseren van de PoC toont aan dat Claude een krachtige versneller is voor refactoring- en risico-analyses, maar dat diepe domeinkennis en handmatige kwaliteitscontroles (met name rondom legacy-frameworks en compiler-limits) onmisbaar blijven.
+
+---
+
+## 8. Bronnen
 
 - [Martin Fowler - Refactoring: Improving the Design of Existing Code (2018)](https://martinfowler.com/books/refactoring.html)
 - [Refactoring catalogus - Extract Function/Method](https://refactoring.com/catalog/extractFunction.html)
