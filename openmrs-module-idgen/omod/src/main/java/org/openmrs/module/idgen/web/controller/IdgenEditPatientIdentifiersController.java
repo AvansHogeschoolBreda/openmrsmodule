@@ -43,7 +43,7 @@ public class IdgenEditPatientIdentifiersController {
 	 * Edit Identifiers Section
 	 */
     @RequestMapping("/module/idgen/editPatientIdentifiers.form")
-    public void editPatientIdentifiers(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+    public void editPatientIdentifiers(@SuppressWarnings("unused") ModelMap model, @SuppressWarnings("unused") HttpServletRequest request, HttpServletResponse response,
     						   @RequestParam(required=false, value="patientId") Integer patientId) throws Exception {
     	
     	Map<String, Object> m = new HashMap<>();

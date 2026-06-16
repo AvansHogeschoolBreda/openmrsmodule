@@ -33,6 +33,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.IdgenUtil;
 import org.openmrs.module.idgen.LogEntry;
 import org.openmrs.module.idgen.PooledIdentifier;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -73,6 +74,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/**
 	 * @see IdentifierSourceService#getIdentifierSourceTypes()
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public List<Class<? extends IdentifierSource>> getIdentifierSourceTypes() {
 		List<Class<? extends IdentifierSource>> sourceTypes = new ArrayList<>();
@@ -85,6 +87,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#getIdentifierSource(Integer)
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public IdentifierSource getIdentifierSource(Integer id) throws APIException {
 		return dao.getIdentifierSource(id);
@@ -93,6 +96,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#getAllIdentifierSources(boolean)
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public List<IdentifierSource> getAllIdentifierSources(boolean includeRetired) throws APIException {
 		return dao.getAllIdentifierSources(includeRetired);
@@ -101,6 +105,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#getIdentifierSourcesByType(boolean)
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public Map<PatientIdentifierType, List<IdentifierSource>> getIdentifierSourcesByType(boolean includeRetired) throws APIException {
 		Map<PatientIdentifierType, List<IdentifierSource>> m = new LinkedHashMap<>();
@@ -116,12 +121,13 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/**
 	 * @see IdentifierSourceService#saveIdentifierSource(IdentifierSource)
 	 */
+	@Override
 	@Transactional
 	public IdentifierSource saveIdentifierSource(IdentifierSource identifierSource) throws APIException {
 		if (identifierSource.getName() == null) {
 			User u = Context.getAuthenticatedUser();
 			String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-			log.warn(AUDIT_USER_PREFIX + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + (identifierSource.getUuid() != null ? identifierSource.getUuid() : "N/A") + " | Outcome: FAILURE | Details: Failed to save identifier source: Name is required");
+			log.warn(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + IdgenUtil.sanitizeForLogging(identifierSource.getUuid() != null ? identifierSource.getUuid() : "N/A") + " | Outcome: FAILURE | Details: Failed to save identifier source: Name is required");
 			throw new APIException("Identifier Source name is required");
 		}
 		if (identifierSource.getUuid() == null) {
@@ -143,7 +149,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		
 		// NEN-7510 audit log
 		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-		log.info(AUDIT_USER_PREFIX + userId + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + saved.getUuid() + " | Outcome: SUCCESS | Details: Saved identifier source '" + saved.getName() + "' of type " + saved.getClass().getSimpleName());
+		log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: SAVE_IDENTIFIER_SOURCE | ResourceUUID: " + IdgenUtil.sanitizeForLogging(saved.getUuid()) + " | Outcome: SUCCESS | Details: Saved identifier source '" + IdgenUtil.sanitizeForLogging(saved.getName()) + "' of type " + saved.getClass().getSimpleName());
 		
 		return saved;
 	}
@@ -151,6 +157,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#purgeIdentifierSource(IdentifierSource)
 	 */
+	@Override
 	@Transactional
 	public void purgeIdentifierSource(IdentifierSource identifierSource) {
 		String uuid = identifierSource.getUuid();
@@ -160,13 +167,14 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
 		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-		log.info(AUDIT_USER_PREFIX + userId + " | Event: PURGE_IDENTIFIER_SOURCE | ResourceUUID: " + uuid + " | Outcome: SUCCESS | Details: Purged identifier source '" + name + "'");
+		log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: PURGE_IDENTIFIER_SOURCE | ResourceUUID: " + IdgenUtil.sanitizeForLogging(uuid) + " | Outcome: SUCCESS | Details: Purged identifier source '" + IdgenUtil.sanitizeForLogging(name) + "'");
 	}
 	
 	/**
 	 * 
 	 * @see IdentifierSourceService#getProcessor(IdentifierSource)
 	 */
+	@Override
 	@Transactional(readOnly=true)
 	public IdentifierSourceProcessor getProcessor(IdentifierSource source) {
 		return getProcessors().get(source.getClass());
@@ -174,6 +182,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	
 	/**
 	 * @see IdentifierSourceService#registerProcessor(Class, IdentifierSourceProcessor)
+	 @Override
 	 */
 	public void registerProcessor(Class<? extends IdentifierSource> type, IdentifierSourceProcessor processorToRegister) throws APIException {
 		getProcessors().put(type, processorToRegister);
@@ -181,11 +190,12 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	
 	/** 
 	 * @see IdentifierSourceService#generateIdentifiers(IdentifierSource, Integer, String)
+	 @Override
 	 */
 	public List<String> generateIdentifiers(IdentifierSource source, Integer batchSize, String comment) throws APIException {
 
         if (log.isDebugEnabled()) {
-            log.debug("About to enter synchronized block for " + source.getName());
+            log.debug("About to enter synchronized block for " + IdgenUtil.sanitizeForLogging(source.getName()));
         }
         Object syncLock = getSyncLock(source.getId());
         synchronized (syncLock) {
@@ -202,13 +212,13 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 
     /**
      * This method exists because we want a transaction to be opened and closed inside the synchronized block in generateIdentifiers
-     * @param source
-     * @param batchSize
-     * @param comment
-     * @param processor
-     * @return
+     * @param sourceId the ID of the identifier source
+     * @param batchSize the number of identifiers to generate
+     * @param comment the generation comment
+     * @return the list of generated identifiers
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
     public List<String> generateIdentifiersInternal(Integer sourceId, Integer batchSize, String comment) {
 
         IdentifierSource source = getIdentifierSource(sourceId);
@@ -244,6 +254,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
     /**
      * @see org.openmrs.module.idgen.service.IdentifierSourceService#generateIdentifier(org.openmrs.PatientIdentifierType, java.lang.String)
      */
+    @Override
     public String generateIdentifier(PatientIdentifierType type, String comment) {
         AutoGenerationOption option = getAutoGenerationOption(type);
 
@@ -258,6 +269,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
     /**
 	 * @see org.openmrs.module.idgen.service.IdentifierSourceService#generateIdentifier(org.openmrs.PatientIdentifierType, org.openmrs.Location, java.lang.String)
 	 */
+	@Override
 	public String generateIdentifier(PatientIdentifierType type, Location location, String comment) {
 		AutoGenerationOption option = getAutoGenerationOption(type, location);
 	
@@ -272,6 +284,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#generateIdentifier(IdentifierSource, String)
 	 */
+	@Override
 	public String generateIdentifier(IdentifierSource source, String comment) throws APIException {
 		List<String> l = generateIdentifiers(source, 1, comment);
 		if (l == null || l.size() != 1) {
@@ -284,6 +297,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see IdentifierSourceService#getAvailableIdentifiers(IdentifierPool, int)
 	 */
 	@Transactional(readOnly=true)
+	@Override
 	public List<PooledIdentifier> getAvailableIdentifiers(IdentifierPool pool, int quantity) throws APIException {
 	    return dao.getAvailableIdentifiers(pool, quantity);
 	}
@@ -292,6 +306,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see IdentifierSourceService#getQuantityInPool(IdentifierPool, boolean, boolean)
 	 */
 	@Transactional(readOnly=true)
+	@Override
 	public int getQuantityInPool(IdentifierPool pool, boolean availableOnly, boolean usedOnly) throws APIException {
 		return dao.getQuantityInPool(pool, availableOnly, usedOnly);
 	}
@@ -300,6 +315,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see IdentifierSourceService#addIdentifiersToPool(IdentifierPool, List)
 	 */
 	@Transactional
+	@Override
 	public void addIdentifiersToPool(IdentifierPool pool, List<String> identifiers) throws APIException {
 		for (String identifier : identifiers) {
 			pool.addIdentifierToPool(identifier);
@@ -309,13 +325,14 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 		// NEN-7510 audit log
 		User u = Context.getAuthenticatedUser();
 		String userId = (u != null) ? u.getUsername() : SYSTEM_USER;
-		log.info(AUDIT_USER_PREFIX + userId + " | Event: ADD_IDENTIFIERS_TO_POOL | ResourceUUID: " + pool.getUuid() + " | Outcome: SUCCESS | Details: Added " + identifiers.size() + " identifier(s) to pool '" + pool.getName() + "'");
+		log.info(AUDIT_USER_PREFIX + IdgenUtil.sanitizeForLogging(userId) + " | Event: ADD_IDENTIFIERS_TO_POOL | ResourceUUID: " + IdgenUtil.sanitizeForLogging(pool.getUuid()) + " | Outcome: SUCCESS | Details: Added " + identifiers.size() + " identifier(s) to pool '" + IdgenUtil.sanitizeForLogging(pool.getName()) + "'");
 	}
 	
 	/** 
 	 * @see IdentifierSourceService#addIdentifiersToPool(IdentifierPool, Integer)
 	 */
 	@Transactional
+	@Override
 	public void addIdentifiersToPool(IdentifierPool pool, Integer batchSize) throws APIException {
 		List<String> identifiers = generateIdentifiers(pool.getSource(), batchSize, "Generating identifier for pool " + pool.getName());
 		addIdentifiersToPool(pool, identifiers);
@@ -342,6 +359,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
      * @see IdentifierSourceService#getAutoGenerationOption(PatientIdentifierType,Location)
      */
     @Transactional(readOnly=true)
+    @Override
     public AutoGenerationOption getAutoGenerationOption(PatientIdentifierType type, Location location) throws APIException {
         return dao.getAutoGenerationOption(type, location);
     }
@@ -350,6 +368,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
      * @see IdentifierSourceService#getAutoGenerationOption(PatientIdentifierType,Location)
      */
     @Transactional(readOnly = true)
+    @Override
     public List<AutoGenerationOption> getAutoGenerationOptions(PatientIdentifierType type) throws APIException {
         return dao.getAutoGenerationOptions(type);
     }
@@ -358,6 +377,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see IdentifierSourceService#getAutoGenerationOption(PatientIdentifierType)
 	 */
 	@Transactional(readOnly=true)
+	@Override
 	public AutoGenerationOption getAutoGenerationOption(PatientIdentifierType type) throws APIException {
 		return dao.getAutoGenerationOption(type);
 	}
@@ -366,6 +386,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see IdentifierSourceService#saveAutoGenerationOption(AutoGenerationOption)
 	 */
 	@Transactional
+	@Override
 	public AutoGenerationOption saveAutoGenerationOption(AutoGenerationOption option) throws APIException {
 		AutoGenerationOption saved = dao.saveAutoGenerationOption(option);
 		
@@ -381,6 +402,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	 * @see .IdentifierSourceService#purgeAutoGenerationOption(AutoGenerationOption)
 	 */
 	@Transactional
+	@Override
 	public void purgeAutoGenerationOption(AutoGenerationOption option) throws APIException {
 		String uuid = option.getUuid();
 		dao.purgeAutoGenerationOption(option);
@@ -429,6 +451,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/** 
 	 * @see IdentifierSourceService#getLogEntries(IdentifierSource, Date, Date, String, User, String)
 	 */
+	@Override
 	public List<LogEntry> getLogEntries(IdentifierSource source, Date fromDate, Date toDate, 
 										String identifier, User generatedBy, String comment) throws APIException {
 		return dao.getLogEntries(source, fromDate, toDate, identifier, generatedBy, comment);
@@ -437,6 +460,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
 	/**
 	 * @see IdentifierSourceService#getMostRecentLogEntry(IdentifierSource)
 	 */
+	@Override
 	public LogEntry getMostRecentLogEntry(IdentifierSource source) throws APIException {
 		return dao.getMostRecentLogEntry(source);
 	}
@@ -447,6 +471,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
      * @param pool
      */
     @Transactional
+    @Override
     public void checkAndRefillIdentifierPool(IdentifierPool pool){
         if (pool.getSource() != null && (pool.getSource() instanceof SequentialIdentifierGenerator || pool.getSource() instanceof RemoteIdentifierSource)) {
             while (pool.getMinPoolSize() > getQuantityInPool(pool, true, false)){
@@ -458,6 +483,7 @@ public class BaseIdentifierSourceService extends BaseOpenmrsService implements I
     /**
      * @see org.openmrs.module.idgen.service.IdentifierSourceService#getPatientIdentifierTypesByAutoGenerationOption(java.lang.Boolean, java.lang.Boolean)
      */
+    @Override
     public List<PatientIdentifierType> getPatientIdentifierTypesByAutoGenerationOption(Boolean manualEntryEnabled, Boolean autoGenerationEnabled) {
     	
     	List<PatientIdentifierType> identifierTypes = new ArrayList<>();

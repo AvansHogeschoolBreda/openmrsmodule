@@ -83,7 +83,7 @@ public class RemoteIdentifierSourceProcessor implements IdentifierSourceProcesso
         HttpClient client = new DefaultHttpClient();
         HttpResponse httpResponse;
         String responseText;
-        Integer statusCode;
+        int statusCode;
 
         try {
             httpResponse = client.execute(post);

@@ -44,7 +44,7 @@ public class AutoGenerationOptionController {
 	}
 	
 	@InitBinder
-	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	public void initBinder(@SuppressWarnings("unused") HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(PatientIdentifierType.class, new PatientIdentifierTypeEditor());
 		binder.registerCustomEditor(IdentifierSource.class, new IdentifierSourceEditor());
         binder.registerCustomEditor(AutoGenerationOption.class, new AutoGenerationOptionEditor());
@@ -54,7 +54,7 @@ public class AutoGenerationOptionController {
      * Edit a new or existing AutoGeneration Option
      */
     @RequestMapping("/module/idgen/editAutoGenerationOption.form")
-    public void editAutoGenerationOption(ModelMap model, HttpServletRequest request,
+    public void editAutoGenerationOption(ModelMap model, @SuppressWarnings("unused") HttpServletRequest request,
     							     @RequestParam(required=false, value="autoGenerationOption") AutoGenerationOption option,   // expects to get either an option or an identifier type
                                      @RequestParam(required=false, value="identifierType") PatientIdentifierType type) {
     	
@@ -134,7 +134,7 @@ public class AutoGenerationOptionController {
      * Delete an existing AutoGeneration Option
      */
     @RequestMapping("/module/idgen/deleteAutoGenerationOption.form")
-    public ModelAndView deleteAutoGenerationOption(ModelMap model, HttpServletRequest request,
+    public ModelAndView deleteAutoGenerationOption(@SuppressWarnings("unused") ModelMap model, @SuppressWarnings("unused") HttpServletRequest request,
                                          @RequestParam("autoGenerationOption") AutoGenerationOption option) {
         if (Context.isAuthenticated()) {
             Thread.currentThread().setContextClassLoader(OpenmrsClassLoader.getInstance());

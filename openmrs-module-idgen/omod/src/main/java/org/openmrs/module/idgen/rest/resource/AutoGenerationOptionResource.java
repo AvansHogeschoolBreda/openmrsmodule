@@ -90,6 +90,7 @@ public class AutoGenerationOptionResource extends MetadataDelegatingCrudResource
 	}
 	
 	@PropertyGetter("display")
+	@Override
 	public String getDisplayString(AutoGenerationOption autoGenerationOption) {
 		return autoGenerationOption.getIdentifierType() + " - " + autoGenerationOption.getSource() + " - "
 		        + autoGenerationOption.getLocation();
