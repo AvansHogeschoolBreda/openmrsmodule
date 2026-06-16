@@ -112,7 +112,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.4</version>
 				<configuration>
-					<argLine>@{argLine}${surefireArgLine}</argLine>
+					<argLine>@{argLine} ${surefireArgLine}</argLine>
 					<!-- IdentifierResource.create() cast char[] ← String, breekt op Java 11.
 					     Technische schuld: fix vereist char[]-veld in SimpleObject te vervangen door String. -->
 					<excludes>
