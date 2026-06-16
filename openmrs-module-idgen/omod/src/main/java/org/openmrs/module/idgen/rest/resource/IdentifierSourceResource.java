@@ -124,6 +124,7 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
     }
 	
     @PropertyGetter("display")
+    @Override
     public String getDisplayString(IdentifierSource identifierSource) {
         return identifierSource.getIdentifierType() + " - " 
                 + identifierSource.getName() + " - "
@@ -243,11 +244,17 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         if (numberToGenerate == null) {
             numberToGenerate = "0";
         }
+        int count = 0;
+        try {
+            count = Integer.parseInt(numberToGenerate.toString());
+        } catch (NumberFormatException e) {
+            throw new ValidationException("numberToGenerate must be a valid integer");
+        }
         if (sourceUuid != null) {
             IdentifierSource identifierSource = Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(sourceUuid.toString());
             if (identifierSource != null) {
                 List<String> identifiers = Context.getService(IdentifierSourceService.class).
-                    generateIdentifiers(identifierSource, Integer.parseInt(numberToGenerate.toString()), comment.toString());
+                    generateIdentifiers(identifierSource, count, comment.toString());
                 identifiersToExport.add("identifiers", identifiers);
                 return identifiersToExport;
             }
@@ -279,11 +286,19 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         if (suffix != null && StringUtils.isNotBlank(suffix.toString())) { 
             identifierSource.setSuffix(suffix.toString()); 
         }
-        if (minLength != null && StringUtils.isNotBlank(minLength.toString()) && StringUtils.isNumeric(minLength.toString())) {
-            identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
+        if (minLength != null && StringUtils.isNotBlank(minLength.toString())) {
+            try {
+                identifierSource.setMinLength(Integer.parseInt(minLength.toString()));
+            } catch (NumberFormatException e) {
+                errors.add("minLength must be a valid integer");
+            }
         }
-        if (maxLength != null && StringUtils.isNotBlank(maxLength.toString()) && StringUtils.isNumeric(maxLength.toString())) {
-            identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
+        if (maxLength != null && StringUtils.isNotBlank(maxLength.toString())) {
+            try {
+                identifierSource.setMaxLength(Integer.parseInt(maxLength.toString()));
+            } catch (NumberFormatException e) {
+                errors.add("maxLength must be a valid integer");
+            }
         }
         if(errors.size() > 0) {
             throw new ValidationException("The values of the following inputs are missing or invalid: " + errors.toString());
@@ -291,8 +306,12 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
 
         identifierSource.setIdentifierType(patientIdentifierType);
         identifierSource.setName(name.toString());
-        identifierSource.setBaseCharacterSet(baseCharacterSet.toString());
-        identifierSource.setFirstIdentifierBase(firstIdentifierBase.toString());
+        if (baseCharacterSet != null) {
+            identifierSource.setBaseCharacterSet(baseCharacterSet.toString());
+        }
+        if (firstIdentifierBase != null) {
+            identifierSource.setFirstIdentifierBase(firstIdentifierBase.toString());
+        }
         return identifierSource;
     }
 
@@ -325,7 +344,9 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
 
         identifierSource.setIdentifierType(patientIdentifierType);
         identifierSource.setName(name.toString());
-        identifierSource.setUrl(url.toString());
+        if (url != null) {
+            identifierSource.setUrl(url.toString());
+        }
         return identifierSource;
     }
 
@@ -348,11 +369,19 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         if (description != null && StringUtils.isNotBlank(description.toString())) {
             identifierSource.setDescription(description.toString());
         }
-        if (batchSize != null && StringUtils.isNotBlank(batchSize.toString()) && StringUtils.isNumeric(batchSize.toString())) {
-            identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
+        if (batchSize != null && StringUtils.isNotBlank(batchSize.toString())) {
+            try {
+                identifierSource.setBatchSize(Integer.parseInt(batchSize.toString()));
+            } catch (NumberFormatException e) {
+                errors.add("batchSize must be a valid integer");
+            }
         }
-        if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString()) && StringUtils.isNumeric(minPoolSize.toString())) {
-            identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
+        if (minPoolSize != null && StringUtils.isNotBlank(minPoolSize.toString())) {
+            try {
+                identifierSource.setMinPoolSize(Integer.parseInt(minPoolSize.toString()));
+            } catch (NumberFormatException e) {
+                errors.add("minPoolSize must be a valid integer");
+            }
         }
         if (sequential != null && StringUtils.isNotBlank(sequential.toString())) {
             identifierSource.setSequential(parseBoolean(sequential));
@@ -406,7 +435,11 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
         if ("uploadFromSource".equals(operationToString(operation))) {
             Object batchSize = updateBody.get(PROP_BATCH_SIZE);
             if (source instanceof IdentifierPool && batchSize != null && StringUtils.isNumeric(batchSize.toString())) {
-                Context.getService(IdentifierSourceService.class).addIdentifiersToPool((IdentifierPool) source, Integer.parseInt(batchSize.toString()));
+                try {
+                    Context.getService(IdentifierSourceService.class).addIdentifiersToPool((IdentifierPool) source, Integer.parseInt(batchSize.toString()));
+                } catch (NumberFormatException e) {
+                    throw new ValidationException("batchSize must be a valid integer");
+                }
             }
         }
     }
@@ -527,8 +560,14 @@ public class IdentifierSourceResource extends MetadataDelegatingCrudResource<Ide
 
     private Integer getIntField(SimpleObject updateBody, String key) {
         Object val = updateBody.get(key);
-        return (val != null && StringUtils.isNotBlank(val.toString()) && StringUtils.isNumeric(val.toString()))
-                ? Integer.parseInt(val.toString()) : null;
+        if (val != null && StringUtils.isNotBlank(val.toString())) {
+            try {
+                return Integer.parseInt(val.toString());
+            } catch (NumberFormatException e) {
+                throw new ValidationException(key + " must be a valid integer");
+            }
+        }
+        return null;
     }
 
     private Boolean getBooleanField(SimpleObject updateBody, String key) {

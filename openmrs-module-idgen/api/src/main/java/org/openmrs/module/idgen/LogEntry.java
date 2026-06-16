@@ -54,6 +54,7 @@ public class LogEntry extends BaseOpenmrsMetadata {
     //***** INSTANCE METHODS *****
     
 	/** @see Object#equals(Object) */
+	@Override
 	public boolean equals(Object obj) {
 		if (obj != null && obj instanceof LogEntry) {
 			LogEntry that = (LogEntry) obj;
@@ -80,6 +81,7 @@ public class LogEntry extends BaseOpenmrsMetadata {
 	/**
 	 * @return the id
 	 */
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -87,6 +89,7 @@ public class LogEntry extends BaseOpenmrsMetadata {
 	/**
 	 * @param id the id to set
 	 */
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -161,6 +164,7 @@ public class LogEntry extends BaseOpenmrsMetadata {
 		this.comment = comment;
 	}
 
+	@Override
 	public String getUuid() {
 		return this.getIdentifier();
 	}

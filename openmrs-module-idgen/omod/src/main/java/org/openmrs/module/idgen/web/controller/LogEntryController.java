@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.IdgenUtil;
 import org.openmrs.module.idgen.LogEntry;
 import org.openmrs.module.idgen.propertyeditor.IdentifierSourceEditor;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -38,7 +39,7 @@ public class LogEntryController {
 	}
 	
 	@InitBinder
-	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	public void initBinder(@SuppressWarnings("unused") HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
 		binder.registerCustomEditor(IdentifierSource.class, new IdentifierSourceEditor());
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(Context.getDateFormat(), true));
 		binder.registerCustomEditor(User.class, new UserEditor());
@@ -48,7 +49,7 @@ public class LogEntryController {
      * View / Search Log Entries
      */
     @RequestMapping("/module/idgen/viewLogEntries.form")
-    public void viewLogEntries(ModelMap model, HttpServletRequest request,
+    public void viewLogEntries(ModelMap model, @SuppressWarnings("unused") HttpServletRequest request,
     							     @RequestParam(required=false, value="source") IdentifierSource source,
     							     @RequestParam(required=false, value="fromDate") Date fromDate,
     							     @RequestParam(required=false, value="toDate") Date toDate,
@@ -74,7 +75,7 @@ public class LogEntryController {
 			// NEN-7510 audit log
 			User currentUser = Context.getAuthenticatedUser();
 			String username = (currentUser != null) ? currentUser.getUsername() : "SYSTEM";
-			log.info("[AUDIT] UserID: " + username + " | Event: READ_PATIENT_IDENTIFIER_LOG | ResourceUUID: " + (source != null ? source.getUuid() : "ALL") + " | Outcome: SUCCESS | Details: Viewed log entries for identifier source");
+			log.info("[AUDIT] UserID: " + IdgenUtil.sanitizeForLogging(username) + " | Event: READ_PATIENT_IDENTIFIER_LOG | ResourceUUID: " + IdgenUtil.sanitizeForLogging(source != null ? source.getUuid() : "ALL") + " | Outcome: SUCCESS | Details: Viewed log entries for identifier source");
 		}
 		model.addAttribute("logEntries", logEntries);
 		

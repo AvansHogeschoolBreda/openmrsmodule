@@ -24,6 +24,7 @@ public class IdentifierResourceTest extends MainResourceControllerTest {
         executeDataSet("org/openmrs/module/idgen/include/TestData.xml");
     }
 
+    @Override
     public String getURI() {
         return "idgen/identifiersource";
     }

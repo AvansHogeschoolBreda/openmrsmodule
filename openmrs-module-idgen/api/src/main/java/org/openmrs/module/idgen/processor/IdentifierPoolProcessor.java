@@ -31,6 +31,7 @@ public class IdentifierPoolProcessor implements IdentifierSourceProcessor {
 	/** 
 	 * @see IdentifierSourceProcessor#getIdentifiers(IdentifierSource, int)
 	 */
+	@Override
 	public synchronized List<String> getIdentifiers(IdentifierSource source, int batchSize) {
 		IdentifierPool pool = (IdentifierPool) source;
 		IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);

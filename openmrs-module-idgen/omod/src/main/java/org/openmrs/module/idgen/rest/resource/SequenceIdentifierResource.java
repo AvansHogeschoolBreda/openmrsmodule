@@ -53,13 +53,23 @@ public class SequenceIdentifierResource extends DelegatingCrudResource<Identifie
 	@Override
 	protected PageableResult doSearch(RequestContext context) {
 		String src = context.getRequest().getParameter("source");
-		IdentifierSource source = Context.getService(IdentifierSourceService.class).getIdentifierSource(Integer.parseInt(src));
+		if (src == null || src.trim().isEmpty()) {
+			throw new IllegalArgumentException("source parameter is required");
+		}
+		int sourceId;
+		try {
+			sourceId = Integer.parseInt(src);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("source parameter must be a valid integer");
+		}
+		IdentifierSource source = Context.getService(IdentifierSourceService.class).getIdentifierSource(sourceId);
 		String identifierValue = Context.getService(IdentifierSourceService.class).generateIdentifier(source, "comment");
 		Identifier id = new Identifier();
 		id.setIdentifierValue(identifierValue);
 		return new NeedsPaging<>(Arrays.asList(id), context);
 	}
 
+	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = null;
 		if (rep instanceof RefRepresentation) {
