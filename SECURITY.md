@@ -76,6 +76,7 @@ Alle documenten staan in `docs/LU2 - Kwaliteit en security - verbeteronderzoek s
 | Logging gap-analyse + implementatie | `Groep_6_Logging_Gap_Analyse.md` | 8.15 |
 | DPIA-check (AVG art. 35) | `Groep_6_DPIA-Check.md` | 5.34 |
 | DAST (OWASP ZAP) | `docs/dast/` | 8.29 |
+| DAST-bevindingen triage en mitigatie | `Groep_6_Resolved_Alerts_DAST.md` | 8.8, 8.29 |
 
 ---
 

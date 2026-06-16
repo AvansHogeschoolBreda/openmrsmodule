@@ -393,7 +393,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 **Bron:** [WS05: Secure Coding, Privacy by Design, slide 52](assets/presentaties/ICT-I2.4%20Security%20WS05%20-%20Secure%20Coding%2C%20Privacy%20by%20Design.pdf#page=52)
 **Doel:** Attack surface in kaart brengen, logging gap-analyse uitvoeren, compliant audit logging implementeren en testen, kwetsbaarheden aantonen via penetration tests, mitigeren en valideren, DPIA-check uitvoeren, code coverage activeren in CI.
-**Verantwoordelijke:** RowenAlbers (Delen 1, 2, 3, 4), SinanSagir (Delen 5, 6, 7), RafvanHooijdonk (Deel 8)
+**Verantwoordelijke:** RowenAlbers (Delen 1, 2, 3, 4), SinanSagir (Delen 5, 6, 7), RafvanHooijdonk (Deel 8, Deel 9 eisen 1-5), SinanSagir (Deel 9 eis 6)
 **Periode:** 2026-06
 **Sprints:**
 
@@ -490,7 +490,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 3 | ZAP Spider uitgevoerd op de target (endpoints automatisch ontdekt)                                           | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6                 | RafvanHooijdonk | Spider inbegrepen in `zap-full-scan.py`; 1577 URLs gescand in run #6                         |
 | 4 | ZAP Active Scan uitgevoerd (XSS, SQLi, CSRF, etc. getest)                                                    | ✅ Compliant | `docs/dast/zap-report.html`, Actions run #6                 | RafvanHooijdonk | Active scan inbegrepen in `zap-full-scan.py`; 1827 alerts gevonden in 19m 29s                |
 | 5 | ZAP-rapport opgeslagen als artifact in de repo (audit trail)                                                 | ✅ Compliant | `docs/dast/zap-report/`, artifact `zap-report-6` (212 KB) | RafvanHooijdonk | HTML + JSON + XML rapport in `docs/dast/`; artifact 90 dagen bewaard; NEN-7510 8.29          |
-| 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ❌ Open      |                                                               |                 | Rest van het team verwerkt de output na oplevering van Raf                                     |
+| 6 | DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd | ✅ Compliant | Resolved_Alerts_DAST.md                                       | SinanSagir      | Alle 49 alerts getrieerd: 11 gefixt (SecurityHeadersFilter), 10 informational/reviewed, 28 buiten scope (Tomcat-eigen content, geen broncode in deze repo) |
 
 ---
 
@@ -498,15 +498,13 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 
 | Categorie                   | Aantal |
 | --------------------------- | ------ |
-| ✅ Compliant                | 38     |
+| ✅ Compliant                | 39     |
 | ⚠️ Gedeeltelijk/Tijdelijk | 0      |
-| ❌ Open / Niet compliant    | 1      |
+| ❌ Open / Niet compliant    | 0      |
 
 ### Openstaande actiepunten Opdracht 5
 
-| Actie                                                         | Prioriteit | Wie           |
-| ------------------------------------------------------------- | ---------- | ------------- |
-| DAST-bevindingen verwerken in security backlog / auditrapport | Hoog       | Rest van team |
+Geen openstaande actiepunten. Alle eisen zijn compliant. DAST-herscan na mitigatie (run-zap.sh) is een aanbevolen vervolgstap, zie Resolved_Alerts_DAST.md sectie 5.
 
 ### Wijzigingslog Opdracht 5
 
@@ -526,6 +524,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant.
 | 2026-06-15 | 2.0    | Deel 9 (DAST - OWASP ZAP) toegevoegd: 6 eisen, verantwoordelijke RafvanHooijdonk voor installatie/uitvoering                                            | RafvanHooijdonk |
 | 2026-06-15 | 2.1    | Deel 9 eisen 1+2 compliant: run-zap.sh + dast-owasp-zap.yml workflow aangemaakt; eisen 3-5 wachten op uitvoering                                        | RafvanHooijdonk |
 | 2026-06-15 | 2.2    | Deel 9 eisen 3+4+5 compliant: ZAP full scan uitgevoerd (1577 URLs, 1827 alerts, 19m 29s); rapporten in docs/dast/ en als artifact zap-report-6 (212 KB) | RafvanHooijdonk |
+| 2026-06-16 | 2.3    | Deel 9 eis 6 compliant: alle 49 alerts uit docs/dast/zap-report/zap-report.json getrieerd in Groep_6_Resolved_Alerts_DAST.md (11 gefixt via nieuwe SecurityHeadersFilter in idgen-omod, 10 informational/reviewed, 28 buiten scope); Opdracht 5 nu volledig compliant | SinanSagir |
 
 ---
 
