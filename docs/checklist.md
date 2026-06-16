@@ -26,7 +26,7 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 **Bron:** [opdracht.md](assets/rubrics/opdracht.md) + [rubric-onderhoudbaarheid.md](assets/rubrics/rubric-onderhoudbaarheid.md)
 **Doel:** Non-functional requirements opstellen, tooling inrichten (Qodana/SonarCloud), verbeteringen doorvoeren en met testen aantonen dat onderhoudbaarheid is verbeterd zonder regressie.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RafvanHooijdonk, SimonEulenpesch, Rowen Albers
 **Periode:** 2026-06
 
 ---
@@ -87,9 +87,9 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | # | Eis                                                                      | Status            | Bewijslast  | Wie             | Notities                                                                                                                                                                       |
 | - | ------------------------------------------------------------------------ | ----------------- | ----------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1 | Tests na verbetering uitgevoerd en resultaten vastgelegd                 | ⚠️ Gedeeltelijk | Testplan.md | SimonEulenpesch | Voorlopige validatie op de toegevoegde validator-test (sectie 4.5): api 41 → 52, totaal 134 → 145, resultaten vastgelegd. Volledige validatie volgt na de PoC (Deel 3 t/m 5) |
-| 2 | Aantoonbaar dat onderhoudbaarheid is verbeterd (metriek voor vs. na)     | ⚠️ Gedeeltelijk | Testplan.md | SimonEulenpesch | Voor/na op SequentialIdentifierGeneratorValidator: 0% → 71,9% line, 0% → 95,5% branch (JaCoCo). Eén gerichte klasse, niet de volledige PoC                                  |
-| 3 | Aantoonbaar dat geen regressie is opgetreden (bestaande tests nog groen) | ⚠️ Gedeeltelijk | Testplan.md | SimonEulenpesch | Volledige suite lokaal groen na toevoeging (145 tests, 0 failures). Nog geen CI-run na merge                                                                                   |
+| 1 | Tests na verbetering uitgevoerd en resultaten vastgelegd                 | ✅ Compliant | Testplan.md | SimonEulenpesch | Volledige suite na PoC opnieuw gedraaid (16/06): 134 → 151 tests, 0 failures, 0 errors, build success (Testplan 8.2). Daarna uitgebreid met 115 gerichte tests naar 266 (Testplan 8.7) |
+| 2 | Aantoonbaar dat onderhoudbaarheid is verbeterd (metriek voor vs. na)     | ✅ Compliant | Testplan.md | SimonEulenpesch | Voor/na via SonarCloud main (16/06): line coverage 50,0% → 57,4%, duplicatie 5,8% → 2,1%, Security C → A, Maintainability new code D → A, CC 668 → 599, Brain Methods 3 → 2 (CC 101/106 → 21/20). Tabel in Testplan 8.3. Coverage daarna via 115 nieuwe tests naar 80,3% (NFR-norm 70% gehaald, doorgetrokken naar 80%), Testplan 8.7 |
+| 3 | Aantoonbaar dat geen regressie is opgetreden (bestaande tests nog groen) | ✅ Compliant | Testplan.md | SimonEulenpesch | Geen regressie: 151 tests groen, 0 failures/errors; geen bestaande test gebroken of verwijderd na 303c735. Testplan sectie 8.2 |
 
 ---
 
@@ -97,16 +97,13 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 
 | Categorie                | Aantal |
 | ------------------------ | ------ |
-| ✅ Compliant             | 17     |
-| ⚠️ Gedeeltelijk        | 3      |
+| ✅ Compliant             | 20     |
+| ⚠️ Gedeeltelijk        | 0      |
 | ❌ Open / Niet compliant | 0      |
 
 ### Openstaande actiepunten Opdrachtonderdeel 1
 
-| Actie                                                                                         | Prioriteit | Wie             |
-| --------------------------------------------------------------------------------------------- | ---------- | --------------- |
-| Verse SonarCloud-meting op huidige main voor de na-waarden (coverage, CC, duplicatie, rating) | Hoog       |                 |
-| Validatie Deel 6 volledig afronden met voor/na op metriekniveau (na-meting gereed)            | Hoog       | SimonEulenpesch |
+Geen openstaande actiepunten. Alle eisen zijn compliant. De verse SonarCloud-meting op main (16/06) en de volledige Deel 6-validatie zijn afgerond.
 
 ### Wijzigingslog Opdrachtonderdeel 1
 
@@ -120,6 +117,8 @@ Per opdracht worden de eisen, status, bewijslast en verantwoordelijke bijgehoude
 | 2026-06-16 | 1.5    | Deel 3 eisen 1+2 ✅ Compliant (geprioriteerde verbeteracties in Analyse-Onderhoudbaarheid 8.2), eis 3 ⚠️ Gedeeltelijk (testresultaten-koppeling mist). Deel 5 eis 1 ⚠️ Gedeeltelijk (refactoring gerealiseerd via commit 73d9b94), eis 2+3 Open | SimonEulenpesch |
 | 2026-06-16 | 1.6    | Echte PoC-commit geïdentificeerd: 303c735 (15/06, "201 code quality issues"), niet 73d9b94. Deel 4 ✅ Compliant (Refactoring-Onderbouwing.md: ontwerp, principes, patronen, alternatieven, UML). Deel 3 eis 3 ✅ (testkoppeling in 8.2). Deel 5 eis 1 ✅ (realisatie gekoppeld aan ontwerp). Hersteld na merge-revert | SimonEulenpesch |
 | 2026-06-16 | 1.7    | Deel 5 eis 2+3 ✅ Compliant (AI-verantwoording en kritische reflectie met betrekking tot Claude toegevoegd aan Refactoring-Onderbouwing.md) | Rowen Albers    |
+| 2026-06-16 | 1.8    | Deel 6 volledig ✅ Compliant: verse SonarCloud-meting op main (16/06) en na-testrun verwerkt. Validatie uitgeschreven in Testplan sectie 8 (voor/na-metriektabel, regressiebewijs 151 tests groen). Refactoring-Onderbouwing 3.2 en 6 ingevuld met gemeten CC-reductie (101/106 → 21/20). Samenvatting 17→20 compliant | SimonEulenpesch |
+| 2026-06-16 | 1.9    | Testdekking opgehoogd met 115 gerichte tests (21 klassen + ControllerTestData.xml): line coverage lokaal voor 57,4% → na 80,3% (api 81,5%, omod 79,5%), branch 60,9%, suite voor 151 → na 266 tests, 0 failures. Onderbouwd in Testplan sectie 8.7 | SimonEulenpesch |
 
 ---
 

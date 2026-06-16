@@ -126,7 +126,7 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 **Alternatief overwogen:** de klasse opsplitsen in meerdere resource-klassen (volledige architecturele splitsing). Afgewezen voor deze PoC: dat raakt de OpenMRS REST-contracten en vergt regressietesten buiten de scope. Extract Method verlaagt de complexity zonder de publieke API te breken; de volledige splitsing is genoteerd als vervolgactie.
 
-**Validatie:** exacte CC-reductie per methode volgt uit een verse SonarCloud-meting (Deel 6). De analyse-baseline (CC 101/106) is van 12/06, vóór de refactoring.
+**Validatie:** de verse SonarCloud-meting op `main` (16/06/2026) bevestigt de reductie. De twee methoden gaan van CC 101 en 106 (baseline 12/06) naar CC 21 en CC 20 (`IdentifierSourceResource` L265 en L353), een reductie van ongeveer 80%. Beide blijven net boven de drempel van 15; de volledige sprong naar nul vergt de klassesplitsing die hieronder als alternatief is afgewogen. Zie `Groep_6_Testplan.md` sectie 8.3 en 8.4.
 
 ### 3.3 Magic strings: Extract Constant
 
@@ -194,7 +194,7 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 - **Prioritering en onderbouwing:** `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 (Deel 3).
 - **Realisatie (PoC):** commit 303c735 (39 java-bestanden) en 7d41fbc (diamond operators), op `main` (Deel 5).
-- **Validatie:** de bestaande testsuite blijft groen na de refactoring (geen regressie); de voor/na op metriekniveau volgt uit een verse SonarCloud-meting (Deel 6 in `docs/checklist.md`).
+- **Validatie:** de bestaande testsuite blijft groen na de refactoring (151 tests, 0 failures, 0 errors); de voor/na op metriekniveau is gemeten via SonarCloud op `main` (16/06/2026) en uitgewerkt in `Groep_6_Testplan.md` sectie 8 (Deel 6 in `docs/checklist.md`).
 
 ---
 

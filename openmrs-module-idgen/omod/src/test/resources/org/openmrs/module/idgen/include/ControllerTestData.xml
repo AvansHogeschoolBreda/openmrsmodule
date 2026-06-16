@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Consistente idgen-testdataset voor de MVC-controller tests (groep C6, Deel 6 testdekking).
+  Alle bronnen verwijzen naar PatientIdentifierType 1 uit de standaard testdata, zodat
+  getIdentifierSourcesByType de bronnen kan groeperen zonder NullPointerException.
+-->
+<dataset>
+   <IDGEN_IDENTIFIER_SOURCE ID="2001" UUID="c6ctrl-0000-0000-0000-000000002001" NAME="Ctrl Sequential A" IDENTIFIER_TYPE="1" CREATOR="1" DATE_CREATED="2009-11-30 11:28:30.489" RETIRED="false"/>
+   <IDGEN_SEQ_ID_GEN ID="2001" first_identifier_base="1" NEXT_SEQUENCE_VALUE="1" base_character_set="0123456789" PREFIX="" min_length="0" max_length="0"/>
+
+   <IDGEN_IDENTIFIER_SOURCE ID="2002" UUID="c6ctrl-0000-0000-0000-000000002002" NAME="Ctrl Sequential B" IDENTIFIER_TYPE="1" CREATOR="1" DATE_CREATED="2009-11-30 11:28:30.489" RETIRED="false"/>
+   <IDGEN_SEQ_ID_GEN ID="2002" first_identifier_base="1" NEXT_SEQUENCE_VALUE="1" base_character_set="0123456789" PREFIX="A" min_length="0" max_length="0"/>
+
+   <IDGEN_IDENTIFIER_SOURCE ID="2003" UUID="c6ctrl-0000-0000-0000-000000002003" NAME="Ctrl Pool" IDENTIFIER_TYPE="1" CREATOR="1" DATE_CREATED="2009-11-30 11:28:30.489" RETIRED="false"/>
+   <IDGEN_ID_POOL ID="2003" SOURCE="2001" BATCH_SIZE="5" MIN_POOL_SIZE="2" sequential="1" refill_with_scheduled_task="0"/>
+
+   <IDGEN_AUTO_GENERATION_OPTION ID="2001" SOURCE="2001" IDENTIFIER_TYPE="1" MANUAL_ENTRY_ENABLED="1" AUTOMATIC_GENERATION_ENABLED="1" UUID="c6ctrl-opt-0000-0000-000000002001"/>
+</dataset>
