@@ -5,7 +5,7 @@
 **Groep:** 6  
 **Onderzochte module:** OpenMRS ID Generation Module (`idgen`)  
 **Repository:** [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)  
-**Opleverdatum:** 17 juni 2026 
+**Opleverdatum:** vrijdag 19 juni 2026 
 **Versie:** 1.1 (final)
 
 | Naam | Studentnummer |
@@ -16,18 +16,6 @@
 | Sinan Sagir | 2235816 |
 
 ---
-
-## Documentbeheer
-
-| Kenmerk | Waarde |
-|---|---|
-| Documenttype | Definitief beroepsproduct / audit rapport (opleverversie) |
-| Opdrachtonderdeel | 2 - Verbeteronderzoek security & compliance (NEN-7510:2024/2026) |
-| Status | Definitief / ter beoordeling |
-| Samengesteld uit | 15 brondocumenten uit de map *verbeteronderzoek security* |
-| Toegepaste methodieken | STRIDE, Bow-tie, DPIA (AVG Art. 35), NEN-7510 gap-analyse, SCA/SAST/SBOM, DAST, pentest |
-| Toegepaste tooling | OWASP Dependency-Check, CycloneDX, Semgrep, CodeQL, Dependabot, OWASP ZAP, ysoserial |
-| Peilperiode | Sprint 1 t/m 4 - juni 2026 |
 
 > Dit document bundelt de volledige security- en compliancedocumentatie van groep 6 tot één samenhangend
 > **audit rapport**, waarvan de inhoud herleidbaar is naar de inrichting van het ontwikkelplatform en de
@@ -177,11 +165,11 @@ Voordat assets en hazards worden beoordeeld, worden de realistische threat actor
 
 | ID | Actor | Motivatie | Capaciteit | Relevantie voor OpenMRS |
 |---|---|---|---|---|
-| TA1 | Externe aanvaller (cybercrimineel) | Financieel gewin via ransomware of dataverkoop | Hoog (georganiseerde groepen, toolkits beschikbaar) | Hoog: zorginstellingen zijn frequent doelwit. DBIR 2024: healthcare is top-5 aangevallen sector. |
-| TA2 | Insider (medewerker met kwade opzet) | Datadiefstal, sabotage, wraak | Gemiddeld (directe toegang, kennis van systeem) | Hoog: insiders hebben legitieme toegang tot patiëntdata. NCSC CSBN 2024 noemt insider threats als groeiend risico. |
-| TA3 | Insider (onbewuste fout) | Geen: per ongeluk | Laag (fout, niet opzettelijk) | Hoog: menselijke fouten (hardcoded secrets, verkeerde configuratie) zijn de meest voorkomende oorzaak van datalekken (DBIR 2024: 68% van breaches heeft menselijk element). |
-| TA4 | Supply chain aanvaller | Toegang via gecompromitteerde dependency of tool | Hoog (gerichte aanvallen op open-source ecosysteem) | Gemiddeld: OpenMRS gebruikt Java/Maven dependencies. Log4Shell (2021) toonde aan hoe breed dit risico is. |
-| TA5 | Script kiddie / opportunist | Reputatie, nieuwsgierigheid | Laag (gebruikt bestaande exploits) | Gemiddeld: als het systeem publiek bereikbaar is, zijn geautomatiseerde scans en brute-force aanvallen constant aanwezig. |
+| TA1 | Externe aanvaller (cybercrimineel) | Financieel gewin via ransomware of dataverkoop | 🟠 Hoog (georganiseerde groepen, toolkits beschikbaar) | 🟠 Hoog: zorginstellingen zijn frequent doelwit. DBIR 2024: healthcare is top-5 aangevallen sector. |
+| TA2 | Insider (medewerker met kwade opzet) | Datadiefstal, sabotage, wraak | 🟡 Gemiddeld (directe toegang, kennis van systeem) | 🟠 Hoog: insiders hebben legitieme toegang tot patiëntdata. NCSC CSBN 2024 noemt insider threats als groeiend risico. |
+| TA3 | Insider (onbewuste fout) | Geen: per ongeluk | 🟢 Laag (fout, niet opzettelijk) | 🟠 Hoog: menselijke fouten (hardcoded secrets, verkeerde configuratie) zijn de meest voorkomende oorzaak van datalekken (DBIR 2024: 68% van breaches heeft menselijk element). |
+| TA4 | Supply chain aanvaller | Toegang via gecompromitteerde dependency of tool | 🟠 Hoog (gerichte aanvallen op open-source ecosysteem) | 🟡 Gemiddeld: OpenMRS gebruikt Java/Maven dependencies. Log4Shell (2021) toonde aan hoe breed dit risico is. |
+| TA5 | Script kiddie / opportunist | Reputatie, nieuwsgierigheid | 🟢 Laag (gebruikt bestaande exploits) | 🟡 Gemiddeld: als het systeem publiek bereikbaar is, zijn geautomatiseerde scans en brute-force aanvallen constant aanwezig. |
 
 ---
 
@@ -217,7 +205,7 @@ Risicoscore = Kans x Impact. Maximale score: 25.
 
 | Kleur | Score | Betekenis | Verplichte actie |
 |---|---|---|---|
-| 🟢 Groen | 1-4 | Acceptabel risico | Monitoren; jaarlijkse herbeoordeling |
+| 🟢 Groen | 1-4 | 🟢 Acceptabel risico | Monitoren; jaarlijkse herbeoordeling |
 | 🟠 Oranje | 5-12 | Verhoogd risico | Mitigerende maatregel verplicht binnen 3 maanden |
 | 🔴 Rood | 13-25 | Onacceptabel risico | Onmiddellijke actie verplicht; escalatie naar management |
 
@@ -511,14 +499,14 @@ Keuze boven H3 (hogere score) omdat H10 beter aansluit bij de CI/CD context van 
 
 | Asset | S (Spoofing) | T (Tampering) | R (Repudiation) | I (Info Disc.) | D (DoS) | E (Priv. Esc.) | Primaire STRIDE |
 |---|---|---|---|---|---|---|---|
-| A1: Patiëntobs | Hoog (H1) | Hoog (H2) | 🟡 Gemiddeld | Kritiek (H1, H2) | 🟢 Laag | 🟢 Laag | I, T |
-| A2: Credentials | Kritiek (H3, H4) | 🟡 Gemiddeld | 🟢 Laag | 🔴 Kritiek | Hoog (H3) | 🟠 Hoog | S, I |
-| A3: Audit logs | 🟢 Laag | Kritiek (H5, H6) | Kritiek (H5) | 🟡 Gemiddeld | 🟢 Laag | 🟢 Laag | T, R |
-| A4: Broncode | 🟢 Laag | Hoog (H7) | 🟢 Laag | 🟡 Gemiddeld | 🟢 Laag | Hoog (H7) | T, E |
-| A5: CI/CD | 🟢 Laag | Kritiek (H8) | 🟢 Laag | Hoog (H9) | 🟡 Gemiddeld | Kritiek (H8) | T, E |
-| A6: Secrets | Hoog (H10) | 🟠 Hoog | 🟢 Laag | Kritiek (H10) | 🟡 Gemiddeld | 🟠 Hoog | I, S |
-| A7: SBOM | 🟢 Laag | Gemiddeld (H11) | 🟢 Laag | 🟡 Gemiddeld | 🟢 Laag | 🟢 Laag | T |
-| A8: Config | 🟢 Laag | Hoog (H12) | 🟢 Laag | Gemiddeld (H12) | 🟠 Hoog | 🟢 Laag | T, I |
+| A1: Patiëntobs | 🟠 Hoog (H1) | 🟠 Hoog (H2) | 🟡 Gemiddeld | 🔴 Kritiek (H1, H2) | 🟢 Laag | 🟢 Laag | I, T |
+| A2: Credentials | 🔴 Kritiek (H3, H4) | 🟡 Gemiddeld | 🟢 Laag | 🔴 Kritiek | 🟠 Hoog (H3) | 🟠 Hoog | S, I |
+| A3: Audit logs | 🟢 Laag | 🔴 Kritiek (H5, H6) | 🔴 Kritiek (H5) | 🟡 Gemiddeld | 🟢 Laag | 🟢 Laag | T, R |
+| A4: Broncode | 🟢 Laag | 🟠 Hoog (H7) | 🟢 Laag | 🟡 Gemiddeld | 🟢 Laag | 🟠 Hoog (H7) | T, E |
+| A5: CI/CD | 🟢 Laag | 🔴 Kritiek (H8) | 🟢 Laag | 🟠 Hoog (H9) | 🟡 Gemiddeld | 🔴 Kritiek (H8) | T, E |
+| A6: Secrets | 🟠 Hoog (H10) | 🟠 Hoog | 🟢 Laag | 🔴 Kritiek (H10) | 🟡 Gemiddeld | 🟠 Hoog | I, S |
+| A7: SBOM | 🟢 Laag | 🟡 Gemiddeld (H11) | 🟢 Laag | 🟡 Gemiddeld | 🟢 Laag | 🟢 Laag | T |
+| A8: Config | 🟢 Laag | 🟠 Hoog (H12) | 🟢 Laag | 🟡 Gemiddeld (H12) | 🟠 Hoog | 🟢 Laag | T, I |
 
 ---
 
@@ -606,12 +594,12 @@ De module verwerkt de volgende externe inputs die als potentieel onveilig moeten
 
 | Type Input                       | Naam Parameter / Veld       | Formaat / Verwacht Type | Doel                                                               | Risico / Validatiemechanisme                                                                       |
 | :------------------------------- | :-------------------------- | :---------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
-| **HTTP Request Param**     | `sourceType`              | String (Class name)     | Dynamische klasse-instantiatie bij het aanmaken van een generator. | **Zeer Hoog**: Kan leiden tot Arbitrary Class Instantiation indien niet strikt gewhitelist.. |
-| **HTTP Request Param**     | `skipValidation`          | Boolean                 | Bypass voor de validator-keten bij opslaan.                        | **Zeer Hoog**: Staat gebruikers toe om invoerchecks volledig te omzeilen.                    |
-| **HTTP Request Param**     | `username` / `password` | String                  | Authenticatie-overrides bij ID-export.                             | **Hoog**: Inloggegevens worden als query-parameters meegezonden en gelogd.                   |
-| **HTTP Request Param**     | `sourceName`              | String                  | Vrij tekstveld voor zoeken naar bronnen.                           | **Hoog**: Wordt direct in HQL-query samengevoegd (HQL Injectie).                             |
+| **HTTP Request Param**     | `sourceType`              | String (Class name)     | Dynamische klasse-instantiatie bij het aanmaken van een generator. | **Zeer 🟠 Hoog**: Kan leiden tot Arbitrary Class Instantiation indien niet strikt gewhitelist.. |
+| **HTTP Request Param**     | `skipValidation`          | Boolean                 | Bypass voor de validator-keten bij opslaan.                        | **Zeer 🟠 Hoog**: Staat gebruikers toe om invoerchecks volledig te omzeilen.                    |
+| **HTTP Request Param**     | `username` / `password` | String                  | Authenticatie-overrides bij ID-export.                             | **🟠 Hoog**: Inloggegevens worden als query-parameters meegezonden en gelogd.                   |
+| **HTTP Request Param**     | `sourceName`              | String                  | Vrij tekstveld voor zoeken naar bronnen.                           | **🟠 Hoog**: Wordt direct in HQL-query samengevoegd (HQL Injectie).                             |
 | **Multi-part File Upload** | `inputFile`               | JSON of Plain Text      | Batch ID's importeren in een pool of reserveringslijst.            | **Medium**: Bestandsgrootte-uitputting, ontbreken van formaatcontrole op ID-strings.         |
-| **JSON Payload (REST)**    | `comment`                 | String                  | Metadata voor de gegenereerde batch ID's.                          | **Laag**: XSS-risico indien ontsmetting in de UI ontbreekt.                                  |
+| **JSON Payload (REST)**    | `comment`                 | String                  | Metadata voor de gegenereerde batch ID's.                          | **🟢 Laag**: XSS-risico indien ontsmetting in de UI ontbreekt.                                  |
 
 ---
 
@@ -863,7 +851,7 @@ De koppeling aan NEN-7510:2026 controls maakt de analyse traceerbaar naar het co
 | CWE | CWE-321 (Use of Hard-coded Cryptographic Key) |
 | OWASP | CICD-SEC-6 (Insufficient Credential Hygiene) |
 | NEN-7510 | Ctrl 8.24, 5.17, 8.8, 8.15, 6.8 |
-| Risicoscore | 15 (Rood) |
+| Risicoscore | 15 (🔴 Rood) |
 
 **Top-event:** Een secret (wachtwoord, API-sleutel, deployment token) staat in de git history van de repository en is toegankelijk voor elke partij met leestoegang tot de repository of de git history.
 
@@ -1189,7 +1177,7 @@ block-beta
 
 | Kleur | Score | Actie |
 |---|---|---|
-| 🟢 Groen | 1-4 | Acceptabel, jaarlijkse herbeoordeling |
+| 🟢 Groen | 1-4 | 🟢 Acceptabel, jaarlijkse herbeoordeling |
 | 🟠 Oranje | 5-12 | Mitigatie verplicht binnen 3 maanden |
 | 🔴 Rood | 13-25 | Onmiddellijke actie verplicht |
 
@@ -1201,12 +1189,12 @@ Geen enkel CI/CD-risico scoort groen. H10 is het enige rode risico (score 15).
 
 | Prioriteit | Risk ID | Score | Verplichte actie |
 |---|---|---|---|
-| 1 | H10 | 15 (Rood) | Onmiddellijke actie. Pre-commit hook (detect-secrets) configureren. Secret Scanning upgraden zodra plan het toelaat. Zie Groep_6_Bow-Tie.md. |
-| 2 | H9 | 12 (Oranje) | Mitigatie binnen 3 maanden. Expliciete `permissions: read-all` als default in alle workflows. Geen secrets in `echo`-statements. |
-| 3 | H8 | 10 (Oranje) | Mitigatie binnen 3 maanden. SHA-pinning voor alle third-party actions. Expliciete permissions per workflow-job. Bow-tie uitgewerkt in sectie 7. |
-| 4 | H11 | 9 (Oranje) | SBOM-analyse actief op echte module (Opdracht 4 ✅). Restrisico: NVD-feed vertraging en 90 dagen artifact-retentie. |
-| 5 | C1 | 8 (Oranje) | Mitigatie binnen 3 maanden. SHA-pinning is een eenvoudige directe fix. |
-| 6 | C2 | 8 (Oranje) | Branch protection volledig actief (repo is public). Restrisico: admin kan ruleset tijdelijk uitschakelen. Production environment heeft approval gate. |
+| 1 | H10 | 15 (🔴 Rood) | Onmiddellijke actie. Pre-commit hook (detect-secrets) configureren. Secret Scanning upgraden zodra plan het toelaat. Zie Groep_6_Bow-Tie.md. |
+| 2 | H9 | 12 (🟠 Oranje) | Mitigatie binnen 3 maanden. Expliciete `permissions: read-all` als default in alle workflows. Geen secrets in `echo`-statements. |
+| 3 | H8 | 10 (🟠 Oranje) | Mitigatie binnen 3 maanden. SHA-pinning voor alle third-party actions. Expliciete permissions per workflow-job. Bow-tie uitgewerkt in sectie 7. |
+| 4 | H11 | 9 (🟠 Oranje) | SBOM-analyse actief op echte module (Opdracht 4 ✅). Restrisico: NVD-feed vertraging en 90 dagen artifact-retentie. |
+| 5 | C1 | 8 (🟠 Oranje) | Mitigatie binnen 3 maanden. SHA-pinning is een eenvoudige directe fix. |
+| 6 | C2 | 8 (🟠 Oranje) | Branch protection volledig actief (repo is public). Restrisico: admin kan ruleset tijdelijk uitschakelen. Production environment heeft approval gate. |
 
 ---
 
@@ -1225,7 +1213,7 @@ H8 is geselecteerd voor de CI/CD-specifieke bow-tie omdat het de hoogste impact 
 | CWE | CWE-506 (Embedded Malicious Code) |
 | OWASP | CICD-SEC-4 (Poisoned Pipeline Execution) |
 | NEN-7510 | Ctrl 8.8, 8.9, 8.15, 6.8 |
-| Risicoscore | 10 (Oranje) |
+| Risicoscore | 10 (🟠 Oranje) |
 
 **Top-event:** Een kwaadaardige workflow-YAML wordt uitgevoerd in de pipeline-context met toegang tot secrets en deployment-rechten.
 
@@ -2350,7 +2338,7 @@ In de onderstaande tabel staan de gevonden code quality issues uit de statische 
 
 ## Tweede Iteratie
 
-## 🆕 Nieuwe Issues
+## Nieuwe Issues
 
 Deze problemen zijn nieuw opgedoken in de laatste scan (aanmaakdatum 15 juni 2026).
 
@@ -2363,7 +2351,7 @@ Deze problemen zijn nieuw opgedoken in de laatste scan (aanmaakdatum 15 juni 202
 | `java:S2886` | `LocationBasedSuffixProvider.java` | 58 | MAJOR | Ja | Synchronize this method to match the synchronization on "setSuffixLocationAttributeType". |
 | `java:S2293` | `BaseIdentifierSourceService.java` | 60 | MINOR | Ja | Replace type specification with diamond operator (`<>`). |
 
-## ⚠️ Bestaande Issues (Selectie van belangrijkste)
+## Bestaande Issues (Selectie van belangrijkste)
 
 Deze problemen waren al aanwezig in eerdere scans. Zijn nu gemitigeerd in tweede iteratie.
 
@@ -2498,12 +2486,12 @@ Door het uitvoeren van dit patchadvies wordt de blootstelling aan bekende kwetsb
 
 | Bevinding | Initieel Risico | Kans (voor) | Impact (voor) | Residueel Risico | Kans (na) | Impact (na) | Risicoreductie |
 |---|---|---|---|---|---|---|---|
-| **SCA-02** (Spring) | **15 (Rood)** | 3 | 5 | **5 (Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
-| **SCA-03** (XStream) | **15 (Rood)** | 3 | 5 | **5 (Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
-| **SCA-05** (Commons) | **15 (Rood)** | 3 | 5 | **5 (Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
-| **SCA-06** (Log4j 1) | **15 (Rood)** | 3 | 5 | **5 (Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
-| **SCA-01** (Struts) | **10 (Oranje)** | 2 | 5 | **0 (Groen)** | 0 | 0 | **-10 (Volledig)** |
-| **SCA-04** (Postgres) | **8 (Oranje)** | 2 | 4 | **4 (Groen)** | 1 | 4 | **-4 (Halvering)** |
+| **SCA-02** (Spring) | **15 (🔴 Rood)** | 3 | 5 | **5 (🟠 Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
+| **SCA-03** (XStream) | **15 (🔴 Rood)** | 3 | 5 | **5 (🟠 Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
+| **SCA-05** (Commons) | **15 (🔴 Rood)** | 3 | 5 | **5 (🟠 Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
+| **SCA-06** (Log4j 1) | **15 (🔴 Rood)** | 3 | 5 | **5 (🟠 Oranje)** | 1 | 5 | **-10 (Zeer hoog)** |
+| **SCA-01** (Struts) | **10 (🟠 Oranje)** | 2 | 5 | **0 (🟢 Groen)** | 0 | 0 | **-10 (Volledig)** |
+| **SCA-04** (Postgres) | **8 (🟠 Oranje)** | 2 | 4 | **4 (🟢 Groen)** | 1 | 4 | **-4 (Halvering)** |
 
 *Toelichting:* De impact van een database-lek blijft bij RCE-kwetsbaarheden altijd 5 (Kritiek) of 4 (Hoog) omdat de data inherent gevoelig is. Echter, door de kwetsbaarheid te patchen, daalt de kans (probability) naar 1 (zeldzaam) of 0 (indien verwijderd), waardoor het totale risico afneemt tot een acceptabel niveau.
 
@@ -2701,16 +2689,16 @@ Naast de top-5 bevindingen zijn er nog vijf andere risico's geïdentificeerd tij
 
 | Bevinding ID | Korte omschrijving | CVE / CWE | CVSS Score | Prioriteit | Mitigatie Strategie |
 | ------ | ------ | ------ | ------ | ------ | ------ |
-| **SCA-02** | Verouderde Spring Core dependency (v3.0.5) | [CVE-2016-1000027](https://nvd.nist.gov/vuln/detail/CVE-2016-1000027) | 9.8 (Kritiek) | 🔴 Kritiek | Updaten naar een ondersteunde versie van Spring Framework |
-| **SCA-03** | Kwetsbare XStream dependency (v1.4.3) | [CVE-2013-7285](https://nvd.nist.gov/vuln/detail/CVE-2013-7285) | 9.8 (Kritiek) | 🔴 Kritiek | Updaten naar de nieuwste veilige versie van XStream (v1.4.21+) |
-| **SCA-05** | Onveilige commons-collections (v3.2) | [CVE-2015-7501](https://nvd.nist.gov/vuln/detail/CVE-2015-7501) | 9.8 (Kritiek) | 🔴 Kritiek | Updaten naar v3.2.2 of v4.x |
-| **SCA-06** | End-of-Life Log4j 1.x | [CVE-2019-17571](https://nvd.nist.gov/vuln/detail/CVE-2019-17571) | 9.8 (Kritiek) | 🔴 Kritiek | Volledig migreren naar Log4j 2 of Reload4j |
-| **SAST-04** | Deserialization of Untrusted Data | [CWE-502](https://cwe.mitre.org/data/definitions/502.html) | Contextueel Kritiek | 🔴 Kritiek | Veilige deserialisatie implementeren met strikte allowlists |
-| **SCA-01** | Verouderde Apache Struts dependency | [CVE-2014-0114](https://nvd.nist.gov/vuln/detail/CVE-2014-0114) | 7.5 (Hoog) | 🟠 Hoog | Component volledig verwijderen of vervangen door modern alternatief |
+| **SCA-02** | Verouderde Spring Core dependency (v3.0.5) | [CVE-2016-1000027](https://nvd.nist.gov/vuln/detail/CVE-2016-1000027) | 9.8 (🔴 Kritiek) | 🔴 Kritiek | Updaten naar een ondersteunde versie van Spring Framework |
+| **SCA-03** | Kwetsbare XStream dependency (v1.4.3) | [CVE-2013-7285](https://nvd.nist.gov/vuln/detail/CVE-2013-7285) | 9.8 (🔴 Kritiek) | 🔴 Kritiek | Updaten naar de nieuwste veilige versie van XStream (v1.4.21+) |
+| **SCA-05** | Onveilige commons-collections (v3.2) | [CVE-2015-7501](https://nvd.nist.gov/vuln/detail/CVE-2015-7501) | 9.8 (🔴 Kritiek) | 🔴 Kritiek | Updaten naar v3.2.2 of v4.x |
+| **SCA-06** | End-of-Life Log4j 1.x | [CVE-2019-17571](https://nvd.nist.gov/vuln/detail/CVE-2019-17571) | 9.8 (🔴 Kritiek) | 🔴 Kritiek | Volledig migreren naar Log4j 2 of Reload4j |
+| **SAST-04** | Deserialization of Untrusted Data | [CWE-502](https://cwe.mitre.org/data/definitions/502.html) | Contextueel 🔴 Kritiek | 🔴 Kritiek | Veilige deserialisatie implementeren met strikte allowlists |
+| **SCA-01** | Verouderde Apache Struts dependency | [CVE-2014-0114](https://nvd.nist.gov/vuln/detail/CVE-2014-0114) | 7.5 (🟠 Hoog) | 🟠 Hoog | Component volledig verwijderen of vervangen door modern alternatief |
 | **SCA-04** | Verouderde PostgreSQL JDBC driver | [CVE-2018-10936](https://nvd.nist.gov/vuln/detail/CVE-2018-10936) | 4.2 (Medium) | 🟠 Hoog | Driver updaten om Man-in-the-Middle aanvallen te voorkomen |
-| **SAST-01** | Improper Input Validation | [CWE-20](https://cwe.mitre.org/data/definitions/20.html) | Contextueel Hoog | 🟠 Hoog | Strikte server-side validatie toepassen op externe ID bronnen |
-| **SAST-02** | Improper Authentication | [CWE-287](https://cwe.mitre.org/data/definitions/287.html) | Contextueel Hoog | 🟠 Hoog | Autorisatiechecks toevoegen aan alle openbare API endpoints |
-| **SAST-03** | Insufficient Logging | [CWE-778](https://cwe.mitre.org/data/definitions/778.html) | Contextueel Hoog | 🟠 Hoog | Audit logging inbouwen conform NEN-7510:2026 control 8.15 |
+| **SAST-01** | Improper Input Validation | [CWE-20](https://cwe.mitre.org/data/definitions/20.html) | Contextueel 🟠 Hoog | 🟠 Hoog | Strikte server-side validatie toepassen op externe ID bronnen |
+| **SAST-02** | Improper Authentication | [CWE-287](https://cwe.mitre.org/data/definitions/287.html) | Contextueel 🟠 Hoog | 🟠 Hoog | Autorisatiechecks toevoegen aan alle openbare API endpoints |
+| **SAST-03** | Insufficient Logging | [CWE-778](https://cwe.mitre.org/data/definitions/778.html) | Contextueel 🟠 Hoog | 🟠 Hoog | Audit logging inbouwen conform NEN-7510:2026 control 8.15 |
 
 De kwetsbaarheden in de categorie Hoog leveren aanzienlijke risico's op voor de organisatie. De Improper Input Validation in de API kan leiden tot injectie-aanvallen. Het ontbreken van goede authenticatie zorgt ervoor dat ongeautoriseerde gebruikers toegang kunnen forceren. Het gebrek aan logging betekent dat er geen sluitende audit trail is, waardoor forensisch onderzoek na een incident onmogelijk wordt. De verouderde PostgreSQL driver biedt mogelijkheden voor aanvallers om het databaseverkeer te onderscheppen. Deze actiepunten moeten in de opvolgende sprints worden geadresseerd.
 
@@ -3288,7 +3276,7 @@ We testen op module-niveau. De module is een Java-bibliotheek, geen webserver. D
 | Kwetsbaarheid | CVE-2015-7501 |
 | Bibliotheek | commons-collections 3.2 |
 | Type fout | CWE-502: onveilige deserialisatie |
-| CVSS-score | 9.8 (Kritiek) |
+| CVSS-score | 9.8 (🔴 Kritiek) |
 | NEN-7510 | Ctrl 8.8 |
 | Fix beschikbaar | Ja: upgrade naar versie 3.2.2 |
 
@@ -3318,7 +3306,7 @@ Dit programma controleert alle bibliotheken in de module op bekende kwetsbaarhed
 |---|---|
 | Bestand | commons-collections-3.2.jar |
 | Kwetsbaarheid | CVE-2015-7501 |
-| Score | 9.8 (Kritiek) |
+| Score | 9.8 (🔴 Kritiek) |
 
 ### 4.2 Bevestiging via SBOM
 
@@ -3563,34 +3551,34 @@ De opdrachtverwijzingen zijn klikbaar en openen het bijbehorende onderdeel in de
 
 | Deel / document | Auteur(s) | Kerncommits (klikbaar) | Opdracht |
 |---|---|---|---|
-| Deel 1 - Asset-Identificatie | Raf van Hooijdonk | [[a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a), [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f), [[5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | [Opdracht 3: Asset-ID & Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
-| Deel 2 - Attack Surface Mapping | Rowen Albers | [[6f97363](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363) | [Opdracht 3: Asset-ID & Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
-| Deel 3 - Bow-Tie (H10) | Sinan Sagir | [[54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [[55541f6](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6), [[1913f00](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00) | [Opdracht 3: Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
-| Deel 4 - Risicomatrix CI/CD | Sinan Sagir, Raf van Hooijdonk | [[54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 3: Risico-evaluatie](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
-| Deel 5 - DPIA-Check | Sinan Sagir | [[adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [[9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a) | [Opdracht 4: Compliance & RAR](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
-| Deel 6 - Gap-Analyse NEN-7510 | Rowen Albers, Raf van Hooijdonk | [[0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [[aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61), [[c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | [Opdracht 2: Compliance Verslag](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-2-compliance-verslag) |
-| Deel 7 - Logging Gap-Analyse | Rowen Albers | [[76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | [Opdracht 5: Secure Coding & Logging](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
-| Deel 8 - Mini-Complianceverslag | Sinan Sagir, Raf van Hooijdonk | [[020159f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f), [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 1: Compliance Pipeline](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-1-compliance-pipeline) |
-| Deel 9 - Security Analyse (SCA/SAST/SBOM) | Raf van Hooijdonk, Simon Eulenpesch | [[d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee), [[5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | [Opdracht 4: Compliance Scanning](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
-| Deel 10 - Code Quality Issues | Rowen Albers | [[cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396), [[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | [Opdracht 5: Secure Coding](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
-| Deel 11 - Patchadvies | Rowen Albers | [[0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786) | [Opdracht 4: SBOM/CVE/CVSS-advies](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
-| Deel 12 - Risk Assessment Report | Raf van Hooijdonk, Rowen Albers | [[0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 4: Risk Assessment Report](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
-| Deel 13 - Resolved Alerts SAST (153) | Rowen Albers | [[73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | [Opdracht 5: Mitigatie kwetsbaarheden](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
-| Deel 14 - Resolved Alerts DAST (49) | Sinan Sagir | [[a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a), [[58006ba](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/58006ba)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/58006ba) | [Opdracht 6: Audit Reporting / DAST](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-6-audit-reporting) |
-| Deel 15 - Pentestrapport & PoC | Sinan Sagir | [[adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [[9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a), [[f0978b5](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5) | [Opdracht 5: Penetration Tests](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
+| Deel 1 - Asset-Identificatie | Raf van Hooijdonk | [a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | [Opdracht 3: Asset-ID & Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
+| Deel 2 - Attack Surface Mapping | Rowen Albers | [6f97363](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363) | [Opdracht 3: Asset-ID & Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
+| Deel 3 - Bow-Tie (H10) | Sinan Sagir | [54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [55541f6](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6), [1913f00](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00) | [Opdracht 3: Threat modeling](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
+| Deel 4 - Risicomatrix CI/CD | Sinan Sagir, Raf van Hooijdonk | [54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 3: Risico-evaluatie](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-3-asset-identificatie-threat-modeling--risico-evaluatie) |
+| Deel 5 - DPIA-Check | Sinan Sagir | [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a) | [Opdracht 4: Compliance & RAR](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
+| Deel 6 - Gap-Analyse NEN-7510 | Rowen Albers, Raf van Hooijdonk | [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61), [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | [Opdracht 2: Compliance Verslag](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-2-compliance-verslag) |
+| Deel 7 - Logging Gap-Analyse | Rowen Albers | [76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | [Opdracht 5: Secure Coding & Logging](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
+| Deel 8 - Mini-Complianceverslag | Sinan Sagir, Raf van Hooijdonk | [020159f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 1: Compliance Pipeline](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-1-compliance-pipeline) |
+| Deel 9 - Security Analyse (SCA/SAST/SBOM) | Raf van Hooijdonk, Simon Eulenpesch | [d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | [Opdracht 4: Compliance Scanning](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
+| Deel 10 - Code Quality Issues | Rowen Albers | [cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396), [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | [Opdracht 5: Secure Coding](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
+| Deel 11 - Patchadvies | Rowen Albers | [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786) | [Opdracht 4: SBOM/CVE/CVSS-advies](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
+| Deel 12 - Risk Assessment Report | Raf van Hooijdonk, Rowen Albers | [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | [Opdracht 4: Risk Assessment Report](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-4-compliance-scanning--risk-assessment-report) |
+| Deel 13 - Resolved Alerts SAST (153) | Rowen Albers | [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | [Opdracht 5: Mitigatie kwetsbaarheden](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
+| Deel 14 - Resolved Alerts DAST (49) | Sinan Sagir | [a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a), [58006ba](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/58006ba) | [Opdracht 6: Audit Reporting / DAST](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-6-audit-reporting) |
+| Deel 15 - Pentestrapport & PoC | Sinan Sagir | [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a), [f0978b5](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5) | [Opdracht 5: Penetration Tests](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdracht-5-secure-coding-logging--penetration-tests) |
 
 ## B.4 Mitigatie & realisatie: code-commits gekoppeld aan de bevindingen
 
 | Commit | Auteur | Datum | Inhoud | Koppeling |
 |---|---|---|---|---|
-| [[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | Rowen Albers | 15-06-2026 | 201 code quality issues gemitigeerd (incl. hardcoded password verwijderd) | Deel 10, H10 (Deel 3) |
-| [[73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | Rowen Albers | 16-06-2026 | SAST-issues over de idgen-module geadresseerd (153 CodeQL/Dependabot-alerts) | Deel 13 |
-| [[76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | Rowen Albers | 13-06-2026 | NEN-7510 audit logging + tests toegevoegd | Deel 7 |
-| [[adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc) | Sinan Sagir | 13-06-2026 | DPIA-check, pentestrapport en CVE-2015-7501-mitigatie | Deel 5, 15 |
-| [[1e7dbad](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1e7dbad)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1e7dbad) | Sinan Sagir | 15-06-2026 | Dependabot npm-kwetsbaarheden via package.json overrides | Deel 15 (npm-PoC) |
-| [[a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a) | Sinan Sagir | 16-06-2026 | OWASP ZAP DAST-bevindingen in idgen-omod gemitigeerd | Deel 14 |
-| [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | Raf van Hooijdonk | 15-06-2026 | DAST-tooling, workflow hernoemd, documentatie bijgewerkt | Deel 4, 14 |
-| [[d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | Raf van Hooijdonk | 15-06-2026 | ZAP-rapport run #6 (NEN-7510 8.29) | Deel 14 |
+| [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | Rowen Albers | 15-06-2026 | 201 code quality issues gemitigeerd (incl. hardcoded password verwijderd) | Deel 10, H10 (Deel 3) |
+| [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | Rowen Albers | 16-06-2026 | SAST-issues over de idgen-module geadresseerd (153 CodeQL/Dependabot-alerts) | Deel 13 |
+| [76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | Rowen Albers | 13-06-2026 | NEN-7510 audit logging + tests toegevoegd | Deel 7 |
+| [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc) | Sinan Sagir | 13-06-2026 | DPIA-check, pentestrapport en CVE-2015-7501-mitigatie | Deel 5, 15 |
+| [1e7dbad](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1e7dbad) | Sinan Sagir | 15-06-2026 | Dependabot npm-kwetsbaarheden via package.json overrides | Deel 15 (npm-PoC) |
+| [a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a) | Sinan Sagir | 16-06-2026 | OWASP ZAP DAST-bevindingen in idgen-omod gemitigeerd | Deel 14 |
+| [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | Raf van Hooijdonk | 15-06-2026 | DAST-tooling, workflow hernoemd, documentatie bijgewerkt | Deel 4, 14 |
+| [d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | Raf van Hooijdonk | 15-06-2026 | ZAP-rapport run #6 (NEN-7510 8.29) | Deel 14 |
 
 ## B.5 Bijdrage per teamlid (geselecteerde commits)
 
@@ -3602,15 +3590,15 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | Docs, checklist en CI-assets |
-| [[4f618e0](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4f618e0)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4f618e0) | README met mini-ISMS |
-| [[d476ddb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d476ddb)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d476ddb) | SECURITY.md (NL, details) |
-| [[a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a) | Asset-identificatie |
-| [[a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | DAST-tooling + workflow + documentatie |
-| [[fa56c76](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/fa56c76)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/fa56c76) | ZAP-pipeline: ports en auto-commit |
-| [[dd6036b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/dd6036b)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/dd6036b) | ZAP-pipeline: schrijfrechten rapport |
-| [[d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | ZAP-rapport run #6 (NEN-7510 8.29) |
-| [[4944387](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4944387)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4944387) | docker-compose (OTAP-omgevingen) |
+| [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | Docs, checklist en CI-assets |
+| [4f618e0](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4f618e0) | README met mini-ISMS |
+| [d476ddb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d476ddb) | SECURITY.md (NL, details) |
+| [a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a) | Asset-identificatie |
+| [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | DAST-tooling + workflow + documentatie |
+| [fa56c76](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/fa56c76) | ZAP-pipeline: ports en auto-commit |
+| [dd6036b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/dd6036b) | ZAP-pipeline: schrijfrechten rapport |
+| [d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | ZAP-rapport run #6 (NEN-7510 8.29) |
+| [4944387](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4944387) | docker-compose (OTAP-omgevingen) |
 
 ### Rowen Albers
 
@@ -3618,12 +3606,12 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[6f97363](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363) | Attack surface mapping |
-| [[0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786) | Security reports + patchadvies |
-| [[76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | NEN-7510 audit logging + tests |
-| [[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | 201 code quality issues gemitigeerd |
-| [[73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | SAST-remediatie (153 alerts) |
-| [[2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05) | Compliance-checklist + AI-verantwoording |
+| [6f97363](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363) | Attack surface mapping |
+| [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786) | Security reports + patchadvies |
+| [76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7) | NEN-7510 audit logging + tests |
+| [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | 201 code quality issues gemitigeerd |
+| [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94) | SAST-remediatie (153 alerts) |
+| [2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05) | Compliance-checklist + AI-verantwoording |
 
 ### Sinan Sagir
 
@@ -3631,13 +3619,13 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[020159f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f) | Mini-Complianceverslag ingevuld |
-| [[54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb) | Bow-tie + risicomatrix |
-| [[55541f6](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6) | Mermaid-diagram toegevoegd |
-| [[1913f00](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00) | Diagrammen verbeterd |
-| [[adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc) | DPIA + pentestrapport + CVE-2015-7501-mitigatie |
-| [[f0978b5](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5) | npm-PoC-mitigatie (Pentestrapport Deel 2) |
-| [[a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a) | OWASP ZAP DAST-bevindingen gemitigeerd |
+| [020159f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f) | Mini-Complianceverslag ingevuld |
+| [54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb) | Bow-tie + risicomatrix |
+| [55541f6](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6) | Mermaid-diagram toegevoegd |
+| [1913f00](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00) | Diagrammen verbeterd |
+| [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc) | DPIA + pentestrapport + CVE-2015-7501-mitigatie |
+| [f0978b5](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5) | npm-PoC-mitigatie (Pentestrapport Deel 2) |
+| [a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a) | OWASP ZAP DAST-bevindingen gemitigeerd |
 
 ### Simon Eulenpesch (LinkerLong)
 
@@ -3645,8 +3633,8 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[5be30e7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7) | Import idgen-module |
-| [[d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee) | Security-analyse part 1 & 2 (SCA/SAST/SBOM) |
+| [5be30e7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7) | Import idgen-module |
+| [d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee) | Security-analyse part 1 & 2 (SCA/SAST/SBOM) |
 ---
 
 # Bijlage C - Verantwoording (AI-)tooling (globaal overzicht)
@@ -3669,4 +3657,4 @@ onderhoudbaarheids-opleverdocument (Deel 4 §7), inclusief waar AI-suggesties zi
 
 ---
 
-*Einde opleverdocument - Opdrachtonderdeel 2: Verbeteronderzoek Security & Compliance · Groep 6 · 17 juni 2026*
+*Einde opleverdocument - Opdrachtonderdeel 2: Verbeteronderzoek Security & Compliance · Groep 6 · vrijdag 19 juni 2026*

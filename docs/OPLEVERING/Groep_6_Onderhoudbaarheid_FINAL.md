@@ -5,7 +5,7 @@
 **Groep:** 6  
 **Onderzochte module:** OpenMRS ID Generation Module (`idgen`)  
 **Repository:** [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)  
-**Opleverdatum:** 17 juni 2026 
+**Opleverdatum:** vrijdag 19 juni 2026 
 **Versie:** 1.1 (final)
 
 | Naam | Studentnummer |
@@ -16,17 +16,6 @@
 | Sinan Sagir | 2235816 |
 
 ---
-
-## Documentbeheer
-
-| Kenmerk | Waarde |
-|---|---|
-| Documenttype | Definitief beroepsproduct (opleverversie) |
-| Opdrachtonderdeel | 1 - Verbeteronderzoek onderhoudbaarheid |
-| Status | Definitief / ter beoordeling |
-| Samengesteld uit | 5 brondocumenten uit de map *verbeteronderzoek onderhoudbaarheid* |
-| Meetinstrumenten | SonarCloud, JaCoCo, Maven Surefire/Failsafe, JUnit 4 |
-| Peildatum metingen | Baseline 12-06-2026 · validatie 16-06-2026 |
 
 > Dit document bundelt de volledige onderhoudbaarheids-documentatie van groep 6 tot één samenhangend
 > opleverrapport. Elk *Deel* komt overeen met een oorspronkelijk brondocument; de inhoud is integraal
@@ -324,14 +313,14 @@ Cognitive Complexity is gemeten via SonarCloud (rule `java:S3776`). Dit is een m
 
 | Klasse                                     | Module | LOC             | CC (totaal)   | CC/LOC | Beoordeling             |
 | ------------------------------------------ | ------ | --------------- | ------------- | ------ | ----------------------- |
-| `IdentifierSourceResource`               | omod   | 498             | **223** | 0.45   | Kritiek: God Class      |
-| `IdentifierSourceController`             | omod   | 243             | 46            | 0.19   | Hoog risico             |
-| `AutoGenerationOptionResource`           | omod   | 256             | 36            | 0.14   | Hoog risico             |
-| `BaseIdentifierSourceService`            | api    | 272             | 32            | 0.12   | Hoog risico             |
-| `SequentialIdentifierGeneratorValidator` | api    | 56              | 27            | 0.48   | Kritiek: hoge densiteit |
-| `IdgenEditPatientIdentifiersController`  | omod   | 104             | 25            | 0.24   | Hoog risico             |
-| `SequentialIdentifierGenerator`          | api    | 136             | 25            | 0.18   | Hoog risico             |
-| `LuhnModNIdentifierValidator`            | api    | 87              | 23            | 0.26   | Hoog risico             |
+| `IdentifierSourceResource`               | omod   | 498             | **223** | 0.45   | 🔴 Kritiek: God Class      |
+| `IdentifierSourceController`             | omod   | 243             | 46            | 0.19   | 🟠 Hoog risico             |
+| `AutoGenerationOptionResource`           | omod   | 256             | 36            | 0.14   | 🟠 Hoog risico             |
+| `BaseIdentifierSourceService`            | api    | 272             | 32            | 0.12   | 🟠 Hoog risico             |
+| `SequentialIdentifierGeneratorValidator` | api    | 56              | 27            | 0.48   | 🔴 Kritiek: hoge densiteit |
+| `IdgenEditPatientIdentifiersController`  | omod   | 104             | 25            | 0.24   | 🟠 Hoog risico             |
+| `SequentialIdentifierGenerator`          | api    | 136             | 25            | 0.18   | 🟠 Hoog risico             |
+| `LuhnModNIdentifierValidator`            | api    | 87              | 23            | 0.26   | 🟠 Hoog risico             |
 | `AutoGenerationOptionController`         | omod   | 95              | 16            | 0.17   | 🟡 Matig                   |
 | `LogEntryResource`                       | omod   | 151             | 16            | 0.11   | 🟡 Matig                   |
 | **Totaal project**                   | beide  | **4.312** | **668** | 0.15   | n.v.t.                  |
@@ -464,8 +453,8 @@ Gemeten via het aantal imports per klasse als proxy voor efferente koppeling (fa
 
 | Klasse                                  | Module | LOC | Imports (proxy) | Beoordeling    |
 | --------------------------------------- | ------ | --- | --------------- | -------------- |
-| `HibernateIdentifierSourceDAO`        | api    | 231 | 28              | Hoog gekoppeld |
-| `BaseIdentifierSourceService`         | api    | 272 | 27              | Hoog gekoppeld |
+| `HibernateIdentifierSourceDAO`        | api    | 231 | 28              | 🟠 Hoog gekoppeld |
+| `BaseIdentifierSourceService`         | api    | 272 | 27              | 🟠 Hoog gekoppeld |
 | `IdentifierSourceService` (interface) | api    | 119 | 19              | 🟡 Matig          |
 | `IdentifierSourceDAO` (interface)     | api    | 55  | 13              | 🟢 Acceptabel     |
 | `SequentialIdentifierGenerator`       | api    | 136 | 9               | 🟢 Acceptabel     |
@@ -570,16 +559,16 @@ Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest
 
 | #  | Actie                                        | Bestanden                                                             | Impact               | Inspanning          | Prioriteit        |
 | -- | -------------------------------------------- | --------------------------------------------------------------------- | -------------------- | ------------------- | ----------------- |
-| 1  | Multi-threading fix: static methode          | `LocationBasedPrefixProvider`, `LocationBasedSuffixProvider`      | Veiligheid productie | Klein               | **Kritiek** |
-| 2  | Security fix: hardcoded password verwijderen | `IdgenModuleActivator`                                              | Rating C -> A        | Klein               | **Kritiek** |
-| 3  | Brain Methods refactoren                     | `IdentifierSourceResource` L142, L318                               | CC 223 -> < 50       | Groot (3h+)         | **Hoog**    |
-| 4  | Magic strings extraheren als constanten      | Resource handlers (omod)                                              | Dup 10.8% -> < 2%    | 🟡 Middel              | **Hoog**    |
-| 5  | Unit tests schrijven voor validator          | `SequentialIdentifierGeneratorValidator`                            | Coverage +%          | 🟡 Middel              | **Hoog**    |
-| 6  | Unit tests voor nul-coverage klassen         | `IdentifierSourceEditor`, `RemoteIdentifierSourceValidator`, etc. | Coverage +%          | 🟡 Middel              | **Hoog**    |
-| 7  | Luhn-validators samenvoegen                  | `LuhnMod10`, `LuhnMod25`, `LuhnMod30`                           | Dup api -2 blokken   | Klein               | **Middel**  |
-| 8  | Diamond operator toevoegen (~35 stuks)       | Verspreid                                                             | Issues -35           | Klein (automatisch) | **Laag**    |
-| 9  | `@Override` annotaties toevoegen           | 6 bestanden                                                           | Issues -6            | Klein               | **Laag**    |
-| 10 | `java.time` API migratie                   | ~10 bestanden                                                         | Modernisering        | 🟡 Middel              | **Laag**    |
+| 1  | Multi-threading fix: static methode          | `LocationBasedPrefixProvider`, `LocationBasedSuffixProvider`      | Veiligheid productie | Klein               | **🔴 Kritiek** |
+| 2  | Security fix: hardcoded password verwijderen | `IdgenModuleActivator`                                              | Rating C -> A        | Klein               | **🔴 Kritiek** |
+| 3  | Brain Methods refactoren                     | `IdentifierSourceResource` L142, L318                               | CC 223 -> < 50       | Groot (3h+)         | **🟠 Hoog**    |
+| 4  | Magic strings extraheren als constanten      | Resource handlers (omod)                                              | Dup 10.8% -> < 2%    | 🟡 Middel              | **🟠 Hoog**    |
+| 5  | Unit tests schrijven voor validator          | `SequentialIdentifierGeneratorValidator`                            | Coverage +%          | 🟡 Middel              | **🟠 Hoog**    |
+| 6  | Unit tests voor nul-coverage klassen         | `IdentifierSourceEditor`, `RemoteIdentifierSourceValidator`, etc. | Coverage +%          | 🟡 Middel              | **🟠 Hoog**    |
+| 7  | Luhn-validators samenvoegen                  | `LuhnMod10`, `LuhnMod25`, `LuhnMod30`                           | Dup api -2 blokken   | Klein               | **🟡 Middel**  |
+| 8  | Diamond operator toevoegen (~35 stuks)       | Verspreid                                                             | Issues -35           | Klein (automatisch) | **🟢 Laag**    |
+| 9  | `@Override` annotaties toevoegen           | 6 bestanden                                                           | Issues -6            | Klein               | **🟢 Laag**    |
+| 10 | `java.time` API migratie                   | ~10 bestanden                                                         | Modernisering        | 🟡 Middel              | **🟢 Laag**    |
 
 De prioritering is direct herleidbaar naar de meetresultaten: acties 1 t/m 4 vo
 
@@ -1413,11 +1402,11 @@ pie showData title (Mede-)opgestelde deeldocumenten per teamlid - Opdrachtonderd
 
 | Deel / document | Auteur(s) | Kerncommits (klikbaar) | Opdracht |
 |---|---|---|---|
-| Deel 1 - Module-Keuze | Rowen Albers, Raf van Hooijdonk | [[34b9658](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658), [[7232a71](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7232a71)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7232a71), [[aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61), [[c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | [Opdracht onderdeel 1: Onderhoudbaarheid (scope)](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdrachtonderdeel-1-verbeteronderzoek-onderhoudbaarheid) |
-| Deel 2 - Non-Functional Requirements | Raf van Hooijdonk | [[108348f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f), [[ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [[5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | Onderhoudbaarheid - Analyse |
-| Deel 3 - Analyse Onderhoudbaarheid | Raf van Hooijdonk, Simon Eulenpesch | [[ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [[62d458b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b), [[e5d5a62](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62), [[2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764) | Onderhoudbaarheid - Analyse + prioritering |
-| Deel 4 - Refactoring-onderbouwing | Rowen Albers, Simon Eulenpesch | [[2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764), [[2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05), [[23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Onderhoudbaarheid - Ontwerp + PoC |
-| Deel 5 - Testplan & validatie | Simon Eulenpesch | [[6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02), [[23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Onderhoudbaarheid - Test + validatie |
+| Deel 1 - Module-Keuze | Rowen Albers, Raf van Hooijdonk | [34b9658](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658), [7232a71](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7232a71), [aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61), [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | [Opdracht onderdeel 1: Onderhoudbaarheid (scope)](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md#opdrachtonderdeel-1-verbeteronderzoek-onderhoudbaarheid) |
+| Deel 2 - Non-Functional Requirements | Raf van Hooijdonk | [108348f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f), [ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952) | Onderhoudbaarheid - Analyse |
+| Deel 3 - Analyse Onderhoudbaarheid | Raf van Hooijdonk, Simon Eulenpesch | [ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [62d458b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b), [e5d5a62](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62), [2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764) | Onderhoudbaarheid - Analyse + prioritering |
+| Deel 4 - Refactoring-onderbouwing | Rowen Albers, Simon Eulenpesch | [2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764), [2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05), [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Onderhoudbaarheid - Ontwerp + PoC |
+| Deel 5 - Testplan & validatie | Simon Eulenpesch | [6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02), [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Onderhoudbaarheid - Test + validatie |
 
 ## B.4 Realisatie (PoC): code-commits gekoppeld aan het ontwerp
 
@@ -1425,12 +1414,12 @@ De Proof of Concept uit Deel 4 is in de broncode gerealiseerd via de volgende co
 
 | Commit | Auteur | Datum | Inhoud | Koppeling |
 |---|---|---|---|---|
-| [[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | Rowen Albers | 15-06-2026 | 201 code quality issues: Brain Methods opgesplitst, magic strings → constanten, multi-threading fix | Deel 4 §3.1-3.4, Deel 3 §8.2 |
-| [[7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) | Rowen Albers | 15-06-2026 | Diamond operator op collectie-instantiaties (~35) | Deel 4 §3.5 |
-| [[6037fff](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff) | Rowen Albers | 15-06-2026 | Twee reliability issues opgelost | Deel 3 §7.6 |
-| [[cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396) | Rowen Albers | 15-06-2026 | Export van de SonarQube code quality issues (bewijslast) | Deel 3 §7 |
-| [[6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02) | Simon Eulenpesch | 16-06-2026 | Testplan + validator-unittest | Deel 5 §4.5 |
-| [[23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Simon Eulenpesch | 16-06-2026 | Uitbreiding testdekking naar 80,3% | Deel 5 §8.7 |
+| [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | Rowen Albers | 15-06-2026 | 201 code quality issues: Brain Methods opgesplitst, magic strings → constanten, multi-threading fix | Deel 4 §3.1-3.4, Deel 3 §8.2 |
+| [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) | Rowen Albers | 15-06-2026 | Diamond operator op collectie-instantiaties (~35) | Deel 4 §3.5 |
+| [6037fff](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff) | Rowen Albers | 15-06-2026 | Twee reliability issues opgelost | Deel 3 §7.6 |
+| [cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396) | Rowen Albers | 15-06-2026 | Export van de SonarQube code quality issues (bewijslast) | Deel 3 §7 |
+| [6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02) | Simon Eulenpesch | 16-06-2026 | Testplan + validator-unittest | Deel 5 §4.5 |
+| [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Simon Eulenpesch | 16-06-2026 | Uitbreiding testdekking naar 80,3% | Deel 5 §8.7 |
 
 ## B.5 Bijdrage per teamlid (geselecteerde commits)
 
@@ -1442,13 +1431,13 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[108348f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f) | SonarCloud CI + JaCoCo + NFR-documenten |
-| [[ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462) | Deel 1 onderhoudbaarheid volledig uitgewerkt |
-| [[62d458b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b) | Analysewaarden bijgewerkt |
-| [[e5d5a62](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62) | Maintainability-analysewaarden bijgewerkt |
-| [[1d5fbf9](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1d5fbf9)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1d5fbf9) | Maven compiler source/target op 1.8 |
-| [[0c13b73](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0c13b73)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0c13b73) | JVM argLine geconsolideerd in POM |
-| [[f21343c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f21343c)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f21343c) | CI naar Java 11 + checklist/surefire |
+| [108348f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f) | SonarCloud CI + JaCoCo + NFR-documenten |
+| [ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462) | Deel 1 onderhoudbaarheid volledig uitgewerkt |
+| [62d458b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b) | Analysewaarden bijgewerkt |
+| [e5d5a62](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62) | Maintainability-analysewaarden bijgewerkt |
+| [1d5fbf9](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1d5fbf9) | Maven compiler source/target op 1.8 |
+| [0c13b73](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0c13b73) | JVM argLine geconsolideerd in POM |
+| [f21343c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f21343c) | CI naar Java 11 + checklist/surefire |
 
 ### Rowen Albers
 
@@ -1456,12 +1445,12 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[34b9658](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658) | Module-keuze toegevoegd |
-| [[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | 201 code quality issues gemitigeerd (PoC) |
-| [[7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) | Diamond operator op collecties (~35) |
-| [[6037fff](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff) | Twee reliability issues opgelost |
-| [[cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396) | Export van SonarQube code quality issues |
-| [[2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05) | Compliance-checklist + AI-verantwoording afgerond |
+| [34b9658](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658) | Module-keuze toegevoegd |
+| [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | 201 code quality issues gemitigeerd (PoC) |
+| [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) | Diamond operator op collecties (~35) |
+| [6037fff](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6037fff) | Twee reliability issues opgelost |
+| [cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396) | Export van SonarQube code quality issues |
+| [2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05) | Compliance-checklist + AI-verantwoording afgerond |
 
 ### Simon Eulenpesch (LinkerLong)
 
@@ -1469,12 +1458,12 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 | Commit | Bijdrage |
 |---|---|
-| [[5be30e7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7) | Import idgen-module |
-| [[d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee) | Security-analyse part 1 & 2 |
-| [[6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02) | Testplan + validator-unittest |
-| [[2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764) | Part 1.6 afgerond |
-| [[23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Testdekking uitgebreid naar 80,3% |
-| [[a9152ca](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a9152ca)](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a9152ca) | pom.xml-fix |
+| [5be30e7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5be30e7) | Import idgen-module |
+| [d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee) | Security-analyse part 1 & 2 |
+| [6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02) | Testplan + validator-unittest |
+| [2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764) | Part 1.6 afgerond |
+| [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Testdekking uitgebreid naar 80,3% |
+| [a9152ca](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a9152ca) | pom.xml-fix |
 
 ### Sinan Sagir
 
@@ -1503,4 +1492,4 @@ en behoud van de publieke API).
 
 ---
 
-*Einde opleverdocument - Opdrachtonderdeel 1: Verbeteronderzoek Onderhoudbaarheid · Groep 6 · 17 juni 2026*
+*Einde opleverdocument - Opdrachtonderdeel 1: Verbeteronderzoek Onderhoudbaarheid · Groep 6 · vrijdag 19 juni 2026*
