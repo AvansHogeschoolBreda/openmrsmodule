@@ -3,7 +3,7 @@
 > **Project:** LU2 – Verbeteronderzoek software-kwaliteit  
 > **Module:** ATIx IN-B2.4 Softwarearchitectuur & -kwaliteit 2025-26 P4  
 > **Groep:** Groep 6: RafvanHooijdonk, SimonEulenpesch, SinanSagir, Rowen Albers  
-> **Norm:** NEN-7510:2024-2 (informatiebeveiliging in de zorg)
+> **Norm:** NEN-7510:2026 (informatiebeveiliging in de zorg)
 
 ---
 
@@ -43,7 +43,7 @@
 
 ### Doel en scope
 
-Dit document beschrijft het beveiligingsbeleid en de CI/CD-procedures voor de OpenMRS idgen module repository, conform NEN-7510:2024-2 (informatiebeveiliging in de zorg). De scope omvat de broncode, CI/CD-pipeline, GitHub-omgeving en de bijbehorende deliverables van dit project.
+Dit document beschrijft het beveiligingsbeleid en de CI/CD-procedures voor de OpenMRS idgen module repository, conform NEN-7510:2026 (informatiebeveiliging in de zorg). De scope omvat de broncode, CI/CD-pipeline, GitHub-omgeving en de bijbehorende deliverables van dit project.
 
 ### Verantwoordelijkheden
 
