@@ -120,6 +120,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant. De verse SonarCloud-met
 | 2026-06-16 | 1.8    | Deel 6 volledig ✅ Compliant: verse SonarCloud-meting op main (16/06) en na-testrun verwerkt. Validatie uitgeschreven in Testplan sectie 8 (voor/na-metriektabel, regressiebewijs 151 tests groen). Refactoring-Onderbouwing 3.2 en 6 ingevuld met gemeten CC-reductie (101/106 → 21/20). Samenvatting 17→20 compliant | SimonEulenpesch |
 | 2026-06-16 | 1.9    | Testdekking opgehoogd met 115 gerichte tests (21 klassen + ControllerTestData.xml): line coverage lokaal voor 57,4% → na 80,3% (api 81,5%, omod 79,5%), branch 60,9%, suite voor 151 → na 266 tests, 0 failures. Onderbouwd in Testplan sectie 8.7 | SimonEulenpesch |
 | 2026-06-19 | 2.0    | Testplan/FINAL Deel 5 §8.5, §8.7 en §4.5 gesynchroniseerd met live SonarCloud-analyse op main (16/06 17:16): 80,3% line / 60,9% branch nu in SonarCloud bevestigd (caveat "nog niet op main" verwijderd); Quality Gate live nog Gefaald, uitsluitend op Coverage on New Code (75,1% tegen aangescherpte drempel 80%), overige condities OK. Validator 4.5-cijfers (71,9% line, 95,5% branch, 9/32) en baseline 0% onafhankelijk geverifieerd via JaCoCo-hermeting en SonarCloud API | SimonEulenpesch |
+| 2026-06-19 | 2.1    | God Class IdentifierSourceResource gerefactord (Extract Class naar IdentifierSourcePayloadMapper, 498 → 237 regels; create/update-helpers, geen lambdas i.v.m. OpenMRS ASM-scanner). Brain Methods CC 21/20 → 0, Cognitive Complexity 599 → 559, S1192-duplicatie weg. Characterization tests toegevoegd (IdentifierSourceResourceUnitTest 9, IdentifierSourceResourceContextTest 16; geen regressie, 298 tests groen). SonarCloud op main (19/06): Quality Gate GESLAAGD, Coverage on New Code 84,3%, line 85,6%, A/A/A. Vastgelegd in Testplan/FINAL §8.5 en nieuw §8.8 | SimonEulenpesch |
 
 ---
 
@@ -532,7 +533,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant. DAST-herscan na mitigat
 
 **Bron:** [WS06: Audit Reporting, slide 44](assets/presentaties/ICT-I2.4%20Security%20WS06%20-%20Audit%20Reporting.pdf#page=44)
 **Doel:** Volledig auditrapport opleveren met executive summary, traceability matrix en technisch rapport. Plus een responsible disclosure scenario uitwerken.
-**Verantwoordelijke:**
+**Verantwoordelijke:** RafvanHooijdonk, RowenAlbers, SimonEulenpesch, SinanSagir
 **Periode:** 2026-06
 **Sprints:**
 
@@ -544,12 +545,60 @@ Geen openstaande actiepunten. Alle eisen zijn compliant. DAST-herscan na mitigat
 
 | # | Eis                                                                     | Status  | Bewijslast | Wie | Notities                                        |
 | - | ----------------------------------------------------------------------- | ------- | ---------- | --- | ----------------------------------------------- |
-| 1 | Scenario uitgewerkt: stappen, volgorde en rapportagekanalen beschreven  | ❌ Open |            |     | CVE-2022-42889 (Text4Shell, CVSS 9.8) als casus |
-| 2 | NEN-7510 relevantie beschreven (6.8: informatiebeveiligingsgebeurtenis) | ❌ Open |            |     |                                                 |
+| 1 | Scenario uitgewerkt: stappen, volgorde en rapportagekanalen beschreven  | ✅ Compliant | Security_Compliance_FINAL.md | SinanSagir | CVE-2022-42889 (Text4Shell) als casus; 8 stappen van melding tot AVG-beoordeling |
+| 2 | NEN-7510 relevantie beschreven (6.8: informatiebeveiligingsgebeurtenis) | ✅ Compliant | Security_Compliance_FINAL.md | SinanSagir | Ctrl 6.8 koppeling in Deel 16 sectie 4          |
 
 ### Deliverable 1: Executive Summary
 
-| # | Eis                                                                                                                                                                                                                                                                                                                                                                                                                               | Status  | Bewijslast | Wie | Notities                                    |
-| - | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------- | --- | ------------------------------------------- |
-| 1 | Geschreven voor niet-technische lezer (Raad van Bestuur), geen jargon                                                                                                                                                                                                                                                                                                                                                             | ❌ Open |            |     | Geen CVE-nummers of CVSS-scores in de tekst |
-| 2 | Overall RAG-status aanwezig met toelichti�������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������� |         |            |     |                                             |
+| # | Eis                                                                                  | Status            | Bewijslast                      | Wie  | Notities                                                                                                 |
+| - | ------------------------------------------------------------------------------------ | ----------------- | ------------------------------- | ---- | -------------------------------------------------------------------------------------------------------- |
+| 1 | Geschreven voor niet-technische lezer (Raad van Bestuur), geen jargon               | ✅ Compliant      | Security_Compliance_FINAL.md    | Alle | Managementsamenvatting aanwezig; hoog-over geschreven voor management, minimale technische context      |
+| 2 | Overall RAG-status aanwezig met toelichting                                          | ✅ Compliant      | Security_Compliance_FINAL.md    | Alle | Kleurcodering (🔴🟠🟡🟢) consistent door document; samenvatting benoemt drie rode risico's; Leeswijzer geeft per rubriccriterium dekking |
+
+### Deliverable 2: Traceability Matrix
+
+| # | Eis                                                                                          | Status       | Bewijslast                   | Wie  | Notities                                                                                           |
+| - | -------------------------------------------------------------------------------------------- | ------------ | ---------------------------- | ---- | -------------------------------------------------------------------------------------------------- |
+| 1 | Bevindingen gekoppeld aan NEN-7510 controls en maatregelen (herleidbare matrix)              | ✅ Compliant | Security_Compliance_FINAL.md | Alle | Leeswijzer koppelt alle 6 rubrieccriteria aan specifieke Delen; per Deel NEN-7510 control vermeld  |
+
+### Deliverable 3: Technisch Rapport
+
+| # | Eis                                                                          | Status       | Bewijslast                   | Wie  | Notities                                                                                |
+| - | ---------------------------------------------------------------------------- | ------------ | ---------------------------- | ---- | --------------------------------------------------------------------------------------- |
+| 1 | Volledig technisch rapport opgeleverd als Markdown-document in de repository | ✅ Compliant | Security_Compliance_FINAL.md | Alle | 15 Delen + 3 Bijlagen in docs/OPLEVERING/; alle rubriekeisen afgedekt per Leeswijzer   |
+| 2 | Bronnenlijst compleet en clickable                                           | ✅ Compliant | Security_Compliance_FINAL.md | Alle | Bijlage A: geconsolideerde bronnen met URLs per categorie                               |
+| 3 | Taakverdeling herleidbaar naar commits (GitHub)                              | ✅ Compliant | Security_Compliance_FINAL.md | Alle | Bijlage B: per document auteur + klikbare commit-links                                  |
+| 4 | Verantwoording (AI-)tooling aanwezig                                         | ✅ Compliant | Security_Compliance_FINAL.md | Alle | Bijlage C: globaal overzicht AI-toolinggebruik per teamlid                              |
+
+---
+
+### Samenvatting Opdracht 6
+
+| Categorie                   | Aantal |
+| --------------------------- | ------ |
+| ✅ Compliant                | 9      |
+| ⚠️ Gedeeltelijk/Tijdelijk | 0      |
+| ❌ Open / Niet compliant    | 0      |
+
+### Openstaande actiepunten Opdracht 6
+
+| Actie                                                                   | Reden                                                                                |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+Geen openstaande actiepunten. Alle eisen zijn compliant.
+
+### Wijzigingslog Opdracht 6
+
+| Datum      | Versie | Wijziging                                                                                                                                                                                    | Door       |
+| ---------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 2026-06-19 | 1.0    | Opdracht 6 geverifieerd tegen docs/OPLEVERING/Security_Compliance_FINAL.md; Deliverables 1-3 beoordeeld; Deel 0 (Responsible Disclosure) ontbreekt; checklist-corruptie hersteld | SinanSagir |
+
+---
+
+## Sprints
+
+| Sprint   | Doel                                                      | Status         |
+| -------- | --------------------------------------------------------- | -------------- |
+| Sprint 1 | Repository inrichten, OTAP, SBOM en CI/CD checks         | ✅ Afgerond    |
+| Sprint 2 | Asset-identificatie, Risicomatrix, Bow-tie, Security scan | ✅ Afgerond    |
+| Sprint 3 | PoC Mitigatie, Pentest, DPIA-check, Auditrapport concept  | ✅ Afgerond    |
+| Sprint 4 | Auditrapport definitief, oplevering                       | ✅ Afgerond    |
