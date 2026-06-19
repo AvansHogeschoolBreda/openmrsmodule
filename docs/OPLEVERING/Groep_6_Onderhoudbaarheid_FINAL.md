@@ -987,7 +987,7 @@ De 50% is dus niet "we testen slecht", maar "de dekking zit op de verkeerde plek
 | Coverage is een proxy, geen doel     | 100% dekking bewijst niet dat code correct is; het meet alleen welke regels zijn uitgevoerd, niet of de assertions zinvol zijn. Hoge verplichte targets leiden aantoonbaar tot lege tests die het getal oppoetsen. |
 | Afnemend rendement                   | De eerste 70% dekt de kernpaden (ID-generatie, validatie, pool-beheer). De laatste 30% zit in onpraktisch te testen Hibernate-DAO's en Spring/Context-koppeling, die zware mock-infra vereisen voor weinig waarde. |
 | Refactoring komt eerst               | Een methode met CC 106 (`IdentifierSourceResource`) is niet volledig unit-testbaar. Eerst splitsen (actie 3), dan testen.                                                                                        |
-| De regressiepoort zit op nieuwe code | De quality gate dwingt 60% af op nieuwe code, niet op de hele legacy-codebase. Eigen wijzigingen worden streng bewaakt terwijl legacy-schuld gefaseerd wordt afgelost.                                             |
+| De regressiepoort zit op nieuwe code | De quality gate dwingt coverage af op nieuwe code (drempel aangescherpt naar 80%), niet op de hele legacy-codebase. Eigen wijzigingen worden streng bewaakt terwijl legacy-schuld gefaseerd wordt afgelost.                                             |
 | Scope van het onderzoek              | Dit is een verbeteronderzoek op een bestaande module, geen herschrijving. 70% overall is realistisch na het PoC.                                                                                                   |
 
 Externe ijking: de brede industrie-richtlijn ligt rond 70 tot 80% als pragmatisch optimum. Google noemt 60% acceptabel, 75% prijzenswaardig en 90% voorbeeldig maar niet vereist. 70% zit in die verdedigbare middenband en sluit aan op ISO 25010 testbaarheid: risicogestuurd testen, niet uitputtend.
@@ -1205,7 +1205,7 @@ De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is
 
 Dit is een bewuste, onderbouwde uitkomst, geen tekortkoming van het PoC. De verantwoording staat in sectie 4.5: 70% is de juiste streefnorm en die wordt gefaseerd bereikt, terwijl de regressiepoort op nieuwe code de echte schuldopbouw bewaakt. Het PoC richtte zich primair op complexiteit, duplicatie en security (acties 1 tot en met 4 en 8, 9). Het verder optrekken van de coverage naar 70% is verbeteractie 3, 5 en 6.
 
-Die vervolgstap is inmiddels uitgevoerd: met 115 gerichte tests staat de line coverage lokaal op 80,3%, ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). Daarmee resteert voor de Quality Gate alleen nog dat deze meting via een SonarCloud-run op `main` wordt bevestigd na merge.
+Die vervolgstap is inmiddels uitgevoerd en gemerged naar `main`. De SonarCloud-analyse op `main` (16/06/2026 17:16) bevestigt met de 115 gerichte tests een line coverage van 80,3% (branch 60,9%), ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). De Quality Gate staat live nog op Gefaald, maar uitsluitend op de conditie Coverage on New Code: die toont 75,1% tegen de drempel van 80% op nieuwe code (aangescherpt t.o.v. de 60% Sonar Way default in Deel 2 sectie 4). Alle andere condities (Reliability, Security, Maintainability, Duplicated Lines en Security Hotspots Reviewed op nieuwe code) staan op OK. De overall coverage is daarmee gehaald; de gate hangt nog enkel op de strenge 80%-drempel voor nieuw toegevoegde regels.
 
 ### 8.6 Conclusie validatie
 
@@ -1244,7 +1244,7 @@ Gemeten met JaCoCo 0.8.x op 16/06/2026, voor en na de toegevoegde tests, identie
 
 De overall line coverage gaat van 57,4% naar 80,3%, dus ruim boven de NFR-norm van 70% en op het aanvullende doel van 80%. De suite groeit met 115 tests, allemaal groen; geen bestaande test breekt (geen regressie). Beide modules komen boven of rond 80% (api 81,5%, omod 79,5%).
 
-> De voor-waarden in deze tabel zijn de JaCoCo-meting van de PoC-staat op `main`; de per-module voor-waarden komen uit de SonarCloud-meting van 16/06. De 115 tests staan nog niet op `main`, dus een verse SonarCloud-run op `main` toont pas na merge de 80,3%. De meting hier is lokaal met JaCoCo reproduceerbaar.
+> De voor-waarden in deze tabel zijn de JaCoCo-meting van de PoC-staat op `main`; de per-module voor-waarden komen uit de SonarCloud-meting van 16/06. De 115 tests zijn inmiddels gemerged: de SonarCloud-analyse op `main` (16/06/2026 17:16) bevestigt de 80,3% line coverage (branch 60,9%), gelijk aan de lokale JaCoCo-meting. De meting is dus zowel lokaal met JaCoCo reproduceerbaar als in SonarCloud geverifieerd.
 
 #### Toegevoegde testklassen
 
