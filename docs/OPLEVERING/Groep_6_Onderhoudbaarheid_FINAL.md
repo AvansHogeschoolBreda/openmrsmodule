@@ -55,7 +55,7 @@ herleidbaar is. Dit ondersteunt het predicaat **Goed** op elk criterium.
 | **Verbeteringen: prioritering en onderbouwing (10)** | Deel 3 §8.2                     | Geprioriteerde verbeteracties met expliciete impact/effort-criteria, herleidbaar naar de meetgegevens.                                                                        |
 | **Aangepast ontwerp (20)**                           | Deel 4                           | UML voor/na, refactoringpatronen (Fowler/Kerievsky), afgewogen alternatieven gemotiveerd op kwaliteitseisen.                                                                  |
 | **Realisatie (PoC) & verantwoording (10)**           | Deel 4 §6-7                     | PoC in commits [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)/[7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc); kritische reflectie op AI-tooling met concrete handmatige correcties.     |
-| **Validatie: testen & regressie (20)**               | Deel 5 §8                       | Voor/na-metriek (SonarCloud), 151 tests groen zonder regressie, coverage doorgetrokken naar 80,3% met 115 gerichte tests.                                                     |
+| **Validatie: testen & regressie (20)**               | Deel 5 §8                       | Voor/na-metriek (SonarCloud), geen regressie, coverage doorgetrokken naar 85,6% en Quality Gate geslaagd (Coverage on New Code 84,3%) na refactoring van de God Class; nul Brain Methods (§8.8).                                                     |
 
 **Totaaloordeel groep 6 (zelfevaluatie):** alle zes criteria voldoen aan het niveau *Goed*; de onderbouwing is
 in elk Deel reproduceerbaar en herleidbaar naar concrete metingen en commits.
@@ -1205,7 +1205,7 @@ De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is
 
 Dit is een bewuste, onderbouwde uitkomst, geen tekortkoming van het PoC. De verantwoording staat in sectie 4.5: 70% is de juiste streefnorm en die wordt gefaseerd bereikt, terwijl de regressiepoort op nieuwe code de echte schuldopbouw bewaakt. Het PoC richtte zich primair op complexiteit, duplicatie en security (acties 1 tot en met 4 en 8, 9). Het verder optrekken van de coverage naar 70% is verbeteractie 3, 5 en 6.
 
-Die vervolgstap is inmiddels uitgevoerd en gemerged naar main`. De SonarCloud-analyse op `main (16/06/2026 17:16) bevestigt met de 115 gerichte tests een line coverage van 80,3% (branch 60,9%), ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). De Quality Gate staat live nog op Gefaald, maar uitsluitend op de conditie Coverage on New Code: die toont 75,1% tegen de drempel van 80% op nieuwe code (aangescherpt t.o.v. de 60% Sonar Way default in Deel 2 sectie 4). Alle andere condities (Reliability, Security, Maintainability, Duplicated Lines en Security Hotspots Reviewed op nieuwe code) staan op OK. De overall coverage is daarmee gehaald; de gate hangt nog enkel op de strenge 80%-drempel voor nieuw toegevoegde regels.
+Die vervolgstap is inmiddels uitgevoerd en gemerged naar `main`. Een eerste merge (16/06) bracht de line coverage naar 80,3%, maar de Quality Gate bleef rood op de enige resterende conditie Coverage on New Code (75,1% tegen de Sonar way-drempel van 80%; Deel 2 sectie 4 noemde nog 60%). Na het afdekken van de resterende new-code-branches met characterization tests én de refactoring van de God Class `IdentifierSourceResource` (sectie 8.8) is de gate op `main` (19/06/2026) **geslaagd**: Coverage on New Code 84,3%, alle overige condities (Reliability, Security, Maintainability, Duplicated Lines, Security Hotspots Reviewed) op OK. Daarmee is het coverage-doel zowel overall (line coverage 85,6%) als op de regressiepoort voor nieuwe code gehaald.
 
 ### 8.6 Conclusie validatie
 
@@ -1215,7 +1215,7 @@ Het PoC verbetert de onderhoudbaarheid breed en aantoonbaar zonder regressie:
 - **Doelen gehaald:** duplicatie (5,8% naar 2,1%), Security Rating (C naar A), Maintainability op nieuwe code (D naar A), Technical Debt Ratio (1,4% naar 0,4%) en open issues (204 naar 59, doel < 150).
 - **Sterk verbeterd, drempel nog niet:** Cognitive Complexity (668 naar 599), Brain Methods (CC 101 en 106 naar 21 en 20) en coverage (50,0% naar 57,4%).
 
-De verbetering is reproduceerbaar (sectie 6) en herleidbaar tot de verbeteracties (sectie 8.4). De resterende doelen (CC < 400, nul Brain Methods) zijn benoemd als gefaseerde vervolgacties met een expliciete motivatie, niet als open eindjes. Het coverage-doel is met gerichte tests doorgetrokken naar 80,3%, zie sectie 8.7.
+De verbetering is reproduceerbaar (sectie 6) en herleidbaar tot de verbeteracties (sectie 8.4). Van de resterende doelen is nul Brain Methods inmiddels gehaald met de refactoring van de God Class (sectie 8.8); alleen CC < 400 blijft een gefaseerde vervolgactie met expliciete motivatie. Het coverage-doel is met gerichte tests doorgetrokken naar 80,3% (sectie 8.7) en met de refactoring tot een geslaagde Quality Gate (Coverage on New Code 84,3%, sectie 8.8).
 
 ### 8.7 Testdekking opgehoogd naar 80%
 
@@ -1285,6 +1285,35 @@ cd openmrs-module-idgen
 mvn -B clean verify
 # JaCoCo-rapport per module: api/target/site/jacoco/index.html en omd/target/site/jacoco/index.html
 ```
+
+---
+
+### 8.8 Refactoring God Class en Quality Gate geslaagd (19/06)
+
+De laatste twee NFR-doelen die na het PoC openstonden, nul Brain Methods en een geslaagde Quality Gate, zijn met een gerichte refactoring van `IdentifierSourceResource` gehaald.
+
+**Aanleiding.** `IdentifierSourceResource` was de grootste maintainability-risicofactor (God Class, 498 LOC). Na het PoC resteerden twee Brain Methods: `createSequentialGenerator` (CC 21) en `createIdentifierPool` (CC 20), beide boven de drempel van 15 (`java:S3776`). Tegelijk hield deze klasse ongeveer de helft van alle ongedekte new-code-condities vast, waardoor de Quality Gate op Coverage on New Code bleef hangen (75,1% onder 80%).
+
+**Aanpak (Extract Class, Fowler).** De volledige payload-parsing en -opbouw (de create-, update- en handle-methoden) is uit de resource gehaald naar een nieuwe, cohesieve klasse `IdentifierSourcePayloadMapper`. De resource is daarmee een dunne CRUD-facade (van 498 naar 237 regels). Het per-veld herhaalde null/blank/parse-patroon is samengebracht in waarde-teruggevende veld-helpers (`str`, `intOrError`, `intOrThrow`, `bool`, `failIfErrors`), waardoor de twee Brain Methods van CC 21 en 20 naar ongeveer 9 en 10 zakken en de viervoudig gedupliceerde foutmelding (`java:S1192`) verdwijnt. Het REST-contract (endpoints, representaties, Swagger-modellen, validatieregels en foutmeldingen) blijft ongewijzigd. Dat is het verschil met het volledig opsplitsen in meerdere resources, dat de publieke OpenMRS-endpoints zou raken en daarom buiten scope blijft (Deel 4, sectie 3.2).
+
+**Platformbeperking.** De OpenMRS-classpathscanner leest elke class met een oude ASM-versie die invokedynamic (van lambdas en method-references) niet aankan. De helpers geven daarom bewust een waarde terug in plaats van een `Consumer` te accepteren; lambdas in dit pakket laten de hele Spring-context omvallen.
+
+**Regressievangnet.** De gedragsbehoudendheid is geborgd met characterization tests die het gedrag vastleggen, niet de implementatie: `IdentifierSourceResourceUnitTest` (pure unit, 9 tests: representaties, modellen, property-getters, validatie-foutpaden) en `IdentifierSourceResourceContextTest` (web-context, 16 tests: create en update per brontype, validatie-fouten, generate, upload- en reserveer-operaties). Beide draaien groen voor en na de refactor.
+
+**Resultaat (SonarCloud `main`, 19/06/2026):**
+
+| Metriek | Voor refactor (16/06) | Na refactor (19/06) | Doel |
+|---|---|---|---|
+| Quality Gate | Gefaald (new coverage) | **Geslaagd** | Geslaagd |
+| Coverage on New Code | 75,1% | **84,3%** | 80% |
+| Line coverage overall | 80,3% | 85,6% | 70% |
+| Cognitive Complexity totaal | 599 | 559 | < 400 (gefaseerd) |
+| Brain Methods (CC > 15) | 2 (CC 21, 20) | **0** | 0 |
+| `IdentifierSourceResource` (LOC / CC) | 498 / hoog | 237 / 15 | n.v.t. |
+| Vulnerabilities / Bugs | 0 / 0 | 0 / 0 | 0 |
+| Maintainability / Security / Reliability | A / A / A | A / A / A | A |
+
+De `IdentifierSourcePayloadMapper` (de verplaatste logica) staat op 91,7% line coverage met nul open issues; de afgeslankte resource op 98,8% line coverage. Daarmee zijn de NFR-doelen voor onderhoudbaarheid gehaald: nul Brain Methods, Quality Gate geslaagd, coverage en duplicatie ruim binnen norm. De volledige onderbouwing van het ontwerp staat in Deel 4 (Aangepast ontwerp en refactoring-onderbouwing).
 
 ---
 
