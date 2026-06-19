@@ -4,7 +4,7 @@
 
 **Module:** ATIx IN-B2.4 Softwarearchitectuur & -kwaliteit 2025-26 P4
 **Groep:** 6
-**Onderzochte module:** OpenMRS ID Generation Module (`idgen`)
+**Onderzochte module:** OpenMRS ID Generation Module (`idgen)
 **Repository:** [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)
 **Opleverdatum:** vrijdag 19 juni 2026
 **Versie:** 1.1 (final)
@@ -51,7 +51,7 @@
 
 ## Managementsamenvatting
 
-De `idgen`-module kent en beheert patiëntidentifiers en zit daarmee op een veiligheidskritiek punt in het EPD:
+De idgen`-module kent en beheert patiëntidentifiers en zit daarmee op een veiligheidskritiek punt in het EPD:
 een fout of compromittering raakt direct de **integriteit van patiëntkoppelingen** en de **vertrouwelijkheid van
 patiëntgegevens** (AVG Art. 9). Dit audit rapport legt de staat van de module en het ontwikkelplatform vast langs
 de NEN-7510:2024/2026-norm en toont de doorgevoerde verbeteringen aan.
@@ -66,7 +66,7 @@ Kernresultaten van het onderzoek:
   vooral CWE-502) met een geprioriteerd patchadvies.
 - **Code review & remediatie** - 201 code quality issues en **153 CodeQL/Dependabot-alerts** opgelost, plus
   **49 OWASP ZAP DAST-bevindingen** gemitigeerd.
-- **Pentest & mitigatie** - CVE-2015-7501 (`commons-collections`) aantoonbaar geëxploiteerd en daarna
+- **Pentest & mitigatie** - CVE-2015-7501 (`commons-collections) aantoonbaar geëxploiteerd en daarna
   gemitigeerd (upgrade 3.2 → 3.2.2); pentest ná mitigatie bevestigt risicoverlaging van CVSS 9.8 naar n.v.t.
 
 **Conclusie:** de geprioriteerde non-compliances en kwetsbaarheden zijn vastgelegd, onderbouwd en grotendeels
@@ -78,7 +78,7 @@ gemitigeerd; de resterende risico's zijn benoemd met een expliciet vervolgadvies
 
 **Kleurcodering (consistent in dit document):** 🔴 Kritiek/Rood, 🟠 Hoog/Oranje, 🟡 Gemiddeld/Middel, 🟢 Laag/Groen/Acceptabel.
 
-**Sprintindeling (op datum, gebruikt bij "Sprint(s)" per Deel):** Sprint 1 t/m 6 juni, Sprint 2 van 7-11 juni, Sprint 3 van 12-15 juni, Sprint 4 vanaf 16 juni 2026.
+**Sprintindeling (op datum, gebruikt bij "Sprint(s)" per Deel):** [Sprint 1](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint1.md) t/m 6 juni, [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md) van 7-11 juni, [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md) van 12-15 juni, [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md) vanaf 16 juni 2026.
 
 De officiële rubric *Verbeteronderzoek Security* kent zes criteria (samen 100 punten). Onderstaande tabel maakt
 expliciet waar elk criterium wordt afgedekt, zodat de beoordeling één-op-één herleidbaar is en het predicaat
@@ -103,7 +103,7 @@ mitigaties zijn herleidbaar naar de repository (commits, workflows, rapporten) e
 > **Bronbestand:** [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)
 > **Auteur(s):** Raf van Hooijdonk
 > **Gewerkt op (dagen):** 8 en 15 juni 2026
-> **Sprint(s):** Sprint 2, Sprint 3
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)
 
 ## 1. Scope en methodiek
@@ -250,7 +250,7 @@ Gemanipuleerde observatiedata (tampered of corrupted) kan leiden tot een verkeer
 **Beschikbaarheid: Hoog**
 Uitval verhindert invoer van nieuwe meetwaarden. In een klinische setting is dit direct operationeel risico. Tijdelijke uitval (minuten) is acceptabel; langdurige uitval (uren) vereist papieren noodprocedures.
 
-**Gevoelige velden:** `obs.value_numeric`, `obs.value_text`, `obs.value_coded`, `obs.concept_id` gecombineerd met `patient_id` en `encounter_id`.
+**Gevoelige velden:** `obs.value_numeric`, `obs.value_text`, `obs.value_coded`, `obs.concept_id` gecombineerd met `patient_id` en `encounter_id.
 
 **Bestaande controls:**
 
@@ -277,7 +277,7 @@ Gemanipuleerde credentials of RBAC-configuratie geven een aanvaller permanente t
 **Beschikbaarheid: Hoog**
 Als het authenticatiesysteem uitvalt, is het gehele EPD geblokkeerd voor alle gebruikers.
 
-**Gevoelige velden:** `users.password` (bcrypt hash), sessiestokens in HTTP-cookies of Authorization-headers.
+**Gevoelige velden:** users.password (bcrypt hash), sessiestokens in HTTP-cookies of Authorization-headers.
 
 **Bestaande controls:**
 
@@ -304,7 +304,7 @@ Als logs worden aangepast of verwijderd, verliest de organisatie de mogelijkheid
 **Beschikbaarheid: Hoog**
 Uitval van logging heeft geen directe impact op patienten, maar verhindert compliance-aantoonbaarheid en realtime incident detection.
 
-**Gevoelige velden:** `audit_log.user_id`, `audit_log.action`, `audit_log.object_type`, `audit_log.object_uuid`, `audit_log.date_created`.
+**Gevoelige velden:** `audit_log.user_id`, `audit_log.action`, `audit_log.object_type`, `audit_log.object_uuid`, `audit_log.date_created.
 
 **Bestaande controls:**
 
@@ -334,7 +334,7 @@ Verlies van de code is herstelbaar via git history en eventuele backups. Geen di
 
 **Bestaande controls:**
 
-- Branch protection op `main` (ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen; repo is public)
+- Branch protection op main (ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen; repo is public)
 - Verplichte PR-reviews
 - CodeQL SAST op elke push (NEN-7510 Ctrl 8.8)
 - Dependabot automatische dependency updates
@@ -401,7 +401,7 @@ Als secrets verloren gaan of rotatie mislukt, kan de pipeline niet deployen naar
 
 ### A7: SBOM en dependency-informatie
 
-De Software Bill of Materials (SBOM) bevat een overzicht van alle dependencies met versienummers en licenties. Gegenereerd via de `sbom-cyclonedx.yml` workflow (CycloneDX JSON-formaat).
+De Software Bill of Materials (SBOM) bevat een overzicht van alle dependencies met versienummers en licenties. Gegenereerd via de [sbom-cyclonedx.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sbom-cyclonedx.yml) workflow (CycloneDX JSON-formaat).
 
 **Vertrouwelijkheid: Gemiddeld**
 De SBOM onthult de volledige dependency-stack inclusief versienummers. Dit vergemakkelijkt gerichte aanvallen als een kwetsbare versie aanwezig is (aanvaller weet exact welke CVE van toepassing is). Intern is de SBOM echter noodzakelijk voor vulnerability management.
@@ -414,7 +414,7 @@ Uitval van SBOM-generatie heeft geen directe impact op patienten. Het verhindert
 
 **Bestaande controls:**
 
-- CycloneDX SBOM-generatie via Anchore/Syft bij elke push naar `main`
+- CycloneDX SBOM-generatie via Anchore/Syft bij elke push naar main`
 - SBOM opgeslagen als CI-artifact (90 dagen retentie)
 - Dependency Review Action blokkeert HIGH/CRITICAL dependencies bij PRs
 
@@ -483,7 +483,7 @@ Kans en impact gescoord op basis van de schalen in sectie 3, onderbouwd met sect
 | H6        | 2          | Log injection vereist specifieke kennis van het systeem                                                                | 3            | Audit trail verstoord, moeilijker incident response                         | 6     | 🟠 Oranje |
 | H7        | 2          | Supply chain aanvallen nemen toe (NCSC CSBN 2024), maar gerichte aanvallen op OpenMRS-specifieke modules zijn zeldzaam | 5            | Backdoor in productie, volledig systeemcompromis                            | 10    | 🟠 Oranje |
 | H8        | 2          | Vereist write-toegang tot de repo; PR-reviews zijn een barriere                                                        | 5            | Pipeline gecompromitteerd, secrets gelekt, kwaadaardige deployments         | 10    | 🟠 Oranje |
-| H9        | 3          | Menselijke fout frequent (TA3); per ongeluk `echo $SECRET` in debug-stap                                             | 4            | Secret zichtbaar in public/private logs, directe credential exposure        | 12    | 🟠 Oranje |
+| H9        | 3          | Menselijke fout frequent (TA3); per ongeluk `echo $SECRET in debug-stap                                                | 4            | Secret zichtbaar in public/private logs, directe credential exposure        | 12    | 🟠 Oranje |
 | H10       | 3          | DBIR 2024: 68% van breaches heeft menselijk element; hardcoded secrets top-10 misvatting                               | 5            | Direct credential exposure in git history; permanent zonder secret rotation | 15    | 🔴 Rood   |
 | H11       | 3          | SBOM draait op echte idgen-module (116 componenten); CVE-koppeling afhankelijk van NVD-feed synchronisatie             | 3            | Kwetsbare dependency ongepatched, maar afhankelijk van specifieke CVE       | 9     | 🟠 Oranje |
 | H12       | 3          | Configuratiefouten common bij deployment; debug-modus vergeten uit te zetten                                           | 3            | Interne informatie gelekt, aanvaller krijgt extra context                   | 9     | 🟠 Oranje |
@@ -500,7 +500,7 @@ Hazards met score 13+ (rood): **H3 (16), H1 (15), H10 (15)**.
 
 **Geselecteerde hazard voor bow-tie analyse (Deel 2): H10 (Hardcoded secret in broncode)**
 
-Keuze boven H3 (hogere score) omdat H10 beter aansluit bij de CI/CD context van dit project en de beschikbare controls (Secret Scanning ontbreekt op Free plan, Dependabot dekt dit niet). H10 illustreert ook hoe een menselijke fout (TA3) en een aanvaller (TA1) dezelfde kwetsbaarheid kunnen benutten, en hoe preventieve barrières in de pipeline (pre-commit hooks, SAST) en herstelbarrières (secret rotation, git history rewrite) samenwerken. H3 wordt meegenomen in de risicomatrix (Deel 2, `04-risicomatrix.md`).
+Keuze boven H3 (hogere score) omdat H10 beter aansluit bij de CI/CD context van dit project en de beschikbare controls (Secret Scanning ontbreekt op Free plan, Dependabot dekt dit niet). H10 illustreert ook hoe een menselijke fout (TA3) en een aanvaller (TA1) dezelfde kwetsbaarheid kunnen benutten, en hoe preventieve barrières in de pipeline (pre-commit hooks, SAST) en herstelbarrières (secret rotation, git history rewrite) samenwerken. H3 wordt meegenomen in de risicomatrix (Deel 2, [04-risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md)).
 
 ---
 
@@ -530,12 +530,12 @@ De meest kritieke assets zijn **A1 (patiëntobservaties)**, **A2 (credentials)**
 > **Bronbestand:** [Groep_6_Attack_Surface_Mapping.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Attack_Surface_Mapping.md)
 > **Auteur(s):** Rowen Albers
 > **Gewerkt op (dagen):** 13 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [6f97363](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6f97363)
 
 ## 1. Inleiding en Scope
 
-Dit document beschrijft de **Attack Surface Mapping** van de `openmrs-module-idgen` (ID Generation) module, uitgevoerd volgens de richtlijnen van **NEN-7510:2026 beheersmaatregel A.8.25 (Beveiligen tijdens de ontwikkelcyclus)**. Het doel hiervan is het systematisch identificeren van alle HTTP-endpoints, data-invoerbronnen, vertrouwensgrenzen en beveiligingsrisico's (gaps) binnen de module om de integriteit en vertrouwelijkheid van patiëntidentificatiegegevens in de zorgketen te garanderen.
+Dit document beschrijft de **Attack Surface Mapping** van de openmrs-module-idgen` (ID Generation) module, uitgevoerd volgens de richtlijnen van **NEN-7510:2026 beheersmaatregel A.8.25 (Beveiligen tijdens de ontwikkelcyclus)**. Het doel hiervan is het systematisch identificeren van alle HTTP-endpoints, data-invoerbronnen, vertrouwensgrenzen en beveiligingsrisico's (gaps) binnen de module om de integriteit en vertrouwelijkheid van patiëntidentificatiegegevens in de zorgketen te garanderen.
 
 De module beheert patiëntidentificatiemethoden (zoals lokale sequentiële generatoren, pool-gebaseerde id-lijsten en externe REST/HTTP ID-generatoren). Vanwege de directe koppeling met patiëntendossiers (EPD/OpenMRS) is deze module geclassificeerd als een **hoog-risico component** onder NEN-7510.
 
@@ -679,13 +679,13 @@ De geïdentificeerde kwetsbaarheden binnen de module worden hieronder gekoppeld 
 - **Beschrijving**: Verschillende endpoints in de controllers en REST resources (zoals `/editAutoGenerationOption.form`, `/viewLogEntries.form` en `/logentry`) controleren enkel of de gebruiker geauthenticeerd is via `Context.isAuthenticated()`. Er wordt geen fijnmazig privilege gecontroleerd (bijv. `Manage Auto Generation Options` of een specifiek audit-privilege), waardoor ongeautoriseerde ingelogde gebruikers configuraties en audit logs kunnen inzien.
 - **Risico-classificatie**: **Medium**
 - **NEN-7510 8.25 Koppeling**: Autorisatiecontroles moeten consistent en volgens het *Least Privilege* principe op alle ingangen van de applicatie worden afgedwongen.
-- **Aanbevolen Remediatie**: Voeg expliciete privilegecontroles (`@Authorized`) toe aan alle controller-endpoints.
+- **Aanbevolen Remediatie**: Voeg expliciete privilegecontroles (`@Authorized) toe aan alle controller-endpoints.
 
 ---
 
 ### Gap 2: Ontbreken van invoervalidatie bij opslaan van autogeneratie-opties
 
-- **Beschrijving**: In `AutoGenerationOptionController.java` bevat `/saveAutoGenerationOption.form` de commentaar `// TODO: Implement validation here`. Er vindt geen enkele invoervalidatie plaats op het binnengekomen `AutoGenerationOption` model, wat kan leiden tot corrupte database-states en onverwacht applicatiegedrag.
+- **Beschrijving**: In `AutoGenerationOptionController.java` bevat /saveAutoGenerationOption.form `de commentaar`// TODO: Implement validation here `. Er vindt geen enkele invoervalidatie plaats op het binnengekomen `AutoGenerationOption` model, wat kan leiden tot corrupte database-states en onverwacht applicatiegedrag.
 - **Risico-classificatie**: **Hoog**
 - **NEN-7510 8.25 Koppeling**: Alle externe data die de applicatie binnenkomen moeten syntactisch en semantisch worden gevalideerd om invoervervuiling te voorkomen.
 - **Aanbevolen Remediatie**: Implementeer een specifieke validator-klasse en roep deze aan bij het opslaan van opties.
@@ -749,13 +749,13 @@ De geïdentificeerde kwetsbaarheden binnen de module worden hieronder gekoppeld 
 - **Beschrijving**: `/module/idgen/exportReservedIdentifiers.form` controleert op geen enkele wijze of de gebruiker het privilege `Manage Identifier Sources` bezit. Elke ingelogde gebruiker kan alle gereserveerde patiënten-ID's downloaden.
 - **Risico-classificatie**: **Hoog**
 - **NEN-7510 8.25 Koppeling**: Toegang tot gevoelige systeemdata moet expliciet worden gecontroleerd op basis van het principe van minimale privileges (*Least Privilege*).
-- **Aanbevolen Remediatie**: Voeg `@Authorized(IdgenConstants.PRIV_MANAGE_IDENTIFIER_SOURCES)` toe aan dit endpoint.
+- **Aanbevolen Remediatie**: Voeg `@Authorized(IdgenConstants.PRIV_MANAGE_IDENTIFIER_SOURCES) toe aan dit endpoint.
 
 ---
 
 ### Gap 9: REST API: Koppeling van ID-generatie aan broncreatie
 
-- **Beschrijving**: In `IdentifierSourceResource.java` staat het POST endpoint `/identifiersource` toe om tegelijkertijd een bron aan te maken en identifiers te genereren via de parameter `generateIdentifiers`. Dit schendt de scheiding van taken (creatie vs. operatie).
+- **Beschrijving**: In `IdentifierSourceResource.java` staat het POST endpoint /identifiersource `toe om tegelijkertijd een bron aan te maken en identifiers te genereren via de parameter`generateIdentifiers`. Dit schendt de scheiding van taken (creatie vs. operatie).
 - **Risico-classificatie**: **Medium**
 - **NEN-7510 8.25 Koppeling**: API-ontwerpen moeten voorspelbaar, modulair en beveiligd zijn per type actie.
 - **Aanbevolen Remediatie**: Scheid broncreatie (POST op `/identifiersource`) strikt van identifier-generatie (POST op `/identifiersource/{uuid}/identifier`).
@@ -780,9 +780,9 @@ De geïdentificeerde kwetsbaarheden binnen de module worden hieronder gekoppeld 
 
 ---
 
-### Gap 12: HQL Injectie via `searchIdentifierSources`
+### Gap 12: HQL Injectie via `searchIdentifierSources
 
-- **Beschrijving**: In `BaseIdentifierSourceService.java` (regel 487-491) wordt de parameter `sourceName` direct in een HQL query-string geconcateneerd, wat SQL/HQL-injectie mogelijk maakt:
+- **Beschrijving**: In `BaseIdentifierSourceService.java` (regel 487-491) wordt de parameter sourceName` direct in een HQL query-string geconcateneerd, wat SQL/HQL-injectie mogelijk maakt:
   ```java
   String hql = "from IdentifierSource where name like '%" + sourceName + "%' and retired = false";
   return dao.executeHqlQuery(hql);
@@ -795,7 +795,7 @@ De geïdentificeerde kwetsbaarheden binnen de module worden hieronder gekoppeld 
 
 ## 6. Conclusie en Aanbevelingen
 
-De `openmrs-module-idgen` module bevat diverse fundamentele beveiligingskwetsbaarheden die in strijd zijn met de **NEN-7510 8.25** norm voor veilige softwareontwikkeling. Met name de aanwezigheid van een **HQL-injectie** (Gap 12) in de service-laag en het bewust kunnen omzeilen van invoervalidatie via de client (Gap 5) vormen acute risico's voor de integriteit van de zorgapplicatie.
+De `openmrs-module-idgen module bevat diverse fundamentele beveiligingskwetsbaarheden die in strijd zijn met de **NEN-7510 8.25** norm voor veilige softwareontwikkeling. Met name de aanwezigheid van een **HQL-injectie** (Gap 12) in de service-laag en het bewust kunnen omzeilen van invoervalidatie via de client (Gap 5) vormen acute risico's voor de integriteit van de zorgapplicatie.
 
 ### Actiepunten voor het Ontwikkelteam:
 
@@ -810,7 +810,7 @@ De `openmrs-module-idgen` module bevat diverse fundamentele beveiligingskwetsbaa
 > **Bronbestand:** [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md)
 > **Auteur(s):** Sinan Sagir, Raf van Hooijdonk
 > **Gewerkt op (dagen):** 8, 9 en 15 juni 2026
-> **Sprint(s):** Sprint 2, Sprint 3
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [55541f6](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/55541f6), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)
 
 ## Bronnen
@@ -825,20 +825,20 @@ De `openmrs-module-idgen` module bevat diverse fundamentele beveiligingskwetsbaa
 - [Detect-secrets tool (Yelp)](https://github.com/Yelp/detect-secrets)
 - [NCSC Cybersecuritybeeld Nederland (CSBN) 2024](https://www.ncsc.nl/actueel/nieuws/2024/juni/18/cybersecuritybeeld-nederland-2024)
 - [Verizon Data Breach Investigations Report (DBIR) 2024](https://www.verizon.com/business/resources/reports/dbir/)
-- Groep_6_Asset-Identificatie.md (hazard-definitie en scorering H10)
+- [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) (hazard-definitie en scorering H10)
 
 ---
 
 ## 1. Scope
 
-Dit document werkt de bow-tie analyse uit voor hazard **H10: Hardcoded secret in broncode**. H10 is geselecteerd als bow-tie onderwerp in `Groep_6_Asset-Identificatie.md` (sectie 6.3) omdat het:
+Dit document werkt de bow-tie analyse uit voor hazard **H10: Hardcoded secret in broncode**. H10 is geselecteerd als bow-tie onderwerp in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) (sectie 6.3) omdat het:
 
 1. Een score van 15 heeft (rood), wat onmiddellijke actie verplicht.
 2. Direct verband houdt met de CI/CD-context van dit project.
 3. Illustreert hoe een menselijke fout (TA3) en een aanvaller (TA1) dezelfde kwetsbaarheid benutten via verschillende oorzaken.
 4. Aantoont hoe preventieve barrières in de pipeline samenwerken met herstelbarrières na het incident.
 
-Buiten scope: de volledige hazard-analyse voor alle assets. Die staat in `Groep_6_Asset-Identificatie.md`. De CI/CD-specifieke risicomatrix en bow-tie voor H8 staan in `Groep_6_Risicomatrix.md`.
+Buiten scope: de volledige hazard-analyse voor alle assets. Die staat in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md). De CI/CD-specifieke risicomatrix en bow-tie voor H8 staan in [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md).
 
 ---
 
@@ -885,7 +885,7 @@ flowchart LR
     O4["O4: Copy-paste fout uit CI-configuratie"]:::oorzaak
 
     PB1["PB1: Pre-commit hook detect-secrets"]:::barrPrev
-    PB2["PB2: .gitignore validatie"]:::barrPrev
+    PB2["PB2: [.gitignore](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.gitignore) validatie"]:::barrPrev
     PB3["PB3: PR-review verplicht"]:::barrPrev
     PB4["PB4: CodeQL SAST-scan"]:::barrPrev
 
@@ -924,7 +924,7 @@ Oorzaken en gevolgen zijn rood gemarkeerd.
 | -- | ---------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------- |
 | O1 | Developer typt credential direct in broncode                     | TA3 (onbewuste fout) | Tijdelijk voor test, vergeet te verwijderen. DBIR 2024: 68% van breaches heeft menselijk element. |
 | O2 | .env of configuratiebestand per ongeluk gecommit                 | TA3                  | Ontbrekende of onjuiste .gitignore-regel.                                                         |
-| O3 | Secret geprint in debug-output vastgelegd in broncode            | TA3                  | `System.out.println` of `console.log` met credential-waarde.                                  |
+| O3 | Secret geprint in debug-output vastgelegd in broncode            | TA3                  | System.out.println `of`console.log met credential-waarde.                                       |
 | O4 | Copy-paste fout: credential vanuit CI-configuratie naar broncode | TA3, TA2             | Deployment token of database-credential handmatig overgezet bij het debuggen van een workflow.    |
 
 ---
@@ -933,12 +933,12 @@ Oorzaken en gevolgen zijn rood gemarkeerd.
 
 Preventieve barrières bevinden zich tussen de oorzaken en het top-event. Ze proberen te voorkomen dat het secret in de git history terechtkomt.
 
-| ID  | Barrière                                     | Werking                                                                                                                           | NEN-7510  | Huidig actief?                                                          |
-| --- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------- |
-| PB1 | Pre-commit hook (detect-secrets)              | Scant elke commit automatisch op credential-patronen voor de commit plaatsvindt. Blokkeert de commit als een patroon overeenkomt. | Ctrl 8.8  | Nee: niet geconfigureerd in dit project                                 |
-| PB2 | .gitignore voor .env en configuratiebestanden | Verhindert dat gevoelige configuratiebestanden worden gestaaged.                                                                  | Ctrl 5.17 | Gedeeltelijk: .gitignore aanwezig maar niet gevalideerd op volledigheid |
-| PB3 | Verplichte PR-review voor merge naar main     | Tweede persoon controleert de code inclusief eventuele credentials.                                                               | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public)          |
-| PB4 | CodeQL SAST-scan op elke push                 | Detecteert CWE-321 (hardcoded cryptographic keys) en vergelijkbare patronen in de Java-code.                                      | Ctrl 8.8  | ✅ Actief op echte idgen-module                                         |
+| ID  | Barrière                                                                                                                | Werking                                                                                                                           | NEN-7510  | Huidig actief?                                                                                                                                    |
+| --- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PB1 | Pre-commit hook (detect-secrets)                                                                                         | Scant elke commit automatisch op credential-patronen voor de commit plaatsvindt. Blokkeert de commit als een patroon overeenkomt. | Ctrl 8.8  | Nee: niet geconfigureerd in dit project                                                                                                           |
+| PB2 | [.gitignore](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.gitignore) voor .env en configuratiebestanden | Verhindert dat gevoelige configuratiebestanden worden gestaaged.                                                                  | Ctrl 5.17 | Gedeeltelijk:[.gitignore](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.gitignore) aanwezig maar niet gevalideerd op volledigheid |
+| PB3 | Verplichte PR-review voor merge naar main                                                                                | Tweede persoon controleert de code inclusief eventuele credentials.                                                               | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public)                                                                                    |
+| PB4 | CodeQL SAST-scan op elke push                                                                                            | Detecteert CWE-321 (hardcoded cryptographic keys) en vergelijkbare patronen in de Java-code.                                      | Ctrl 8.8  | ✅ Actief op echte idgen-module                                                                                                                   |
 
 ---
 
@@ -970,12 +970,12 @@ Escalation factors verzwakken een preventieve barrière. Als een escalation fact
 
 Herstelbarrières bevinden zich tussen het top-event en de gevolgen. Ze beperken de schade nadat het secret al in de git history staat.
 
-| ID  | Barrière                                 | Werking                                                                                                                                                                                          | NEN-7510        | Huidig actief?                                                           |
-| --- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------------------------------------------ |
-| HB1 | Onmiddellijke secret rotatie en revocatie | Het gecompromitteerde secret intrekken in GitHub Environments en vervangen door een nieuw secret. Beperkt de window of opportunity voor de aanvaller direct.                                     | Ctrl 8.24, 5.17 | Handmatig mogelijk via GitHub Settings                                   |
-| HB2 | Git history rewrite via BFG Repo-Cleaner  | Secret verwijderen uit alle vorige commits via BFG Repo-Cleaner of `git filter-repo`, gevolgd door een force-push naar alle branches. Verwijdert het secret uit de doorzoekbare git history.   | Ctrl 8.8        | Niet geautomatiseerd; handmatige procedure vereist                       |
-| HB3 | Audit log review                          | GitHub Actions logs en access logs controleren op ongeautoriseerd gebruik van het gecompromitteerde secret. Bepaalt of de aanvaller het secret al heeft gebruikt en welke systemen geraakt zijn. | Ctrl 8.15       | Actief: GitHub Actions logs beschikbaar (90 dagen retentie op Free plan) |
-| HB4 | Incident response en AVG-meldplicht       | Beoordelen of patiëntdata gelekt is. Bij bevestiging: meldplicht AVG Art. 33 (72 uur bij AP) en bij hoog risico voor betrokkenen ook Art. 34. Intern incident-rapport opstellen.                | Ctrl 6.8        | Procedure beschreven in SECURITY.md                                      |
+| ID  | Barrière                                 | Werking                                                                                                                                                                                          | NEN-7510        | Huidig actief?                                                                                                 |
+| --- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------------------------- |
+| HB1 | Onmiddellijke secret rotatie en revocatie | Het gecompromitteerde secret intrekken in GitHub Environments en vervangen door een nieuw secret. Beperkt de window of opportunity voor de aanvaller direct.                                     | Ctrl 8.24, 5.17 | Handmatig mogelijk via GitHub Settings                                                                         |
+| HB2 | Git history rewrite via BFG Repo-Cleaner  | Secret verwijderen uit alle vorige commits via BFG Repo-Cleaner of git filter-repo, gevolgd door een force-push naar alle branches. Verwijdert het secret uit de doorzoekbare git history.       | Ctrl 8.8        | Niet geautomatiseerd; handmatige procedure vereist                                                             |
+| HB3 | Audit log review                          | GitHub Actions logs en access logs controleren op ongeautoriseerd gebruik van het gecompromitteerde secret. Bepaalt of de aanvaller het secret al heeft gebruikt en welke systemen geraakt zijn. | Ctrl 8.15       | Actief: GitHub Actions logs beschikbaar (90 dagen retentie op Free plan)                                       |
+| HB4 | Incident response en AVG-meldplicht       | Beoordelen of patiëntdata gelekt is. Bij bevestiging: meldplicht AVG Art. 33 (72 uur bij AP) en bij hoog risico voor betrokkenen ook Art. 34. Intern incident-rapport opstellen.                | Ctrl 6.8        | Procedure beschreven in[SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md) |
 
 ---
 
@@ -1014,12 +1014,12 @@ HB3 (audit log review) en HB4 (incident response) zijn alleen effectief als er l
 
 ## 13. Koppeling naar andere deliverables
 
-| Deliverable                         | Koppeling                                                                                         |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
-| Groep_6_Asset-Identificatie.md      | Hazard H10, scorering (15, rood) en keuze voor deze bow-tie zijn vastgelegd in sectie 6.3         |
-| Groep_6_Risicomatrix.md             | H10 is opgenomen in de CI/CD risicomatrix; bow-tie voor H8 staat in dat document                  |
-| Opdracht 4: Security backlog        | H10 levert bevinding F-H10 in de security backlog (CWE-321, CVSS contextueel, NEN-7510 Ctrl 8.24) |
-| Opdracht 5: Secure Coding & Logging | Audit mindset sectie 12 is directe input voor de logging gap                                      |
+| Deliverable                                                                                                                                                                                               | Koppeling                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) | Hazard H10, scorering (15, rood) en keuze voor deze bow-tie zijn vastgelegd in sectie 6.3         |
+| [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md)               | H10 is opgenomen in de CI/CD risicomatrix; bow-tie voor H8 staat in dat document                  |
+| Opdracht 4: Security backlog                                                                                                                                                                              | H10 levert bevinding F-H10 in de security backlog (CWE-321, CVSS contextueel, NEN-7510 Ctrl 8.24) |
+| Opdracht 5: Secure Coding & Logging                                                                                                                                                                       | Audit mindset sectie 12 is directe input voor de logging gap                                      |
 
 ---
 
@@ -1028,7 +1028,7 @@ HB3 (audit log review) en HB4 (incident response) zijn alleen effectief als er l
 > **Bronbestand:** [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md)
 > **Auteur(s):** Sinan Sagir, Raf van Hooijdonk
 > **Gewerkt op (dagen):** 8, 9 en 15 juni 2026
-> **Sprint(s):** Sprint 2, Sprint 3
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [54ea8fb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/54ea8fb), [1913f00](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/1913f00), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f)
 
 ## Bronnen
@@ -1043,8 +1043,8 @@ HB3 (audit log review) en HB4 (incident response) zijn alleen effectief als er l
 - [GitHub Actions: Security hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
 - [NCSC Cybersecuritybeeld Nederland (CSBN) 2024](https://www.ncsc.nl/actueel/nieuws/2024/juni/18/cybersecuritybeeld-nederland-2024)
 - [Verizon Data Breach Investigations Report (DBIR) 2024](https://www.verizon.com/business/resources/reports/dbir/)
-- Groep_6_Asset-Identificatie.md (hazard-definities H8-H11, scoreschaal en risk appetite)
-- Groep_6_Bow-Tie.md (bow-tie analyse H10)
+- [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) (hazard-definities H8-H11, scoreschaal en risk appetite)
+- [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md) (bow-tie analyse H10)
 
 ---
 
@@ -1054,7 +1054,7 @@ Dit document bevat de risico evaluatie voor de CI/CD pipeline van het OpenMRS mo
 
 Binnen scope:
 
-- GitHub Actions workflows: `ci-build-test.yml`, `sast-codeql.yml`, `sca-dependency-review.yml`, `sbom-cyclonedx.yml`
+- GitHub Actions workflows: [ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml), [sast-codeql.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sast-codeql.yml), [sca-dependency-review.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sca-dependency-review.yml), [sbom-cyclonedx.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sbom-cyclonedx.yml)
 - GitHub Environments: production (1 protection rule, 1 secret), test (1 secret)
 - Secrets en toegangscontrole in de pipeline
 - Dependencies beheerd via Maven en Dependabot
@@ -1067,10 +1067,10 @@ Buiten scope: de OpenMRS module zelf (assets A1-A3, A7-A8 uit de asset-identific
 
 De risico-identificatie is gebaseerd op:
 
-1. Hazards H8-H11 uit `Groep_6_Asset-Identificatie.md` die direct betrekking hebben op de CI/CD pipeline (assets A5 en A6).
+1. Hazards H8-H11 uit [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) die direct betrekking hebben op de CI/CD pipeline (assets A5 en A6).
 2. Aanvullende CI/CD-specifieke risico's op basis van de OWASP Top 10 CI/CD Security Risks en de concrete pipeline-inrichting uit Opdracht 1.
 
-Scores (kans x impact) volgen de schalen en grenswaarden uit `Groep_6_Asset-Identificatie.md` sectie 3:
+Scores (kans x impact) volgen de schalen en grenswaarden uit [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) sectie 3:
 
 - Groen (1-4): acceptabel, jaarlijkse herbeoordeling
 - Oranje (5-12): mitigatie verplicht binnen 3 maanden
@@ -1084,14 +1084,14 @@ De bow-tie analyse voor het hoogste CI/CD-specifieke risico (H8: Workflow poison
 
 De CI/CD pipeline bestaat uit de volgende componenten (Opdracht 1):
 
-| Component         | Bestand of instelling     | Functie                                                                                          |
-| ----------------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
-| Build en test     | ci-build-test.yml         | Maven build en JUnit-tests op elke push en PR                                                    |
-| SAST              | sast-codeql.yml           | CodeQL statische analyse op Java-code                                                            |
-| Dependency check  | sca-dependency-review.yml | Blokkeert HIGH/CRITICAL dependencies bij PRs naar main                                           |
-| SBOM-generatie    | sbom-cyclonedx.yml        | CycloneDX JSON-artifact bij elke push naar main                                                  |
-| Environments      | Settings: Environments    | production (1 protection rule) en test (1 secret)                                                |
-| Branch protection | Settings → Rules         | Ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen (repo is public) |
+| Component         | Bestand of instelling                                                                                                                 | Functie                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Build en test     | [ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml)                 | Maven build en JUnit-tests op elke push en PR                                                    |
+| SAST              | [sast-codeql.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sast-codeql.yml)                     | CodeQL statische analyse op Java-code                                                            |
+| Dependency check  | [sca-dependency-review.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sca-dependency-review.yml) | Blokkeert HIGH/CRITICAL dependencies bij PRs naar main                                           |
+| SBOM-generatie    | [sbom-cyclonedx.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sbom-cyclonedx.yml)               | CycloneDX JSON-artifact bij elke push naar main                                                  |
+| Environments      | Settings: Environments                                                                                                                | production (1 protection rule) en test (1 secret)                                                |
+| Branch protection | Settings → Rules                                                                                                                     | Ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" actief en volledig afgedwongen (repo is public) |
 
 ---
 
@@ -1118,11 +1118,11 @@ Een developer commit per ongeluk een wachtwoord, API-sleutel of deployment token
 
 Kans: 3. DBIR 2024 registreert dat 68% van datalekken een menselijk element heeft. Hardcoded credentials staan consistent in de OWASP CI/CD Security Risks top 6.
 
-Impact: 5. Directe toegang tot productiedatabase en patiëntdata. AVG Art. 33 meldplicht actief. Zie `Groep_6_Bow-Tie.md` voor de volledige analyse.
+Impact: 5. Directe toegang tot productiedatabase en patiëntdata. AVG Art. 33 meldplicht actief. Zie [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md) voor de volledige analyse.
 
 **H9: Secrets exfiltratie via workflow-logs (score 12, oranje)**
 
-Een developer voegt een debug-stap toe aan een workflow die een secret naar de logs schrijft (bv. via `echo`, `env`, of een foutmelding die de waarde bevat). GitHub maskeert geregistreerde secrets automatisch, maar deze masking kan worden omzeild door encoding of splitsing van de waarde.
+Een developer voegt een debug-stap toe aan een workflow die een secret naar de logs schrijft (bv. via echo `, `env`, of een foutmelding die de waarde bevat). GitHub maskeert geregistreerde secrets automatisch, maar deze masking kan worden omzeild door encoding of splitsing van de waarde.
 
 Kans: 3. Menselijke fout is frequent; debug-stappen worden vergeten te verwijderen. DBIR 2024: menselijk element in meerderheid van lekken.
 
@@ -1146,7 +1146,7 @@ Impact: 3. Kwetsbare dependency in productie, maar exploiteerbaar alleen via een
 
 **C1: Onveilige third-party Actions (geen SHA-pinning) (score 8, oranje)**
 
-De huidige workflows verwijzen naar third-party actions via een versie-tag (bv. `actions/checkout@v4`). Als de tag door de publisher wordt overschreven met kwaadaardige code, wordt die automatisch uitgevoerd in de pipeline-context met toegang tot secrets. Dit is OWASP CICD-SEC-3.
+De huidige workflows verwijzen naar third-party actions via een versie-tag (bv. `actions/checkout@v4). Als de tag door de publisher wordt overschreven met kwaadaardige code, wordt die automatisch uitgevoerd in de pipeline-context met toegang tot secrets. Dit is OWASP CICD-SEC-3.
 
 Kans: 2. Vereist compromittering van de action-publisher. Zeldzaam maar met hoge impact: XZ Utils (CVE-2024-3094) en Log4Shell (CVE-2021-44228) toonden aan dat supply chain aanvallen reeel zijn.
 
@@ -1164,7 +1164,7 @@ Impact: 4. Ongeteste of kwaadaardige code bereikt productie zonder controle.
 
 ## 5. Risicomatrix (visueel)
 
-De matrix toont impact (verticaal, 1-5) versus kans (horizontaal, 1-5). Kleuren conform grenswaarden in `Groep_6_Asset-Identificatie.md` sectie 3.4.
+De matrix toont impact (verticaal, 1-5) versus kans (horizontaal, 1-5). Kleuren conform grenswaarden in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) sectie 3.4.
 
 ```mermaid
 block-beta
@@ -1200,14 +1200,14 @@ Geen enkel CI/CD-risico scoort groen. H10 is het enige rode risico (score 15).
 
 ## 6. Prioritering
 
-| Prioriteit | Risk ID | Score          | Verplichte actie                                                                                                                                      |
-| ---------- | ------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1          | H10     | 15 (🔴 Rood)   | Onmiddellijke actie. Pre-commit hook (detect-secrets) configureren. Secret Scanning upgraden zodra plan het toelaat. Zie Groep_6_Bow-Tie.md.          |
-| 2          | H9      | 12 (🟠 Oranje) | Mitigatie binnen 3 maanden. Expliciete `permissions: read-all` als default in alle workflows. Geen secrets in `echo`-statements.                  |
-| 3          | H8      | 10 (🟠 Oranje) | Mitigatie binnen 3 maanden. SHA-pinning voor alle third-party actions. Expliciete permissions per workflow-job. Bow-tie uitgewerkt in sectie 7.       |
-| 4          | H11     | 9 (🟠 Oranje)  | SBOM-analyse actief op echte module (Opdracht 4 ✅). Restrisico: NVD-feed vertraging en 90 dagen artifact-retentie.                                   |
-| 5          | C1      | 8 (🟠 Oranje)  | Mitigatie binnen 3 maanden. SHA-pinning is een eenvoudige directe fix.                                                                                |
-| 6          | C2      | 8 (🟠 Oranje)  | Branch protection volledig actief (repo is public). Restrisico: admin kan ruleset tijdelijk uitschakelen. Production environment heeft approval gate. |
+| Prioriteit | Risk ID | Score          | Verplichte actie                                                                                                                                                                                                                                                                                           |
+| ---------- | ------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1          | H10     | 15 (🔴 Rood)   | Onmiddellijke actie. Pre-commit hook (detect-secrets) configureren. Secret Scanning upgraden zodra plan het toelaat. Zie[Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md). |
+| 2          | H9      | 12 (🟠 Oranje) | Mitigatie binnen 3 maanden. Expliciete permissions: read-all `als default in alle workflows. Geen secrets in`echo`-statements.                                                                                                                                                                           |
+| 3          | H8      | 10 (🟠 Oranje) | Mitigatie binnen 3 maanden. SHA-pinning voor alle third-party actions. Expliciete permissions per workflow-job. Bow-tie uitgewerkt in sectie 7.                                                                                                                                                            |
+| 4          | H11     | 9 (🟠 Oranje)  | SBOM-analyse actief op echte module (Opdracht 4 ✅). Restrisico: NVD-feed vertraging en 90 dagen artifact-retentie.                                                                                                                                                                                        |
+| 5          | C1      | 8 (🟠 Oranje)  | Mitigatie binnen 3 maanden. SHA-pinning is een eenvoudige directe fix.                                                                                                                                                                                                                                     |
+| 6          | C2      | 8 (🟠 Oranje)  | Branch protection volledig actief (repo is public). Restrisico: admin kan ruleset tijdelijk uitschakelen. Production environment heeft approval gate.                                                                                                                                                      |
 
 ---
 
@@ -1280,11 +1280,11 @@ flowchart LR
 
 ### 7.4 Preventieve barrières
 
-| ID  | Barrière                                                       | Werking                                                                                                                             | NEN-7510  | Huidig actief?                                                                         |
-| --- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
-| PB1 | Verplichte PR-review voor wijzigingen in `.github/workflows/` | Tweede persoon controleert workflow-wijzigingen voor merge.                                                                         | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public)                         |
-| PB2 | Branch protection op main                                       | Verhindert directe pushes naar main zonder PR.                                                                                      | Ctrl 8.9  | ✅ Actief en volledig afgedwongen via ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" |
-| PB3 | Minimale GITHUB_TOKEN permissies per workflow-job               | Beperkt wat een kwaadaardige workflow kan doen. Een workflow zonder expliciete `permissions` erft brede write-rechten op de repo. | Ctrl 8.9  | Niet geconfigureerd: geen expliciete permissions in huidige workflows                  |
+| ID  | Barrière                                                       | Werking                                                                                                                          | NEN-7510  | Huidig actief?                                                                         |
+| --- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
+| PB1 | Verplichte PR-review voor wijzigingen in `.github/workflows/` | Tweede persoon controleert workflow-wijzigingen voor merge.                                                                      | Ctrl 5.36 | ✅ Actief en volledig afgedwongen via ruleset (repo is public)                         |
+| PB2 | Branch protection op main                                       | Verhindert directe pushes naar main zonder PR.                                                                                   | Ctrl 8.9  | ✅ Actief en volledig afgedwongen via ruleset "Protect main – NEN-7510 Ctrl 8.4/8.32" |
+| PB3 | Minimale GITHUB_TOKEN permissies per workflow-job               | Beperkt wat een kwaadaardige workflow kan doen. Een workflow zonder expliciete `permissions erft brede write-rechten op de repo. | Ctrl 8.9  | Niet geconfigureerd: geen expliciete permissions in huidige workflows                  |
 
 ### 7.5 Escalation factors (preventief)
 
@@ -1305,12 +1305,12 @@ flowchart LR
 
 ### 7.7 Herstelbarrières
 
-| ID  | Barrière                                                   | Werking                                                                                                                               | NEN-7510        | Huidig actief?                                              |
-| --- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----------------------------------------------------------- |
-| HB1 | Workflow-run annuleren en kwaadaardige workflow verwijderen | Actieve run stoppen via GitHub Actions UI. Kwaadaardige workflow-commit revertten via een nieuwe PR.                                  | Ctrl 8.8        | Handmatig mogelijk                                          |
-| HB2 | Alle secrets intrekken en roteren                           | Deployment tokens en database-credentials onmiddellijk intrekken in GitHub Environments en vervangen door nieuwe waarden.             | Ctrl 8.24, 5.17 | Handmatig mogelijk via GitHub Settings                      |
-| HB3 | Audit log review: GitHub Actions logs controleren           | Bepalen welke stappen zijn uitgevoerd, of secrets zijn geleaked en of productie geraakt is.                                           | Ctrl 8.15       | Actief: GitHub Actions logs beschikbaar (90 dagen retentie) |
-| HB4 | Incident response: beoordelen of productie geraakt is       | Deploymenthistorie controleren. Bij bevestiging: rollback naar vorige versie, AVG Art. 33 beoordelen als patiëntdata bereikbaar was. | Ctrl 6.8        | Procedure beschreven in SECURITY.md                         |
+| ID  | Barrière                                                   | Werking                                                                                                                               | NEN-7510        | Huidig actief?                                                                                                 |
+| --- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------- |
+| HB1 | Workflow-run annuleren en kwaadaardige workflow verwijderen | Actieve run stoppen via GitHub Actions UI. Kwaadaardige workflow-commit revertten via een nieuwe PR.                                  | Ctrl 8.8        | Handmatig mogelijk                                                                                             |
+| HB2 | Alle secrets intrekken en roteren                           | Deployment tokens en database-credentials onmiddellijk intrekken in GitHub Environments en vervangen door nieuwe waarden.             | Ctrl 8.24, 5.17 | Handmatig mogelijk via GitHub Settings                                                                         |
+| HB3 | Audit log review: GitHub Actions logs controleren           | Bepalen welke stappen zijn uitgevoerd, of secrets zijn geleaked en of productie geraakt is.                                           | Ctrl 8.15       | Actief: GitHub Actions logs beschikbaar (90 dagen retentie)                                                    |
+| HB4 | Incident response: beoordelen of productie geraakt is       | Deploymenthistorie controleren. Bij bevestiging: rollback naar vorige versie, AVG Art. 33 beoordelen als patiëntdata bereikbaar was. | Ctrl 6.8        | Procedure beschreven in[SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md) |
 
 ### 7.8 Escalation factors (correctief)
 
@@ -1340,22 +1340,22 @@ flowchart LR
 
 Alle zes geidentificeerde CI/CD-risico's scoren oranje of rood. Er zijn geen groene risico's in de pipeline. De belangrijkste bevindingen:
 
-1. H10 (hardcoded secret, rood) vereist onmiddellijke actie. De bow-tie staat in `Groep_6_Bow-Tie.md`.
+1. H10 (hardcoded secret, rood) vereist onmiddellijke actie. De bow-tie staat in [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md).
 2. H8 (workflow poisoning) heeft de hoogste impact van alle CI/CD-risico's. De kans is laag, maar het effect is catastrofaal. Mitigatie via expliciete workflow-permissions en SHA-pinning is relatief eenvoudig te implementeren.
 3. H9 en C1 zijn snel te mitigeren via kleine wijzigingen in de workflow-YAML.
 4. C2 is een structurele beperking van het GitHub Free plan en is niet oplosbaar zonder een plan-upgrade.
 
-Het residuele risico na alle haalbare mitigaties: C2 blijft open. Dit is gedocumenteerd in `docs/checklist.md` eis #1.
+Het residuele risico na alle haalbare mitigaties: C2 blijft open. Dit is gedocumenteerd in [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md) eis #1.
 
 ---
 
 ## 10. Koppeling naar andere deliverables
 
-| Deliverable                                                        | Koppeling                                                                           |
-| ------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| Groep_6_Asset-Identificatie.md                                     | Hazards H8-H11 met scorering, onderbouwing en STRIDE-koppeling zijn hier vastgelegd |
-| Groep_6_Bow-Tie.md                                                 | Bow-tie voor H10 (hardcoded secret) is het zusterdocument van deze risicomatrix     |
-| Opdracht 1: ci-build-test.yml, sast-codeql.yml, sbom-cyclonedx.yml | Pipeline-componenten die worden geëvalueerd in sectie 3                            |
+| Deliverable                                                                                                                                                                                                                                                                                                                                                                  | Koppeling                                                                           |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)                                                                                                                                                                    | Hazards H8-H11 met scorering, onderbouwing en STRIDE-koppeling zijn hier vastgelegd |
+| [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md)                                                                                                                                                                                            | Bow-tie voor H10 (hardcoded secret) is het zusterdocument van deze risicomatrix     |
+| Opdracht 1:[ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml), [sast-codeql.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sast-codeql.yml), [sbom-cyclonedx.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sbom-cyclonedx.yml) | Pipeline-componenten die worden geëvalueerd in sectie 3                            |
 
 ---
 
@@ -1364,7 +1364,7 @@ Het residuele risico na alle haalbare mitigaties: C2 blijft open. Dit is gedocum
 > **Bronbestand:** [Groep_6_DPIA-Check.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_DPIA-Check.md)
 > **Auteur(s):** Sinan Sagir
 > **Gewerkt op (dagen):** 13 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a)
 
 ## Bronnen
@@ -1373,15 +1373,15 @@ Het residuele risico na alle haalbare mitigaties: C2 blijft open. Dit is gedocum
 - [WP248 rev.01: Guidelines on Data Protection Impact Assessment (Art. 29 Working Party)](https://ec.europa.eu/newsroom/article29/items/611236)
 - [Autoriteit Persoonsgegevens: DPIA uitvoeren](https://www.autoriteitpersoonsgegevens.nl/themas/beveiliging/data-protection-impact-assessment-dpia)
 - [NEN-7510:2026 (informatiebeveiliging in de zorg)](https://www.nen.nl/nen-7510)
-- Groep_6_Asset-Identificatie.md
-- Groep_6_Logging_Gap_Analyse.md
-- Groep_6_Bow-Tie.md
+- [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)
+- [Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md)
+- [Groep_6_Bow-Tie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Bow-Tie.md)
 
 ---
 
 ## 1. Scope
 
-Dit document beoordeelt of de verwerking van persoonsgegevens door de `openmrs-module-idgen` een verplichte Data Protection Impact Assessment (DPIA) vereist conform AVG artikel 35.
+Dit document beoordeelt of de verwerking van persoonsgegevens door de openmrs-module-idgen een verplichte Data Protection Impact Assessment (DPIA) vereist conform AVG artikel 35.
 
 Binnen scope: de module zelf, de gegenereerde identifiers, de auditlogs die door de module worden weggeschreven, en de endpoints waarop de module persoonsgegevens verwerkt.
 
@@ -1395,9 +1395,9 @@ De pre-assessment volgt de negen drempelcriteria uit [WP248 rev.01](https://ec.e
 
 De beoordeling is gebaseerd op:
 
-1. Analyse van de module-broncode en de uitgevoerde Logging Gap-Analyse (Groep_6_Logging_Gap_Analyse.md).
-2. De Asset-Identificatie en BIV-analyse (Groep_6_Asset-Identificatie.md).
-3. De beveiligingsbevindingen uit de Security-Analyse (Groep_6_Security-Analyse.md).
+1. Analyse van de module-broncode en de uitgevoerde Logging Gap-Analyse ([Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md)).
+2. De Asset-Identificatie en BIV-analyse ([Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)).
+3. De beveiligingsbevindingen uit de Security-Analyse ([Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)).
 
 ---
 
@@ -1405,13 +1405,13 @@ De beoordeling is gebaseerd op:
 
 ### 3.1 Welke persoonsgegevens verwerkt de module?
 
-De `idgen`-module genereert en beheert patiëntidentificatienummers binnen OpenMRS. De volgende persoonsgegevens komen voor:
+De idgen`-module genereert en beheert patiëntidentificatienummers binnen OpenMRS. De volgende persoonsgegevens komen voor:
 
-| Gegevenscategorie                                | Omschrijving                                                                                                                                             | AVG-categorie                                                                                                                     |
-| ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Patiëntidentifiers (PID)                        | Door de module gegenereerde nummers die direct verwijzen naar patiëntdossiers                                                                           | Indirect bijzondere categorie (Art. 9): via de dossierrelatie worden gezondheidsinformatie en identifiers onlosmakelijk gekoppeld |
-| Gebruikersinformatie in auditlogs                | UserID en gebruikersnaam van zorgverleners, vastgelegd per audit-event via `Context.getAuthenticatedUser()`                                            | Gewone persoonsgegevens (Art. 6) van medewerkers                                                                                  |
-| Credentials in URL-parameters (vóór mitigatie) | Het endpoint `/exportIdentifiers.form` accepteerde `username` en `password` als queryparameter; deze kwamen daardoor in server-access logs terecht | Bijzonder gevoelig: inloggegevens                                                                                                 |
+| Gegevenscategorie                                | Omschrijving                                                                                                                                          | AVG-categorie                                                                                                                     |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Patiëntidentifiers (PID)                        | Door de module gegenereerde nummers die direct verwijzen naar patiëntdossiers                                                                        | Indirect bijzondere categorie (Art. 9): via de dossierrelatie worden gezondheidsinformatie en identifiers onlosmakelijk gekoppeld |
+| Gebruikersinformatie in auditlogs                | UserID en gebruikersnaam van zorgverleners, vastgelegd per audit-event via `Context.getAuthenticatedUser()`                                         | Gewone persoonsgegevens (Art. 6) van medewerkers                                                                                  |
+| Credentials in URL-parameters (vóór mitigatie) | Het endpoint `/exportIdentifiers.form` accepteerde `username` en `password als queryparameter; deze kwamen daardoor in server-access logs terecht | Bijzonder gevoelig: inloggegevens                                                                                                 |
 
 ### 3.2 Verwerkingsgrondslag
 
@@ -1426,33 +1426,33 @@ De idgen-module verwerkt zelf geen directe gezondheidsgegevens (diagnoses, behan
 
 ## 4. AVG Art. 35 Drempeltoets
 
-| # | Criterium (WP248 rev.01)                                                 | Van toepassing? | Motivatie                                                                                                                                                                                                 |
-| - | ------------------------------------------------------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | Profilering of scoring van personen                                      | Nee             | De module kent nummers toe. Er worden geen gedragsprofielen of scores over personen aangemaakt.                                                                                                           |
-| 2 | Geautomatiseerde besluitvorming met rechtsgevolg of aanzienlijke invloed | Nee             | Er worden geen geautomatiseerde beslissingen over patiënten of medewerkers genomen.                                                                                                                      |
-| 3 | Stelselmatige monitoring van betrokkenen                                 | **Ja**    | De geïmplementeerde NEN-7510 audit logging (Groep_6_Logging_Gap_Analyse.md sectie 8) legt stelselmatig vast wie welke patiëntidentifier wanneer heeft gegenereerd of gewijzigd.                         |
-| 4 | Bijzondere categorieën of gerechtelijke gegevens (Art. 9)               | **Ja**    | Patiëntidentifiers zijn functioneel direct verbonden aan gezondheidsinformatie (Art. 9). Elk gegenereerd nummer verwijst naar een patiëntdossier met medische data.                                     |
-| 5 | Grootschalige verwerking                                                 | **Ja**    | Ziekenhuissystemen en zorginstellingen die OpenMRS inzetten verwerken patiëntgegevens op grote schaal. Een instelling van gemiddelde omvang registreert tienduizenden tot miljoenen patiëntidentifiers. |
-| 6 | Matching of combineren van datasets                                      | Nee             | De module koppelt geen externe datasets aan elkaar.                                                                                                                                                       |
-| 7 | Kwetsbare betrokkenen                                                    | **Ja**    | Patiënten zijn per definitie kwetsbare betrokkenen: zij bevinden zich in een afhankelijke positie ten opzichte van zorgverleners.                                                                        |
-| 8 | Innovatief of nieuw gebruik van technologieën                           | Nee             | Idgen is een bestaande OpenMRS-module zonder nieuwe of experimentele technologie.                                                                                                                         |
-| 9 | Overdracht van persoonsgegevens buiten de EU                             | Nee             | Afhankelijk van deploymentomgeving. Bij een cloud-deployment buiten de EU is dit criterium alsnog van toepassing.                                                                                         |
+| # | Criterium (WP248 rev.01)                                                 | Van toepassing? | Motivatie                                                                                                                                                                                                                                                                                                                                                    |
+| - | ------------------------------------------------------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1 | Profilering of scoring van personen                                      | Nee             | De module kent nummers toe. Er worden geen gedragsprofielen of scores over personen aangemaakt.                                                                                                                                                                                                                                                              |
+| 2 | Geautomatiseerde besluitvorming met rechtsgevolg of aanzienlijke invloed | Nee             | Er worden geen geautomatiseerde beslissingen over patiënten of medewerkers genomen.                                                                                                                                                                                                                                                                         |
+| 3 | Stelselmatige monitoring van betrokkenen                                 | **Ja**    | De geïmplementeerde NEN-7510 audit logging ([Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) sectie 8) legt stelselmatig vast wie welke patiëntidentifier wanneer heeft gegenereerd of gewijzigd. |
+| 4 | Bijzondere categorieën of gerechtelijke gegevens (Art. 9)               | **Ja**    | Patiëntidentifiers zijn functioneel direct verbonden aan gezondheidsinformatie (Art. 9). Elk gegenereerd nummer verwijst naar een patiëntdossier met medische data.                                                                                                                                                                                        |
+| 5 | Grootschalige verwerking                                                 | **Ja**    | Ziekenhuissystemen en zorginstellingen die OpenMRS inzetten verwerken patiëntgegevens op grote schaal. Een instelling van gemiddelde omvang registreert tienduizenden tot miljoenen patiëntidentifiers.                                                                                                                                                    |
+| 6 | Matching of combineren van datasets                                      | Nee             | De module koppelt geen externe datasets aan elkaar.                                                                                                                                                                                                                                                                                                          |
+| 7 | Kwetsbare betrokkenen                                                    | **Ja**    | Patiënten zijn per definitie kwetsbare betrokkenen: zij bevinden zich in een afhankelijke positie ten opzichte van zorgverleners.                                                                                                                                                                                                                           |
+| 8 | Innovatief of nieuw gebruik van technologieën                           | Nee             | Idgen is een bestaande OpenMRS-module zonder nieuwe of experimentele technologie.                                                                                                                                                                                                                                                                            |
+| 9 | Overdracht van persoonsgegevens buiten de EU                             | Nee             | Afhankelijk van deploymentomgeving. Bij een cloud-deployment buiten de EU is dit criterium alsnog van toepassing.                                                                                                                                                                                                                                            |
 
 **Uitkomst: 4 van 9 criteria zijn van toepassing (criteria 3, 4, 5 en 7).**
 
-Conform WP248 rev.01 is bij twee of meer criteria een volledige DPIA verplicht. **Een DPIA is verplicht vóór productie-deployment van de `openmrs-module-idgen`.**
+Conform WP248 rev.01 is bij twee of meer criteria een volledige DPIA verplicht. **Een DPIA is verplicht vóór productie-deployment van de openmrs-module-idgen.**
 
 ---
 
 ## 5. Privacy-risico's en mitigerende maatregelen
 
-| #  | Risico                                                                                | Kans (1-5) | Impact (1-5) | Score        | Status                   | Mitigatie                                                                                                                                                                                                         | NEN-7510       |
-| -- | ------------------------------------------------------------------------------------- | ---------- | ------------ | ------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| P1 | Credentials (username/password) lekken via URL-parameters naar server-access logs     | 4          | 5            | 20 (kritiek) | Gedeeltelijk gemitigeerd | URL-credentials verwijderen; sessie-authenticatie of Basic Auth headers gebruiken (aanbeveling in Groep_6_Logging_Gap_Analyse.md sectie 7.3)                                                                      | Ctrl 8.5, 8.15 |
-| P2 | Bulk-export van patiëntidentifier-reeksen door onbevoegde gebruiker                  | 3          | 5            | 15 (hoog)    | Open                     | RBAC afdwingen op export-endpoints; audit van elke export-actie (geïmplementeerd in `IdentifierSourceController`)                                                                                              | Ctrl 8.5, 8.15 |
-| P3 | Auditlogs zijn te lang bewaard of onvoldoende beveiligd, waardoor medewerkerdata lekt | 3          | 3            | 9 (middel)   | Open                     | Retentiebeleid opstellen; toegangsbeperking auditlogs tot autorisatiemanager of compliance-officer                                                                                                                | Ctrl 8.15      |
-| P4 | Patiëntidentifiers zijn te koppelen aan gezondheidsdata via de OpenMRS-database      | 4          | 5            | 20 (kritiek) | Structureel residueel    | Data minimization: auditlogs bevatten ResourceUUID van de bronconfigurator, nooit de gegenereerde identifier-waarde zelf. Negatieve JUnit-test bevestigt dit (Groep_6_Logging_Gap_Analyse.md sectie 9.1, test 3). | Ctrl 8.5, 8.25 |
-| P5 | Ontbrekende audit trail maakt incidenten onreconstrueerbaar                           | 5          | 4            | 20 (kritiek) | Gemitigeerd              | NEN-7510 8.15 audit logging geïmplementeerd voor alle kritieke events (READ, SAVE, PURGE, RETIRE, EXPORT). Tests groen.                                                                                          | Ctrl 8.15      |
+| #  | Risico                                                                                | Kans (1-5) | Impact (1-5) | Score        | Status                   | Mitigatie                                                                                                                                                                                                                                                                                                                                                                                    | NEN-7510       |
+| -- | ------------------------------------------------------------------------------------- | ---------- | ------------ | ------------ | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| P1 | Credentials (username/password) lekken via URL-parameters naar server-access logs     | 4          | 5            | 20 (kritiek) | Gedeeltelijk gemitigeerd | URL-credentials verwijderen; sessie-authenticatie of Basic Auth headers gebruiken (aanbeveling in[Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) sectie 7.3)                                                                       | Ctrl 8.5, 8.15 |
+| P2 | Bulk-export van patiëntidentifier-reeksen door onbevoegde gebruiker                  | 3          | 5            | 15 (hoog)    | Open                     | RBAC afdwingen op export-endpoints; audit van elke export-actie (geïmplementeerd in IdentifierSourceController)                                                                                                                                                                                                                                                                             | Ctrl 8.5, 8.15 |
+| P3 | Auditlogs zijn te lang bewaard of onvoldoende beveiligd, waardoor medewerkerdata lekt | 3          | 3            | 9 (middel)   | Open                     | Retentiebeleid opstellen; toegangsbeperking auditlogs tot autorisatiemanager of compliance-officer                                                                                                                                                                                                                                                                                           | Ctrl 8.15      |
+| P4 | Patiëntidentifiers zijn te koppelen aan gezondheidsdata via de OpenMRS-database      | 4          | 5            | 20 (kritiek) | Structureel residueel    | Data minimization: auditlogs bevatten ResourceUUID van de bronconfigurator, nooit de gegenereerde identifier-waarde zelf. Negatieve JUnit-test bevestigt dit ([Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md) sectie 9.1, test 3). | Ctrl 8.5, 8.25 |
+| P5 | Ontbrekende audit trail maakt incidenten onreconstrueerbaar                           | 5          | 4            | 20 (kritiek) | Gemitigeerd              | NEN-7510 8.15 audit logging geïmplementeerd voor alle kritieke events (READ, SAVE, PURGE, RETIRE, EXPORT). Tests groen.                                                                                                                                                                                                                                                                     | Ctrl 8.15      |
 
 ### Privacy by Design principes
 
@@ -1471,7 +1471,7 @@ De volgende Privacy by Design principes (conform Cavoukian, 2009) zijn aantoonba
 
 Na de geïmplementeerde maatregelen (audit logging, data minimization in logs) resteren de volgende risico's:
 
-1. **Credentials in URL (P1):** De aanbeveling uit de logging gap-analyse is nog niet in code doorgevoerd. Zolang `/exportIdentifiers.form` credentials als queryparameter accepteert, lopen deze alsnog in server-logs. Dit vereist een aparte code-aanpassing.
+1. **Credentials in URL (P1):** De aanbeveling uit de logging gap-analyse is nog niet in code doorgevoerd. Zolang /exportIdentifiers.form` credentials als queryparameter accepteert, lopen deze alsnog in server-logs. Dit vereist een aparte code-aanpassing.
 2. **Koppelbaarheid identifiers aan gezondheidsdata (P4):** Dit is een structureel residueel risico. Elke patiëntidentifier verwijst naar een dossier. Mitigatie op module-niveau is beperkt; aanvullend beleid bij de implementerende zorginstelling (toegangsbeperking op databaseniveau, pseudonimisering) is vereist.
 3. **Ontbrekend retentiebeleid voor auditlogs (P3):** De module schrijft logs weg maar bepaalt geen retentieduur. De implementerende instelling moet een retentiebeleid vaststellen conform de Wet op de geneeskundige behandelingsovereenkomst (Wgbo: 20 jaar bewaarplicht voor dossiers; auditlogs minimaal 6 maanden conform NEN-7510).
 
@@ -1479,7 +1479,7 @@ Na de geïmplementeerde maatregelen (audit logging, data minimization in logs) r
 
 ## 7. Conclusie
 
-De `openmrs-module-idgen` verwerkt persoonsgegevens in de zin van de AVG. De verwerking raakt bijzondere categorieën (gezondheidsinformatie via patiëntidentifiers), kwetsbare betrokkenen, vindt stelselmatig en grootschalig plaats. Vier van negen WP248-criteria zijn van toepassing.
+De `openmrs-module-idgen verwerkt persoonsgegevens in de zin van de AVG. De verwerking raakt bijzondere categorieën (gezondheidsinformatie via patiëntidentifiers), kwetsbare betrokkenen, vindt stelselmatig en grootschalig plaats. Vier van negen WP248-criteria zijn van toepassing.
 
 **Een volledige DPIA is verplicht vóór productie-deployment conform AVG Art. 35.**
 
@@ -1496,12 +1496,12 @@ De meest urgente privacy-risico's (ontbrekende audit trail, data in logs) zijn g
 > **Bronbestand:** [Groep_6_Gap-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Gap-Analyse.md)
 > **Auteur(s):** Rowen Albers, Raf van Hooijdonk
 > **Gewerkt op (dagen):** 3 en 10 juni 2026
-> **Sprint(s):** Sprint 1, Sprint 2
+> **Sprint(s):** [Sprint 1](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint1.md), [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md)
 > **Kerncommits:** [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61), [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02)
 
 ## Inleiding
 
-Dit document bevat de Gap-analyse voor de **OpenMRS ID Generation Module (idgen)** versie 4.9.0. Deze analyse vergelijkt de huidige staat van de module met drie cruciale controls uit de [NEN-7510:2026 normering](https://www.nen.nl/nen-7510) voor informatiebeveiliging in de zorg. Het doel is om vast te stellen welke beveiligingsgaps er bestaan binnen de modulecode en het ontwerp, zodat deze gericht gemitigeerd kunnen worden in de daaropvolgende ontwikkelfasen (Sprint 3 en 4).
+Dit document bevat de Gap-analyse voor de **OpenMRS ID Generation Module (idgen)** versie 4.9.0. Deze analyse vergelijkt de huidige staat van de module met drie cruciale controls uit de [NEN-7510:2026 normering](https://www.nen.nl/nen-7510) voor informatiebeveiliging in de zorg. Het doel is om vast te stellen welke beveiligingsgaps er bestaan binnen de modulecode en het ontwerp, zodat deze gericht gemitigeerd kunnen worden in de daaropvolgende ontwikkelfasen ([Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md) en 4).
 
 **Scope van het onderzoek:**
 
@@ -1516,11 +1516,11 @@ Dit document bevat de Gap-analyse voor de **OpenMRS ID Generation Module (idgen)
 
 Onderstaande tabel toont de status, omschrijving en het concrete bewijs van de onderzochte controls binnen de module.
 
-| NEN-7510:2026 Control                                          | Omschrijving                                                                                                     | Status                           | Bewijs (code of logica)                                                                                                                                                                                                                             | Notities                                                                                                                                                                                                                      |
-| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Control 8.3**`<br>`*(Informatietoegang)*           | Toegang tot informatie en systemen is beperkt conform het toegangsbeleid (RBAC).                                 | **Gedeeltelijk**           | In `RemoteIdentifierSourceProcessor.java` ontbreken expliciete privilegechecks (`Context.requirePrivilege`) bij het opvragen en verwerken van identifiers via de API.                                                                           | De OpenMRS core dwingt weliswaar algemene privileges af, maar de module specifieke koppelingen en endpoints controleren onvoldoende op rolgebaseerde rechten (zie `SAST-02` in het security backlog).                       |
-| **Control 8.5**`<br>`*(Veilige authenticatie)*       | Gebruikersauthenticatie moet veilig verlopen om toegang tot systemen te beheren.                                 | **Gedeeltelijk**           | Er is geen rate-limiting mechanism of account lockout policy geconfigureerd op de login- en API-endpoints van de module.                                                                                                                            | OpenMRS core slaat wachtwoorden veilig op met bcrypt hashing, maar is door het ontbreken van login-beveiligingen gevoelig voor brute-force aanvallen en credential stuffing (zie hazard `H3` uit de asset-identificatie).   |
-| **Control 8.15**`<br>`*(Logging van gebeurtenissen)* | Logbestanden die activiteiten en beveiligingsrelevante gebeurtenissen vastleggen worden aangemaakt en beschermd. | **Gedeeltelijk / Afwezig** | Code review van de `IdentifierSourceProcessor.java` en de database-interacties toont aan dat er geen audit log wordt weggeschreven bij kritieke acties zoals het opraken van een ID-pool of mislukte verbindingen met externe identifier-bronnen. | Zonder applicatie-level audit logging is het onmogelijk om na een incident te reconstrueren wie welke identifiers wanneer heeft aangemaakt of aangepast. Dit schendt de principes van de AVG (zie `SAST-03` / `CWE-778`). |
+| NEN-7510:2026 Control                                          | Omschrijving                                                                                                     | Status                           | Bewijs (code of logica)                                                                                                                                                                                                                             | Notities                                                                                                                                                                                                                    |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Control 8.3**`<br>`*(Informatietoegang)*           | Toegang tot informatie en systemen is beperkt conform het toegangsbeleid (RBAC).                                 | **Gedeeltelijk**           | In `RemoteIdentifierSourceProcessor.java` ontbreken expliciete privilegechecks (Context.requirePrivilege`) bij het opvragen en verwerken van identifiers via de API.                                                                              | De OpenMRS core dwingt weliswaar algemene privileges af, maar de module specifieke koppelingen en endpoints controleren onvoldoende op rolgebaseerde rechten (zie `SAST-02` in het security backlog).                     |
+| **Control 8.5** `<br>`*(Veilige authenticatie)*      | Gebruikersauthenticatie moet veilig verlopen om toegang tot systemen te beheren.                                 | **Gedeeltelijk**           | Er is geen rate-limiting mechanism of account lockout policy geconfigureerd op de login- en API-endpoints van de module.                                                                                                                            | OpenMRS core slaat wachtwoorden veilig op met bcrypt hashing, maar is door het ontbreken van login-beveiligingen gevoelig voor brute-force aanvallen en credential stuffing (zie hazard `H3` uit de asset-identificatie). |
+| **Control 8.15**`<br>`*(Logging van gebeurtenissen)* | Logbestanden die activiteiten en beveiligingsrelevante gebeurtenissen vastleggen worden aangemaakt en beschermd. | **Gedeeltelijk / Afwezig** | Code review van de `IdentifierSourceProcessor.java` en de database-interacties toont aan dat er geen audit log wordt weggeschreven bij kritieke acties zoals het opraken van een ID-pool of mislukte verbindingen met externe identifier-bronnen. | Zonder applicatie-level audit logging is het onmogelijk om na een incident te reconstrueren wie welke identifiers wanneer heeft aangemaakt of aangepast. Dit schendt de principes van de AVG (zie SAST-03 / `CWE-778).      |
 
 ---
 
@@ -1533,7 +1533,7 @@ Uit deze Gap-analyse komen drie significante kwetsbaarheden naar voren die de co
 3. **Kwetsbaarheid voor brute-force aanvallen (Control 8.5):** Er is geen actieve bescherming op netwerk- of applicatieniveau tegen geautomatiseerde inlogpogingen.
 
 **Opvolging:**
-Deze bevindingen zijn opgenomen in de geprioriteerde security backlog van de Groep_6_Security-Analyse.md (bevindingen `SAST-01` t/m `SAST-03`) en dienen als directe input voor de Proof of Concept (PoC) mitigaties en de implementatie van compliant audit logging in Sprint 3 (Opdracht 5).
+Deze bevindingen zijn opgenomen in de geprioriteerde security backlog van de [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md) (bevindingen SAST-01 `t/m`SAST-03) en dienen als directe input voor de Proof of Concept (PoC) mitigaties en de implementatie van compliant audit logging in [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md) (Opdracht 5).
 
 ---
 
@@ -1542,12 +1542,12 @@ Deze bevindingen zijn opgenomen in de geprioriteerde security backlog van de Gro
 > **Bronbestand:** [Groep_6_Logging_Gap_Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Logging_Gap_Analyse.md)
 > **Auteur(s):** Rowen Albers
 > **Gewerkt op (dagen):** 13 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [76b6de7](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/76b6de7)
 
 ## 1. Inleiding en Scope
 
-Dit document bevat de **Logging Gap-Analyse** voor de `openmrs-module-idgen` (ID Generation) module, uitgevoerd volgens de richtlijnen van **NEN-7510:2026 beheersmaatregel 8.15 (Logging van gebeurtenissen)** en de privacywetgeving (AVG/GDPR). Het doel hiervan is het systematisch in kaart brengen van de bestaande logging in de module, het toetsen hiervan aan de gestelde normen voor audit trails in de zorg, en het identificeren van ontbrekende (beveiligingsrelevante) loggebeurtenissen.
+Dit document bevat de **Logging Gap-Analyse** voor de openmrs-module-idgen` (ID Generation) module, uitgevoerd volgens de richtlijnen van **NEN-7510:2026 beheersmaatregel 8.15 (Logging van gebeurtenissen)** en de privacywetgeving (AVG/GDPR). Het doel hiervan is het systematisch in kaart brengen van de bestaande logging in de module, het toetsen hiervan aan de gestelde normen voor audit trails in de zorg, en het identificeren van ontbrekende (beveiligingsrelevante) loggebeurtenissen.
 
 Omdat de module direct verantwoordelijk is voor het genereren, beheren en exporteren van patiëntidentificatiemethoden (die gekoppeld zijn aan het Elektronisch Patiëntendossier), stelt NEN-7510 strenge eisen aan de traceerbaarheid van mutaties en toegang. "Niet gelogd is niet gebeurd": zonder een sluitende audit trail is het onmogelijk om ongeautoriseerde toegang of manipulatie achteraf te detecteren of te reconstrueren.
 
@@ -1778,7 +1778,7 @@ De testsuite dekt de volgende scenario's af:
 
 ### Maven Testresultaten (Groen)
 
-De tests zijn succesvol gedraaid op de JVM (JDK 17) met behulp van de geconfigureerde `--add-opens` argumenten in de `api/pom.xml`. Hieronder is het relevante gedeelte uit de Maven execution log weergegeven:
+De tests zijn succesvol gedraaid op de JVM (JDK 17) met behulp van de geconfigureerde `--add-opens argumenten in de [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml). Hieronder is het relevante gedeelte uit de Maven execution log weergegeven:
 
 ```text
 [INFO] Running org.openmrs.module.idgen.service.LoggingAuditTest
@@ -1810,7 +1810,7 @@ Door de implementatie van gestructureerde audit logging in de service- en contro
 
 Elk beveiligingsrelevant event (ID-generatie, recordmutaties, inlogpogingen, log-inspectie) wordt nu geaudit met volledige context: **Wie** (UserID via `Context.getAuthenticatedUser()`), **Wat** (Event type), **Waarop** (ResourceUUID), **Wanneer** (Timestamp via Log4j) en het **Resultaat** (Outcome: SUCCESS/FAILURE). Tegelijkertijd is door negatieve JUnit-testen aangetoond dat privacygevoelige gegevens (zoals de daadwerkelijk uitgegeven patiënt-id's of BSN-waarden) beschermd blijven en niet weglekken naar de syslogs.
 
-De `openmrs-module-idgen` module voldoet hiermee aantoonbaar aan de strenge eisen voor logging en traceerbaarheid binnen de Nederlandse zorgsector.
+De `openmrs-module-idgen module voldoet hiermee aantoonbaar aan de strenge eisen voor logging en traceerbaarheid binnen de Nederlandse zorgsector.
 
 ---
 
@@ -1819,7 +1819,7 @@ De `openmrs-module-idgen` module voldoet hiermee aantoonbaar aan de strenge eise
 > **Bronbestand:** [Groep_6_Mini-Complianceverslag.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Mini-Complianceverslag.md)
 > **Auteur(s):** Sinan Sagir, Raf van Hooijdonk
 > **Gewerkt op (dagen):** 3 en 15 juni 2026
-> **Sprint(s):** Sprint 1, Sprint 3
+> **Sprint(s):** [Sprint 1](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint1.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [020159f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/020159f), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)
 
 ## Inleiding
@@ -1835,11 +1835,11 @@ Dit verslag toont per NEN-7510:2026 control aan hoe de CI/CD security pipeline v
 
 ## Overzicht
 
-| NEN-7510:2026 Control                    | Pipeline-maatregel                                                                | Status       |
-| ---------------------------------------- | --------------------------------------------------------------------------------- | ------------ |
-| 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL                                             | ✅ Compliant |
-| 8.15 Logging                             | SBOM-artifact, CI-run logs, SECURITY.md rapportageproces, audit logging in module | ✅ Compliant |
-| 5.36 Conformiteit aan beleidsregels      | README.md (mini-ISMS), SECURITY.md, docs/checklist.md                             | ✅ Compliant |
+| NEN-7510:2026 Control                    | Pipeline-maatregel                                                                                                                                                                                                                                                                            | Status       |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| 8.8 Beheer van technische kwetsbaarheden | Dependabot, Dependency Review, CodeQL                                                                                                                                                                                                                                                         | ✅ Compliant |
+| 8.15 Logging                             | SBOM-artifact, CI-run logs,[SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md) rapportageproces, audit logging in module                                                                                                                                  | ✅ Compliant |
+| 5.36 Conformiteit aan beleidsregels      | [README.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/README.md) (mini-ISMS), [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md), [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md) | ✅ Compliant |
 
 ---
 
@@ -1850,11 +1850,11 @@ Tijdig informatie verkrijgen over technische kwetsbaarheden in gebruikte systeme
 
 **Hoe de pipeline hieraan voldoet:**
 
-| Maatregel                                | Bestand / Instelling                            | Toelichting                                                                                                |
-| ---------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Dependabot alerts + automatische updates | `.github/dependabot.yml`                      | Wekelijks (maandag 06:00) updates voor Maven-dependencies en GitHub Actions. Alerts staan aan in Settings. |
-| Dependency Review                        | `.github/workflows/sca-dependency-review.yml` | Blokkeert PRs naar `main` bij HIGH of CRITICAL kwetsbaarheden. Weigert GPL-3.0 en AGPL-3.0 licenties.    |
-| CodeQL SAST                              | `.github/workflows/sast-codeql.yml`           | Statische code-analyse op elke push, PR en wekelijks schema. Detecteert kwetsbaarheden in Java code.       |
+| Maatregel                                | Bestand / Instelling                                                                                                                                    | Toelichting                                                                                                |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Dependabot alerts + automatische updates | [.github/dependabot.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/dependabot.yml)                                           | Wekelijks (maandag 06:00) updates voor Maven-dependencies en GitHub Actions. Alerts staan aan in Settings. |
+| Dependency Review                        | [.github/workflows/sca-dependency-review.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sca-dependency-review.yml) | Blokkeert PRs naar main bij HIGH of CRITICAL kwetsbaarheden. Weigert GPL-3.0 en AGPL-3.0 licenties.        |
+| CodeQL SAST                              | [.github/workflows/sast-codeql.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sast-codeql.yml)                     | Statische code-analyse op elke push, PR en wekelijks schema. Detecteert kwetsbaarheden in Java code.       |
 
 **Restrisico:**
 Alle tools draaien op de echte idgen-module. Secret Protection en Push Protection zijn actief (repo is public; gratis beschikbaar). Restrisico is artifact-retentie van max. 90 dagen (GitHub Free plan).
@@ -1868,11 +1868,11 @@ Logbestanden die activiteiten, uitzonderingen, fouten en andere relevante beveil
 
 **Hoe de pipeline hieraan voldoet:**
 
-| Maatregel                | Bestand / Instelling                     | Toelichting                                                                                                   |
-| ------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| SBOM-artifact            | `.github/workflows/sbom-cyclonedx.yml` | CycloneDX JSON SBOM wordt gegenereerd bij elke push naar `main` en bewaard als Actions-artifact (90 dagen). |
-| CI-run logs              | GitHub Actions (alle workflows)          | Build-, test- en scanresultaten zijn bewaard als CI-run logs. Niet te wijzigen na afloop.                     |
-| Kwetsbaarheidsrapportage | `SECURITY.md`                          | Beschrijft het proces voor het melden en afhandelen van kwetsbaarheden, inclusief termijnen per ernst.        |
+| Maatregel                | Bestand / Instelling                                                                                                                      | Toelichting                                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| SBOM-artifact            | [.github/workflows/sbom-cyclonedx.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/sbom-cyclonedx.yml) | CycloneDX JSON SBOM wordt gegenereerd bij elke push naar main en bewaard als Actions-artifact (90 dagen). |
+| CI-run logs              | [GitHub Actions (alle workflows)](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)                                             | Build-, test- en scanresultaten zijn bewaard als CI-run logs. Niet te wijzigen na afloop.                 |
+| Kwetsbaarheidsrapportage | [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md)                                                   | Beschrijft het proces voor het melden en afhandelen van kwetsbaarheden, inclusief termijnen per ernst.    |
 
 **Restrisico:**
 Artifact-retentie is beperkt tot 90 dagen (GitHub Free plan maximum). De geconfigureerde 365 dagen wordt automatisch teruggebracht. Applicatie-level audit logging binnen de module zelf is nog niet geimplementeerd (zie Opdracht 5 voor logging-implementatie).
@@ -1886,14 +1886,14 @@ De naleving van het informatiebeveiligingsbeleid en onderwerpspecifieke beleidsr
 
 **Hoe de pipeline hieraan voldoet:**
 
-| Maatregel          | Bestand / Instelling  | Toelichting                                                                                                                        |
-| ------------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Mini-ISMS          | `README.md`         | Bevat beveiligingsbeleid, verantwoordelijkheden, branch protection procedure, environments, secrets-beheer en bekende beperkingen. |
-| Security Policy    | `SECURITY.md`       | Beschrijft rapportagekanalen, termijnen per ernst en overzicht van actieve security tools met status.                              |
-| Compliance-tracker | `docs/checklist.md` | Centrale registratie van alle eisen per opdracht, status, bewijslast en wijzigingslog.                                             |
+| Maatregel          | Bestand / Instelling                                                                                | Toelichting                                                                                                                        |
+| ------------------ | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Mini-ISMS          | [README.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/README.md)                 | Bevat beveiligingsbeleid, verantwoordelijkheden, branch protection procedure, environments, secrets-beheer en bekende beperkingen. |
+| Security Policy    | [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md)             | Beschrijft rapportagekanalen, termijnen per ernst en overzicht van actieve security tools met status.                              |
+| Compliance-tracker | [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md) | Centrale registratie van alle eisen per opdracht, status, bewijslast en wijzigingslog.                                             |
 
 **Restrisico:**
-Er is geen formeel periodiek reviewproces ingericht voor het beleid. Compliance-tracking is handmatig via `docs/checklist.md`. Een geautomatiseerde beoordeling of extern auditproces ontbreekt.
+Er is geen formeel periodiek reviewproces ingericht voor het beleid. Compliance-tracking is handmatig via [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md). Een geautomatiseerde beoordeling of extern auditproces ontbreekt.
 
 ---
 
@@ -1901,7 +1901,7 @@ Er is geen formeel periodiek reviewproces ingericht voor het beleid. Compliance-
 
 Drie NEN-7510:2026 controls zijn onderzocht in relatie tot de CI/CD pipeline.
 
-Control 5.36 (conformiteit aan beleid) is volledig compliant: beleid is gedocumenteerd in README.md en SECURITY.md, en compliance wordt bijgehouden in checklist.md.
+Control 5.36 (conformiteit aan beleid) is volledig compliant: beleid is gedocumenteerd in [README.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/README.md) en [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md), en compliance wordt bijgehouden in [checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md).
 
 Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn volledig compliant. Alle tools draaien op de echte idgen-module; audit logging is geïmplementeerd in de broncode (Opdracht 5). Secret Protection en Push Protection zijn actief. Het enige restrisico is de artifact-retentie van max. 90 dagen op het GitHub Free plan.
 
@@ -1912,7 +1912,7 @@ Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn volledig compliant. A
 > **Bronbestand:** [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)
 > **Auteur(s):** Raf van Hooijdonk, Simon Eulenpesch
 > **Gewerkt op (dagen):** 10 en 15 juni 2026
-> **Sprint(s):** Sprint 2, Sprint 3
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [d59c8ee](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d59c8ee), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)
 
 ## Bronnen
@@ -1928,8 +1928,8 @@ Controls 8.8 (kwetsbaarheidsbeheer) en 8.15 (logging) zijn volledig compliant. A
 - [Apache Log4j 1.x End-of-Life](https://logging.apache.org/log4j/1.2/)
 - [NCSC Cybersecuritybeeld Nederland (CSBN) 2024](https://www.ncsc.nl/actueel/nieuws/2024/juni/18/cybersecuritybeeld-nederland-2024)
 - [Verizon Data Breach Investigations Report (DBIR) 2024](https://www.verizon.com/business/resources/reports/dbir/)
-- Groep_6_Asset-Identificatie.md (assets, hazards, scoreschaal en risk appetite)
-- Groep_6_Risicomatrix.md (CI/CD risico evaluatie)
+- [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) (assets, hazards, scoreschaal en risk appetite)
+- [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md) (CI/CD risico evaluatie)
 
 ---
 
@@ -1944,9 +1944,9 @@ Binnen scope:
 - **SBOM (Software Bill of Materials):** machine-leesbaar overzicht van alle componenten.
 - **Security backlog:** geprioriteerde lijst van bevindingen met CVE/CWE, CVSS en mitigatie.
 
-Buiten scope van dit document: de OpenMRS core, de databaseserver, dynamische tests (DAST) en penetration tests. Die vallen onder Opdracht 5 en Opdracht 6. DAST is inmiddels uitgevoerd via OWASP ZAP (zie `docs/dast/`) en de penetration test is gedocumenteerd in `Groep_6_Pentestrapport.md`.
+Buiten scope van dit document: de OpenMRS core, de databaseserver, dynamische tests (DAST) en penetration tests. Die vallen onder Opdracht 5 en Opdracht 6. DAST is inmiddels uitgevoerd via OWASP ZAP (zie [docs/dast/](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast)) en de penetration test is gedocumenteerd in [Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md).
 
-Deze analyse draait voor het eerst op de **echte module-code** en niet op de stub `pom.xml`. Daarmee vervalt de tijdelijke beperking die in Opdracht 1 voor SCA, SAST en SBOM gold.
+Deze analyse draait voor het eerst op de **echte module-code** en niet op de stub [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml). Daarmee vervalt de tijdelijke beperking die in Opdracht 1 voor SCA, SAST en SBOM gold.
 
 ---
 
@@ -1958,17 +1958,17 @@ De analyse volgt drie sporen die elkaar aanvullen:
 2. **SBOM** legt de volledige componentenlijst vast als auditbaar artefact. Zonder SBOM is een dependency-analyse niet reproduceerbaar.
 3. **SAST en code review** beoordelen de broncode zelf. Semgrep voert de geautomatiseerde scan uit; aanvullend is een handmatige security code review gedaan op de hoge-risico entry points (remote identifier fetching, logging, deserialisatie).
 
-CVSS-scores in de security backlog zijn de NVD Base Scores (CVSS v3.1 waar beschikbaar, anders v2). Naast de base score is per bevinding een **contextuele score** bepaald op basis van bereikbaarheid in de module en de healthcare-impact, conform de scoreschaal in Groep_6_Asset-Identificatie.md sectie 3.
+CVSS-scores in de security backlog zijn de NVD Base Scores (CVSS v3.1 waar beschikbaar, anders v2). Naast de base score is per bevinding een **contextuele score** bepaald op basis van bereikbaarheid in de module en de healthcare-impact, conform de scoreschaal in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) sectie 3.
 
 ---
 
 ## 3. Gebruikte tooling
 
-| Tool                   | Type | Functie                                          | Bron                                                     |
-| ---------------------- | ---- | ------------------------------------------------ | -------------------------------------------------------- |
-| OWASP Dependency-Check | SCA  | Koppelt dependencies aan bekende CVE's via NVD   | [Link](https://owasp.org/www-project-dependency-check/)     |
-| CycloneDX Maven Plugin | SBOM | Genereert machine-leesbare SBOM (CycloneDX 1.6)  | [Link](https://github.com/CycloneDX/cyclonedx-maven-plugin) |
-| Semgrep (OSS)          | SAST | Statische code-analyse met de `p/java` ruleset | [Link](https://semgrep.dev/p/java)                          |
+| Tool                   | Type | Functie                                         | Bron                                                     |
+| ---------------------- | ---- | ----------------------------------------------- | -------------------------------------------------------- |
+| OWASP Dependency-Check | SCA  | Koppelt dependencies aan bekende CVE's via NVD  | [Link](https://owasp.org/www-project-dependency-check/)     |
+| CycloneDX Maven Plugin | SBOM | Genereert machine-leesbare SBOM (CycloneDX 1.6) | [Link](https://github.com/CycloneDX/cyclonedx-maven-plugin) |
+| Semgrep (OSS)          | SAST | Statische code-analyse met de p/java ruleset    | [Link](https://semgrep.dev/p/java)                          |
 
 Semgrep OSS is gebruikt zonder login; daardoor draaien 60 community-regels en niet de 181 pro-regels. Dit is een bekende beperking en wordt in de interpretatie (sectie 7) meegenomen.
 
@@ -1976,7 +1976,7 @@ Semgrep OSS is gebruikt zonder login; daardoor draaien 60 community-regels en ni
 
 ## 4. Uitgevoerde commando's en audit trail
 
-De volgende commando's zijn uitgevoerd in de module-root `openmrs-module-idgen/`:
+De volgende commando's zijn uitgevoerd in de module-root openmrs-module-idgen/`:
 
 ```bash
 # SCA: dependency-analyse tegen de NVD-feed
@@ -2158,7 +2158,7 @@ Tien bevindingen: zes uit SCA (SCA-01 tot SCA-06) en vier uit SAST/code review (
 
 #### SAST-03: Insufficient Logging (CWE-778)
 
-- **Locatie:** `LogEntry` en de identifier-uitgifte.
+- **Locatie:** `LogEntry en de identifier-uitgifte.
 - **Beschrijving:** Beveiligingsrelevante gebeurtenissen (uitgifte van een identifier, mislukte remote-aanroep, autorisatiefout) worden onvoldoende vastgelegd. Zonder volledige audit trail geldt: niet gelogd is niet gebeurd.
 - **Risico:** Incidenten zijn niet reconstrueerbaar; compliance-aantoonbaarheid ontbreekt.
 - **Healthcare impact:** Bij een datalek kan niet worden aangetoond wie welke identifier wanneer heeft uitgegeven. Dit bemoeilijkt de meldplicht (AVG Art. 33).
@@ -2177,7 +2177,7 @@ Tien bevindingen: zes uit SCA (SCA-01 tot SCA-06) en vier uit SAST/code review (
 ### 8.3 False positives en risicoacceptaties
 
 - Semgrep leverde nul findings op; er zijn dus geen SAST-false-positives te documenteren.
-- Geen enkele bevinding is geaccepteerd zonder mitigatie. De kritieke deserialisatie-bevindingen (SCA-02, SCA-03, SCA-05, SCA-06, SAST-04) zijn niet acceptabel zonder fix conform de risk appetite in Groep_6_Asset-Identificatie.md sectie 3.4.
+- Geen enkele bevinding is geaccepteerd zonder mitigatie. De kritieke deserialisatie-bevindingen (SCA-02, SCA-03, SCA-05, SCA-06, SAST-04) zijn niet acceptabel zonder fix conform de risk appetite in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) sectie 3.4.
 - De definitieve bereikbaarheidsbepaling per deserialisatiepad (welke paden daadwerkelijk onvertrouwde data verwerken) wordt in het Risk Assessment Report (Opdracht 4 Deel 3) afgerond.
 
 ---
@@ -2223,28 +2223,28 @@ In een zorgcontext betekent een uitgestelde patch dat een bekend, publiek exploi
 
 ## 12. Conclusie
 
-SAST, SCA en SBOM zijn alle drie succesvol uitgevoerd op de echte idgen-module en als auditbare bewijsbestanden vastgelegd (`dependency-check-report.html`, `bom.xml`, `bom.json`, `sast-report.json`).
+SAST, SCA en SBOM zijn alle drie succesvol uitgevoerd op de echte idgen-module en als auditbare bewijsbestanden vastgelegd (dependency-check-report.html `, `bom.xml `, `bom.json `, `sast-report.json`).
 
 De kernbevindingen:
 
 1. **De SCA signaleert meerdere kritieke dependencies.** Spring Core, XStream, commons-collections en Log4j 1.x scoren CVSS 9.8 en zijn grotendeels deserialisatie-gerelateerd (CWE-502).
-2. **De SBOM (116 componenten) maakt de analyse reproduceerbaar.** Elke kwetsbare library is herleidbaar tot een concrete `purl`.
+2. **De SBOM (116 componenten) maakt de analyse reproduceerbaar.** Elke kwetsbare library is herleidbaar tot een concrete `purl.
 3. **Semgrep vond geen automatische findings, maar dat is geen vrijbrief.** De ruleset was beperkt (OSS) en het grootste risico zit in de dependencies. De aanvullende code review leverde vier relevante bevindingen op (CWE-20, CWE-287, CWE-778, CWE-502).
 4. **Legacy libraries vormen het grootste risico.** EOL-componenten zonder patchpad, binnengekomen via de transitieve keten, op een systeem dat patiëntidentifiers beheert.
 
-Vervolgacties zijn nodig voor compliance (NEN-7510 Ctrl 8.8) en securityverbetering: een geprioriteerd Patchadvies opstellen, de bereikbaarheid per deserialisatiepad bevestigen, en de mitigaties valideren in het Risk Assessment Report (Opdracht 4 Deel 3). De kritieke bevindingen vereisen actie op korte termijn conform de termijnen in `SECURITY.md`.
+Vervolgacties zijn nodig voor compliance (NEN-7510 Ctrl 8.8) en securityverbetering: een geprioriteerd Patchadvies opstellen, de bereikbaarheid per deserialisatiepad bevestigen, en de mitigaties valideren in het Risk Assessment Report (Opdracht 4 Deel 3). De kritieke bevindingen vereisen actie op korte termijn conform de termijnen in [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md).
 
 ---
 
 ## 13. Koppeling naar andere deliverables
 
-| Deliverable                               | Koppeling                                                                         |
-| ----------------------------------------- | --------------------------------------------------------------------------------- |
-| Groep_6_Asset-Identificatie.md            | Scoreschaal, risk appetite en hazards die deze bevindingen contextualiseren       |
-| Groep_6_Risicomatrix.md                   | CI/CD-risico's die naast deze module-bevindingen staan                            |
-| Opdracht 4 Deel 3: Risk Assessment Report | Deze backlog en SBOM worden opgenomen; bereikbaarheid en kostenraming volgen daar |
-| Patchadvies (Sprint 2 taak 2.6)           | SCA-bevindingen leveren de concrete versie-aanbevelingen voor het patchadvies     |
-| Opdracht 6: A                             |                                                                                   |
+| Deliverable                                                                                                                                                                                               | Koppeling                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) | Scoreschaal, risk appetite en hazards die deze bevindingen contextualiseren       |
+| [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md)               | CI/CD-risico's die naast deze module-bevindingen staan                            |
+| Opdracht 4 Deel 3: Risk Assessment Report                                                                                                                                                                 | Deze backlog en SBOM worden opgenomen; bereikbaarheid en kostenraming volgen daar |
+| Patchadvies ([Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md) taak 2.6)                                                                                   | SCA-bevindingen leveren de concrete versie-aanbevelingen voor het patchadvies     |
+| Opdracht 6: A                                                                                                                                                                                             |                                                                                   |
 
 ---
 
@@ -2253,101 +2253,101 @@ Vervolgacties zijn nodig voor compliance (NEN-7510 Ctrl 8.8) en securityverbeter
 > **Bronbestand:** [Groep_6_Code_Quality_Issues.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Code_Quality_Issues.md)
 > **Auteur(s):** Rowen Albers
 > **Gewerkt op (dagen):** 15 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396), [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)
 
 In de onderstaande tabel staan de gevonden code quality issues uit de statische broncode-analyse.
 
 | Issue (Sonar Regel) | Bestand                                        | Regel | Severity           | Gemitigeerd | Beschrijving                                                                         |
 | :------------------ | :--------------------------------------------- | :---- | :----------------- | :---------- | :----------------------------------------------------------------------------------- |
-| `java:S1192`      | `BaseIdentifierSourceService.java`           | 119   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "SYSTEM" 8 times.                   |
-| `java:S1192`      | `BaseIdentifierSourceService.java`           | 120   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "[AUDIT] UserID: " 8 times.         |
-| `java:S1192`      | `IdentifierSourceController.java`            | 206   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "[AUDIT] UserID: " 4 times.         |
-| `java:S2093`      | `IdgenUtil.java`                             | 80    | **CRITICAL** | Ja          | Change this "try" to a try-with-resources statement.                                 |
-| `java:S2093`      | `IdentifierSourceController.java`            | 290   | **CRITICAL** | Ja          | Change this "try" to a try-with-resources statement.                                 |
-| `java:S2696`      | `LocationBasedPrefixProvider.java`           | 73    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
-| `java:S2696`      | `LocationBasedPrefixProvider.java`           | 78    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
-| `java:S1186`      | `AutoGenerationOptionEditor.java`            | 20    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
-| `java:S1186`      | `IdentifierSourceEditor.java`                | 35    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
-| `java:S2696`      | `BaseIdentifierSourceService.java`           | 411   | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
-| `java:S1192`      | `HibernateIdentifierSourceDAO.java`          | 169   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 4 times.           |
-| `java:S1192`      | `HibernateIdentifierSourceDAO.java`          | 228   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "dateGenerated" 4 times.            |
-| `java:S2696`      | `LocationBasedSuffixProvider.java`           | 73    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
-| `java:S2696`      | `LocationBasedSuffixProvider.java`           | 78    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
-| `java:S3776`      | `SequentialIdentifierGenValidator.java`      | 41    | **CRITICAL** | Ja          | Refactor method to reduce Cognitive Complexity from 27 to the 15 allowed.            |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 9 times.           |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 65    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "location" 8 times.                 |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 66    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "source" 10 times.                  |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 67    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "manualEntryEnabled" 8 times.       |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 68    | **CRITICAL** | Ja          | Define constant instead of duplicating literal "automaticGenerationEnabled".         |
-| `java:S1192`      | `AutoGenerationOptionResource.java`          | 256   | **CRITICAL** | Ja          | Define constant instead of duplicating literal "#/definitions/LocationGet" 3 times.  |
-| `java:S1192`      | `LogEntryResource.java`                      | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifier" 5 times.               |
-| `java:S1192`      | `LogEntryResource.java`                      | 65    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "comment" 3 times.                  |
-| `java:S1192`      | `IdentifierPoolResourceHandler.java`         | 74    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 5 times.           |
-| `java:S1192`      | `IdentifierPoolResourceHandler.java`         | 76    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "display" 5 times.                  |
-| `java:S1192`      | `RemoteIdSourceResourceHandler.java`         | 61    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "display" 4 times.                  |
-| `java:S1192`      | `RemoteIdSourceResourceHandler.java`         | 71    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "password" 5 times.                 |
-| `java:S1192`      | `SequentialIdGenResourceHandler.java`        | 59    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "baseCharacterSet" 8 times.         |
-| `java:S1192`      | `SequentialIdGenResourceHandler.java`        | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "maxLength" 6 times.                |
-| `java:S3776`      | `IdentifierSourceResource.java`              | 142   | **CRITICAL** | Ja          | Refactor method to reduce Cognitive Complexity from 101 to the 15 allowed.           |
-| `java:S1186`      | `IdgenEditPatientIdentifiersController.java` | 38    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
-| `java:S1186`      | `LogEntryController.java`                    | 36    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
-| `java:S1068`      | `IdgenModuleActivator.java`                  | 48    | MAJOR              | Ja          | Remove this unused "REGISTRY_URL" private field.                                     |
-| `java:S1068`      | `IdgenModuleActivator.java`                  | 49    | MAJOR              | Ja          | Remove this unused "REGISTRY_API_USER" private field.                                |
-| `java:S1068`      | `IdgenModuleActivator.java`                  | 50    | MAJOR              | Ja          | Remove this unused "REGISTRY_API_PASSWORD" private field.                            |
-| `java:S1068`      | `RemoteIdentifierSourceProcessor.java`       | 43    | MAJOR              | Ja          | Remove this unused "log" private field.                                              |
-| `java:S1068`      | `IdgenTask.java`                             | 21    | MAJOR              | Ja          | Remove this unused "taskClass" private field.                                        |
-| `java:S1068`      | `RemoteIdSourceProcessorStub.java`           | 31    | MAJOR              | Ja          | Remove this unused "batchSize" private field.                                        |
-| `java:S1854`      | `IdentifierSourceServiceTest.java`           | 334   | MAJOR              | Ja          | Remove useless assignment to local variable "sig".                                   |
-| `java:S1854`      | `IdentifierSourceServiceTest.java`           | 351   | MAJOR              | Ja          | Remove useless assignment to local variable "sig".                                   |
-| `java:S1854`      | `IdentifierSourceResource.java`              | 322   | MAJOR              | Ja          | Remove useless assignment to local variable "generateIdentifiers".                   |
-| `java:S3740`      | `IdentifierSourceDAO.java`                   | 192   | MAJOR              | Ja          | Provide the parametrized type for this generic.                                      |
-| `java:S5993`      | `BaseIdentifierSource.java`                  | 48    | MAJOR              | Ja          | Change the visibility of this constructor to "protected".                            |
-| `java:S4144`      | `BaseIdentifierSource.java`                  | 207   | MAJOR              | Ja          | Update method so implementation is not identical to "getRetired".                    |
-| `java:S112`       | `IdentifierPool.java`                        | 78    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S4144`      | `IdentifierPool.java`                        | 177   | MAJOR              | Ja          | Update method so implementation is not identical to "getRefillWithScheduledTask".    |
-| `java:S1118`      | `IdgenConstants.java`                        | 19    | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
-| `java:S2068`      | `IdgenModuleActivator.java`                  | 50    | MAJOR              | Ja          | 'PASSWORD' detected in this expression, review this potentially hard-coded password. |
-| `java:S1118`      | `IdgenUtil.java`                             | 28    | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
-| `java:S112`       | `IdgenUtil.java`                             | 66    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S1117`      | `SequentialIdentifierGenerator.java`         | 69    | MAJOR              | Ja          | Rename "nextSequenceValue" which hides the field declared at line 32.                |
-| `java:S112`       | `SequentialIdentifierGenerator.java`         | 108   | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S1066`      | `SequentialIdentifierGenerator.java`         | 113   | MAJOR              | Ja          | Merge this if statement with the enclosing one.                                      |
-| `java:S112`       | `LocationBasedPrefixProvider.java`           | 30    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S112`       | `RemoteIdentifierSourceProcessor.java`       | 55    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S127`       | `SequentialIdGenProcessor.java`              | 75    | MAJOR              | Ja          | Refactor code to not assign loop counter from within the loop body.                  |
-| `java:S1161`      | `AutoGenerationOptionEditor.java`            | 25    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
-| `java:S1161`      | `IdentifierSourceEditor.java`                | 40    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
-| `java:S112`       | `BaseIdentifierSourceService.java`           | 274   | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
-| `java:S1118`      | `ExceptionUtils.java`                        | 6     | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
-| `java:S1161`      | `RemoteIdentifierSourceValidator.java`       | 27    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
-| `java:S1161`      | `SequentialIdGenValidator.java`              | 34    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
-| `java:S108`       | `DuplicateIdentifiersPoolTest.java`          | 75    | MAJOR              | Ja          | Remove block of code, fill it in, or add comment explaining why it is empty.         |
-| `java:S2925`      | `DuplicateIdentifiersPoolTest.java`          | 85    | MAJOR              | Ja          | Remove this use of "Thread.sleep()".                                                 |
-| `java:S2925`      | `IdentifierPoolSchedulerIT.java`             | 58    | MAJOR              | Ja          | Remove this use of "Thread.sleep()".                                                 |
-| `java:S1066`      | `IdentifierSourceResource.java`              | 220   | MAJOR              | Ja          | Merge this if statement with the enclosing one.                                      |
-| `java:S1134`      | `IdentifierSourceResource.java`              | 535   | MAJOR              | Ja          | Take the required action to fix the issue indicated by the TODO comment.             |
-| `java:S2293`      | `BaseIdentifierSource.java`                  | 257   | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                           |
-| `java:S2293`      | `IdentifierPool.java`                        | 46    | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                           |
-| `java:S2293`      | `IdgenUtil.java`                             | 78    | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                           |
-| `java:S1874`      | `SequentialIdentifierGenerator.java`         | 104   | MINOR              | Ja          | Remove this use of "newInstance"; it is deprecated.                                  |
-| `java:S2293`      | `AutoGenerationOptionResource.java`          | 115   | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                           |
-| `java:S2293`      | `IdentifierSourceResource.java`              | 148   | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                           |
-| `java:S4201`      | `AutoGenerationOption.java`                  | 64    | MINOR              | Ja          | Remove unnecessary null check; instanceof returns false for nulls.                   |
-| `java:S1905`      | `IdgenUtil.java`                             | 38    | MINOR              | Ja          | Remove this unnecessary cast to "long".                                              |
-| `java:S2160`      | `SequentialIdentifierGenerator.java`         | 29    | MINOR              | Ja          | Override the "equals" method in this class.                                          |
-| `java:S1124`      | `LocationBasedPrefixProvider.java`           | 21    | MINOR              | Ja          | Reorder the modifiers to comply with the Java Language Specification.                |
-| `java:S5411`      | `IdentifierPoolProcessor.java`               | 37    | MINOR              | Ja          | Use a primitive boolean expression here.                                             |
-| `java:S1481`      | `IdentifierSourceServiceTest.java`           | 334   | MINOR              | Ja          | Remove this unused local variable.                                                   |
-| `java:S1155`      | `AutoGenerationOptionResource.java`          | 136   | MINOR              | Ja          | Use isEmpty() to check whether the collection is empty or not.                       |
-| `java:S3008`      | `LogEntrySearchHandlerTest.java`             | 26    | MINOR              | Ja          | Rename field to match regex ^[a-z][a-zA-Z0-9]*$.                                     |
-| `java:S2143`      | `BaseIdentifierSource.java`                  | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
-| `java:S2143`      | `IdentifierPool.java`                        | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
-| `java:S2143`      | `LogEntry.java`                              | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
-| `java:S2143`      | `PooledIdentifier.java`                      | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
-| `java:S8692`      | `IdentifierSourceServiceTest.java`           | 340   | INFO               | Ja          | Do not use the system clock in tests.                                                |
-| `java:S6541`      | `IdentifierSourceResource.java`              | 142   | INFO               | Ja          | A "Brain Method" was detected. Refactor to reduce metrics.                           |
-| `java:S1135`      | `AutoGenerationOptionController.java`        | 110   | INFO               | Ja          | Complete the task associated to this TODO comment.                                   |
+| java:S1192          | `BaseIdentifierSourceService.java`           | 119   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "SYSTEM" 8 times.                   |
+| java:S1192          | `BaseIdentifierSourceService.java`           | 120   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "[AUDIT] UserID: " 8 times.         |
+| java:S1192          | `IdentifierSourceController.java`            | 206   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "[AUDIT] UserID: " 4 times.         |
+| java:S2093          | `IdgenUtil.java`                             | 80    | **CRITICAL** | Ja          | Change this "try" to a try-with-resources statement.                                 |
+| java:S2093          | `IdentifierSourceController.java`            | 290   | **CRITICAL** | Ja          | Change this "try" to a try-with-resources statement.                                 |
+| java:S2696          | `LocationBasedPrefixProvider.java`           | 73    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
+| java:S2696          | `LocationBasedPrefixProvider.java`           | 78    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
+| java:S1186          | `AutoGenerationOptionEditor.java`            | 20    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
+| java:S1186          | `IdentifierSourceEditor.java`                | 35    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
+| java:S2696          | `BaseIdentifierSourceService.java`           | 411   | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
+| java:S1192          | `HibernateIdentifierSourceDAO.java`          | 169   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 4 times.           |
+| java:S1192          | `HibernateIdentifierSourceDAO.java`          | 228   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "dateGenerated" 4 times.            |
+| java:S2696          | `LocationBasedSuffixProvider.java`           | 73    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
+| java:S2696          | `LocationBasedSuffixProvider.java`           | 78    | **CRITICAL** | Ja          | Make the enclosing method "static" or remove this set.                               |
+| java:S3776          | `SequentialIdentifierGenValidator.java`      | 41    | **CRITICAL** | Ja          | Refactor method to reduce Cognitive Complexity from 27 to the 15 allowed.            |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 9 times.           |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 65    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "location" 8 times.                 |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 66    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "source" 10 times.                  |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 67    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "manualEntryEnabled" 8 times.       |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 68    | **CRITICAL** | Ja          | Define constant instead of duplicating literal "automaticGenerationEnabled".         |
+| java:S1192          | `AutoGenerationOptionResource.java`          | 256   | **CRITICAL** | Ja          | Define constant instead of duplicating literal "#/definitions/LocationGet" 3 times.  |
+| java:S1192          | `LogEntryResource.java`                      | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifier" 5 times.               |
+| java:S1192          | `LogEntryResource.java`                      | 65    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "comment" 3 times.                  |
+| java:S1192          | `IdentifierPoolResourceHandler.java`         | 74    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "identifierType" 5 times.           |
+| java:S1192          | `IdentifierPoolResourceHandler.java`         | 76    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "display" 5 times.                  |
+| java:S1192          | `RemoteIdSourceResourceHandler.java`         | 61    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "display" 4 times.                  |
+| java:S1192          | `RemoteIdSourceResourceHandler.java`         | 71    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "password" 5 times.                 |
+| java:S1192          | `SequentialIdGenResourceHandler.java`        | 59    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "baseCharacterSet" 8 times.         |
+| java:S1192          | `SequentialIdGenResourceHandler.java`        | 64    | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "maxLength" 6 times.                |
+| java:S3776          | `IdentifierSourceResource.java`              | 142   | **CRITICAL** | Ja          | Refactor method to reduce Cognitive Complexity from 101 to the 15 allowed.           |
+| java:S1186          | `IdgenEditPatientIdentifiersController.java` | 38    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
+| java:S1186          | `LogEntryController.java`                    | 36    | **CRITICAL** | Ja          | Add comment explaining why method is empty, or throw UnsupportedOperationException.  |
+| java:S1068          | `IdgenModuleActivator.java`                  | 48    | MAJOR              | Ja          | Remove this unused "REGISTRY_URL" private field.                                     |
+| java:S1068          | `IdgenModuleActivator.java`                  | 49    | MAJOR              | Ja          | Remove this unused "REGISTRY_API_USER" private field.                                |
+| java:S1068          | `IdgenModuleActivator.java`                  | 50    | MAJOR              | Ja          | Remove this unused "REGISTRY_API_PASSWORD" private field.                            |
+| java:S1068          | `RemoteIdentifierSourceProcessor.java`       | 43    | MAJOR              | Ja          | Remove this unused "log" private field.                                              |
+| java:S1068          | `IdgenTask.java`                             | 21    | MAJOR              | Ja          | Remove this unused "taskClass" private field.                                        |
+| java:S1068          | `RemoteIdSourceProcessorStub.java`           | 31    | MAJOR              | Ja          | Remove this unused "batchSize" private field.                                        |
+| java:S1854          | `IdentifierSourceServiceTest.java`           | 334   | MAJOR              | Ja          | Remove useless assignment to local variable "sig".                                   |
+| java:S1854          | `IdentifierSourceServiceTest.java`           | 351   | MAJOR              | Ja          | Remove useless assignment to local variable "sig".                                   |
+| java:S1854          | `IdentifierSourceResource.java`              | 322   | MAJOR              | Ja          | Remove useless assignment to local variable "generateIdentifiers".                   |
+| java:S3740          | `IdentifierSourceDAO.java`                   | 192   | MAJOR              | Ja          | Provide the parametrized type for this generic.                                      |
+| java:S5993          | `BaseIdentifierSource.java`                  | 48    | MAJOR              | Ja          | Change the visibility of this constructor to "protected".                            |
+| java:S4144          | `BaseIdentifierSource.java`                  | 207   | MAJOR              | Ja          | Update method so implementation is not identical to "getRetired".                    |
+| java:S112           | `IdentifierPool.java`                        | 78    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S4144          | `IdentifierPool.java`                        | 177   | MAJOR              | Ja          | Update method so implementation is not identical to "getRefillWithScheduledTask".    |
+| java:S1118          | `IdgenConstants.java`                        | 19    | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
+| java:S2068          | `IdgenModuleActivator.java`                  | 50    | MAJOR              | Ja          | 'PASSWORD' detected in this expression, review this potentially hard-coded password. |
+| java:S1118          | `IdgenUtil.java`                             | 28    | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
+| java:S112           | `IdgenUtil.java`                             | 66    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S1117          | `SequentialIdentifierGenerator.java`         | 69    | MAJOR              | Ja          | Rename "nextSequenceValue" which hides the field declared at line 32.                |
+| java:S112           | `SequentialIdentifierGenerator.java`         | 108   | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S1066          | `SequentialIdentifierGenerator.java`         | 113   | MAJOR              | Ja          | Merge this if statement with the enclosing one.                                      |
+| java:S112           | `LocationBasedPrefixProvider.java`           | 30    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S112           | `RemoteIdentifierSourceProcessor.java`       | 55    | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S127           | `SequentialIdGenProcessor.java`              | 75    | MAJOR              | Ja          | Refactor code to not assign loop counter from within the loop body.                  |
+| java:S1161          | `AutoGenerationOptionEditor.java`            | 25    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
+| java:S1161          | `IdentifierSourceEditor.java`                | 40    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
+| java:S112           | `BaseIdentifierSourceService.java`           | 274   | MAJOR              | Ja          | Replace generic exception with specific library exception or custom exception.       |
+| java:S1118          | `ExceptionUtils.java`                        | 6     | MAJOR              | Ja          | Add a private constructor to hide the implicit public one.                           |
+| java:S1161          | `RemoteIdentifierSourceValidator.java`       | 27    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
+| java:S1161          | `SequentialIdGenValidator.java`              | 34    | MAJOR              | Ja          | Add the "@Override" annotation above this method signature.                          |
+| java:S108           | `DuplicateIdentifiersPoolTest.java`          | 75    | MAJOR              | Ja          | Remove block of code, fill it in, or add comment explaining why it is empty.         |
+| java:S2925          | `DuplicateIdentifiersPoolTest.java`          | 85    | MAJOR              | Ja          | Remove this use of "Thread.sleep()".                                                 |
+| java:S2925          | `IdentifierPoolSchedulerIT.java`             | 58    | MAJOR              | Ja          | Remove this use of "Thread.sleep()".                                                 |
+| java:S1066          | `IdentifierSourceResource.java`              | 220   | MAJOR              | Ja          | Merge this if statement with the enclosing one.                                      |
+| java:S1134          | `IdentifierSourceResource.java`              | 535   | MAJOR              | Ja          | Take the required action to fix the issue indicated by the TODO comment.             |
+| java:S2293          | `BaseIdentifierSource.java`                  | 257   | MINOR              | Ja          | Replace type specification with diamond operator (<>`).                              |
+| java:S2293          | `IdentifierPool.java`                        | 46    | MINOR              | Ja          | Replace type specification with diamond operator (<>).                               |
+| java:S2293          | `IdgenUtil.java`                             | 78    | MINOR              | Ja          | Replace type specification with diamond operator (<>).                               |
+| `java:S1874         | `SequentialIdentifierGenerator.java`         | 104   | MINOR              | Ja          | Remove this use of "newInstance"; it is deprecated.                                  |
+| java:S2293          | `AutoGenerationOptionResource.java`          | 115   | MINOR              | Ja          | Replace type specification with diamond operator (<>`).                              |
+| java:S2293          | `IdentifierSourceResource.java`              | 148   | MINOR              | Ja          | Replace type specification with diamond operator (<>).                               |
+| `java:S4201         | `AutoGenerationOption.java`                  | 64    | MINOR              | Ja          | Remove unnecessary null check; instanceof returns false for nulls.                   |
+| java:S1905          | `IdgenUtil.java`                             | 38    | MINOR              | Ja          | Remove this unnecessary cast to "long".                                              |
+| java:S2160          | `SequentialIdentifierGenerator.java`         | 29    | MINOR              | Ja          | Override the "equals" method in this class.                                          |
+| java:S1124          | `LocationBasedPrefixProvider.java`           | 21    | MINOR              | Ja          | Reorder the modifiers to comply with the Java Language Specification.                |
+| java:S5411          | `IdentifierPoolProcessor.java`               | 37    | MINOR              | Ja          | Use a primitive boolean expression here.                                             |
+| java:S1481          | `IdentifierSourceServiceTest.java`           | 334   | MINOR              | Ja          | Remove this unused local variable.                                                   |
+| java:S1155          | `AutoGenerationOptionResource.java`          | 136   | MINOR              | Ja          | Use isEmpty() to check whether the collection is empty or not.                       |
+| java:S3008          | `LogEntrySearchHandlerTest.java`             | 26    | MINOR              | Ja          | Rename field to match regex ^[a-z][a-zA-Z0-9]*$.                                     |
+| java:S2143          | `BaseIdentifierSource.java`                  | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
+| java:S2143          | `IdentifierPool.java`                        | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
+| java:S2143          | `LogEntry.java`                              | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
+| java:S2143          | `PooledIdentifier.java`                      | -     | INFO               | Ja          | Use the "java.time" API for date and time.                                           |
+| java:S8692          | `IdentifierSourceServiceTest.java`           | 340   | INFO               | Ja          | Do not use the system clock in tests.                                                |
+| java:S6541          | `IdentifierSourceResource.java`              | 142   | INFO               | Ja          | A "Brain Method" was detected. Refactor to reduce metrics.                           |
+| java:S1135          | `AutoGenerationOptionController.java`        | 110   | INFO               | Ja          | Complete the task associated to this TODO comment.                                   |
 
 ## Tweede Iteratie
 
@@ -2357,12 +2357,12 @@ Deze problemen zijn nieuw opgedoken in de laatste scan (aanmaakdatum 15 juni 202
 
 | Issue (Sonar Regel) | Bestand                               | Regel | Severity           | Gemitigeerd | Beschrijving                                                                                       |
 | :------------------ | :------------------------------------ | :---- | :----------------- | :---------- | :------------------------------------------------------------------------------------------------- |
-| `java:S1452`      | `IdentifierSourceDAO.java`          | 192   | **CRITICAL** | Ja          | Remove usage of generic wildcard type.                                                             |
-| `java:S1192`      | `AutoGenerationOptionResource.java` | 264   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "#/definitions/IdgenIdentifiersourceGet" 3 times. |
-| `java:S3776`      | `IdentifierSourceResource.java`     | 308   | **CRITICAL** | Ja          | Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.                 |
-| `java:S2886`      | `LocationBasedPrefixProvider.java`  | 58    | MAJOR              | Ja          | Synchronize this method to match the synchronization on "setPrefixLocationAttributeType".          |
-| `java:S2886`      | `LocationBasedSuffixProvider.java`  | 58    | MAJOR              | Ja          | Synchronize this method to match the synchronization on "setSuffixLocationAttributeType".          |
-| `java:S2293`      | `BaseIdentifierSourceService.java`  | 60    | MINOR              | Ja          | Replace type specification with diamond operator (`<>`).                                         |
+| java:S1452          | `IdentifierSourceDAO.java`          | 192   | **CRITICAL** | Ja          | Remove usage of generic wildcard type.                                                             |
+| java:S1192          | `AutoGenerationOptionResource.java` | 264   | **CRITICAL** | Ja          | Define a constant instead of duplicating literal "#/definitions/IdgenIdentifiersourceGet" 3 times. |
+| java:S3776          | `IdentifierSourceResource.java`     | 308   | **CRITICAL** | Ja          | Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.                 |
+| java:S2886          | `LocationBasedPrefixProvider.java`  | 58    | MAJOR              | Ja          | Synchronize this method to match the synchronization on "setPrefixLocationAttributeType".          |
+| java:S2886          | `LocationBasedSuffixProvider.java`  | 58    | MAJOR              | Ja          | Synchronize this method to match the synchronization on "setSuffixLocationAttributeType".          |
+| java:S2293          | `BaseIdentifierSourceService.java`  | 60    | MINOR              | Ja          | Replace type specification with diamond operator (<>`).                                            |
 
 ## Bestaande Issues (Selectie van belangrijkste)
 
@@ -2370,49 +2370,49 @@ Deze problemen waren al aanwezig in eerdere scans. Zijn nu gemitigeerd in tweede
 
 | Issue (Sonar Regel) | Bestand                                               | Regel | Severity | Gemitigeerd | Beschrijving                                                              |
 | :------------------ | :---------------------------------------------------- | :---- | :------- | :---------- | :------------------------------------------------------------------------ |
-| `java:S2143`      | `BaseIdentifierSource.java`                         | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `IdentifierPool.java`                               | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `LogEntry.java`                                     | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `PooledIdentifier.java`                             | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `IdentifierPoolProcessor.java`                      | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `BaseIdentifierSourceService.java`                  | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `IdentifierSourceService.java`                      | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `HibernateIdentifierSourceDAO.java`                 | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `IdentifierSourceDAO.java`                          | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `LogEntryResource.java`                             | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `LogEntrySearchHandler.java`                        | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2143`      | `LogEntryController.java`                           | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
-| `java:S2293`      | `IdentifierPoolProcessor.java`                      | 41    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `RemoteIdentifierSourceProcessor.java`              | 68    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `SequentialIdentifierGeneratorProcessor.java`       | 69    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `BaseIdentifierSourceService.java`                  | 65    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `BaseIdentifierSourceService.java`                  | 78    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `BaseIdentifierSourceService.java`                  | 106   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `BaseIdentifierSourceService.java`                  | 463   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `LogEntryResource.java`                             | 54    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdentifierPoolResourceHandler.java`                | 148   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `RemoteIdentifierSourceResourceHandler.java`        | 120   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `SequentialIdentifierGeneratorResourceHandler.java` | 136   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `AutoGenerationOptionController.java`               | 83    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `AutoGenerationOptionController.java`               | 84    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S1874`      | `IdentifierSourceController.java`                   | 93    | MINOR    | Ja          | Remove this use of "newInstance"; it is deprecated.                       |
-| `java:S2293`      | `IdentifierSourceController.java`                   | 102   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdentifierSourceController.java`                   | 124   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdentifierSourceController.java`                   | 239   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 49    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 51    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 58    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 60    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 82    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 86    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 98    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `IdgenEditPatientIdentifiersController.java`        | 111   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2293`      | `LogEntryController.java`                           | 67    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
-| `java:S2925`      | `IdgenTaskIT.java`                                  | 50    | MAJOR    | Ja          | Remove this use of "Thread.sleep()".                                      |
-| `java:S1117`      | `IdentifierSourceController.java`                   | 119   | MAJOR    | Ja          | Rename "iss" which hides the field declared at line 59.                   |
-| `java:S3008`      | `LogEntryControllerTest.java`                       | 23    | MINOR    | Ja          | Rename field to match regex `^[a-z][a-zA-Z0-9]*$`.                      |
-| `java:S1066`      | `IdentifierSourceResource.java`                     | 366   | MAJOR    | Ja          | Merge this if statement with the enclosing one.                           |
-| `java:S1155`      | `AutoGenerationOptionResource.java`                 | 143   | MINOR    | Ja          | Use isEmpty() to check whether the collection is empty or not.            |
+| `java:S2143         | `BaseIdentifierSource.java`                         | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `IdentifierPool.java`                               | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `LogEntry.java`                                     | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `PooledIdentifier.java`                             | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `IdentifierPoolProcessor.java`                      | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `BaseIdentifierSourceService.java`                  | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `IdentifierSourceService.java`                      | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `HibernateIdentifierSourceDAO.java`                 | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `IdentifierSourceDAO.java`                          | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `LogEntryResource.java`                             | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `LogEntrySearchHandler.java`                        | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2143          | `LogEntryController.java`                           | -     | INFO     | Ja          | Use the "java.time" API for date and time. (legacy Hibernate, suppressed) |
+| java:S2293          | `IdentifierPoolProcessor.java`                      | 41    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `RemoteIdentifierSourceProcessor.java`              | 68    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `SequentialIdentifierGeneratorProcessor.java`       | 69    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `BaseIdentifierSourceService.java`                  | 65    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `BaseIdentifierSourceService.java`                  | 78    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `BaseIdentifierSourceService.java`                  | 106   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `BaseIdentifierSourceService.java`                  | 463   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `LogEntryResource.java`                             | 54    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdentifierPoolResourceHandler.java`                | 148   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `RemoteIdentifierSourceResourceHandler.java`        | 120   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `SequentialIdentifierGeneratorResourceHandler.java` | 136   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `AutoGenerationOptionController.java`               | 83    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `AutoGenerationOptionController.java`               | 84    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S1874          | `IdentifierSourceController.java`                   | 93    | MINOR    | Ja          | Remove this use of "newInstance"; it is deprecated.                       |
+| java:S2293          | `IdentifierSourceController.java`                   | 102   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdentifierSourceController.java`                   | 124   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdentifierSourceController.java`                   | 239   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 49    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 51    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 58    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 60    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 82    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 86    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 98    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `IdgenEditPatientIdentifiersController.java`        | 111   | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2293          | `LogEntryController.java`                           | 67    | MINOR    | Ja          | Replace type specification with diamond operator.                         |
+| java:S2925          | `IdgenTaskIT.java`                                  | 50    | MAJOR    | Ja          | Remove this use of "Thread.sleep()".                                      |
+| java:S1117          | `IdentifierSourceController.java`                   | 119   | MAJOR    | Ja          | Rename "iss" which hides the field declared at line 59.                   |
+| java:S3008          | `LogEntryControllerTest.java`                       | 23    | MINOR    | Ja          | Rename field to match regex ^[a-z][a-zA-Z0-9]*$`.                         |
+| `java:S1066         | `IdentifierSourceResource.java`                     | 366   | MAJOR    | Ja          | Merge this if statement with the enclosing one.                           |
+| java:S1155          | `AutoGenerationOptionResource.java`                 | 143   | MINOR    | Ja          | Use isEmpty() to check whether the collection is empty or not.            |
 
 ---
 
@@ -2421,7 +2421,7 @@ Deze problemen waren al aanwezig in eerdere scans. Zijn nu gemitigeerd in tweede
 > **Bronbestand:** [Groep_6_Patchadvies.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Patchadvies.md)
 > **Auteur(s):** Rowen Albers
 > **Gewerkt op (dagen):** 10 juni 2026
-> **Sprint(s):** Sprint 2
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md)
 > **Kerncommits:** [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786)
 
 ### Bronnenlijst
@@ -2445,7 +2445,7 @@ Het doel van dit document is het bieden van een concrete en direct toepasbare ro
 
 ## 2. Risico-analyse afhankelijkheden (SCA Overzicht)
 
-De SCA-scan heeft zes kwetsbare dependencies geïdentificeerd in de transitieve keten. Onderstaande tabel toont de prioritering op basis van de CVSS Base Score (NVD) en de contextuele risicoscore (kans x impact) conform de scoreschaal uit Groep_6_Asset-Identificatie.md.
+De SCA-scan heeft zes kwetsbare dependencies geïdentificeerd in de transitieve keten. Onderstaande tabel toont de prioritering op basis van de CVSS Base Score (NVD) en de contextuele risicoscore (kans x impact) conform de scoreschaal uit [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md).
 
 | ID               | Component           | Versie        | Belangrijkste CVE                                                  | CWE                                                     | CVSS Base | Contextuele Ernst | NEN-7510 | Status          |
 | ---------------- | ------------------- | ------------- | ------------------------------------------------------------------ | ------------------------------------------------------- | --------- | ----------------- | -------- | --------------- |
@@ -2462,7 +2462,7 @@ De SCA-scan heeft zes kwetsbare dependencies geïdentificeerd in de transitieve 
 
 De patches zijn ingedeeld in drie fasen op basis van risico, complexiteit en de levenscyclus van de libraries.
 
-### Fase 1: Onmiddellijke Actie (Sprint 3)
+### Fase 1: Onmiddellijke Actie ([Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md))
 
 *Focus: Kritieke RCE-kwetsbaarheden die direct exploiteerbaar zijn en libraries die relatief eenvoudig te updaten zijn.*
 
@@ -2471,20 +2471,20 @@ De patches zijn ingedeeld in drie fasen op basis van risico, complexiteit en de 
    * *Onderbouwing:* XStream deserialiseert XML-invoer zonder typebeperking. Omdat de module externe identifier-bronnen via XML kan verwerken, is dit een directe RCE-vector. Versie 1.4.21 introduceert een veilige standaardconfiguratie met allowlists.
 2. **Commons Collections (SCA-05):**
    * *Actie:* Upgraden van versie 3.2 naar **3.2.2** of migreren naar **commons-collections4 v4.x**.
-   * *Onderbouwing:* Versie 3.2 bevat de beruchte `InvokerTransformer` deserialisatie-gadget. Upgraden naar 3.2.2 deactiveert deze gadget standaard, wat de exploiteerbaarheid direct opheft.
+   * *Onderbouwing:* Versie 3.2 bevat de beruchte InvokerTransformer` deserialisatie-gadget. Upgraden naar 3.2.2 deactiveert deze gadget standaard, wat de exploiteerbaarheid direct opheft.
 3. **Log4j 1.x (SCA-06):**
    * *Actie:* Volledig migreren naar **Log4j 2.x** (minimaal 2.17.1+) of als drop-in vervanging **Reload4j 1.2.25** configureren.
-   * *Onderbouwing:* Log4j 1.x is sinds 2015 End-of-Life en bevat meerdere onopgeloste deserialisatie-kwetsbaarheden (`SocketServer`). Reload4j is een actieve fork die de compatibiliteit behoudt maar alle CVE's heeft gepatcht.
+   * *Onderbouwing:* Log4j 1.x is sinds 2015 End-of-Life en bevat meerdere onopgeloste deserialisatie-kwetsbaarheden (`SocketServer). Reload4j is een actieve fork die de compatibiliteit behoudt maar alle CVE's heeft gepatcht.
 
-### Fase 2: Korte Termijn (Sprint 4)
+### Fase 2: Korte Termijn ([Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md))
 
 *Focus: Complexe backend-upgrades en transitieve EOL-dependencies.*
 
 4. **Spring Core (SCA-02):**
    * *Actie:* Upgraden naar **Spring Core 5.3.x** of **6.x** (afhankelijk van de OpenMRS platformversie).
-   * *Onderbouwing:* Spring 3.0.5 is EOL sinds 2014. De kwetsbaarheid in `HttpInvokerServiceExporter` stelt aanvallers in staat om willekeurige code uit te voeren. Deze upgrade is complex omdat het impact heeft op de kern van de module en mogelijk grotere aanpassingen vereist in de code en configuratie.
+   * *Onderbouwing:* Spring 3.0.5 is EOL sinds 2014. De kwetsbaarheid in HttpInvokerServiceExporter` stelt aanvallers in staat om willekeurige code uit te voeren. Deze upgrade is complex omdat het impact heeft op de kern van de module en mogelijk grotere aanpassingen vereist in de code en configuratie.
 5. **Apache Struts 1 (SCA-01):**
-   * *Actie:* Struts 1 dependency volledig uitsluiten (`<exclusions>`) of vervangen door Spring MVC controllers.
+   * *Actie:* Struts 1 dependency volledig uitsluiten (``<exclusions>`) of vervangen door Spring MVC controllers.
    * *Onderbouwing:* Struts 1 is EOL sinds 2013. De ClassLoader-manipulatie (CVE-2014-0114) kan leiden tot RCE. Omdat moderne OpenMRS-modules gebruikmaken van Spring MVC, is de Struts-dependency waarschijnlijk overtollig en kan deze veilig worden uitgesloten.
 
 ### Fase 3: Middellange Termijn (Post-Oplevering)
@@ -2516,9 +2516,9 @@ Door het uitvoeren van dit patchadvies wordt de blootstelling aan bekende kwetsb
 
 ## 5. Concrete Implementatie-instructies
 
-### 5.1 Maven Dependency Updates (pom.xml)
+### 5.1 Maven Dependency Updates ([pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml))
 
-Voeg de volgende dependency-updates toe aan de `pom.xml` van de `idgen` module om de kwetsbare libraries te overschrijven of te upgraden:
+Voeg de volgende dependency-updates toe aan de [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml) van de idgen` module om de kwetsbare libraries te overschrijven of te upgraden:
 
 ```xml
 <dependencyManagement>
@@ -2543,7 +2543,7 @@ Voeg de volgende dependency-updates toe aan de `pom.xml` van de `idgen` module o
             <artifactId>reload4j</artifactId>
             <version>1.2.25</version>
         </dependency>
-      
+    
         <!-- SCA-04: Upgrade PostgreSQL driver naar v42.7.3 -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -2599,9 +2599,9 @@ xstream.allowTypes(new Class[] {
 
 ## 6. Relatie met andere deliverables
 
-* **`Groep_6_Security-Analyse.md`**: Dit patchadvies is direct gebaseerd op de kwetsbaarheden (SCA-01 t/m SCA-06) die zijn gedetecteerd en geanalyseerd in Groep_6_Security-Analyse.md.
-* **`Groep_6_Risk-Assessment-Report.md`**: De prioritering en fasering van deze roadmap komen overeen met de conclusies en aanbevelingen in Groep_6_Risk-Assessment-Report.md (Sectie 7).
-* **`bom.json` / `bom.xml`**: De geanalyseerde afhankelijkheden en versienummers komen rechtstreeks uit de gegenereerde CycloneDX Software Bill of Materials (SBOM) in `openmrs-module-idgen/target/`.
+* **[Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)**: Dit patchadvies is direct gebaseerd op de kwetsbaarheden (SCA-01 t/m SCA-06) die zijn gedetecteerd en geanalyseerd in [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md).
+* **[Groep_6_Risk-Assessment-Report.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risk-Assessment-Report.md)**: De prioritering en fasering van deze roadmap komen overeen met de conclusies en aanbevelingen in [Groep_6_Risk-Assessment-Report.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risk-Assessment-Report.md) (Sectie 7).
+* bom.json `/`bom.xml `: De geanalyseerde afhankelijkheden en versienummers komen rechtstreeks uit de gegenereerde CycloneDX Software Bill of Materials (SBOM) in `openmrs-module-idgen/target/.
 
 ---
 
@@ -2610,7 +2610,7 @@ xstream.allowTypes(new Class[] {
 > **Bronbestand:** [Groep_6_Risk-Assessment-Report.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risk-Assessment-Report.md)
 > **Auteur(s):** Raf van Hooijdonk, Rowen Albers
 > **Gewerkt op (dagen):** 10 en 15 juni 2026
-> **Sprint(s):** Sprint 2, Sprint 3
+> **Sprint(s):** [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md), [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [0df8786](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/0df8786), [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)
 
 ### Bronnenlijst
@@ -2640,7 +2640,7 @@ Op basis van de geconstateerde kwetsbaarheden en het ontbreken van basale beveil
 
 ## 2. Scope en Methodologie
 
-De scope van deze risicobeoordeling beperkt zich specifiek tot de broncode en de externe afhankelijkheden van de OpenMRS ID Generation Module (idgen). Deze module is verantwoordelijk voor het genereren en toewijzen van unieke identificatienummers aan patiënten binnen het OpenMRS ecosysteem. De onderliggende infrastructuur, de OpenMRS core applicatie en de databaseservers vallen buiten de scope van dit specifieke rapport. Dynamische applicatietests (DAST via OWASP ZAP) en actieve penetratietesten zijn uitgevoerd in Opdracht 5. De DAST-rapportage is beschikbaar in `docs/dast/` en de penetratietest is gedocumenteerd in `Groep_6_Pentestrapport.md`.
+De scope van deze risicobeoordeling beperkt zich specifiek tot de broncode en de externe afhankelijkheden van de OpenMRS ID Generation Module (idgen). Deze module is verantwoordelijk voor het genereren en toewijzen van unieke identificatienummers aan patiënten binnen het OpenMRS ecosysteem. De onderliggende infrastructuur, de OpenMRS core applicatie en de databaseservers vallen buiten de scope van dit specifieke rapport. Dynamische applicatietests (DAST via OWASP ZAP) en actieve penetratietesten zijn uitgevoerd in Opdracht 5. De DAST-rapportage is beschikbaar in [docs/dast/](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast) en de penetratietest is gedocumenteerd in [Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md).
 
 De beoordeling is uitgevoerd aan de hand van een gestructureerde methodologie. De identificatie van dreigingen is gebaseerd op het STRIDE-model. Er zijn scans uitgevoerd op de daadwerkelijke modulecode en niet langer op placeholder bestanden. De analyse bestaat uit de volgende drie pijlers:
 
@@ -2667,7 +2667,7 @@ Om de impact van de gevonden kwetsbaarheden goed te kunnen wegen, is inzicht in 
 Wanneer een aanvaller misbruik maakt van de kwetsbaarheden in de module en toegang krijgt tot de database, heeft deze direct toegang tot gevoelige medische dossiers en het datamodel van OpenMRS. Dit omvat met name:
 
 * De obs tabel (patiëntobservaties), waarin medische meetwaarden en klinische data zoals `obs.value_numeric` en `obs.concept_id` direct gekoppeld zijn aan de patiënt via `obs.person_id` (aangezien `patient_id` in de `patient` tabel gekoppeld is aan de `person_id` in de overkoepelende `person` tabel). Een lek in deze tabel compromitteert de privacy en integriteit van het medisch dossier fundamenteel.
-* De patient_identifier tabel, waarin de door deze module gegenereerde identifiers worden opgeslagen (met name de kolommen `patient_identifier.identifier` en `patent_identifier.identifier_type` gekoppeld aan `patient_identifier.patient_id`). Manipulatie van deze tabel door een aanvaller kan leiden tot patiëntenverwisseling, waardoor behandelaars beslissingen baseren op foutieve medische dossiers.
+* De patient_identifier tabel, waarin de door deze module gegenereerde identifiers worden opgeslagen (met name de kolommen `patient_identifier.identifier` en `patient_identifier.identifier_type` gekoppeld aan `patient_identifier.patient_id`). Manipulatie van deze tabel door een aanvaller kan leiden tot patiëntenverwisseling, waardoor behandelaars beslissingen baseren op foutieve medische dossiers.
 
 Daarnaast communiceert de module via REST API endpoints. Deze endpoints zijn direct benaderbaar over het netwerk. Wanneer deze endpoints onvoldoende zijn beveiligd, ontstaat er een digitaal aanvalsoppervlak dat kwaadwillenden kunnen misbruiken om de onderliggende database te benaderen. Het ontbreken van adequate audit logging binnen deze module maakt het bovendien nagenoeg onmogelijk om na een incident te reconstrueren welke gegevens door onbevoegden zijn ingezien of gemanipuleerde. Dit schendt het basisprincipe van verantwoordingsplicht uit de AVG.
 
@@ -2691,19 +2691,19 @@ De onderstaande vijf kwetsbaarheden vormen de grootste dreiging voor de vertrouw
 
 **3. Verouderd Spring Core Framework (SCA-02)**
 
-* **Beschrijving:** De module is gebouwd op Spring Core versie 3.0.5.RELEASE. Deze versie stamt uit 2011 en is zwaar verouderd. De kwetsbaarheid bevindt zich in de `HttpInvokerServiceExporter` component.
+* **Beschrijving:** De module is gebouwd op Spring Core versie 3.0.5.RELEASE. Deze versie stamt uit 2011 en is zwaar verouderd. De kwetsbaarheid bevindt zich in de HttpInvokerServiceExporter component.
 * **Risico & Consequentie:** Als deze component onvertrouwde data verwerkt, kan een aanvaller op afstand code uitvoeren. Het gebruik van componenten die het einde van hun levensduur hebben bereikt is een onacceptabel risico in een zorgomgeving. Componenten zonder actieve beveiligingsupdates kunnen niet worden beschermd tegen nieuwe aanvalstechnieken.
 * **Classificatie:** [CVE-2016-1000027](https://nvd.nist.gov/vuln/detail/CVE-2016-1000027) / [CWE-502](https://cwe.mitre.org/data/definitions/502.html). CVSS base score van 9.8. Belemmert compliance met [NEN-7510:2026 Ctrl 8.8](https://www.nen.nl/nen-7510).
 
 **4. Onveilige commons-collections library (SCA-05)**
 
-* **Beschrijving:** De afhankelijkheden van de module bevatten commons-collections versie 3.2. Deze specifieke versie is berucht vanwege de `InvokerTransformer` gadget. Dit is een van de meest misbruikte componenten voor Java deserialisatie-aanvallen.
+* **Beschrijving:** De afhankelijkheden van de module bevatten commons-collections versie 3.2. Deze specifieke versie is berucht vanwege de InvokerTransformer gadget. Dit is een van de meest misbruikte componenten voor Java deserialisatie-aanvallen.
 * **Risico & Consequentie:** Zodra een aanvaller een ingang vindt om data naar deze library te sturen, is systeemovername een feit. De impact op de organisatie omvat massale datalekken en mogelijke gijzeling van het systeem door ransomware.
 * **Classificatie:** [CVE-2015-7501](https://nvd.nist.gov/vuln/detail/CVE-2015-7501) / [CWE-502](https://cwe.mitre.org/data/definitions/502.html). CVSS base score van 9.8. Mitigatie is vereist conform [NEN-7510:2026 Ctrl 8.8](https://www.nen.nl/nen-7510).
 
 **5. End-of-Life Log4j 1.x (SCA-06)**
 
-* **Beschrijving:** De applicatie maakt voor logregistratie gebruik van Log4j versie 1.2.15. Deze versie is sinds 2015 end-of-life (EOL). Dit betekent dat er geen beveiligingsupdates meer verschijnen. De specifieke versie bevat een lek in de `SocketServer` klasse.
+* **Beschrijving:** De applicatie maakt voor logregistratie gebruik van Log4j versie 1.2.15. Deze versie is sinds 2015 end-of-life (EOL). Dit betekent dat er geen beveiligingsupdates meer verschijnen. De specifieke versie bevat een lek in de SocketServer klasse.
 * **Risico & Consequentie:** Als een aanvaller verbinding kan maken met de applicatie en specifieke logregels kan triggeren, ontstaat er wederom een mogelijkheid voor Remote Code Execution. Het permanente karakter van dit risico maakt vervanging van de library noodzakelijk.
 * **Classificatie:** [CVE-2019-17571](https://nvd.nist.gov/vuln/detail/CVE-2019-17571) / [CWE-502](https://cwe.mitre.org/data/definitions/502.html). CVSS base score van 9.8. Vervanging is verplicht conform [NEN-7510:2026 Ctrl 8.8](https://www.nen.nl/nen-7510).
 
@@ -2763,8 +2763,8 @@ Het definitieve oordeel van dit Risk Assessment Report is een expliciete **NO-GO
 **Aanbeveling en Roadmap:**
 Wij adviseren het ontwikkelteam om per direct de functionele doorontwikkeling van deze module te staken. De volledige capaciteit van de komende sprint moet worden ingezet om de vijf kritieke bevindingen uit de security backlog op te lossen.
 
-* **Korte termijn (Sprint 3):** Start met het patchen van de XStream en Commons Collections libraries. Ontwerp veilige deserialisatie-mechanismen in de Java code en elimineer het gebruik van Log4j 1.x.
-* **Middellange termijn (Sprint 4):** Voer de in kostenpost 2 voorgestelde licentie-upgrade uit om de CI/CD pipeline compliant te maken met Secret Scanning. Implementeer waterdichte audit logging voor elke actie die patiëntgegevens raakt, conform [NEN-7510:2026 Ctrl 8.15](https://www.nen.nl/nen-7510).
+* **Korte termijn ([Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)):** Start met het patchen van de XStream en Commons Collections libraries. Ontwerp veilige deserialisatie-mechanismen in de Java code en elimineer het gebruik van Log4j 1.x.
+* **Middellange termijn ([Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)):** Voer de in kostenpost 2 voorgestelde licentie-upgrade uit om de CI/CD pipeline compliant te maken met Secret Scanning. Implementeer waterdichte audit logging voor elke actie die patiëntgegevens raakt, conform [NEN-7510:2026 Ctrl 8.15](https://www.nen.nl/nen-7510).
 * **Lange termijn:** Voer na de refactoring een dynamische applicatiescan en de externe penetratietest uit. Pas nadat de onafhankelijke auditors hebben bevestigd dat de kritieke bevindingen niet langer exploiteerbaar zijn, kan de Go/No-Go beslissing opnieuw in overweging worden genomen.
 
 ---
@@ -2773,10 +2773,10 @@ Wij adviseren het ontwikkelteam om per direct de functionele doorontwikkeling va
 
 Dit document maakt integraal deel uit van het security-verbetertraject en staat in directe verbinding met de overige deliverables:
 
-* **`Groep_6_Asset-Identificatie.md`**: Dit rapport gebruikt de in Groep_6_Asset-Identificatie.md geïdentificeerde assets (met name A1 en A2), threat actoren (TA1, TA3, TA4) en de vastgestelde risico-appetite en waarschijnlijkheid/impact-schalen.
-* **`Groep_6_Security-Analyse.md`**: De hier gepresenteerde security backlog en CVE/CWE-bevindingen zijn direct gebaseerd op de automatische en handmatige analyses gedocumenteerd in Groep_6_Security-Analyse.md.
-* **`Groep_6_Risicomatrix.md`**: De risico's rondom het ontwikkelingsproces en de CI/CD pipeline die dit RAR beïnvloeden, zijn afgestemd met Groep_6_Risicomatrix.md.
-* **`Groep_6_Audit-Rappo
+* **[Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)**: Dit rapport gebruikt de in [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md) geïdentificeerde assets (met name A1 en A2), threat actoren (TA1, TA3, TA4) en de vastgestelde risico-appetite en waarschijnlijkheid/impact-schalen.
+* **[Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)**: De hier gepresenteerde security backlog en CVE/CWE-bevindingen zijn direct gebaseerd op de automatische en handmatige analyses gedocumenteerd in [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md).
+* **[Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md)**: De risico's rondom het ontwikkelingsproces en de CI/CD pipeline die dit RAR beïnvloeden, zijn afgestemd met [Groep_6_Risicomatrix.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Risicomatrix.md).
+* **Groep_6_Audit-Rappo
 
 ---
 
@@ -2785,7 +2785,7 @@ Dit document maakt integraal deel uit van het security-verbetertraject en staat 
 > **Bronbestand:** [Groep_6_Resolved_Alerts_SAST.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Resolved_Alerts_SAST.md)
 > **Auteur(s):** Rowen Albers
 > **Gewerkt op (dagen):** 16 juni 2026
-> **Sprint(s):** Sprint 4
+> **Sprint(s):** [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)
 > **Kerncommits:** [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)
 
 | Alert # | Rule ID                                   | File Path                                                                                                                                                                                                                       | Line | Description                                                                                               | Status / Oplossing                                                                                        |
@@ -2942,7 +2942,7 @@ Dit document maakt integraal deel uit van het security-verbetertraject en staat 
 | 150     | `java/uncaught-number-format-exception` | [IdentifierSourceResource.java](file:///C:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/rest/resource/IdentifierSourceResource.java)                            | 352  | Potential uncaught 'java.lang.NumberFormatException'.                                                     | Parseren ingekapseld in try-catch met foutafhandeling / ValidationException.                              |
 | 151     | `java/uncaught-number-format-exception` | [IdentifierSourceResource.java](file:///C:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/rest/resource/IdentifierSourceResource.java)                            | 355  | Potential uncaught 'java.lang.NumberFormatException'.                                                     | Parseren ingekapseld in try-catch met foutafhandeling / ValidationException.                              |
 | 152     | `java/uncaught-number-format-exception` | [IdentifierSourceResource.java](file:///C:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/rest/resource/IdentifierSourceResource.java)                            | 409  | Potential uncaught 'java.lang.NumberFormatException'.                                                     | Parseren ingekapseld in try-catch met foutafhandeling / ValidationException.                              |
-| 153     | `java/uncaught-number-format-exception` | [IdentifierSourceResource.java](file:///C:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/rest/resource/IdentifierSourceResource.java)                            | 531  | Potential uncaught 'java.lang.NumberFormatException'.                                                     | Parseren ingekapseld in try-catch met foutafhandeling / ValidationException.                              |
+| 153     | `java/uncaught-number-format-exception    | [IdentifierSourceResource.java](file:///C:/Users/rowen/Documents/GitHub/openmrsmodule/LU2/openmrs-module-idgen/omod/src/main/java/org/openmrs/module/idgen/rest/resource/IdentifierSourceResource.java)                            | 531  | Potential uncaught 'java.lang.NumberFormatException'.                                                     | Parseren ingekapseld in try-catch met foutafhandeling / ValidationException.                              |
 
 ---
 
@@ -2951,14 +2951,14 @@ Dit document maakt integraal deel uit van het security-verbetertraject en staat 
 > **Bronbestand:** [Groep_6_Resolved_Alerts_DAST.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Resolved_Alerts_DAST.md)
 > **Auteur(s):** Sinan Sagir
 > **Gewerkt op (dagen):** 16 juni 2026
-> **Sprint(s):** Sprint 4
+> **Sprint(s):** [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)
 > **Kerncommits:** [a8c080a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8c080a), [58006ba](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/58006ba)
 
 ## 1. Scope en bronbestand
 
-Dit document verwerkt de 49 alerts uit de OWASP ZAP full scan van 15/06/2026 (`@generated: Mon, 15 Jun 2026 21:36:33`), opgeslagen als `docs/dast/zap-report/zap-report.json` (en `.html`/`.xml`). De scan draaide tegen `http://localhost:8080`, de volledige Tomcat-instantie uit `docker-compose.yml` (image `openmrs/openmrs-reference-application-distro:2.12.2`), niet uitsluitend tegen de idgen-module.
+Dit document verwerkt de 49 alerts uit de OWASP ZAP full scan van 15/06/2026 (@generated: Mon, 15 Jun 2026 21:36:33), opgeslagen als [docs/dast/zap-report/zap-report.json](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast/zap-report/zap-report.json) (en .html `/`.xml`). De scan draaide tegen http://localhost:8080, de volledige Tomcat-instantie uit [docker-compose.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docker-compose.yml) (image openmrs/openmrs-reference-application-distro:2.12.2), niet uitsluitend tegen de idgen-module.
 
-Een kopie van dit rapport stond ook los in de repository-root (`zap-report.json`, identiek aan het reeds gearchiveerde bestand). Die kopie is verwijderd omdat het bewijslast-exemplaar al in `docs/dast/zap-report/` stond (CLAUDE.md: geen losse rapportbestanden in de root).
+Een kopie van dit rapport stond ook los in de repository-root (`zap-report.json`, identiek aan het reeds gearchiveerde bestand). Die kopie is verwijderd omdat het bewijslast-exemplaar al in [docs/dast/zap-report/](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast/zap-report) stond ([CLAUDE.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/CLAUDE.md): geen losse rapportbestanden in de root).
 
 ### Wat hoort wel/niet bij de idgen-module
 
@@ -2986,9 +2986,9 @@ NEN-7510 koppeling: Ctrl 8.29 (Beveiligingstests) voor de scan zelf, Ctrl 8.8 (K
 
 ## 3. Implementatie (categorie F)
 
-Alle 11 categorie-F bevindingen worden gemitigeerd door één nieuwe servlet `Filter`, toegevoegd aan de idgen-omod en geregistreerd via `config.xml`. OpenMRS-modules kunnen filters bijdragen aan de webapp-context via `<filter>`/`<filter-mapping>` in `config.xml`; dit vereist `configVersion` 1.2 of hoger.
+Alle 11 categorie-F bevindingen worden gemitigeerd door één nieuwe servlet Filter, toegevoegd aan de idgen-omod en geregistreerd via [config.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/src/main/resources/config.xml). OpenMRS-modules kunnen filters bijdragen aan de webapp-context via `<filter>`/`<filter-mapping>` in [config.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/src/main/resources/config.xml); dit vereist configVersion 1.2 of hoger.
 
-### Before: `openmrs-module-idgen/omod/src/main/resources/config.xml`
+### Before: [openmrs-module-idgen/omod/src/main/resources/config.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/src/main/resources/config.xml)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3000,7 +3000,7 @@ Alle 11 categorie-F bevindingen worden gemitigeerd door één nieuwe servlet `Fi
 	...
 ```
 
-### After: `openmrs-module-idgen/omod/src/main/resources/config.xml`
+### After: [openmrs-module-idgen/omod/src/main/resources/config.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/src/main/resources/config.xml)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3127,17 +3127,17 @@ Bijbehorende test: `openmrs-module-idgen/omod/src/test/java/org/openmrs/module/i
 
 ### Waarom PUT overal geblokkeerd is, en DELETE alleen buiten `/ws/rest/`
 
-`grep` op `openmrs-module-idgen/omod/src/main/java` bevestigt dat geen enkele controller of REST-resource in deze module PUT gebruikt; idgen volgt de OpenMRS REST-conventie (POST voor create/update). DELETE wordt niet expliciet in idgen's eigen klassen aangeroepen, maar wordt geërfd van de `webservices.rest`-basisklassen (`MetadataDelegatingCrudResource`) voor retire/purge op `/ws/rest/**`. Vandaar de uitzondering voor dat pad.
+```grep `op`openmrs-module-idgen/omod/src/main/java `bevestigt dat geen enkele controller of REST-resource in deze module PUT gebruikt; idgen volgt de OpenMRS REST-conventie (POST voor create/update). DELETE wordt niet expliciet in idgen's eigen klassen aangeroepen, maar wordt geërfd van de`webservices.rest `-basisklassen (`MetadataDelegatingCrudResource `) voor retire/purge op `/ws/rest/**`. Vandaar de uitzondering voor dat pad.
 
 ### Build- en testresultaat
 
-| Stap                             | Commando                                                            | Resultaat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Build (volledige reactor)        | `mvn -B clean package -DskipTests` (in `openmrs-module-idgen/`) | **Geslaagd** - `idgen`, `idgen-api`, `idgen-omod` allen BUILD SUCCESS                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Unit tests nieuwe filter         | `SecurityHeadersFilterTest` (6 testgevallen)                      | **Geslaagd** - 6/6 OK                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Volledige `mvn test` (reactor) | n.v.t. lokaal                                                       | Kon lokaal niet draaien: de surefire-configuratie van deze repo (`--add-opens` JVM-flags in `api/pom.xml` en `omod/pom.xml`) vereist Java 11, zoals ook in `.github/workflows/ci-build-test.yml`. Lokaal is alleen Java 8 (1.8.0_481) beschikbaar. De nieuwe testklasse is daarom rechtstreeks via `JUnitCore` gecompileerd en gedraaid (omzeilt enkel de surefire-argLine, niet de testlogica) en gaf 6/6 groen. `mvn test` op de volledige reactor draait automatisch op Java 11 in CI bij de volgende push/PR op deze branch. |
+| Stap                             | Commando                                                            | Resultaat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build (volledige reactor)        | `mvn -B clean package -DskipTests` (in `openmrs-module-idgen/`) | **Geslaagd** - `idgen`, `idgen-api`, `idgen-omod` allen BUILD SUCCESS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Unit tests nieuwe filter         | `SecurityHeadersFilterTest` (6 testgevallen)                      | **Geslaagd** - 6/6 OK                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Volledige `mvn test` (reactor) | n.v.t. lokaal                                                       | Kon lokaal niet draaien: de surefire-configuratie van deze repo (--add-opens JVM-flags in[api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml) en [omod/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/pom.xml)) vereist Java 11, zoals ook in [.github/workflows/ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml). Lokaal is alleen Java 8 (1.8.0_481) beschikbaar. De nieuwe testklasse is daarom rechtstreeks via JUnitCore gecompileerd en gedraaid (omzeilt enkel de surefire-argLine, niet de testlogica) en gaf 6/6 groen. `mvn test op de volledige reactor draait automatisch op Java 11 in CI bij de volgende push/PR op deze branch. |
 
-DAST-herscan (run-zap.sh tegen een draaiende docker-compose-instantie) is niet uitgevoerd in deze sessie: er is geen Docker-omgeving beschikbaar. Aanbevolen vervolgstap: `docker-compose up -d` + `./run-zap.sh` herhalen na merge, en het nieuwe rapport naast dit document leggen als "na mitigatie"-bewijs, analoog aan de pentest voor/na-aanpak in `Groep_6_Pentestrapport.md`.
+DAST-herscan ([run-zap.sh](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/run-zap.sh) tegen een draaiende docker-compose-instantie) is niet uitgevoerd in deze sessie: er is geen Docker-omgeving beschikbaar. Aanbevolen vervolgstap: docker-compose up -d` + ./[run-zap.sh](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/run-zap.sh) herhalen na merge, en het nieuwe rapport naast dit document leggen als "na mitigatie"-bewijs, analoog aan de pentest voor/na-aanpak in [Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md).
 
 ### Breaking changes
 
@@ -3207,20 +3207,20 @@ DAST-herscan (run-zap.sh tegen een draaiende docker-compose-instantie) is niet u
 
 ## 5. Restrisico en vervolgstappen
 
-| Restrisico                                                                                         | Toelichting                                                                                                                                                                                                                     | Aanbeveling                                                                                                                                                                                               |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `JSESSIONID`-cookie krijgt geen `SameSite`-attribuut                                           | Tomcat schrijft deze cookie op connector-niveau, vóór onze response-wrapper. Vereist `Rfc6265CookieProcessor` met `sameSiteCookies="lax"` in `context.xml` van de Tomcat-laag.                                          | Niet oplosbaar binnen de module; aan te dragen bij wie het Docker-image/`context.xml` van `openmrs/openmrs-reference-application-distro` beheert.                                                     |
-| `Server`-header overschrijven is best effort                                                     | Werkt alleen als de connector nog geen waarde heeft gezet vóór onze filter draait; niet 100% gegarandeerd op elke Tomcat-configuratie.                                                                                        | Herbevestigen met een herscan (`run-zap.sh`) na deployment.                                                                                                                                             |
-| CSP staat `'unsafe-inline' 'unsafe-eval'` toe                                                    | Nodig om de legacy Dojo/jQuery-UI niet te breken; vermindert de XSS-beschermende waarde van de CSP.                                                                                                                             | Op termijn vervangen door nonce-based CSP zodra de UI niet meer op inline scripts leunt (technische schuld, vergelijkbaar met de bekende Java 11-testuitsluitingen).                                      |
-| Sec-Fetch-* headers niet gevalideerd door de server (#41-44)                                       | Optionele defense-in-depth tegen CSRF; geen vastgestelde kwetsbaarheid.                                                                                                                                                         | Kan worden opgepakt als aanvullende CSRF-hardening in een volgende sprint; niet vereist voor deze mitigatieronde.                                                                                         |
-| Tomcat-voorbeeldwebapps (`/examples`, `/docs`, `/manager`, `/host-manager`) blijven actief | 28 bevindingen (categorie O) komen hieruit. Verwijderen vereist een aangepast Docker-image/`Dockerfile` in plaats van het upstream `openmrs-reference-application-distro`-image; buiten scope van de idgen-module-opdracht. | Voor een productie-deployment: deze webapps uit het image verwijderen of een hardened image gebruiken. Aangedragen als aanbeveling voor het auditrapport (Opdracht 6) en `Groep_6_Security-Analyse.md`. |
-| Geen DAST-herscan na mitigatie                                                                     | Geen Docker-omgeving beschikbaar in deze sessie om `docker-compose up -d` + `./run-zap.sh` te draaien.                                                                                                                      | Herscan uitvoeren zodra deze branch gemerged is; resultaat naast dit document leggen, analoog aan de voor/na-aanpak van `Groep_6_Pentestrapport.md`.                                                    |
+| Restrisico                                                                                      | Toelichting                                                                                                                                                                                                                                                                                        | Aanbeveling                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `JSESSIONID`-cookie krijgt geen `SameSite`-attribuut                                        | Tomcat schrijft deze cookie op connector-niveau, vóór onze response-wrapper. Vereist `Rfc6265CookieProcessor` met `sameSiteCookies="lax"` in `context.xml` van de Tomcat-laag.                                                                                                             | Niet oplosbaar binnen de module; aan te dragen bij wie het Docker-image/`context.xml` van `openmrs/openmrs-reference-application-distro` beheert.                                                                                                                                                                                                                        |
+| `Server-header overschrijven is best effort                                                     | Werkt alleen als de connector nog geen waarde heeft gezet vóór onze filter draait; niet 100% gegarandeerd op elke Tomcat-configuratie.                                                                                                                                                           | Herbevestigen met een herscan ([run-zap.sh](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/run-zap.sh)) na deployment.                                                                                                                                                                                                                                         |
+| CSP staat 'unsafe-inline' 'unsafe-eval'` toe                                                    | Nodig om de legacy Dojo/jQuery-UI niet te breken; vermindert de XSS-beschermende waarde van de CSP.                                                                                                                                                                                                | Op termijn vervangen door nonce-based CSP zodra de UI niet meer op inline scripts leunt (technische schuld, vergelijkbaar met de bekende Java 11-testuitsluitingen).                                                                                                                                                                                                         |
+| Sec-Fetch-* headers niet gevalideerd door de server (#41-44)                                    | Optionele defense-in-depth tegen CSRF; geen vastgestelde kwetsbaarheid.                                                                                                                                                                                                                            | Kan worden opgepakt als aanvullende CSRF-hardening in een volgende sprint; niet vereist voor deze mitigatieronde.                                                                                                                                                                                                                                                            |
+| Tomcat-voorbeeldwebapps (`/examples`, `/docs`, `/manager`, `/host-manager) blijven actief | 28 bevindingen (categorie O) komen hieruit. Verwijderen vereist een aangepast Docker-image/[Dockerfile](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/Dockerfile) in plaats van het upstream openmrs-reference-application-distro-image; buiten scope van de idgen-module-opdracht. | Voor een productie-deployment: deze webapps uit het image verwijderen of een hardened image gebruiken. Aangedragen als aanbeveling voor het auditrapport (Opdracht 6) en[Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md). |
+| Geen DAST-herscan na mitigatie                                                                  | Geen Docker-omgeving beschikbaar in deze sessie om docker-compose up -d` + ./[run-zap.sh](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/run-zap.sh) te draaien.                                                                                                                     | Herscan uitvoeren zodra deze branch gemerged is; resultaat naast dit document leggen, analoog aan de voor/na-aanpak van[Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md).                                                      |
 
 ## 6. Koppeling naar bestaande deliverables
 
-- **`docs/checklist.md`**, Opdracht 5 Deel 9, eis #6 ("DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd"): afgehandeld door dit document.
-- **`Groep_6_Security-Analyse.md`**: de Tomcat-hardening aanbeveling (sectie 5 van dit document) is relevant voor een eventuele aanvulling op de security backlog daar.
-- **`docs/dast/zap-report/README.md`**: verwijst nu naar dit document als triage van de bevindingen.
+- **[docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)**, Opdracht 5 Deel 9, eis #6 ("DAST-bevindingen beoordeeld en gekoppeld aan bestaande security backlog of als nieuwe finding gedocumenteerd"): afgehandeld door dit document.
+- **[Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)**: de Tomcat-hardening aanbeveling (sectie 5 van dit document) is relevant voor een eventuele aanvulling op de security backlog daar.
+- **[docs/dast/zap-report/README.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/dast/zap-report/README.md)**: verwijst nu naar dit document als triage van de bevindingen.
 
 ---
 
@@ -3229,7 +3229,7 @@ DAST-herscan (run-zap.sh tegen een draaiende docker-compose-instantie) is niet u
 > **Bronbestand:** [Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md)
 > **Auteur(s):** Sinan Sagir
 > **Gewerkt op (dagen):** 13 en 15 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [adb00dc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/adb00dc), [9bd407a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/9bd407a), [f0978b5](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f0978b5)
 
 ## Bronnen
@@ -3245,8 +3245,8 @@ DAST-herscan (run-zap.sh tegen een draaiende docker-compose-instantie) is niet u
 - [Maven dependencyManagement documentatie](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
 - [NEN-7510:2026 Ctrl 8.8](https://www.nen.nl/nen-7510)
 - [NCSC Cybersecuritybeeld Nederland 2024](https://www.ncsc.nl/actueel/nieuws/2024/juni/18/cybersecuritybeeld-nederland-2024)
-- Groep_6_Security-Analyse.md
-- Groep_6_Asset-Identificatie.md
+- [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md)
+- [Groep_6_Asset-Identificatie.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Asset-Identificatie.md)
 
 **Deel 2: npm-kwetsbaarheden OWA**
 
@@ -3264,7 +3264,7 @@ DAST-herscan (run-zap.sh tegen een draaiende docker-compose-instantie) is niet u
 - [npm overrides documentatie](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides)
 - [NEN-7510:2026 Ctrl 8.25](https://www.nen.nl/nen-7510)
 - [GitHub Dependabot alerts: AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule/security/dependabot)
-- Groep_6_Patchadvies.md
+- [Groep_6_Patchadvies.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Patchadvies.md)
 
 ---
 
@@ -3283,7 +3283,7 @@ Samen dekken ze Opdracht 5, Delen 6 en 7.
 
 Dit deel beschrijft de pentest voor Opdracht 5 Delen 6 en 7 met betrekking tot de Maven-afhankelijkheden. We tonen een kritieke kwetsbaarheid aan in de module, lossen die op en bewijzen daarna dat het risico weg is.
 
-**Gekozen kwetsbaarheid:** CVE-2015-7501 in Apache Commons Collections 3.2. CVSS-score: 9.8 (Kritiek). Zie bevinding SCA-05 in Groep_6_Security-Analyse.md.
+**Gekozen kwetsbaarheid:** CVE-2015-7501 in Apache Commons Collections 3.2. CVSS-score: 9.8 (Kritiek). Zie bevinding SCA-05 in [Groep_6_Security-Analyse.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Security-Analyse.md).
 
 Buiten scope: de OpenMRS-server zelf, de database, het netwerk, de npm-afhankelijkheden (die komen in Deel 2).
 
@@ -3442,15 +3442,15 @@ NCSC CSBN 2024 noemt zorginstellingen als het belangrijkste doelwit van ransomwa
 
 ### 8.1 Wat is de oplossing?
 
-In versie 3.2.2 heeft Apache de `InvokerTransformer`-klasse beveiligd. Deserialisatie via deze klasse is standaard uitgeschakeld. De rest van de bibliotheek werkt ongewijzigd.
+In versie 3.2.2 heeft Apache de `InvokerTransformer-klasse beveiligd. Deserialisatie via deze klasse is standaard uitgeschakeld. De rest van de bibliotheek werkt ongewijzigd.
 
 Referentie: [Apache Commons Collections 3.2.2 security report](https://commons.apache.org/proper/commons-collections/security-reports.html)
 
 ### 8.2 Hoe is de fix doorgevoerd?
 
-De bibliotheek zit niet direct in onze module, maar wordt meegeleverd via het OpenMRS-platform. We kunnen de versie overschrijven via Maven `<dependencyManagement>` in het hoofdbestand `pom.xml`.
+De bibliotheek zit niet direct in onze module, maar wordt meegeleverd via het OpenMRS-platform. We kunnen de versie overschrijven via Maven `<dependencyManagement>` in het hoofdbestand [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml).
 
-**Wijziging in `openmrs-module-idgen/pom.xml`:**
+**Wijziging in [openmrs-module-idgen/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml)`:**
 
 ```xml
 <dependencyManagement>
@@ -3525,9 +3525,9 @@ Onderstaande lijst bundelt alle bronnen die in de delen van dit audit rapport zi
 
 ## A.6 Interne projectartefacten (bewijslast in de repository)
 
-- `dependency-check-report.html`, `bom.xml`, `bom.json`, `sast-report.json` - Deel 9
-- [`.github/workflows/`](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/.github/workflows) (CodeQL, Dependency Review, SBOM, DAST), `dependabot.yml` - Deel 4, 8
-- [`docs/dast/`](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast) (OWASP ZAP-rapporten), [`SECURITY.md`](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md), [`README.md`](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/README.md), [`docs/checklist.md`](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md) - Deel 8, 14
+- dependency-check-report.html `, `bom.xml `, `bom.json `, `sast-report.json - Deel 9
+- [.github/workflows/](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/.github/workflows) (CodeQL, Dependency Review, SBOM, DAST), dependabot.yml - Deel 4, 8
+- [[docs/dast/](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast)](https://github.com/AvansHogeschoolBreda/openmrsmodule/tree/main/docs/dast) (OWASP ZAP-rapporten), [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md), [README.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/README.md), [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md) - Deel 8, 14
 
 ---
 
@@ -3539,16 +3539,16 @@ overzichten zijn **klikbaar** en verwijzen rechtstreeks naar GitHub.
 
 ## B.1 Snelkoppelingen naar de repository
 
-| Overzicht                              | Link                                                                                                                                                |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Repository                             | [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)                                                            |
-| Alle commits (history)                 | [https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main](https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main)               |
-| Bijdragers (grafiek)                   | [https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors](https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors) |
-| GitHub Actions (pipelines)             | [https://github.com/AvansHogeschoolBreda/openmrsmodule/actions](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)                         |
-| Security-overzicht (CodeQL/Dependabot) | [https://github.com/AvansHogeschoolBreda/openmrsmodule/security](https://github.com/AvansHogeschoolBreda/openmrsmodule/security)                       |
-| Compliance-checklist                   | [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)                                                 |
-| Opdrachtbeschrijving                   | [docs/assets/rubrics/opdracht.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/opdracht.md)                     |
-| Rubric security                        | [rubric-security.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/rubric-security.md)                           |
+| Overzicht                              | Link                                                                                                                            |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Repository                             | [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)                                        |
+| Alle commits (history)                 | [commits/main](https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main)                                                 |
+| Bijdragers (grafiek)                   | [graphs/contributors](https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors)                                   |
+| GitHub Actions (pipelines)             | [actions](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)                                                           |
+| Security-overzicht (CodeQL/Dependabot) | [security](https://github.com/AvansHogeschoolBreda/openmrsmodule/security)                                                         |
+| Compliance-checklist                   | [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)                             |
+| Opdrachtbeschrijving                   | [docs/assets/rubrics/opdracht.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/opdracht.md) |
+| Rubric security                        | [rubric-security.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/rubric-security.md)       |
 
 ## B.2 Verdeling van de opdrachten/deeldocumenten per teamlid
 
@@ -3620,17 +3620,17 @@ Per teamlid een selectie van kenmerkende commits met klikbare hash. Het volledig
 
 [Alle commits van Raf van Hooijdonk](https://github.com/AvansHogeschoolBreda/openmrsmodule/commits?author=RafvanHooijdonk)
 
-| Commit                                                                       | Bijdrage                               |
-| ---------------------------------------------------------------------------- | -------------------------------------- |
-| [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | Docs, checklist en CI-assets           |
-| [4f618e0](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4f618e0) | README met mini-ISMS                   |
-| [d476ddb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d476ddb) | SECURITY.md (NL, details)              |
-| [a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a) | Asset-identificatie                    |
-| [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | DAST-tooling + workflow + documentatie |
-| [fa56c76](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/fa56c76) | ZAP-pipeline: ports en auto-commit     |
-| [dd6036b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/dd6036b) | ZAP-pipeline: schrijfrechten rapport   |
-| [d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | ZAP-rapport run #6 (NEN-7510 8.29)     |
-| [4944387](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4944387) | docker-compose (OTAP-omgevingen)       |
+| Commit                                                                       | Bijdrage                                                                                              |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [c34cf02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/c34cf02) | Docs, checklist en CI-assets                                                                          |
+| [4f618e0](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4f618e0) | README met mini-ISMS                                                                                  |
+| [d476ddb](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d476ddb) | [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md) (NL, details) |
+| [a60d80a](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a60d80a) | Asset-identificatie                                                                                   |
+| [a8da00f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/a8da00f) | DAST-tooling + workflow + documentatie                                                                |
+| [fa56c76](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/fa56c76) | ZAP-pipeline: ports en auto-commit                                                                    |
+| [dd6036b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/dd6036b) | ZAP-pipeline: schrijfrechten rapport                                                                  |
+| [d131084](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/d131084) | ZAP-rapport run #6 (NEN-7510 8.29)                                                                    |
+| [4944387](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/4944387) | docker-compose (OTAP-omgevingen)                                                                      |
 
 ### Rowen Albers
 

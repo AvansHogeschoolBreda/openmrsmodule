@@ -4,7 +4,7 @@
 
 **Module:** ATIx IN-B2.4 Softwarearchitectuur & -kwaliteit 2025-26 P4
 **Groep:** 6
-**Onderzochte module:** OpenMRS ID Generation Module (`idgen`)
+**Onderzochte module:** OpenMRS ID Generation Module (`idgen)
 **Repository:** [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)
 **Opleverdatum:** vrijdag 19 juni 2026
 **Versie:** 1.1 (final)
@@ -42,7 +42,7 @@
 
 **Kleurcodering (consistent in dit document):** 🔴 Kritiek/Rood, 🟠 Hoog/Oranje, 🟡 Gemiddeld/Middel, 🟢 Laag/Groen/Acceptabel.
 
-**Sprintindeling (op datum, gebruikt bij "Sprint(s)" per Deel):** Sprint 1 t/m 6 juni, Sprint 2 van 7-11 juni, Sprint 3 van 12-15 juni, Sprint 4 vanaf 16 juni 2026.
+**Sprintindeling (op datum, gebruikt bij "Sprint(s)" per Deel):** [Sprint 1](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint1.md) t/m 6 juni, [Sprint 2](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint2.md) van 7-11 juni, [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md) van 12-15 juni, [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md) vanaf 16 juni 2026.
 
 De officiële rubric *Verbeteronderzoek Onderhoudbaarheid* kent zes criteria (samen 100 punten). Onderstaande
 tabel maakt expliciet waar elk criterium in dit document wordt afgedekt, zodat de beoordeling één-op-één
@@ -54,7 +54,7 @@ herleidbaar is. Dit ondersteunt het predicaat **Goed** op elk criterium.
 | **Testopzet en testresultaten (20)**                 | Deel 5 (testplan §1-7)          | Vijf onderscheiden testtypen, reproduceerbare commando's, Surefire-rapporten per klasse; nulmeting van 134 tests groen.                                                       |
 | **Verbeteringen: prioritering en onderbouwing (10)** | Deel 3 §8.2                     | Geprioriteerde verbeteracties met expliciete impact/effort-criteria, herleidbaar naar de meetgegevens.                                                                        |
 | **Aangepast ontwerp (20)**                           | Deel 4                           | UML voor/na, refactoringpatronen (Fowler/Kerievsky), afgewogen alternatieven gemotiveerd op kwaliteitseisen.                                                                  |
-| **Realisatie (PoC) & verantwoording (10)**           | Deel 4 §6-7                     | PoC in commits[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)/7d41fbc; kritische reflectie op AI-tooling met concrete handmatige correcties.     |
+| **Realisatie (PoC) & verantwoording (10)**           | Deel 4 §6-7                     | PoC in commits [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)/[7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc); kritische reflectie op AI-tooling met concrete handmatige correcties.     |
 | **Validatie: testen & regressie (20)**               | Deel 5 §8                       | Voor/na-metriek (SonarCloud), 151 tests groen zonder regressie, coverage doorgetrokken naar 80,3% met 115 gerichte tests.                                                     |
 
 **Totaaloordeel groep 6 (zelfevaluatie):** alle zes criteria voldoen aan het niveau *Goed*; de onderbouwing is
@@ -67,7 +67,7 @@ in elk Deel reproduceerbaar en herleidbaar naar concrete metingen en commits.
 > **Bronbestand:** [Groep_6_Module-Keuze.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Module-Keuze.md)
 > **Auteur(s):** Rowen Albers, Raf van Hooijdonk
 > **Gewerkt op (dagen):** 3 juni 2026
-> **Sprint(s):** Sprint 1
+> **Sprint(s):** [Sprint 1](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint1.md)
 > **Kerncommits:** [34b9658](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/34b9658), [7232a71](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7232a71), [aa13c61](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/aa13c61)
 
 ## Gekozen module
@@ -87,7 +87,7 @@ De keuze voor de **idgen**-module is gebaseerd op een zorgvuldige afweging van d
 
 ### 1. Complexiteit en Scope (Kwalitatief & Kwantitatief)
 
-Op basis van de `scc` (Sloc, Cloc and Code) complexiteitsmetingen bevindt de `idgen` module zich in de ideale **"sweet spot"** voor dit onderzoek:
+Op basis van de scc` (Sloc, Cloc and Code) complexiteitsmetingen bevindt de `idgen` module zich in de ideale **"sweet spot"** voor dit onderzoek:
 
 * **Systeemonderbouwing via vergelijking:**
 
@@ -121,11 +121,11 @@ De `idgen` module stelt OpenMRS in staat om op flexibele wijze unieke identifica
 
 Omdat de module direct invloed heeft op patiëntidentificatie en de integriteit van het ontwikkelproces, zijn de volgende drie normen uit de NEN-7510-2 (informatiebeveiliging in de zorg) direct van toepassing en geselecteerd voor dit verbetertraject:
 
-| NEN-7510 Control                                                 | Omschrijving control                                                                                                                                        | Directe toepassing op `idgen`                                                                                                                                                                                                                                   |
-| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Control 8.8** *(Beheer van technische kwetsbaarheden)* | Het verkrijgen van tijdige informatie over technische kwetsbaarheden in gebruikte systemen en software, en het nemen van passende maatregelen.              | De `idgen` module maakt gebruik van diverse externe libraries voor database-koppelingen en REST-APIs. Het tijdig identificeren en mitigeren van kwetsbaarheden in deze dependencies (via Dependabot en Dependency Review) is cruciaal om misbruik te voorkomen. |
-| **Control 8.15** *(Audit logging)*                       | Het registreren van gebeurtenissen die van belang zijn voor de informatiebeveiliging (zoals activiteiten, fouten en uitzonderingen) en het bewaren hiervan. | Het registreren, wijzigen of exporteren van ID-bronnen, evenals de uitputting van een ID-pool en het handmatig wijzigen van reeksen, moet audit-proof gelogd worden om onregelmatigheden en misbruik te kunnen traceren.                                          |
-| **Control 5.36** *(Conformiteit aan beleidsregels)*      | Het regelmatig beoordelen van de naleving van het informatiebeveiligingsbeleid en de geldende normen binnen de organisatie.                                 | De ontwikkeling en het beheer van de `idgen` module moeten aantoonbaar getoetst worden aan de beveiligingsrichtlijnen van het project (zoals het mini-ISMS in de README, SECURITY.md en de centrale checklist.md).                                              |
+| NEN-7510 Control                                                 | Omschrijving control                                                                                                                                        | Directe toepassing op `idgen`                                                                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Control 8.8** *(Beheer van technische kwetsbaarheden)* | Het verkrijgen van tijdige informatie over technische kwetsbaarheden in gebruikte systemen en software, en het nemen van passende maatregelen.              | De `idgen` module maakt gebruik van diverse externe libraries voor database-koppelingen en REST-APIs. Het tijdig identificeren en mitigeren van kwetsbaarheden in deze dependencies (via Dependabot en Dependency Review) is cruciaal om misbruik te voorkomen.                                |
+| **Control 8.15** *(Audit logging)*                       | Het registreren van gebeurtenissen die van belang zijn voor de informatiebeveiliging (zoals activiteiten, fouten en uitzonderingen) en het bewaren hiervan. | Het registreren, wijzigen of exporteren van ID-bronnen, evenals de uitputting van een ID-pool en het handmatig wijzigen van reeksen, moet audit-proof gelogd worden om onregelmatigheden en misbruik te kunnen traceren.                                                                         |
+| **Control 5.36** *(Conformiteit aan beleidsregels)*      | Het regelmatig beoordelen van de naleving van het informatiebeveiligingsbeleid en de geldende normen binnen de organisatie.                                 | De ontwikkeling en het beheer van de `idgen module moeten aantoonbaar getoetst worden aan de beveiligingsrichtlijnen van het project (zoals het mini-ISMS in de README, [SECURITY.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/SECURITY.md) en de centrale [checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)). |
 
 ---
 
@@ -134,14 +134,14 @@ Omdat de module direct invloed heeft op patiëntidentificatie en de integriteit 
 > **Bronbestand:** [Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md)
 > **Auteur(s):** Raf van Hooijdonk
 > **Gewerkt op (dagen):** 12 en 15 juni 2026
-> **Sprint(s):** Sprint 3
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md)
 > **Kerncommits:** [108348f](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/108348f), [ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [5e34952](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/5e34952)
 
 ## 1. Doel en scope
 
-Dit document legt de non-functional requirements (NFR's) vast voor de onderhoudbaarheid van de `idgen`-module. De eisen zijn gebaseerd op de ISO 25010-kwaliteitskenmerken voor onderhoudbaarheid (maintainability) en worden automatisch gemeten via SonarCloud, gekoppeld aan de CI-pipeline.
+Dit document legt de non-functional requirements (NFR's) vast voor de onderhoudbaarheid van de idgen`-module. De eisen zijn gebaseerd op de ISO 25010-kwaliteitskenmerken voor onderhoudbaarheid (maintainability) en worden automatisch gemeten via SonarCloud, gekoppeld aan de CI-pipeline.
 
-**Scope:** Java-broncode in `openmrs-module-idgen/` (backend). JSX/JavaScript frontend valt buiten de primaire meetscope, maar wordt kwalitatief beoordeeld.
+**Scope:** Java-broncode in `openmrs-module-idgen/ (backend). JSX/JavaScript frontend valt buiten de primaire meetscope, maar wordt kwalitatief beoordeeld.
 
 **Niet in scope:** OpenMRS core, databaseserver, netwerk-infrastructuur.
 
@@ -149,13 +149,13 @@ Dit document legt de non-functional requirements (NFR's) vast voor de onderhoudb
 
 ## 2. Meetmethode en tooling
 
-| Tool           | Rol                                                                 | Integratie                                              |
-| -------------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
-| SonarCloud     | Statische analyse: bugs, code smells, duplicatie, security hotspots | GitHub Actions workflow `quality-gate-sonarcloud.yml` |
-| JaCoCo         | Code coverage meten per Maven-build                                 | `pom.xml` plugin + CI                                 |
-| Maven Surefire | Testuitvoering en rapport genereren                                 | `ci-build-test.yml` (bestaand)                        |
+| Tool           | Rol                                                                 | Integratie                                                                                                                                                         |
+| -------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SonarCloud     | Statische analyse: bugs, code smells, duplicatie, security hotspots | GitHub Actions workflow [quality-gate-sonarcloud.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/quality-gate-sonarcloud.yml) |
+| JaCoCo         | Code coverage meten per Maven-build                                 | [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml) plugin + CI                                                                                                                                            |
+| Maven Surefire | Testuitvoering en rapport genereren                                 | [ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml) (bestaand)                                   |
 
-De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet slaagt. Dit is geconfigureerd via de `quality-gate-sonarcloud.yml` workflow met de stap `sonar:sonar` en de `Wait for Quality Gate`-actie.
+De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet slaagt. Dit is geconfigureerd via de [quality-gate-sonarcloud.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/quality-gate-sonarcloud.yml) workflow met de stap `sonar:sonar` en de `Wait for Quality Gate`-actie.
 
 ---
 
@@ -163,10 +163,10 @@ De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet s
 
 ### 3.1 Cognitive complexity
 
-| ID    | Eis                                                                         | Drempelwaarde | Meting     | Prioriteit |
-| ----- | --------------------------------------------------------------------------- | ------------- | ---------- | ---------- |
-| NFR-1 | Gemiddelde cognitive complexity per methode mag niet hoger zijn dan 10      | ≤ 10          | SonarCloud | 🟠 Hoog    |
-| NFR-2 | Geen enkele methode mag een cognitive complexity van 15 of hoger hebben     | < 15          | SonarCloud | 🟠 Hoog    |
+| ID    | Eis                                                                     | Drempelwaarde | Meting     | Prioriteit |
+| ----- | ----------------------------------------------------------------------- | ------------- | ---------- | ---------- |
+| NFR-1 | Gemiddelde cognitive complexity per methode mag niet hoger zijn dan 10  | ≤ 10         | SonarCloud | 🟠 Hoog    |
+| NFR-2 | Geen enkele methode mag een cognitive complexity van 15 of hoger hebben | < 15          | SonarCloud | 🟠 Hoog    |
 
 **Onderbouwing:** De huidige Java backend heeft een totale cognitive complexity van 668 over 57 bestanden (≈ 11,7 gemiddeld). Methoden met cognitive complexity ≥ 15 zijn moeilijk te testen en foutgevoelig. De drempelwaarde per methode is 15 (SonarCloud default) en we streven naar een gemiddelde onder de 10.
 
@@ -226,7 +226,7 @@ De volgende SonarCloud quality gate-condities worden ingesteld (of gelden via "S
 | Security Rating (New Code)        | worse than | A             | Nieuwe code |
 | Security Hotspots Reviewed        | <          | 100%          | Nieuwe code |
 
-De quality gate is gekoppeld aan de `quality-gate-sonarcloud.yml` workflow. Als de quality gate faalt, faalt de CI-run, en de PR kan niet gemerged worden (branch protection).
+De quality gate is gekoppeld aan de [quality-gate-sonarcloud.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/quality-gate-sonarcloud.yml) workflow. Als de quality gate faalt, faalt de CI-run, en de PR kan niet gemerged worden (branch protection).
 
 ---
 
@@ -235,10 +235,10 @@ De quality gate is gekoppeld aan de `quality-gate-sonarcloud.yml` workflow. Als 
 | Criterium          | SonarCloud                              | Qodana                            |
 | ------------------ | --------------------------------------- | --------------------------------- |
 | Prijs              | Gratis voor publieke repos              | Gratis voor open source (beperkt) |
-| Maven-integratie   | Native (`sonar-maven-plugin`)         | Via Gradle/Maven mogelijk         |
+| Maven-integratie   | Native (sonar-maven-plugin`)         | Via Gradle/Maven mogelijk         |
 | GitHub Actions     | Officiële action beschikbaar           | Docker-gebaseerd                  |
 | PR-decoratie       | Inline comments op PR                   | Rapport als artifact              |
-| Quality Gate in CI | Ingebouwd via `Wait for Quality Gate` | Manueel uitleggen                 |
+| Quality Gate in CI | Ingebouwd via `Wait for Quality Gate | Manueel uitleggen                 |
 | **Keuze**    | ✅                                      | ❌                                |
 
 SonarCloud is gekozen vanwege de naadloze GitHub-integratie, de officiële Maven-plugin en de mogelijkheid om de quality gate direct als CI-blocker in te stellen.
@@ -247,7 +247,7 @@ SonarCloud is gekozen vanwege de naadloze GitHub-integratie, de officiële Maven
 
 ## 6. Baseline meting (vóór verbetering)
 
-> Baseline gemeten op 12/06/2026 via SonarCloud (eerste groene run). Zie ook `Groep_6_Analyse-Onderhoudbaarheid.md` voor de volledige onderbouwing per metriek.
+> Baseline gemeten op 12/06/2026 via SonarCloud (eerste groene run). Zie ook [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) voor de volledige onderbouwing per metriek.
 
 | Metriek                | Baseline (voor) | Doel (na PoC) | Haalbaarheid                      |
 | ---------------------- | --------------- | ------------- | --------------------------------- |
@@ -265,7 +265,7 @@ SonarCloud is gekozen vanwege de naadloze GitHub-integratie, de officiële Maven
 > **Bronbestand:** [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md)
 > **Auteur(s):** Raf van Hooijdonk, Simon Eulenpesch
 > **Gewerkt op (dagen):** 12 en 16 juni 2026
-> **Sprint(s):** Sprint 3, Sprint 4
+> **Sprint(s):** [Sprint 3](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint3.md), [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)
 > **Kerncommits:** [ec9f462](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/ec9f462), [62d458b](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/62d458b), [e5d5a62](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/e5d5a62), [2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764)
 
 ## 1. Scope en methodiek
@@ -275,7 +275,7 @@ SonarCloud is gekozen vanwege de naadloze GitHub-integratie, de officiële Maven
 **Meetdatum:** 12/06/2026
 **Tools:** SonarCloud (statische analyse), JaCoCo (coverage), handmatige broncode-inspectie
 
-> **Belangrijk: dit zijn baselinecijfers vóór de PoC.** Alle metrieken in dit document beschrijven de toestand op 12/06/2026. De code is daarna gerefactord in commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (15/06/2026, 201 code quality issues). De huidige code op `main` is dus al verbeterd ten opzichte van deze cijfers; een verse SonarCloud-meting toont de na-waarden (Deel 6 in `docs/checklist.md`). Voorbeeld: de hieronder genoemde security rating C (hardcoded password in `IdgenModuleActivator`) is in de huidige code opgelost.
+> **Belangrijk: dit zijn baselinecijfers vóór de PoC.** Alle metrieken in dit document beschrijven de toestand op 12/06/2026. De code is daarna gerefactord in commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (15/06/2026, 201 code quality issues). De huidige code op main is dus al verbeterd ten opzichte van deze cijfers; een verse SonarCloud-meting toont de na-waarden (Deel 6 in [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)). Voorbeeld: de hieronder genoemde security rating C (hardcoded password in IdgenModuleActivator`) is in de huidige code opgelost.
 
 De analyse is uitgevoerd langs vier ISO 25010-kwaliteitskenmerken voor onderhoudbaarheid: analyseerbaarheid, wijzigbaarheid, testbaarheid en modulariteit. Per kenmerk zijn passende metrieken gemeten en gedocumenteerd.
 
@@ -524,15 +524,15 @@ De overall Technical Debt Ratio van **1.4%** voldoet aan NFR-7 (drempel 10%). Op
 | Multi-threading (`java:S2696`)                     | 4      | Critical       | Ja: methode static maken                 |
 | `@Override` ontbreekt (`java:S1161`)             | 6      | Major          | Ja: annotatie toevoegen                  |
 | `java.time` API (`java:S6813`)                   | ~10    | Info           | Ja: Date vervangen door LocalDate        |
-| `Thread.sleep()` in tests (`java:S2925`)         | 3      | Major          | Ja: testclock injecteren                 |
+| `Thread.sleep()` in tests (`java:S2925)         | 3      | Major          | Ja: testclock injecteren                 |
 
 ### 7.5 Security vulnerability
 
-De 1 vulnerability (rating C) betreft `IdgenModuleActivator.java` L50: `'PASSWORD' detected in this expression, review this potentially hard-coded password`. SonarCloud classificeert dit als Major vulnerability (rule: `java:S2068`). Het veld `REGISTRY_API_PASSWORD` bevat een hardcoded credential. Het is tevens een ongebruikt veld (`java:S1068`), dus de fix is verwijdering. Dit lost de security rating C op.
+De 1 vulnerability (rating C) betreft `IdgenModuleActivator.java` L50: 'PASSWORD' detected in this expression, review this potentially hard-coded password`. SonarCloud classificeert dit als Major vulnerability (rule: `java:S2068`). Het veld `REGISTRY_API_PASSWORD` bevat een hardcoded credential. Het is tevens een ongebruikt veld (`java:S1068), dus de fix is verwijdering. Dit lost de security rating C op.
 
 ### 7.6 Reliability issues
 
-Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest.java` L340 en L357 `Do not use the system clock in tests` (Info-niveau). Ze veroorzaken potentieel testflakiness bij tijdgevoelige scenario's. Fix: injecteren van een `java.time.Clock` via constructor.
+Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest.java` L340 en L357 Do not use the system clock in tests` (Info-niveau). Ze veroorzaken potentieel testflakiness bij tijdgevoelige scenario's. Fix: injecteren van een `java.time.Clock` via constructor.
 
 ### 7.7 Multi-threading risico (Critical severity)
 
@@ -575,9 +575,9 @@ Beide reliability issues bevinden zich in testcode: `IdentifierSourceServiceTest
 | 7  | Luhn-validators samenvoegen                  | `LuhnMod10`, `LuhnMod25`, `LuhnMod30`                           | Dup api -2 blokken   | Klein               | **🟡 Middel**  |
 | 8  | Diamond operator toevoegen (~35 stuks)       | Verspreid                                                             | Issues -35           | Klein (automatisch) | **🟢 Laag**    |
 | 9  | `@Override` annotaties toevoegen           | 6 bestanden                                                           | Issues -6            | Klein               | **🟢 Laag**    |
-| 10 | `java.time` API migratie                   | ~10 bestanden                                                         | Modernisering        | 🟡 Middel           | **🟢 Laag**    |
+| 10 | `java.time API migratie                   | ~10 bestanden                                                         | Modernisering        | 🟡 Middel           | **🟢 Laag**    |
 
-De prioritering is direct herleidbaar naar de meetresultaten: acties 1 t/m 4 volgen uit de complexiteits-, duplicatie- en security-bevindingen (secties 3, 4 en 7), en acties 5 en 6 volgen uit de testresultaten in `Groep_6_Testplan.md` (nulmeting: validator 0% coverage, meerdere nul-coverage klassen). De NFR-doelen staan in `Groep_6_Non-Functional-Requirements.md`. De realisatie is uitgevoerd als PoC in commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (15/06/2026, 201 code quality issues), met de ontwerpkeuzes onderbouwd in `Groep_6_Refactoring-Onderbouwing.md`.
+De prioritering is direct herleidbaar naar de meetresultaten: acties 1 t/m 4 volgen uit de complexiteits-, duplicatie- en security-bevindingen (secties 3, 4 en 7), en acties 5 en 6 volgen uit de testresultaten in [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md) (nulmeting: validator 0% coverage, meerdere nul-coverage klassen). De NFR-doelen staan in [Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md). De realisatie is uitgevoerd als PoC in commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (15/06/2026, 201 code quality issues), met de ontwerpkeuzes onderbouwd in [Groep_6_Refactoring-Onderbouwing.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Refactoring-Onderbouwing.md).
 
 ---
 
@@ -586,16 +586,16 @@ De prioritering is direct herleidbaar naar de meetresultaten: acties 1 t/m 4 vol
 > **Bronbestand:** [Groep_6_Refactoring-Onderbouwing.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Refactoring-Onderbouwing.md)
 > **Auteur(s):** Rowen Albers, Simon Eulenpesch
 > **Gewerkt op (dagen):** 16 juni 2026
-> **Sprint(s):** Sprint 4
+> **Sprint(s):** [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)
 > **Kerncommits:** [2cc0764](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2cc0764), [2b24e05](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/2b24e05), [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)
 
 ## 1. Doel en scope
 
-Dit document beschrijft het aangepaste ontwerp voor de geselecteerde verbeteringen aan de `idgen`-module en onderbouwt de keuzes met ontwerpprincipes, refactoringpatronen en overwogen alternatieven. Het sluit aan op de geprioriteerde verbeteracties in `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 en op de testopzet in `Groep_6_Testplan.md`.
+Dit document beschrijft het aangepaste ontwerp voor de geselecteerde verbeteringen aan de idgen-module en onderbouwt de keuzes met ontwerpprincipes, refactoringpatronen en overwogen alternatieven. Het sluit aan op de geprioriteerde verbeteracties in [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2 en op de testopzet in [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md).
 
 De realisatie van deze ontwerpen is uitgevoerd als PoC in commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (15/06/2026, "mitigated 201 code quality issues") en aanvullend [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) (diamond operators). Dit document beschrijft het ontwerp achter die realisatie.
 
-**Scope:** de structurele code-aanpassingen voor onderhoudbaarheid (complexiteit, duplicatie, leesbaarheid). Buiten scope: security-hardening (CodeQL, commit [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)) en de testtoevoegingen (zie `Groep_6_Testplan.md`).
+**Scope:** de structurele code-aanpassingen voor onderhoudbaarheid (complexiteit, duplicatie, leesbaarheid). Buiten scope: security-hardening (CodeQL, commit [73d9b94](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/73d9b94)) en de testtoevoegingen (zie [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md)).
 
 ---
 
@@ -603,7 +603,7 @@ De realisatie van deze ontwerpen is uitgevoerd als PoC in commit [303c735](https
 
 De aanpak volgt de refactoring-discipline van Martin Fowler: kleine, gedragsbehoudende transformaties, telkens gedekt door de bestaande testsuite zodat regressie direct zichtbaar wordt. Per verbeteractie uit de prioritering is bepaald welk ontwerpprincipe wordt geschonden, welk refactoringpatroon dit herstelt en welke alternatieven zijn overwogen.
 
-De geselecteerde verbeteringen (uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2):
+De geselecteerde verbeteringen (uit [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2):
 
 | Actie | Verbetering                                                | Ontwerpprobleem              | Prioriteit |
 | ----- | ---------------------------------------------------------- | ---------------------------- | ---------- |
@@ -611,7 +611,7 @@ De geselecteerde verbeteringen (uit `Groep_6_Analyse-Onderhoudbaarheid.md` secti
 | 3     | Brain Methods opsplitsen                                   | Te hoge cognitive complexity | 🟠 Hoog    |
 | 4     | Magic strings naar constanten                              | Duplicatie (DRY-schending)   | 🟠 Hoog    |
 | 5     | Validator unit-testbaar maken                              | Testbaarheid + complexity    | 🟠 Hoog    |
-| 8, 9  | Diamond operator,`@Override`                             | Leesbaarheid, consistentie   | 🟢 Laag    |
+| 8, 9  | Diamond operator,@Override`                             | Leesbaarheid, consistentie   | 🟢 Laag    |
 
 ---
 
@@ -647,7 +647,7 @@ In de voor-situatie zit alle validatielogica in één methode (`validate`). In d
 
 **Alternatief overwogen:** de validatie volledig in een aparte `ValidationChain`/Chain of Responsibility gieten. Afgewezen: voor drie regels introduceert dat meer abstractie dan het oplost (YAGNI). Extract Method haalt de complexiteit onder de drempel met minimale structuur.
 
-**Effect:** de afgesplitste methoden zijn los testbaar. De toegevoegde `SequentialIdentifierGeneratorValidatorTest` (11 tests) brengt de klasse van 0% naar 71,9% line coverage (zie `Groep_6_Testplan.md` sectie 4.5).
+**Effect:** de afgesplitste methoden zijn los testbaar. De toegevoegde `SequentialIdentifierGeneratorValidatorTest (11 tests) brengt de klasse van 0% naar 71,9% line coverage (zie [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md) sectie 4.5).
 
 ### 3.2 IdentifierSourceResource: Brain Methods opsplitsen
 
@@ -670,11 +670,11 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 **Alternatief overwogen:** de klasse opsplitsen in meerdere resource-klassen (volledige architecturele splitsing). Afgewezen voor deze PoC: dat raakt de OpenMRS REST-contracten en vergt regressietesten buiten de scope. Extract Method verlaagt de complexity zonder de publieke API te breken; de volledige splitsing is genoteerd als vervolgactie.
 
-**Validatie:** de verse SonarCloud-meting op `main` (16/06/2026) bevestigt de reductie. De twee methoden gaan van CC 101 en 106 (baseline 12/06) naar CC 21 en CC 20 (`IdentifierSourceResource` L265 en L353), een reductie van ongeveer 80%. Beide blijven net boven de drempel van 15; de volledige sprong naar nul vergt de klassesplitsing die hieronder als alternatief is afgewogen. Zie `Groep_6_Testplan.md` sectie 8.3 en 8.4.
+**Validatie:** de verse SonarCloud-meting op main` (16/06/2026) bevestigt de reductie. De twee methoden gaan van CC 101 en 106 (baseline 12/06) naar CC 21 en CC 20 (`IdentifierSourceResource L265 en L353), een reductie van ongeveer 80%. Beide blijven net boven de drempel van 15; de volledige sprong naar nul vergt de klassesplitsing die hieronder als alternatief is afgewogen. Zie [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md) sectie 8.3 en 8.4.
 
 ### 3.3 Magic strings: Extract Constant
 
-**Huidig ontwerp (voor):** string-literals zoals `"identifierType"`, `"source"`, `"[AUDIT] UserID: "` en `"SYSTEM"` stonden 4 tot 10 keer herhaald per bestand (rule `java:S1192`). Dit is de hoofdoorzaak van de 10,8% duplicatie in de omod-laag.
+**Huidig ontwerp (voor):** string-literals zoals "identifierType"`, `"source"`, `"[AUDIT] UserID: "` en `"SYSTEM"` stonden 4 tot 10 keer herhaald per bestand (rule `java:S1192`). Dit is de hoofdoorzaak van de 10,8% duplicatie in de omod-laag.
 
 **Aangepast ontwerp (na):** de literals zijn geëxtraheerd naar `private static final`-constanten. Bevestigd in onder andere `BaseIdentifierSourceService` (`AUDIT_USER_PREFIX`, `SYSTEM_USER`) en de resource handlers.
 
@@ -698,9 +698,9 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 ### 3.5 Leesbaarheid: diamond operator en @Override
 
-**Aangepast ontwerp:** `new ArrayList<String>()` vervangen door `new ArrayList<>()` (commit [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc), ~35 plekken) en ontbrekende `@Override`-annotaties toegevoegd (commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)).
+**Aangepast ontwerp:** `new ArrayList<String>()` vervangen door `new ArrayList<>() (commit [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc), ~35 plekken) en ontbrekende @Override-annotaties toegevoegd (commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)).
 
-**Ontwerpprincipes:** KISS en consistentie; `@Override` maakt de intentie expliciet en laat de compiler contractbreuken vangen. Dit zijn kleine, automatisch toepasbare verbeteringen met laag risico.
+**Ontwerpprincipes:** KISS en consistentie; @Override` maakt de intentie expliciet en laat de compiler contractbreuken vangen. Dit zijn kleine, automatisch toepasbare verbeteringen met laag risico.
 
 ---
 
@@ -710,7 +710,7 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 | --------------------------------------------- | -------------------- | -------------------------------------- | ------------- |
 | Extract Method                                | Fowler               | Validator,`IdentifierSourceResource` | 3, 5          |
 | Replace Nested Conditional with Guard Clauses | Fowler               | Validator                              | 5             |
-| Compose Method                                | Kerievsky            | `IdentifierSourceResource`           | 3             |
+| Compose Method                                | Kerievsky            | `IdentifierSourceResource           | 3             |
 | Extract Constant                              | Fowler               | Resource handlers, services            | 4             |
 | Remove shared mutable state                   | n.v.t. (concurrency) | Location-based providers               | 1             |
 
@@ -737,9 +737,9 @@ De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en 
 
 ## 6. Koppeling naar realisatie en validatie
 
-- **Prioritering en onderbouwing:** `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 (Deel 3).
-- **Realisatie (PoC):** commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (39 java-bestanden) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) (diamond operators), op `main` (Deel 5).
-- **Validatie:** de bestaande testsuite blijft groen na de refactoring (151 tests, 0 failures, 0 errors); de voor/na op metriekniveau is gemeten via SonarCloud op `main` (16/06/2026) en uitgewerkt in `Groep_6_Testplan.md` sectie 8 (Deel 6 in `docs/checklist.md`).
+- **Prioritering en onderbouwing:** [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2 (Deel 3).
+- **Realisatie (PoC):** commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) (39 java-bestanden) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) (diamond operators), op main` (Deel 5).
+- **Validatie:** de bestaande testsuite blijft groen na de refactoring (151 tests, 0 failures, 0 errors); de voor/na op metriekniveau is gemeten via SonarCloud op `main (16/06/2026) en uitgewerkt in [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md) sectie 8 (Deel 6 in [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)).
 
 ---
 
@@ -753,16 +753,16 @@ Tijdens de analyse-, ontwerping- en realisatiefase van dit PoC is intensief gebr
 
 Claude is ingezet als ondersteunende *pair programmer* voor de volgende codetaken:
 
-- **Codegeneratie en scripting:** Het schrijven en valideren van het geautomatiseerde Python-script (`add_override.py`) dat op basis van broncodereferenties op 93 regels de `@Override`-annotaties heeft ingevoegd.
+- **Codegeneratie en scripting:** Het schrijven en valideren van het geautomatiseerde Python-script (add_override.py`) dat op basis van broncodereferenties op 93 regels de `@Override`-annotaties heeft ingevoegd.
 - **Refactoring-ondersteuning:** Het genereren van oplossingsrichtingen voor het opsplitsen van de complexe methoden in `IdentifierSourceResource` en de validator-klasse conform het Single Responsibility Principle.
-- **Code-opruiming:** Het opsporen en vervangen van verouderde syntax door de diamond operator (`<>`) in de gehele `openmrs-module-idgen` workspace.
+- **Code-opruiming:** Het opsporen en vervangen van verouderde syntax door de diamond operator (`<>`) in de gehele `openmrs-module-idgen workspace.
 
 #### Inzet voor security-hardening en compliancedocumentatie
 
 Daarnaast is Claude ingezet voor risico-evaluaties en compliancetaken:
 
-- **Exploit- en pentestdocumentatie:** Ondersteuning bij het opstellen van het gedetailleerde pentestrapport (`Groep_6_Pentestrapport.md`), inclusief de technische toelichting van de `ysoserial` gadget chain voor kwetsbaarheid CVE-2015-7501 in `commons-collections`.
-- **Mitigatieadvies:** Het ontwerpen van de specifieke XML dependencyManagement-configuratie in de root `pom.xml` om de kwetsbare `commons-collections` versie 3.2 veilig te upgraden naar 3.2.2 zonder regressie.
+- **Exploit- en pentestdocumentatie:** Ondersteuning bij het opstellen van het gedetailleerde pentestrapport ([Groep_6_Pentestrapport.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20security/Groep_6_Pentestrapport.md)), inclusief de technische toelichting van de ysoserial` gadget chain voor kwetsbaarheid CVE-2015-7501 in `commons-collections.
+- **Mitigatieadvies:** Het ontwerpen van de specifieke XML dependencyManagement-configuratie in de root [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml) om de kwetsbare commons-collections` versie 3.2 veilig te upgraden naar 3.2.2 zonder regressie.
 - **NEN-7510 & Threat Modeling:** Assistentie bij het structureren van de preventieve en correctieve barrières in de Bow-Tie-analyses, en het mappen van specifieke beheersmaatregelen (zoals Ctrls 8.8, 8.15 en 5.36) aan de gezochte compliancedocumenten.
 
 ### 7.2 Kritische reflectie op AI-tooling
@@ -772,7 +772,7 @@ Hoewel Claude de ontwikkelsnelheid en nauwkeurigheid bij repetitief werk aanzien
 1. **Spring ASM-incompatibiliteit (Java 8 Bytecode):**
    Claude stelde voor om loops in `BaseIdentifierSourceService` en `IdentifierSourceResource` te moderniseren met Java 8 Stream/Lambda-expressies. Echter, tijdens het draaien van de testsuite bleek de verouderde Spring ASM classpath-scanner van OpenMRS te crashen met een `ArrayIndexOutOfBoundsException` op lambda-bytecode. De groep heeft dit handmatig moeten analyseren en teruggedraaid naar traditionele iteratieve loops om runtime-stabiliteit te behouden.
 2. **API-compatibiliteit behouden:**
-   Claude stelde voor om ongebruikte parameters in de MVC-controllers te verwijderen om aan de CodeQL-metriek `java/unused-parameter` te voldoen. Handmatige inspectie wees echter uit dat dit de handtekening van de openbare web-API zou breken en compilatiefouten in gerelateerde teststubs zou veroorzaken. De groep heeft handmatig besloten de handtekeningen te behouden en de waarschuwingen te mitigeren met `@SuppressWarnings("unused")`.
+   Claude stelde voor om ongebruikte parameters in de MVC-controllers te verwijderen om aan de CodeQL-metriek `java/unused-parameter` te voldoen. Handmatige inspectie wees echter uit dat dit de handtekening van de openbare web-API zou breken en compilatiefouten in gerelateerde teststubs zou veroorzaken. De groep heeft handmatig besloten de handtekeningen te behouden en de waarschuwingen te mitigeren met `@SuppressWarnings("unused").
 3. **Fouten in automatische annotatieplaatsing:**
    Het door Claude gegenereerde Python-script plaatste in `HibernateIdentifierSourceDAO.java` bij `saveLogEntry()` per ongeluk een `@Override`-annotatie *binnen* het Javadoc-blok in plaats van erboven. Dit leidde tot compilerwaarschuwingen. Dit is handmatig opgespoord en hersteld.
 
@@ -796,18 +796,18 @@ Het succesvol realiseren van de PoC toont aan dat Claude een krachtige versnelle
 > **Bronbestand:** [Groep_6_Testplan.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Testplan.md)
 > **Auteur(s):** Simon Eulenpesch
 > **Gewerkt op (dagen):** 16 juni 2026
-> **Sprint(s):** Sprint 4
+> **Sprint(s):** [Sprint 4](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/sprints/sprint4.md)
 > **Kerncommits:** [6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02), [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c)
 
 ## 1. Doel en scope
 
-Dit document legt de teststrategie vast voor de `idgen`-module en documenteert twee metingen. De nulmeting (sectie 4) legt de uitgangssituatie vast, dus vóór de verbeteringen uit het PoC, en dient als referentie. De validatie na verbetering (sectie 8, Deel 6 in `docs/checklist.md`) draait dezelfde testset opnieuw en zet de metrieken naast de nulmeting om aan te tonen dat de onderhoudbaarheid is verbeterd en dat er geen regressie is opgetreden.
+Dit document legt de teststrategie vast voor de idgen-module en documenteert twee metingen. De nulmeting (sectie 4) legt de uitgangssituatie vast, dus vóór de verbeteringen uit het PoC, en dient als referentie. De validatie na verbetering (sectie 8, Deel 6 in [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)) draait dezelfde testset opnieuw en zet de metrieken naast de nulmeting om aan te tonen dat de onderhoudbaarheid is verbeterd en dat er geen regressie is opgetreden.
 
 **Scope:** de Java-testsuite in `openmrs-module-idgen/api/src/test/java` en `openmrs-module-idgen/omod/src/test/java`.
 
-**Niet in scope:** OpenMRS core, de databaseserver, JSX/JavaScript frontend en netwerk-infrastructuur. Deze vallen buiten de meetscope van de module, gelijk aan `Groep_6_Non-Functional-Requirements.md`.
+**Niet in scope:** OpenMRS core, de databaseserver, JSX/JavaScript frontend en netwerk-infrastructuur. Deze vallen buiten de meetscope van de module, gelijk aan [Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md).
 
-De teststrategie sluit aan op de geprioriteerde verbeteracties in `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 (met name actie 5 en 6: unit tests voor de validator en de nul-coverage klassen).
+De teststrategie sluit aan op de geprioriteerde verbeteracties in [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2 (met name actie 5 en 6: unit tests voor de validator en de nul-coverage klassen).
 
 ---
 
@@ -819,7 +819,7 @@ De module bevat een gelaagde testsuite. Per testtype is een eigen OpenMRS-basisk
 
 | # | Testtype                 | Niveau                                 | Basisklasse                                                            | Wat het test                                            | Tooling                         |
 | - | ------------------------ | -------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------- |
-| 1 | Unit test                | Geïsoleerd, geen context              | `junit.framework.TestCase` / plain JUnit 4                           | Pure logica (Luhn-checksum, util-functies)              | JUnit 4                         |
+| 1 | Unit test                | Geïsoleerd, geen context              | junit.framework.TestCase` / plain JUnit 4                           | Pure logica (Luhn-checksum, util-functies)              | JUnit 4                         |
 | 2 | Component/integratietest | Spring-context + in-memory H2-database | `IdgenBaseTest` (verlengt `BaseModuleContextSensitiveTest`)        | Service-laag, pool-beheer, audit logging, DB-interactie | JUnit 4 + OpenMRS testframework |
 | 3 | REST-resourcetest        | Resource-laag geïsoleerd              | `BaseDelegatingResourceTest`                                         | (De)serialisatie van REST-representaties                | JUnit 4 + webservices.rest      |
 | 4 | REST web-/controllertest | Volledige web-context                  | `BaseModuleWebContextSensitiveTest` / `MainResourceControllerTest` | HTTP-endpoints, controllers, searchhandlers             | JUnit 4 + Spring MockMVC        |
@@ -832,14 +832,14 @@ De aanwezigheid van vijf onderscheiden testtypen voldoet aan het rubric-criteriu
 | Tool                  | Rol                                                             | Configuratie                                                |
 | --------------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
 | JUnit 4               | Testframework                                                   | Testbronnen in `api` en `omod`                          |
-| Maven Surefire        | Uitvoering unit/component-tests (`test`-fase)                 | `api/pom.xml`, `omod/pom.xml`                           |
-| Maven Failsafe        | Uitvoering integratietests (`*IT`, `integration-test`-fase) | Standaard OpenMRS parent-pom                                |
-| JaCoCo                | Code coverage tijdens `verify`                                | `api/pom.xml` jacoco-plugin, gerapporteerd aan SonarCloud |
-| OpenMRS testframework | In-memory H2-database, Spring-context, fixtures                 | `IdgenBaseTest`, dataset-XML                              |
+| Maven Surefire        | Uitvoering unit/component-tests (`test-fase)                 | [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml), [omod/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/pom.xml)                           |
+| Maven Failsafe        | Uitvoering integratietests (*IT`, `integration-test`-fase) | Standaard OpenMRS parent-pom                                |
+| JaCoCo                | Code coverage tijdens `verify                                | [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml) jacoco-plugin, gerapporteerd aan SonarCloud |
+| OpenMRS testframework | In-memory H2-database, Spring-context, fixtures                 | IdgenBaseTest`, dataset-XML                              |
 
 ### 2.3 Scope-afbakening: unit-/component-tests versus integratietests
 
-`mvn test` voert via Surefire alleen klassen met het achtervoegsel `*Test` uit (testtypen 1 t/m 4). De drie `*IT`-klassen draaien via Failsafe in de `integration-test`-fase en worden in deze nulmeting daarom niet uitgevoerd. Dit is een bewuste afbakening: de CI-pipeline (`ci-build-test.yml`) draait eveneens `mvn test`, zodat de nulmeting exact overeenkomt met wat de pipeline bewaakt.
+```mvn test` voert via Surefire alleen klassen met het achtervoegsel `*Test` uit (testtypen 1 t/m 4). De drie `*IT`-klassen draaien via Failsafe in de integration-test-fase en worden in deze nulmeting daarom niet uitgevoerd. Dit is een bewuste afbakening: de CI-pipeline ([ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml)) draait eveneens mvn test, zodat de nulmeting exact overeenkomt met wat de pipeline bewaakt.
 
 ---
 
@@ -903,7 +903,7 @@ Hulpbestanden (geen testcase): `IdgenBaseTest` (basisklasse), `RemoteIdentifierS
 
 ### 4.1 Uitvoering
 
-Uitgevoerd op 16/06/2026 met de CI-equivalente commando's (zie sectie 6). De `omod`-tests vereisen dat de `api`-artifact eerst gepackaged is; daarom wordt eerst `package -DskipTests` gedraaid en daarna `test`, identiek aan `ci-build-test.yml`.
+Uitgevoerd op 16/06/2026 met de CI-equivalente commando's (zie sectie 6). De `omod`-tests vereisen dat de `api`-artifact eerst gepackaged is; daarom wordt eerst `package -DskipTests` gedraaid en daarna `test, identiek aan [ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml).
 
 ### 4.2 Resultaat per module
 
@@ -913,7 +913,7 @@ Uitgevoerd op 16/06/2026 met de CI-equivalente commando's (zie sectie 6). De `om
 | omod             | 11                     | 93            | 93            | 0           | 0           | 0           |
 | **Totaal** | **20**           | **134** | **132** | **0** | **0** | **2** |
 
-Build-resultaat: **BUILD SUCCESS**. Alle uitgevoerde tests slagen. De 2 skipped tests zijn `@Ignore`-gemarkeerd in de upstream-broncode (sectie 5.2).
+Build-resultaat: **BUILD SUCCESS**. Alle uitgevoerde tests slagen. De 2 skipped tests zijn @Ignore`-gemarkeerd in de upstream-broncode (sectie 5.2).
 
 ### 4.3 Resultaat per testklasse (Surefire)
 
@@ -945,13 +945,13 @@ Build-resultaat: **BUILD SUCCESS**. Alle uitgevoerde tests slagen. De 2 skipped 
 | `AutoGenerationOptionResourceTest`                 | 3     | 0        | 0      | 0       |
 | `IdentifierSourceResourceTest`                     | 3     | 0        | 0      | 0       |
 | `LogEntryResourceTest`                             | 3     | 0        | 0      | 0       |
-| `IdentifierSourceControllerTest`                   | 2     | 0        | 0      | 0       |
+| `IdentifierSourceControllerTest                   | 2     | 0        | 0      | 0       |
 
-De ruwe rapporten staan in `api/target/surefire-reports/` en `omod/target/surefire-reports/` (per klasse een `.txt`- en `.xml`-bestand). De CI bewaart deze als artifact `test-reports-{run}` (90 dagen) via `ci-build-test.yml`.
+De ruwe rapporten staan in [api/target/surefire-reports/](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions) en [omod/target/surefire-reports/](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions) (per klasse een `.txt`- en `.xml`-bestand). De CI bewaart deze als artifact `test-reports-{run} (90 dagen) via [ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml).
 
 ### 4.4 Koppeling aan coverage-baseline
 
-De testsuite slaagt volledig maar dekt de codebase slechts gedeeltelijk: 50,0% line coverage (api 54,3%, omod 46,9%), gemeten met JaCoCo en gerapporteerd in SonarCloud op 12/06/2026. De kritieke logica is ondergetest: `SequentialIdentifierGeneratorValidator` heeft 0% coverage met 22 ongedekte condities. Zie `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 5 voor de volledige coverage-onderbouwing per bestand. Het wegwerken van deze testgaten is verbeteractie 5 en 6 in de prioritering.
+De testsuite slaagt volledig maar dekt de codebase slechts gedeeltelijk: 50,0% line coverage (api 54,3%, omod 46,9%), gemeten met JaCoCo en gerapporteerd in SonarCloud op 12/06/2026. De kritieke logica is ondergetest: SequentialIdentifierGeneratorValidator heeft 0% coverage met 22 ongedekte condities. Zie [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 5 voor de volledige coverage-onderbouwing per bestand. Het wegwerken van deze testgaten is verbeteractie 5 en 6 in de prioritering.
 
 ### 4.5 Verantwoording testdekking
 
@@ -965,7 +965,7 @@ De ongedekte code valt uiteen in twee categorieën met een verschillende waarde-
 
 | Klasse                                            | Reden geen test toegevoegd                                |
 | ------------------------------------------------- | --------------------------------------------------------- |
-| `IdgenConstants`                                | Alleen constanten, 1 regel, geen logica om te valideren   |
+| IdgenConstants`                                | Alleen constanten, 1 regel, geen logica om te valideren   |
 | `IdgenModuleActivator`                          | Lifecycle-hook, draait alleen in een echte module-context |
 | `IdentifierTableHeaderExtension`, `AdminList` | UI-extensieklassen zonder bedrijfslogica                  |
 
@@ -976,9 +976,9 @@ Hier 100% halen betekent schijntests schrijven om een getal te halen. Dat verlaa
 | Klasse                                     | Risico                                                     |
 | ------------------------------------------ | ---------------------------------------------------------- |
 | `SequentialIdentifierGeneratorValidator` | Valideert ID-formaten; 0% coverage, 22 ongedekte condities |
-| `IdentifierSourceResource` Brain Methods | 148 ongedekte condities door extreme complexiteit          |
+| `IdentifierSourceResource Brain Methods | 148 ongedekte condities door extreme complexiteit          |
 
-De 50% is dus niet "we testen slecht", maar "de dekking zit op de verkeerde plek": triviale wrappers zijn 100% gedekt, de risicovolle logica niet. Deze categorie is precies verbeteractie 5, 6 en 3 in `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2.
+De 50% is dus niet "we testen slecht", maar "de dekking zit op de verkeerde plek": triviale wrappers zijn 100% gedekt, de risicovolle logica niet. Deze categorie is precies verbeteractie 5, 6 en 3 in [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2.
 
 #### Waarom de streefnorm 70% is en niet hoger
 
@@ -986,8 +986,8 @@ De 50% is dus niet "we testen slecht", maar "de dekking zit op de verkeerde plek
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Coverage is een proxy, geen doel     | 100% dekking bewijst niet dat code correct is; het meet alleen welke regels zijn uitgevoerd, niet of de assertions zinvol zijn. Hoge verplichte targets leiden aantoonbaar tot lege tests die het getal oppoetsen. |
 | Afnemend rendement                   | De eerste 70% dekt de kernpaden (ID-generatie, validatie, pool-beheer). De laatste 30% zit in onpraktisch te testen Hibernate-DAO's en Spring/Context-koppeling, die zware mock-infra vereisen voor weinig waarde. |
-| Refactoring komt eerst               | Een methode met CC 106 (`IdentifierSourceResource`) is niet volledig unit-testbaar. Eerst splitsen (actie 3), dan testen.                                                                                        |
-| De regressiepoort zit op nieuwe code | De quality gate dwingt coverage af op nieuwe code (drempel aangescherpt naar 80%), niet op de hele legacy-codebase. Eigen wijzigingen worden streng bewaakt terwijl legacy-schuld gefaseerd wordt afgelost.                                             |
+| Refactoring komt eerst               | Een methode met CC 106 (IdentifierSourceResource`) is niet volledig unit-testbaar. Eerst splitsen (actie 3), dan testen.                                                                                        |
+| De regressiepoort zit op nieuwe code | De quality gate dwingt coverage af op nieuwe code (drempel aangescherpt naar 80%), niet op de hele legacy-codebase. Eigen wijzigingen worden streng bewaakt terwijl legacy-schuld gefaseerd wordt afgelost.        |
 | Scope van het onderzoek              | Dit is een verbeteronderzoek op een bestaande module, geen herschrijving. 70% overall is realistisch na het PoC.                                                                                                   |
 
 Externe ijking: de brede industrie-richtlijn ligt rond 70 tot 80% als pragmatisch optimum. Google noemt 60% acceptabel, 75% prijzenswaardig en 90% voorbeeldig maar niet vereist. 70% zit in die verdedigbare middenband en sluit aan op ISO 25010 testbaarheid: risicogestuurd testen, niet uitputtend.
@@ -1022,15 +1022,15 @@ Deze voor/na laat zien dat de 50% geen structurele blokkade is: het echte testga
 
 #### Meetmethode (reproduceerbaar)
 
-De statische `argLine` in `api/pom.xml` (nodig voor de Java 17 `--add-opens`) schaduwt de JaCoCo-agent van `prepare-agent`. Voor een losse meting wordt de agent expliciet meegegeven:
+De statische argLine in [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml) (nodig voor de Java 17 --add-opens) schaduwt de JaCoCo-agent van `prepare-agent`. Voor een losse meting wordt de agent expliciet meegegeven:
 
 ```bash
 mvn -B clean test -pl api -Dtest=SequentialIdentifierGeneratorValidatorTest \
-  "-DargLine=-javaagent:<jacoco-agent>.jar=destfile=<pad>/api/target/jacoco.exec"
-mvn -B jacoco:report -pl api "-Djacoco.dataFile=<pad>/api/target/jacoco.exec"
+  "-DargLine=-javaagent:<jacoco-agent>.jar=destfile=<pad>/[api/target/jacoco.exec](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)"
+mvn -B jacoco:report -pl api "-Djacoco.dataFile=<pad>/[api/target/jacoco.exec](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)"
 ```
 
-Het rapport komt in `api/target/site/jacoco/` (HTML + XML). In de CI levert de reguliere `verify`-stap de coverage aan SonarCloud.
+Het rapport komt in [api/target/site/jacoco/](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions) (HTML + XML). In de CI levert de reguliere verify-stap de coverage aan SonarCloud.
 
 #### Bronnen testdekking
 
@@ -1046,7 +1046,7 @@ Het rapport komt in `api/target/site/jacoco/` (HTML + XML). In de CI levert de r
 
 - De testsuite is groen: 0 failures en 0 errors over 132 uitgevoerde tests.
 - Meerdere testniveaus zijn aanwezig, van pure unit tot volledige web-context.
-- De service-laag (`IdentifierSourceServiceTest`, 25 tests) en de audit logging (`LoggingAuditTest`, 9 tests) zijn relatief goed gedekt.
+- De service-laag (IdentifierSourceServiceTest`, 25 tests) en de audit logging (`LoggingAuditTest`, 9 tests) zijn relatief goed gedekt.
 
 ### 5.2 Genegeerde tests (`@Ignore`)
 
@@ -1063,21 +1063,21 @@ Drie tests zijn via een Surefire-exclude uitgeschakeld wegens incompatibiliteit 
 
 | Testklasse                            | Module | Configuratie     | Oorzaak                                               |
 | ------------------------------------- | ------ | ---------------- | ----------------------------------------------------- |
-| `LocationBasedPrefixProviderTest`   | api    | `api/pom.xml`  | PowerMock 1.x incompatibel met Java 11 module-systeem |
-| `SequentialIdentifierGeneratorTest` | api    | `api/pom.xml`  | PowerMock 1.x incompatibel met Java 11 module-systeem |
-| `IdentifierResourceTest`            | omod   | `omod/pom.xml` | `char[]`-cast vanuit `String` faalt op Java 11    |
+| `LocationBasedPrefixProviderTest   | api    | [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml)  | PowerMock 1.x incompatibel met Java 11 module-systeem |
+| SequentialIdentifierGeneratorTest | api    | [api/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/api/pom.xml)  | PowerMock 1.x incompatibel met Java 11 module-systeem |
+| IdentifierResourceTest            | omod   | [omod/pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/pom.xml) | `char[]`-cast vanuit `String` faalt op Java 11    |
 
-Deze uitsluitingen zijn vastgelegd als technische schuld in `Groep_6_Non-Functional-Requirements.md`.
+Deze uitsluitingen zijn vastgelegd als technische schuld in [Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md).
 
 ### 5.4 Testgaten voor het PoC
 
 | Testgat                                                     | Bestand                                                                                        | Verbeteractie                               |
 | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Validator ongetest (0% coverage, 22 condities)              | `SequentialIdentifierGeneratorValidator`                                                     | Actie 5                                     |
+| Validator ongetest (0% coverage, 22 condities)              | SequentialIdentifierGeneratorValidator`                                                     | Actie 5                                     |
 | Nul-coverage klassen                                        | `IdentifierSourceEditor`, `RemoteIdentifierSourceValidator`, `IdentifierSourceValidator` | Actie 6                                     |
-| Brain Methods nauwelijks testbaar (148 ongedekte condities) | `IdentifierSourceResource`                                                                   | Actie 3 (refactoring maakt testen mogelijk) |
+| Brain Methods nauwelijks testbaar (148 ongedekte condities) | `IdentifierSourceResource                                                                   | Actie 3 (refactoring maakt testen mogelijk) |
 
-De koppeling bevinding naar verbetering is traceerbaar via `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2.
+De koppeling bevinding naar verbetering is traceerbaar via [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2.
 
 ---
 
@@ -1085,14 +1085,14 @@ De koppeling bevinding naar verbetering is traceerbaar via `Groep_6_Analyse-Onde
 
 ### 6.1 Omgeving
 
-| Onderdeel      | Lokale meting (16/06/2026)           | CI (`ci-build-test.yml`) |
-| -------------- | ------------------------------------ | -------------------------- |
-| Maven          | 3.9.16                               | 3.x (runner)               |
-| JDK            | Temurin 17.0.19                      | Temurin 11                 |
-| Compile target | Java 1.8 (`maven-compiler-plugin`) | Java 1.8                   |
-| Werkmap        | `openmrs-module-idgen`             | `openmrs-module-idgen`   |
+| Onderdeel      | Lokale meting (16/06/2026)           | CI ([ci-build-test.yml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/.github/workflows/ci-build-test.yml)) |
+| -------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Maven          | 3.9.16                               | 3.x (runner)                                                                                                               |
+| JDK            | Temurin 17.0.19                      | Temurin 11                                                                                                                 |
+| Compile target | Java 1.8 (maven-compiler-plugin`) | Java 1.8                                                                                                                   |
+| Werkmap        | `openmrs-module-idgen`             | `openmrs-module-idgen                                                                                                   |
 
-De compile-target is in beide gevallen Java 1.8, vastgelegd in `pom.xml`. De lokale meting draaide op JDK 17 en de CI op JDK 11; in beide gevallen is het resultaat groen met dezelfde drie pom-excludes.
+De compile-target is in beide gevallen Java 1.8, vastgelegd in [pom.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/pom.xml). De lokale meting draaide op JDK 17 en de CI op JDK 11; in beide gevallen is het resultaat groen met dezelfde drie pom-excludes.
 
 ### 6.2 Commando's
 
@@ -1112,32 +1112,32 @@ mvn -B clean verify                # genereert jacoco.exec en surefire-reports
 
 | Output                    | Locatie                                                 |
 | ------------------------- | ------------------------------------------------------- |
-| Surefire-rapporten (api)  | `api/target/surefire-reports/`                        |
-| Surefire-rapporten (omod) | `omod/target/surefire-reports/`                       |
-| JaCoCo-coverage           | `api/target/jacoco.exec`, gerapporteerd in SonarCloud |
-| CI-artifact               | Actions run, artifact `test-reports-{run}` (90 dagen) |
+| Surefire-rapporten (api)  | [api/target/surefire-reports/](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)                        |
+| Surefire-rapporten (omod) | [omod/target/surefire-reports/](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions)                       |
+| JaCoCo-coverage           | [api/target/jacoco.exec](https://github.com/AvansHogeschoolBreda/openmrsmodule/actions), gerapporteerd in SonarCloud |
+| CI-artifact               | Actions run, artifact test-reports-{run}` (90 dagen) |
 
 ---
 
 ## 7. Conclusie
 
-De nulmeting toont een groene testsuite van 132 geslaagde tests, zonder failures of errors. De suite bevat vijf testtypen; vier daarvan worden in de nulmeting uitgevoerd, de integratietests (`*IT`) draaien via Failsafe en vallen buiten `mvn test` (zie sectie 2.3). De suite is breed maar ondiep: de coverage blijft op 50,0% en de meest complexe en veiligheidskritische klassen (de validator en `IdentifierSourceResource`) zijn onvoldoende gedekt. Sectie 4.5 toont met een gerichte unit-test al aan dat dit gat te dichten is: de validator ging van 0% naar 71,9% line coverage zonder de triviale klassen aan te raken. Dit is de meetbare uitgangssituatie waartegen de verbeteringen uit het PoC worden afgezet. De validatie na verbetering (Deel 6) hergebruikt exact deze commando's en rapporten om verbetering en het uitblijven van regressie aan te tonen.
+De nulmeting toont een groene testsuite van 132 geslaagde tests, zonder failures of errors. De suite bevat vijf testtypen; vier daarvan worden in de nulmeting uitgevoerd, de integratietests (`*IT`) draaien via Failsafe en vallen buiten `mvn test` (zie sectie 2.3). De suite is breed maar ondiep: de coverage blijft op 50,0% en de meest complexe en veiligheidskritische klassen (de validator en `IdentifierSourceResource) zijn onvoldoende gedekt. Sectie 4.5 toont met een gerichte unit-test al aan dat dit gat te dichten is: de validator ging van 0% naar 71,9% line coverage zonder de triviale klassen aan te raken. Dit is de meetbare uitgangssituatie waartegen de verbeteringen uit het PoC worden afgezet. De validatie na verbetering (Deel 6) hergebruikt exact deze commando's en rapporten om verbetering en het uitblijven van regressie aan te tonen.
 
 ---
 
 ## 8. Validatie na verbetering (Deel 6)
 
-Deze sectie toont aan dat het PoC (commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc)) de onderhoudbaarheid meetbaar heeft verbeterd zonder regressie. Het bewijs bestaat uit twee lijnen: een verse testrun met dezelfde commando's als de nulmeting (regressie) en een verse SonarCloud-meting op `main` (metriek voor en na).
+Deze sectie toont aan dat het PoC (commit [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc)) de onderhoudbaarheid meetbaar heeft verbeterd zonder regressie. Het bewijs bestaat uit twee lijnen: een verse testrun met dezelfde commando's als de nulmeting (regressie) en een verse SonarCloud-meting op main` (metriek voor en na).
 
 ### 8.1 Meetopzet
 
-| Onderdeel      | Voor (nulmeting)                                                                   | Na (validatie)                                                                                                                                                           |
-| -------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Testrun        | 16/06/2026, lokaal,`mvn test`                                                    | 16/06/2026, lokaal,`mvn test` (identieke commando's, sectie 6)                                                                                                         |
-| Metriek-meting | SonarCloud, 12/06/2026 (`Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.1)       | SonarCloud,`main`, 16/06/2026                                                                                                                                          |
-| Codeversie     | vóór[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) | `main` na [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) |
+| Onderdeel      | Voor (nulmeting)                                                                                                                                                                                                                                                   | Na (validatie)                                                                                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Testrun        | 16/06/2026, lokaal,`mvn test`                                                                                                                                                                                                                                    | 16/06/2026, lokaal,`mvn test (identieke commando's, sectie 6)                                                                                                         |
+| Metriek-meting | SonarCloud, 12/06/2026 ([Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.1) | SonarCloud,main, 16/06/2026                                                                                                                                          |
+| Codeversie     | vóór[303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)                                                                                                                                                                                 | main na [303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735) en [7d41fbc](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/7d41fbc) |
 
-Beide metriek-metingen komen van dezelfde tool (SonarCloud) op hetzelfde project (`AvansHogeschoolBreda_openmrsmodule`). Daardoor is het verschil toe te schrijven aan de codeverandering, niet aan een andere meetmethode.
+Beide metriek-metingen komen van dezelfde tool (SonarCloud) op hetzelfde project (AvansHogeschoolBreda_openmrsmodule`). Daardoor is het verschil toe te schrijven aan de codeverandering, niet aan een andere meetmethode.
 
 ### 8.2 Regressie: de testsuite blijft groen
 
@@ -1152,13 +1152,13 @@ Na het PoC is de volledige suite opnieuw gedraaid met de commando's uit sectie 6
 | Errors                            | 0             | 0              |
 | Build-resultaat                   | BUILD SUCCESS | BUILD SUCCESS  |
 
-De suite groeide met 17 tests. Die toename komt uit twee bronnen: 11 tests in `SequentialIdentifierGeneratorValidatorTest` (verbeteractie 5 van dit PoC, sectie 4.5) en 6 tests in `SecurityHeadersFilterTest` (Opdracht 5, DAST-mitigatie, buiten de scope van deze onderhoudbaarheids-PoC).
+De suite groeide met 17 tests. Die toename komt uit twee bronnen: 11 tests in `SequentialIdentifierGeneratorValidatorTest` (verbeteractie 5 van dit PoC, sectie 4.5) en 6 tests in `SecurityHeadersFilterTest (Opdracht 5, DAST-mitigatie, buiten de scope van deze onderhoudbaarheids-PoC).
 
-Het regressiebewijs zit niet in de toename maar in het uitblijven van fouten: 0 failures en 0 errors. Het PoC ([303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)) raakte 39 Java-bestanden, waaronder testbestanden (`DuplicateIdentifiersPoolComponentTest`, `IdentifierSourceServiceTest`, `IdentifierPoolSchedulerIT`). Geen enkele bestaande test is verwijderd, uitgezet of gebroken. De twee `@Ignore`-tests en de drie pom-excludes (sectie 5.2 en 5.3) zijn ongewijzigd. De gedragsbehoudende refactoring uit `Groep_6_Refactoring-Onderbouwing.md` is dus aantoonbaar gedragsbehoudend.
+Het regressiebewijs zit niet in de toename maar in het uitblijven van fouten: 0 failures en 0 errors. Het PoC ([303c735](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/303c735)) raakte 39 Java-bestanden, waaronder testbestanden (DuplicateIdentifiersPoolComponentTest`, `IdentifierSourceServiceTest`, `IdentifierPoolSchedulerIT`). Geen enkele bestaande test is verwijderd, uitgezet of gebroken. De twee `@Ignore-tests en de drie pom-excludes (sectie 5.2 en 5.3) zijn ongewijzigd. De gedragsbehoudende refactoring uit [Groep_6_Refactoring-Onderbouwing.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Refactoring-Onderbouwing.md) is dus aantoonbaar gedragsbehoudend.
 
 ### 8.3 Metriek voor en na
 
-De baseline-kolom komt uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.1 (12/06/2026). De na-kolom komt uit de SonarCloud-meting op `main` (16/06/2026). De doel-kolom komt uit `Groep_6_Non-Functional-Requirements.md`.
+De baseline-kolom komt uit [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.1 (12/06/2026). De na-kolom komt uit de SonarCloud-meting op main (16/06/2026). De doel-kolom komt uit [Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md).
 
 | Metriek                           | Voor (12/06)        | Na (16/06)         | Doel (na PoC) | Doel gehaald             |
 | --------------------------------- | ------------------- | ------------------ | ------------- | ------------------------ |
@@ -1186,18 +1186,18 @@ De baseline-kolom komt uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.1 (12
 
 ### 8.4 Interpretatie per verbeteractie
 
-De metriekverschillen zijn één op één te koppelen aan de verbeteracties uit `Groep_6_Analyse-Onderhoudbaarheid.md` sectie 8.2 en de ontwerpen in `Groep_6_Refactoring-Onderbouwing.md`.
+De metriekverschillen zijn één op één te koppelen aan de verbeteracties uit [Groep_6_Analyse-Onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Analyse-Onderhoudbaarheid.md) sectie 8.2 en de ontwerpen in [Groep_6_Refactoring-Onderbouwing.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Refactoring-Onderbouwing.md).
 
 | Actie                             | Verwacht effect           | Gemeten effect                                                             | Oordeel                           |
 | --------------------------------- | ------------------------- | -------------------------------------------------------------------------- | --------------------------------- |
-| 1. Multi-threading fix (static)   | Race condition weg        | `LocationBased*Provider` Critical smells weg; Reliability blijft A       | Gerealiseerd                      |
+| 1. Multi-threading fix (static)   | Race condition weg        | LocationBased*Provider` Critical smells weg; Reliability blijft A       | Gerealiseerd                      |
 | 2. Hardcoded password verwijderen | Security C naar A         | Vulnerabilities 1 naar 0, Security Rating C naar A                         | Gerealiseerd                      |
 | 3. Brain Methods opsplitsen       | CC fors omlaag            | `IdentifierSourceResource`: CC per methode 101 en 106 naar 21 en 20      | Sterk verbeterd, drempel net niet |
 | 4. Magic strings naar constanten  | Duplicatie omod omlaag    | omod-duplicatie 10,8% naar 1,3%; totaal 5,8% naar 2,1%                     | Gerealiseerd, doel gehaald        |
 | 5. Validator testbaar maken       | Coverage validator omhoog | Validator 0% naar 71,9% (sectie 4.5); CC-methode 27 valt onder drempel weg | Gerealiseerd                      |
 | 8, 9. Diamond operator, @Override | Issues omlaag             | Code smells 201 naar 59                                                    | Gerealiseerd                      |
 
-De twee resterende Brain Methods zijn van CC 101 en 106 teruggebracht naar CC 21 en CC 20, een reductie van ongeveer 80%. SonarCloud schat de resterende herstelkost op 11 en 10 minuten per methode (`IdentifierSourceResource` L265 en L353). De volledige sprong naar nul vergt het opsplitsen van de klasse in meerdere resources. Dat is in `Groep_6_Refactoring-Onderbouwing.md` sectie 3.2 bewust buiten deze PoC gehouden, omdat het de publieke OpenMRS REST-contracten raakt en regressietesten buiten scope vraagt. Het is genoteerd als vervolgactie.
+De twee resterende Brain Methods zijn van CC 101 en 106 teruggebracht naar CC 21 en CC 20, een reductie van ongeveer 80%. SonarCloud schat de resterende herstelkost op 11 en 10 minuten per methode (`IdentifierSourceResource L265 en L353). De volledige sprong naar nul vergt het opsplitsen van de klasse in meerdere resources. Dat is in [Groep_6_Refactoring-Onderbouwing.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Refactoring-Onderbouwing.md) sectie 3.2 bewust buiten deze PoC gehouden, omdat het de publieke OpenMRS REST-contracten raakt en regressietesten buiten scope vraagt. Het is genoteerd als vervolgactie.
 
 ### 8.5 Quality Gate en de coveragedoelen
 
@@ -1205,7 +1205,7 @@ De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is
 
 Dit is een bewuste, onderbouwde uitkomst, geen tekortkoming van het PoC. De verantwoording staat in sectie 4.5: 70% is de juiste streefnorm en die wordt gefaseerd bereikt, terwijl de regressiepoort op nieuwe code de echte schuldopbouw bewaakt. Het PoC richtte zich primair op complexiteit, duplicatie en security (acties 1 tot en met 4 en 8, 9). Het verder optrekken van de coverage naar 70% is verbeteractie 3, 5 en 6.
 
-Die vervolgstap is inmiddels uitgevoerd en gemerged naar `main`. De SonarCloud-analyse op `main` (16/06/2026 17:16) bevestigt met de 115 gerichte tests een line coverage van 80,3% (branch 60,9%), ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). De Quality Gate staat live nog op Gefaald, maar uitsluitend op de conditie Coverage on New Code: die toont 75,1% tegen de drempel van 80% op nieuwe code (aangescherpt t.o.v. de 60% Sonar Way default in Deel 2 sectie 4). Alle andere condities (Reliability, Security, Maintainability, Duplicated Lines en Security Hotspots Reviewed op nieuwe code) staan op OK. De overall coverage is daarmee gehaald; de gate hangt nog enkel op de strenge 80%-drempel voor nieuw toegevoegde regels.
+Die vervolgstap is inmiddels uitgevoerd en gemerged naar main`. De SonarCloud-analyse op `main (16/06/2026 17:16) bevestigt met de 115 gerichte tests een line coverage van 80,3% (branch 60,9%), ruim boven de NFR-norm en op het aanvullende doel van 80% (sectie 8.7). De Quality Gate staat live nog op Gefaald, maar uitsluitend op de conditie Coverage on New Code: die toont 75,1% tegen de drempel van 80% op nieuwe code (aangescherpt t.o.v. de 60% Sonar Way default in Deel 2 sectie 4). Alle andere condities (Reliability, Security, Maintainability, Duplicated Lines en Security Hotspots Reviewed op nieuwe code) staan op OK. De overall coverage is daarmee gehaald; de gate hangt nog enkel op de strenge 80%-drempel voor nieuw toegevoegde regels.
 
 ### 8.6 Conclusie validatie
 
@@ -1219,14 +1219,14 @@ De verbetering is reproduceerbaar (sectie 6) en herleidbaar tot de verbeteractie
 
 ### 8.7 Testdekking opgehoogd naar 80%
 
-De PoC bracht de coverage van 50,0% naar 57,4% (sectie 8.3). De NFR-norm is 70% (`Groep_6_Non-Functional-Requirements.md`); als aanvullend doel is de dekking doorgetrokken naar 80%. Dat is gehaald met gerichte tests die de ongedekte, wel-testbare logica afdekken zonder schijntests te schrijven.
+De PoC bracht de coverage van 50,0% naar 57,4% (sectie 8.3). De NFR-norm is 70% ([Groep_6_Non-Functional-Requirements.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/LU2%20-%20Kwaliteit%20en%20security%20-%20verbeteronderzoek%20onderhoudbaarheid/Groep_6_Non-Functional-Requirements.md)); als aanvullend doel is de dekking doorgetrokken naar 80%. Dat is gehaald met gerichte tests die de ongedekte, wel-testbare logica afdekken zonder schijntests te schrijven.
 
 #### Aanpak
 
-1. Per klasse de ongedekte regels gemeten met JaCoCo (`mvn clean verify`, rapport per module in `target/site/jacoco/jacoco.xml`).
+1. Per klasse de ongedekte regels gemeten met JaCoCo (mvn clean verify`, rapport per module in `target/site/jacoco/jacoco.xml`).
 2. De klassen met de meeste ongedekte regels en de hoogste waarde geselecteerd: het check-digit algoritme, de validators, de generator, de providers, de domeinlogica, de service-randmethoden, de REST-resourcecontracten en de MVC-controllers.
-3. Echte unit-tests geschreven met asserties op gedrag. Waar mogelijk pure unit-tests (geen Spring-context); waar de logica de Context vereist (service, property editors, MVC-controllers, scheduled task) context-sensitieve tests via `IdgenBaseTest` (api) of `BaseModuleWebContextSensitiveTest` (omod web-controllers).
-4. Voor de controllers is een kleine, consistente testdataset toegevoegd (`omod/src/test/resources/org/openmrs/module/idgen/include/ControllerTestData.xml`) zodat de groeperingslogica (`getIdentifierSourcesByType`) niet op inconsistente upstream-testdata stuit.
+3. Echte unit-tests geschreven met asserties op gedrag. Waar mogelijk pure unit-tests (geen Spring-context); waar de logica de Context vereist (service, property editors, MVC-controllers, scheduled task) context-sensitieve tests via `IdgenBaseTest` (api) of `BaseModuleWebContextSensitiveTest (omod web-controllers).
+4. Voor de controllers is een kleine, consistente testdataset toegevoegd ([omod/src/test/resources/org/openmrs/module/idgen/include/ControllerTestData.xml](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/omod/src/test/resources/org/openmrs/module/idgen/include/ControllerTestData.xml)) zodat de groeperingslogica (getIdentifierSourcesByType`) niet op inconsistente upstream-testdata stuit.
 5. Bewust geen tests geschreven voor triviale wrappers of UI-renderlogica zonder bedrijfslogica (zie de verantwoording in sectie 4.5): coverage is een proxy, geen doel.
 
 #### Resultaat
@@ -1283,7 +1283,7 @@ De tests asserteren gedrag, geen implementatie. Voorbeelden: het Luhn-algoritme 
 ```bash
 cd openmrs-module-idgen
 mvn -B clean verify
-# JaCoCo-rapport per module: api/target/site/jacoco/index.html en omod/target/site/jacoco/index.html
+# JaCoCo-rapport per module: api/target/site/jacoco/index.html en omd/target/site/jacoco/index.html
 ```
 
 ---
@@ -1343,14 +1343,14 @@ de concrete documentatie én de Git-commits waarin het is gerealiseerd. Alle com
 
 ## B.1 Snelkoppelingen naar de repository
 
-| Overzicht                | Link                                                                                                                                                |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Repository               | [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)                                                            |
-| Alle commits (history)   | [https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main](https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main)               |
-| Bijdragers (grafiek)     | [https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors](https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors) |
-| Compliance-checklist     | [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)                                                 |
-| Opdrachtbeschrijving     | [docs/assets/rubrics/opdracht.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/opdracht.md)                     |
-| Rubric onderhoudbaarheid | [rubric-onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/rubric-onderhoudbaarheid.md)         |
+| Overzicht                | Link                                                                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repository               | [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)                                                    |
+| Alle commits (history)   | [commits/main](https://github.com/AvansHogeschoolBreda/openmrsmodule/commits/main)                                                             |
+| Bijdragers (grafiek)     | [graphs/contributors](https://github.com/AvansHogeschoolBreda/openmrsmodule/graphs/contributors)                                               |
+| Compliance-checklist     | [docs/checklist.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/checklist.md)                                         |
+| Opdrachtbeschrijving     | [docs/assets/rubrics/opdracht.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/opdracht.md)             |
+| Rubric onderhoudbaarheid | [rubric-onderhoudbaarheid.md](https://github.com/AvansHogeschoolBreda/openmrsmodule/blob/main/docs/assets/rubrics/rubric-onderhoudbaarheid.md) |
 
 ## B.2 Verdeling van de opdrachten/deeldocumenten per teamlid
 
@@ -1459,17 +1459,4 @@ Conform de moduleafspraken verantwoordt de groep hier op hoofdlijnen het gebruik
 de groepsleden. Elke AI-suggestie is handmatig gecontroleerd, getest en waar nodig bijgesteld of verworpen.
 
 | Hulpmiddel                   | Waarvoor (globaal)                         | Voorbeelden (indicatief)                                                                                                                              | Wat bleef mensenwerk                                                                                             |
-| ---------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Claude** (Anthropic) | Ondersteuning bij code en projectstructuur | Voorstellen voor het opsplitsen van complexe methoden; opzet/structuur van documenten en de mappenindeling; een klein hulpscript voor repetitief werk | Alle inhoudelijke en architecturale beslissingen; testen en valideren; correcties bij framework-eigenaardigheden |
-| **Google Gemini**      | Prompt engineering & sparren               | Het scherper formuleren van prompts en het aftasten van invalshoeken voor analyse en teksten                                                          | Selectie en verificatie van wat bruikbaar was; de uiteindelijke formuleringen en onderbouwing                    |
-
-**Reikwijdte en kritische reflectie.** Het AI-gebruik beperkte zich tot versnellen van repetitief werk, het
-ordenen van structuur en het aanscherpen van formuleringen. De daadwerkelijke onderhoudbaarheidsanalyse,
-refactoring-keuzes, testopzet en validatie zijn door de groep zelf uitgevoerd en geverifieerd tegen meetdata
-(SonarCloud, JaCoCo). Een uitgebreidere, inhoudelijke reflectie op het toolinggebruik bij de PoC staat in
-**Deel 4 §7**. Daar is ook beschreven waar AI-suggesties zijn teruggedraaid (o.a. Spring ASM-incompatibiliteit
-en behoud van de publieke API).
-
----
-
-*Einde opleverdocument - Opdrachtonderdeel 1: Verbeteronderzoek Onderhoudbaarheid · Groep 6 · vrijdag 19 juni 2026*
+| ---------------------------- | ------------------------------------------ | --------------------------------------------------------------
