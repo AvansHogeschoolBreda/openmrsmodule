@@ -4,7 +4,7 @@
 
 **Module:** ATIx IN-B2.4 Softwarearchitectuur & -kwaliteit 2025-26 P4
 **Groep:** 6
-**Onderzochte module:** OpenMRS ID Generation Module (`idgen)
+**Onderzochte module:** OpenMRS ID Generation Module (`idgen`)
 **Repository:** [AvansHogeschoolBreda/openmrsmodule](https://github.com/AvansHogeschoolBreda/openmrsmodule)
 **Opleverdatum:** vrijdag 19 juni 2026
 **Versie:** 1.1 (final)
@@ -75,7 +75,7 @@ in elk Deel reproduceerbaar en herleidbaar naar concrete metingen en commits.
 | Kenmerk                 | Details                                                                                         |
 | ----------------------- | ----------------------------------------------------------------------------------------------- |
 | **Naam**          | OpenMRS ID Generation Module (idgen)                                                            |
-| **Versie**        | v4.9.0 (of vergelijkbare legacy/lesmateriaal-versie)                                            |
+| **Versie**        | v4.13.0                                                                                         |
 | **Broncode**      | [https://github.com/openmrs/openmrs-module-idgen](https://github.com/openmrs/openmrs-module-idgen) |
 | **Primaire taal** | Java (60.6%), JSX/JavaScript (28.4%), XML & CSS (11.0%)                                         |
 
@@ -87,7 +87,7 @@ De keuze voor de **idgen**-module is gebaseerd op een zorgvuldige afweging van d
 
 ### 1. Complexiteit en Scope (Kwalitatief & Kwantitatief)
 
-Op basis van de scc` (Sloc, Cloc and Code) complexiteitsmetingen bevindt de `idgen` module zich in de ideale **"sweet spot"** voor dit onderzoek:
+Op basis van de `scc` (Sloc, Cloc and Code) complexiteitsmetingen bevindt de `idgen` module zich in de ideale **"sweet spot"** voor dit onderzoek:
 
 * **Systeemonderbouwing via vergelijking:**
 
@@ -178,7 +178,7 @@ De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet s
 | ----- | -------------------------------------------------------------- | ------------- | ---------- | ---------- |
 | NFR-3 | Percentage gedupliceerde coderegels mag niet hoger zijn dan 3% | ≤ 3%         | SonarCloud | 🟡 Middel  |
 
-**Onderbouwing:** Duplicatie vergroot onderhoudslast: een bug in gedupliceerde code moet op meerdere plekken gerepareerd worden. De 5%-drempel is de SonarCloud-standaard voor de "Sonar Way" quality gate.
+**Onderbouwing:** Duplicatie vergroot onderhoudslast: een bug in gedupliceerde code moet op meerdere plekken gerepareerd worden. Wij hanteren 3% als eis, strenger dan de SonarCloud-standaard van 5% voor de "Sonar Way" quality gate.
 
 ---
 
@@ -189,7 +189,7 @@ De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet s
 | NFR-4 | Line coverage van de Java-broncode moet minimaal 70% zijn | ≥ 70%        | JaCoCo / SonarCloud | 🟠 Hoog    |
 | NFR-5 | Branch coverage moet minimaal 50% zijn                    | ≥ 50%        | JaCoCo / SonarCloud | 🟡 Middel  |
 
-**Onderbouwing:** De huidige codebase heeft beperkte testdekking. Een minimum van 60% line coverage borgt dat kritieke paden (ID-generatie, validatie, pool-beheer) gedekt zijn door regressietests. Voor legacy-code met lage beginwaarde geldt dit als streefnorm na het PoC.
+**Onderbouwing:** De huidige codebase heeft beperkte testdekking. Een minimum van 70% line coverage borgt dat kritieke paden (ID-generatie, validatie, pool-beheer) gedekt zijn door regressietests. Voor legacy-code met lage beginwaarde geldt dit als streefnorm na het PoC.
 
 ---
 
@@ -1201,7 +1201,7 @@ De twee resterende Brain Methods zijn van CC 101 en 106 teruggebracht naar CC 21
 
 ### 8.5 Quality Gate en de coveragedoelen
 
-De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is coverage: de meting toont 53,0% tegen de gatedrempel. De coverage is dus verbeterd (line coverage 50,0% naar 57,4%) maar haalt de drempel niet.
+De Quality Gate is na het PoC nog steeds Gefaald. De enige falende voorwaarde is coverage: Coverage on New Code staat op 53,0%, onder de toen geldende gatedrempel van 60%. De overall line coverage is wel verbeterd (50,0% naar 57,4%), maar de regressiepoort op nieuwe code haalt de drempel niet.
 
 Dit is een bewuste, onderbouwde uitkomst, geen tekortkoming van het PoC. De verantwoording staat in sectie 4.5: 70% is de juiste streefnorm en die wordt gefaseerd bereikt, terwijl de regressiepoort op nieuwe code de echte schuldopbouw bewaakt. Het PoC richtte zich primair op complexiteit, duplicatie en security (acties 1 tot en met 4 en 8, 9). Het verder optrekken van de coverage naar 70% is verbeteractie 3, 5 en 6.
 
@@ -1300,7 +1300,7 @@ De laatste twee NFR-doelen die na het PoC openstonden, nul Brain Methods en een 
 
 **Regressievangnet.** De gedragsbehoudendheid is geborgd met characterization tests die het gedrag vastleggen, niet de implementatie: `IdentifierSourceResourceUnitTest` (pure unit, 9 tests: representaties, modellen, property-getters, validatie-foutpaden) en `IdentifierSourceResourceContextTest` (web-context, 16 tests: create en update per brontype, validatie-fouten, generate, upload- en reserveer-operaties). Beide draaien groen voor en na de refactor.
 
-**Resultaat (SonarCloud `main`, 19/06/2026):**
+**Resultaat (SonarCloud `main`, 19/06/2026, commit [f3f2b91](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f3f2b91)):**
 
 | Metriek | Voor refactor (16/06) | Na refactor (19/06) | Doel |
 |---|---|---|---|
@@ -1429,6 +1429,7 @@ De Proof of Concept uit Deel 4 is in de broncode gerealiseerd via de volgende co
 | [cda5396](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/cda5396) | Rowen Albers     | 15-06-2026 | Export van de SonarQube code quality issues (bewijslast)                                             | Deel 3 §7                     |
 | [6ed5f02](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/6ed5f02) | Simon Eulenpesch | 16-06-2026 | Testplan + validator-unittest                                                                        | Deel 5 §4.5                   |
 | [23dfc7c](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/23dfc7c) | Simon Eulenpesch | 16-06-2026 | Uitbreiding testdekking naar 80,3%                                                                   | Deel 5 §8.7                   |
+| [f3f2b91](https://github.com/AvansHogeschoolBreda/openmrsmodule/commit/f3f2b91) | Simon Eulenpesch | 19-06-2026 | God Class `IdentifierSourceResource` opgesplitst via Extract Class (`IdentifierSourcePayloadMapper`); nul Brain Methods, Quality Gate geslaagd | Deel 5 §8.8, Deel 4 §3.2     |
 
 ## B.5 Bijdrage per teamlid (geselecteerde commits)
 
