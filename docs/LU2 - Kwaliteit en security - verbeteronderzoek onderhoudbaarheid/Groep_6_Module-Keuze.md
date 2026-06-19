@@ -32,7 +32,7 @@ Op basis van de `scc` (Sloc, Cloc and Code) complexiteitsmetingen bevindt de `id
 * **Systeemonderbouwing via vergelijking:**
   * **Te eenvoudig:** Modules zoals `oauth2login` (complexiteit 113) en `attachments` (complexiteit 258) bevatten te weinig codebase en logische vertakkingen om diepgaande security-issues of structurele maintainability-gebreken bloot te leggen.
   * **Te complex/omvangrijk:** Modules zoals `legacyui` (complexiteit 14.719) en `reporting` (complexiteit 8.880) zijn simpelweg te omvangrijk om binnen de doorlooptijd van één onderwijsperiode (sprint 1 t/m 4) grondig te analyseren, te reviewen en te patchen via een Proof of Concept.
-  * **De idgen module:** Met **151 bestanden**, **14.152 regels code** en een **cyclomatische complexiteit van 949** (waarvan 716 in de Java backend) biedt `idgen` een uitdagende, maar behapbare scope. Er is voldoende 'body' om een representatieve compliance scan (SAST/SCA) uit te voeren met reële bevindingen.
+  * **De idgen module:** Met **57 bestanden**, **4.312 regels code** (Java backend) en een **totale cognitive complexity van 668** biedt `idgen` een uitdagende, maar behapbare scope. Er is voldoende 'body' om een representatieve compliance scan (SAST/SCA) en onderhoudbaarheidsanalyse uit te voeren met reële bevindingen.
 
 * **Technologische diversiteit:**
   De module bevat zowel backend-code (Java, Hibernate, Spring Framework) als frontend-componenten (JSX/React, JSP-pagina's, JavaScript en CSS). Dit stelt ons in staat om de applicatie over de hele stack te analyseren op kwetsbaarheden (o.a. data-in-transit, XSS, CSRF en database-queries).
