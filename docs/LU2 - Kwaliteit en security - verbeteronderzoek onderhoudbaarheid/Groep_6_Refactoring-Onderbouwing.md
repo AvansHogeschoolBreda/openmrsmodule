@@ -56,28 +56,7 @@ validate(o, errors)
 
 **UML-klassediagram (voor en na):**
 
-```mermaid
-classDiagram
-    class IdentifierSourceValidator {
-        +supports(Class) boolean
-        +validate(Object, Errors) void
-    }
-
-    class Validator_VOOR["SequentialIdentifierGeneratorValidator (voor)"] {
-        +supports(Class) boolean
-        +validate(Object, Errors) void  «CC 27, alle logica inline»
-    }
-
-    class Validator_NA["SequentialIdentifierGeneratorValidator (na)"] {
-        +supports(Class) boolean
-        +validate(Object, Errors) void  «CC < 15, orkestreert»
-        -validateIdentifierType(source, firstId, Errors) String
-        -checkLengthConstraints(source, firstId, Errors) void
-    }
-
-    IdentifierSourceValidator <|-- Validator_VOOR
-    IdentifierSourceValidator <|-- Validator_NA
-```
+![UML-klassediagram Validator](image/validator_refactoring_uml.png)
 
 In de voor-situatie zit alle validatielogica in één methode (`validate`). In de na-situatie orkestreert `validate` alleen nog en zijn de twee deeltaken afgesplitst naar private methoden, waardoor de cognitive complexity onder de drempel komt en de deeltaken los testbaar zijn.
 
@@ -99,22 +78,7 @@ In de voor-situatie zit alle validatielogica in één methode (`validate`). In d
 
 **Schematisch UML (conceptueel; exacte methodenamen in de broncode):**
 
-```mermaid
-classDiagram
-    class IdentifierSourceResource_VOOR["IdentifierSourceResource (voor)"] {
-        +brainMethod_L142() «CC 101, 165 regels»
-        +brainMethod_L318() «CC 106, 144 regels»
-    }
-
-    class IdentifierSourceResource_NA["IdentifierSourceResource (na)"] {
-        +publicMethod_L142() «orkestreert»
-        +publicMethod_L318() «orkestreert»
-        -helper_1() ".. tot .."
-        -helper_n() «17 private hulpmethoden»
-    }
-
-    IdentifierSourceResource_VOOR ..> IdentifierSourceResource_NA : Extract Method
-```
+![UML-klassediagram Brain Methods](image/brain_methods_refactoring_uml.png)
 
 De twee Brain Methods zijn opgesplitst: de publieke methoden orkestreren nog en de deeltaken zijn naar private hulpmethoden verplaatst. Dit verlaagt de cognitive complexity per methode zonder de publieke REST-API te wijzigen.
 

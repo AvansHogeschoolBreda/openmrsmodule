@@ -119,6 +119,7 @@ Geen openstaande actiepunten. Alle eisen zijn compliant. De verse SonarCloud-met
 | 2026-06-16 | 1.7    | Deel 5 eis 2+3 ✅ Compliant (AI-verantwoording en kritische reflectie met betrekking tot Claude toegevoegd aan Refactoring-Onderbouwing.md) | Rowen Albers    |
 | 2026-06-16 | 1.8    | Deel 6 volledig ✅ Compliant: verse SonarCloud-meting op main (16/06) en na-testrun verwerkt. Validatie uitgeschreven in Testplan sectie 8 (voor/na-metriektabel, regressiebewijs 151 tests groen). Refactoring-Onderbouwing 3.2 en 6 ingevuld met gemeten CC-reductie (101/106 → 21/20). Samenvatting 17→20 compliant | SimonEulenpesch |
 | 2026-06-16 | 1.9    | Testdekking opgehoogd met 115 gerichte tests (21 klassen + ControllerTestData.xml): line coverage lokaal voor 57,4% → na 80,3% (api 81,5%, omod 79,5%), branch 60,9%, suite voor 151 → na 266 tests, 0 failures. Onderbouwd in Testplan sectie 8.7 | SimonEulenpesch |
+| 2026-06-19 | 2.0    | Testplan/FINAL Deel 5 §8.5, §8.7 en §4.5 gesynchroniseerd met live SonarCloud-analyse op main (16/06 17:16): 80,3% line / 60,9% branch nu in SonarCloud bevestigd (caveat "nog niet op main" verwijderd); Quality Gate live nog Gefaald, uitsluitend op Coverage on New Code (75,1% tegen aangescherpte drempel 80%), overige condities OK. Validator 4.5-cijfers (71,9% line, 95,5% branch, 9/32) en baseline 0% onafhankelijk geverifieerd via JaCoCo-hermeting en SonarCloud API | SimonEulenpesch |
 
 ---
 

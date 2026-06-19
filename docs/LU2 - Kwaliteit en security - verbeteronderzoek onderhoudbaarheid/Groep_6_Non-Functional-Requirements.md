@@ -35,14 +35,14 @@ De CI-pipeline **faalt** (exit code ≠ 0) als de SonarCloud Quality Gate niet s
 
 ## 3. Non-functional requirements
 
-### 3.1 Cyclomatische complexiteit
+### 3.1 Cognitive complexity
 
-| ID    | Eis                                                                          | Drempelwaarde | Meting     | Prioriteit |
-| ----- | ---------------------------------------------------------------------------- | ------------- | ---------- | ---------- |
-| NFR-1 | Gemiddelde cyclomatische complexiteit per methode mag niet hoger zijn dan 10 | ≤ 10         | SonarCloud | Hoog       |
-| NFR-2 | Geen enkele methode mag een complexiteit van 15 of hoger hebben              | < 15          | SonarCloud | Hoog       |
+| ID    | Eis                                                                         | Drempelwaarde | Meting     | Prioriteit |
+| ----- | --------------------------------------------------------------------------- | ------------- | ---------- | ---------- |
+| NFR-1 | Gemiddelde cognitive complexity per methode mag niet hoger zijn dan 10      | ≤ 10          | SonarCloud | Hoog       |
+| NFR-2 | Geen enkele methode mag een cognitive complexity van 15 of hoger hebben     | < 15          | SonarCloud | Hoog       |
 
-**Onderbouwing:** De huidige module heeft een totale cyclomatische complexiteit van 949 over 151 bestanden (≈ 6,3 gemiddeld). Methoden met complexiteit ≥ 15 zijn moeilijk te testen en foutgevoelig. De drempelwaarde van 10 is een industrie-standaard (McCabe, 1976) en sluit aan bij de SonarCloud default quality gate.
+**Onderbouwing:** De huidige Java backend heeft een totale cognitive complexity van 668 over 57 bestanden (≈ 11,7 gemiddeld). Methoden met cognitive complexity ≥ 15 zijn moeilijk te testen en foutgevoelig. De drempelwaarde per methode is 15 (SonarCloud default) en we streven naar een gemiddelde onder de 10.
 
 ---
 
