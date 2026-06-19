@@ -43,9 +43,10 @@
 13. [Deel 13 - Opgeloste CodeQL / Dependabot alerts (SAST)](#deel-13---overzicht-van-de-153-opgeloste-codeql--dependabot-alerts)
 14. [Deel 14 - Opgeloste OWASP ZAP DAST-bevindingen](#deel-14---overzicht-van-de-49-owasp-zap-dast-bevindingen-en-mitigaties)
 15. [Deel 15 - Pentestrapport &amp; PoC-mitigatie](#deel-15---pentestrapport--poc-mitigatie)
-16. [Bijlage A - Geconsolideerde bronnen](#bijlage-a---geconsolideerde-bronnen)
-17. [Bijlage B - Taakverdeling en commits (GitHub)](#bijlage-b---taakverdeling-en-commits-github)
-18. [Bijlage C - Verantwoording (AI-)tooling](#bijlage-c---verantwoording-ai-tooling-globaal-overzicht)
+16. [Deel 16 - Responsible Disclosure](#deel-16---responsible-disclosure)
+17. [Bijlage A - Geconsolideerde bronnen](#bijlage-a---geconsolideerde-bronnen)
+18. [Bijlage B - Taakverdeling en commits (GitHub)](#bijlage-b---taakverdeling-en-commits-github)
+19. [Bijlage C - Verantwoording (AI-)tooling](#bijlage-c---verantwoording-ai-tooling-globaal-overzicht)
 
 ---
 
@@ -3479,6 +3480,40 @@ Claude (Anthropic Sonnet 4.6) is als hulpmiddel gebruikt. De inhoudelijke keuzes
 | Schrijven van dit rapport  | SinanSagir schreef en controleerde het rapport; Claude hielp met structuur en formulering.                 | Inhoud getoetst aan NVD, NEN-7510 en bestaande documenten. |
 
 Beperking: Claude heeft geen toegang tot een draaiende OpenMRS-omgeving. De aanvalsbeschrijving is gebaseerd op
+
+---
+
+# Deel 16 - Responsible Disclosure
+
+> **Auteur(s):** Sinan Sagir
+> **Sprint(s):** Sprint 4
+
+## 1. Scope
+
+Dit deel beschrijft de procedure die gevolgd wordt wanneer een externe partij een kwetsbaarheid ontdekt in de OpenMRS idgen-module of de bijbehorende CI/CD-infrastructuur. Als casus wordt CVE-2022-42889 (Text4Shell, CVSS 9.8) gebruikt: een kritieke kwetsbaarheid in Apache Commons Text die remote code execution mogelijk maakt via gemanipuleerde invoer.
+
+## 2. Stappenplan
+
+| Stap | Actie | Kanaal | Termijn |
+| ---- | ----- | ------ | ------- |
+| 1 | Melder ontdekt de kwetsbaarheid en verzamelt reproduceerbare bewijs | n.v.t. | n.v.t. |
+| 2 | Melder rapporteert via GitHub Security Advisory (privat disclosure) of e-mail aan het team | [GitHub Security Advisory](https://github.com/AvansHogeschoolBreda/openmrsmodule/security/advisories) | Zo snel mogelijk na ontdekking |
+| 3 | Team bevestigt ontvangst en beoordeelt de melding (impact, CVSS, bereikbaarheid) | E-mail of GitHub | Binnen 48 uur |
+| 4 | Team reproduced de kwetsbaarheid intern en bepaalt ernst | Intern | Binnen 5 werkdagen |
+| 5 | Patch ontwikkeld, getest via CI/CD-pipeline en gemerged via PR met peer review | GitHub PR | Afhankelijk van ernst: Kritiek binnen 7 dagen, Hoog binnen 30 dagen |
+| 6 | Melder wordt geinformeerd over de fix en de geplande publicatiedatum | E-mail of GitHub | Voor publicatie |
+| 7 | Kwetsbaarheid wordt publiek gemaakt via GitHub Security Advisory na deploy van de patch | GitHub | Na deploy |
+| 8 | Beoordelen of AVG Art. 33 van toepassing is (waren persoonsgegevens bereikbaar?) | Intern | Binnen 72 uur na bevestiging datalek |
+
+## 3. Casus: CVE-2022-42889 (Text4Shell)
+
+CVE-2022-42889 is een kwetsbaarheid in Apache Commons Text (versies 1.5 tot 1.9) waarbij aanvallers via de `StringSubstitutor`-methode willekeurige code kunnen uitvoeren door gemanipuleerde invoer te sturen. CVSS-basisscore: 9.8 (Kritiek).
+
+Toegepast op dit stappenplan: bij melding van Text4Shell zou stap 5 leiden tot een dependency-upgrade van `commons-text` naar versie 1.10.0 of hoger, vergelijkbaar met de aanpak die in Deel 15 is gedocumenteerd voor CVE-2015-7501.
+
+## 4. NEN-7510 Ctrl 6.8 koppeling
+
+NEN-7510:2026 Ctrl 6.8 vereist dat informatiebeveiligingsgebeurtenissen worden gerapporteerd en beheerd via een vastgesteld proces. Dit responsible disclosure stappenplan voldoet hieraan: de stappen 2 tot en met 8 beschrijven het rapportagekanaal, de beoordelingsprocedure, de oplossingstermijn en de eventuele AVG-meldplicht bij een datalek.
 
 ---
 
