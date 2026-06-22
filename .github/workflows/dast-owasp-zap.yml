@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Start OpenMRS + MySQL via docker-compose (zonder override zodat er geen module-mount nodig is)
       - name: Start OpenMRS via Docker Compose
