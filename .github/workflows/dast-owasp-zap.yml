@@ -62,7 +62,7 @@ jobs:
       # Upload als GitHub Actions artifact (audit trail, 90 dagen bewaard)
       - name: Upload ZAP rapport als artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: "zap-report-${{ github.run_number }}"
           path: docs/dast/
